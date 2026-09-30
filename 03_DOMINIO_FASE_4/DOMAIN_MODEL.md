@@ -8,17 +8,19 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | DOMAIN_MODEL |
-| **Versión** | 1.0 |
+| **Versión** | 1.1 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 |
-| **Estado** | Emitido para revisión del Director |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.0 → SRS_COLBASOFT v1.0 → **Modelo de Dominio v1.0** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) |
+| **Estado** | **Validado técnicamente** (cierre del CP-04, 29-sep-2026). **Aprobación funcional y académica pendiente**: HD-25 y DEC-01…DEC-09 sin responder (`04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`) |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.1 → SRS_COLBASOFT v1.1 → **Modelo de Dominio v1.1** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `EVENT_CATALOG.md` (eventos, matrices D y E) · `GLOSSARY.md` (glosario y auditoría interna) |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
 | **Fuera de alcance** | Arquitectura, modelo de datos, tecnologías, interfaces de integración, notaciones de diseño y código: pertenecen a la Fase 5 y posteriores |
 
 > **Naturaleza.** Este documento es **derivado**: no modifica la monografía, la auditoría, el SPEC ni el SRS. Modela el negocio que esos documentos describen. Toda diferencia entre ellos o frente al Prompt Maestro #004 se registra como **Hallazgo del Dominio (HD-nn)**; no se corrige en silencio.
+
+> **Versión 1.1.** Incorpora las decisiones del cierre del CP-04 (DF5-01, DF5-02, DF5-03, DF5-05 y DF5-06), registradas en `04_CP04_AUDITORIA/04_CP04_CIERRE.md`. El detalle de los cambios está en DOMAIN_MODEL §0.8. La v1.0 se conserva en el historial del repositorio (commit `79f823c`).
 
 ## Índice
 
@@ -40,7 +42,7 @@
 
 # CAPÍTULO 0 — AUDITORÍA DE REANUDACIÓN
 
-> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY.
+> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes y el **0.8** registra los cambios de la v1.1.
 
 ## 0.1 Estado del proyecto
 
@@ -99,7 +101,7 @@ El proyecto no conserva documentos de checkpoint independientes; el Prompt #004 
 |---|---|:--:|---|
 | **R-S01** | El SRS se emitió antes del levantamiento AS-IS y de la línea base | 🔴 | El modelo de dominio tampoco está contrastado con la operación real: es un modelo **TO-BE** |
 | R-S02 | Mapeos `[SRS]` sin validar por el Director | 🟠 | Las matrices D y E se construyen sobre esos IDs |
-| R-S03 | Alcance grande para nivel Tecnólogo | 🟠 | 26 entidades y 164 eventos amplían la superficie |
+| R-S03 | Alcance grande para nivel Tecnólogo | 🟠 | 26 entidades y 165 eventos amplían la superficie |
 | R-S04 | Tensión DC-02 / Horizonte 2 (DEC-01) | 🟠 | Transferencias y conteo general se modelan completos |
 | R-S05 | Reglas y KPI sin requisito de captura; PN-14 sin requisitos | 🟠 | Eventos marcados «sin RF» (Cap. 2 del EVENT_CATALOG) |
 | R-S06 | Dos cifras de reglas (68 y 82) | 🟡 | El dominio usa las 82 |
@@ -120,13 +122,13 @@ El proyecto no conserva documentos de checkpoint independientes; el Prompt #004 
 | `E-nn` | Entidad | E-01…E-26 |
 | `VO-nn` | Objeto de valor | VO-01…VO-42 |
 | `AG-nn` | Agregado | AG-01…AG-21 |
-| `IN-nn` | Invariante | IN-01…IN-69 |
+| `IN-nn` | Invariante | IN-01…IN-72 |
 | `PO-nn` | Política del dominio (regla reactiva) | PO-01…PO-14 |
 | `SM-nn` | Máquina de estados | SM-01…SM-21 |
-| `EV-<DOM>-nnn` | Evento de dominio | 20 dominios, 164 eventos |
-| `GL-nnn` | Término del glosario | GL-001…GL-203 |
-| `HD-nn` | Hallazgo del dominio | HD-01…HD-22 |
-| `RF5-nn` | Riesgo abierto para la Fase 5 | RF5-01…RF5-13 |
+| `EV-<DOM>-nnn` | Evento de dominio | 20 dominios, 165 eventos |
+| `GL-nnn` | Término del glosario | GL-001…GL-205 |
+| `HD-nn` | Hallazgo del dominio | HD-01…HD-27 |
+| `RF5-nn` | Riesgo abierto para la Fase 5 | RF5-01…RF5-14 |
 
 Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las reglas, historias y requisitos se citan con los IDs permanentes del SRS (`RN-<DOM>-nnn`, `HU-<DOM>-nnn`, `RF-<DOM>-nnn`); los procesos, conceptos y KPI, con los del SPEC.
 
@@ -135,6 +137,20 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 1. Se releyeron los cuatro documentos y se reutilizó la extracción estructurada del SRS (103 HU, 162 RF, 82 RN, 24 KPI).
 2. Entidades, objetos de valor, agregados, invariantes, estados, eventos y términos se escribieron como datos únicos, y de ellos se generaron los tres documentos y las cinco matrices. **Una definición aparece una sola vez**: el Cap. 1 (lenguaje ubicuo) y el GLOSSARY usan el mismo texto.
 3. Se verificó automáticamente que toda referencia a RN, HU, RF, KPI, evento, entidad e invariante exista (0 referencias rotas).
+
+## 0.8 Control de cambios de la versión 1.1 (cierre del CP-04)
+
+La auditoría del CP-04 (`04_CP04_AUDITORIA/04_CP04_AUDITORIA.md`) encontró que la identidad del QR (HD-04) contradecía RN-INT-005, que la primera ubicación cambiaba la existencia de unidad sin movimiento (HD-23) y que no estaba definido qué pasa con un registro sin conectividad que deja de ser válido (HD-24). El 29 de septiembre de 2026 se tomaron las decisiones siguientes, que esta versión incorpora editando los datos fuente y regenerando los tres documentos:
+
+| Decisión | Contenido | Cambios en el modelo |
+|---|---|---|
+| **DF5-01** | El QR de mercancía identifica **SKU + Lote**; no identifica ubicación, bodega ni cantidad. La unidad de inventario sigue siendo SKU + Lote + Ubicación | E-04, E-08, E-09, AG-07, VO-07, VO-08, IN-23, IN-25; eventos EV-QRC-001, EV-QRC-003; términos «Identificador QR», «Unidad de inventario», «Identificador secundario»; HD-04 resuelto; nuevos HD-25 y HD-26 (pendientes, no bloqueantes) |
+| **DF5-02** | La entrada confirmada queda **En recepción**; pasa a Disponible al ubicarse | Regla RN-EXI-007 → **IN-70**; SM-06; E-11; EV-ENT-012; HD-06 y HD-07 resueltos |
+| **DF5-03** | La primera ubicación es un **movimiento interno** en el kardex | Regla RN-MOV-010 → **IN-71**; E-08, E-10, VO-21; SM-06 (nuevas transiciones En recepción → En tránsito y En tránsito → En recepción, esta última por PN-06 E-07); EV-INV-001 conserva ID y nombre y pasa a designar ese movimiento; Cap. 5.3; término nuevo «Primera ubicación»; HD-23 |
+| **DF5-05** | Un registro retenido se **valida de nuevo** al sincronizar; si ya no es válido se rechaza con constancia y, si describe un hecho físico, abre una novedad | Regla RN-INT-008 → **IN-72**; SM-07 (estado nuevo «Rechazado en sincronización»); evento nuevo **EV-TRZ-007**; EV-TRZ-004, EV-NOV-001, E-10, E-17, AG-13, VO-32; término nuevo «Rechazado en sincronización»; HD-24; nuevo HD-27 (alcance sin conectividad, pendiente) |
+| **DF5-06** (revisada) | Validación técnica del SPEC, el SRS y este modelo en su v1.1; la aprobación funcional y académica queda pendiente de HD-25 y DEC-01…DEC-09 | Portadas; HD-21; HD-25 |
+
+**Ningún ID se renumeró ni se reutilizó.** Los elementos nuevos continúan la numeración (IN-70…IN-72, EV-TRZ-007, HD-23…HD-27, RF5-14 y los términos GL-204 y GL-205). Las reglas del SRS pasan de 82 a 85; las tres nuevas quedan separadas de las 82 originales (SPEC v1.1 §9.15).
 
 **ESTADO: CONTEXTO RECONSTRUIDO.**
 
@@ -146,14 +162,14 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 |---|---|
 | **Completado** | Estado del proyecto · 5 checkpoints · 4 documentos · 8 decisiones constitucionales + 7 reglas innegociables · 10 riesgos del SRS · 9 decisiones abiertas |
 | **Riesgos** | R-S01 (modelo TO-BE sin contraste con la operación real) |
-| **Dependencias** | SRS v1.0 (IDs y reglas) |
-| **Hallazgos** | HD-21 (el SRS figura como emitido, no aprobado) |
+| **Dependencias** | SRS v1.1 (IDs y reglas) |
+| **Hallazgos** | HD-21 (el SRS figura como emitido, no aprobado; atendido en parte por DF5-06) |
 
 ---
 
 # CAPÍTULO 1 — LENGUAJE UBICUO
 
-> Vocabulario oficial del dominio: se usa **sin sinónimos** en documentos, conversaciones, pruebas e interfaz (SPEC §0.5, RNF-USA-006). Este capítulo contiene los **54 términos centrales**; el GLOSSARY contiene los 203 términos oficiales con idéntica definición.
+> Vocabulario oficial del dominio: se usa **sin sinónimos** en documentos, conversaciones, pruebas e interfaz (SPEC §0.5, RNF-USA-006). Este capítulo contiene los **54 términos centrales**; el GLOSSARY contiene los 205 términos oficiales con idéntica definición.
 
 ## 1.1 Reglas del lenguaje
 
@@ -203,14 +219,14 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 | **Zona** | Subdivisión de una bodega con propósito operativo: recepción, almacenamiento, preparación de salida o cuarentena. Agrupa ubicaciones y puede tener un Coordinador responsable. | Zona Z2 · Almacenamiento | área (HD-01), sector, pasillo | SPEC · CD-13 |
 | **Ubicación** | Posición física identificable dentro de una zona donde reside mercancía; tiene QR propio, capacidad y estado. Es el nivel mínimo de precisión espacial; toda existencia disponible reside en una. | Z2-E03-N2 (zona 2, estante 3, nivel 2) | posición, casilla, celda, slot, hueco | SPEC · CD-14 |
 | **Capacidad de ubicación** | Cantidad máxima que admite una ubicación, expresada en la unidad configurada; se usa para proponer destinos y alertar sobreocupación. | 200 unidades | cupo | SPEC · CD-15 |
-| **Zona de recepción** | Zona donde permanece la mercancía entre su llegada y su ubicación definitiva; su existencia está en el inventario pero no está disponible. Toda bodega tiene al menos una. | Zona Z0 · Recepción | muelle, andén (como sinónimos) | SPEC · CD-16 |
+| **Zona de recepción** | Zona donde permanece la mercancía entre su llegada y su ubicación definitiva; su existencia está en el inventario pero no está disponible. Toda bodega tiene al menos una, y toda zona de recepción tiene al menos una ubicación. | Zona Z0 · Recepción | muelle, andén (como sinónimos) | SPEC · CD-16 |
 | **Zona de cuarentena** | Zona donde reside mercancía inmovilizada: dañada, en verificación o pendiente de decisión. Su existencia no es disponible. | Zona ZQ · Cuarentena | zona de rechazos | SPEC · CD-17 |
 
 ## 1.5 Inventario y existencia
 
 | Término | Definición | Ejemplo | Sinónimos prohibidos | Nace en |
 |---|---|---|---|---|
-| **Unidad de inventario** | La entidad que COLBASOFT controla: la combinación SKU + Lote + Ubicación. Nivel al que se registra existencia, se ejecutan movimientos y se lleva kardex. | CAM-001 · M · Azul · L-2026-0142 · Z2-E03-N2 | inventario (como entidad, HD-01), ítem, artículo | SPEC · CD-07 |
+| **Unidad de inventario** | La entidad que COLBASOFT controla: la combinación SKU + Lote + Ubicación. Nivel al que se registra existencia, se ejecutan movimientos y se lleva kardex. No tiene QR propio: se identifica con el QR de su SKU + Lote más su ubicación. | CAM-001 · M · Azul · L-2026-0142 · Z2-E03-N2 | inventario (como entidad, HD-01), ítem, artículo | SPEC · CD-07 |
 | **Existencia** | Cantidad de una unidad de inventario presente en el sistema en un momento dado; siempre es la suma algebraica de sus movimientos confirmados, nunca un valor ingresado directamente. | 40 unidades | stock, saldo, disponible (como sustantivo genérico) | SPEC · CD-18 · Monografía §7.1 |
 | **Inventario disponible** | Porción de la existencia que puede comprometerse para una salida o transferencia: existencia menos reservado, inmovilizado, en tránsito y en recepción. Es la cifra que el operario ve por defecto. | 25 de 40 | stock libre | SPEC · CD-19 |
 | **Inventario reservado** | Porción de la existencia comprometida por una salida autorizada o una transferencia creada, aún no ejecutada. Sigue en la bodega pero no puede comprometerse otra vez. | 10 de 40 | apartado | SPEC · CD-20 |
@@ -222,8 +238,8 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 
 | Término | Definición | Ejemplo | Sinónimos prohibidos | Nace en |
 |---|---|---|---|---|
-| **Identificador QR** | Código único generado por el sistema, asociado a mercancía o a una ubicación; medio primario de interacción del operario. Es de un solo uso: nunca se repite ni se reutiliza. Estados: generado, activo, reemplazado, anulado. | Etiqueta impresa con QR y texto legible «CAM-001 · M · Azul · L-2026-0142» | etiqueta (como sinónimo del código), código de barras | SPEC · CD-08 · DC-08 |
-| **Identificador secundario** | Código de barras u otro código externo asociado a mercancía; admitido para consulta, nunca para escritura, y asociado a lo sumo a una unidad. | Código de barras del proveedor | — | SPEC · CD-09 · DC-08 |
+| **Identificador QR** | Código único generado por el sistema, asociado a un SKU + Lote (QR de mercancía) o a una ubicación (QR de ubicación); medio primario de interacción del operario. El de mercancía no identifica ubicación, bodega ni cantidad, y no cambia al reubicar. Es de un solo uso: nunca se repite ni se reutiliza. Estados: generado, activo, reemplazado, anulado. | Etiqueta impresa con QR y texto legible «CAM-001 · M · Azul · L-2026-0142» | etiqueta (como sinónimo del código), código de barras | SPEC · CD-08 · DC-08 · DF5-01 |
+| **Identificador secundario** | Código de barras u otro código externo asociado a mercancía; admitido para consulta, nunca para escritura, y asociado a lo sumo a un QR de mercancía (un SKU + Lote). | Código de barras del proveedor | — | SPEC · CD-09 · DC-08 |
 
 ## 1.7 Movimientos
 
@@ -232,7 +248,7 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 | **Movimiento** | Hecho registrado que altera la existencia o la ubicación de una unidad de inventario. Unidad transaccional del sistema; inmutable una vez confirmado. Nada cambia en el inventario sin un movimiento. | Movimiento interno de 5 unidades de Z2-E03-N2 a Z2-E04-N1 | transacción, registro, apunte | SPEC · CD-28 · Monografía §8.2 |
 | **Entrada** | Movimiento que incrementa la existencia por incorporación de mercancía procedente del exterior de la bodega. | Entrada de 120 unidades del lote L-2026-0142 | ingreso, remisión (como sinónimos) | SPEC · CD-29 · Monografía §8.2 |
 | **Salida** | Movimiento que disminuye la existencia por retiro de mercancía hacia el exterior de la bodega, con motivo tipificado y autorización. | Salida de 30 unidades por consumo de producción | venta, despacho comercial | SPEC · CD-30 · Monografía §8.2 |
-| **Movimiento interno** | Movimiento que cambia la ubicación de existencia dentro de la misma bodega sin alterar la existencia total. | Z2-E03-N2 → Z2-E04-N1 | traslado, reubicación (como sinónimos del movimiento) | SPEC · CD-31 |
+| **Movimiento interno** | Movimiento que cambia la ubicación de existencia dentro de la misma bodega sin alterar la existencia total; incluye la primera ubicación de la mercancía en recepción. | Z2-E03-N2 → Z2-E04-N1 | traslado, reubicación (como sinónimos del movimiento) | SPEC · CD-31 |
 | **Transferencia** | Movimiento compuesto que traslada existencia entre zonas o bodegas con responsables distintos, mediante despacho y recepción, atravesando el estado en tránsito. | De Zona Z1 a Zona Z3 | traslado entre bodegas | SPEC · CD-32 |
 | **Ajuste** | Movimiento que modifica la existencia sin contrapartida física para hacer coincidir el registro con la realidad; exige motivo tipificado y aprobación de un tercero y queda marcado para siempre. Es el movimiento de mayor riesgo. | Faltante de 2 unidades por daño, aprobado por el Jefe | corrección, nivelación, cuadre | SPEC · CD-33 · Monografía §8.2 |
 | **Documento de entrada** | Registro que agrupa la mercancía esperada en un evento de recepción, con origen, referencias y cantidades; soporte contra el cual se verifica lo recibido. | DE-0087 · Taller externo · 120 unidades esperadas | remisión, ingreso, recepción (como sustantivo) | SPEC · CD-35 |
@@ -262,7 +278,7 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 
 | Término | Definición | Ejemplo | Sinónimos prohibidos | Nace en |
 |---|---|---|---|---|
-| **Novedad** | Reporte de una anomalía física observada por un operario que el sistema no puede detectar por sí solo. Nunca se elimina: se cierra. No se imputa al reportante. | «Bolsa rota en Z2-E03-N2, 3 unidades manchadas» | reclamo, incidente (como sinónimos) | SPEC · CD-48 |
+| **Novedad** | Reporte de una anomalía física observada por un operario que el sistema no puede detectar por sí solo; también la abre el Sistema al rechazar en la sincronización un registro que describe un hecho físico ya realizado. Nunca se elimina: se cierra. No se imputa al reportante. | «Bolsa rota en Z2-E03-N2, 3 unidades manchadas» | reclamo, incidente (como sinónimos) | SPEC · CD-48 |
 
 ## 1.11 Alertas y reglas
 
@@ -546,15 +562,15 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | Campo | Contenido |
 |---|---|
 | **Descripción** | Conjunto de mercancía de un mismo SKU que ingresó en un mismo evento de entrada y comparte origen y condiciones. Permite rastrear un problema hasta su procedencia. |
-| **Responsabilidad** | Conservar el origen y la fecha de ingreso; permitir actuar sobre toda la mercancía que comparte procedencia (inmovilizar y liberar en bloque). |
+| **Responsabilidad** | Conservar el origen y la fecha de ingreso; permitir actuar sobre toda la mercancía que comparte procedencia (inmovilizar y liberar en bloque). Es lo que identifica el QR de mercancía: un QR por SKU + Lote, en cualquier ubicación donde esté `[DF5-01]`. |
 | **Identidad** | VO-06 Código de lote (único dentro de su SKU). |
 | **Información que la define** | SKU · código · origen · fecha de ingreso · estado. |
 | **Estado** | SM-04 |
 | **Ciclo de vida** | Nace al confirmarse la entrada; puede inmovilizarse y liberarse; nunca se elimina, aunque su existencia llegue a cero. |
-| **Relaciones conceptuales** | → E-02 SKU: pertenece a exactamente 1 SKU<br>→ E-11 Documento de entrada: nace de 1 documento de entrada<br>→ E-08 Unidad de Inventario: se reparte en 1..n unidades de inventario |
-| **Reglas asociadas** | RN-LOT-001, RN-LOT-002, RN-LOT-003, RN-LOT-004, RN-LOT-005, RN-MAE-006, RN-EXI-006 |
+| **Relaciones conceptuales** | → E-02 SKU: pertenece a exactamente 1 SKU<br>→ E-11 Documento de entrada: nace de 1 documento de entrada<br>→ E-08 Unidad de Inventario: se reparte en 1..n unidades de inventario<br>→ E-09 Identificador QR: se identifica con 1 QR de mercancía activo (DF5-01) |
+| **Reglas asociadas** | RN-LOT-001, RN-LOT-002, RN-LOT-003, RN-LOT-004, RN-LOT-005, RN-MAE-006, RN-EXI-006, RN-IDE-001 |
 | **Eventos que origina** | EV-LOT-002, EV-LOT-003, EV-LOT-004 |
-| **Eventos que la afectan** | EV-ENT-012, EV-LOT-001 |
+| **Eventos que la afectan** | EV-QRC-003, EV-ENT-012, EV-LOT-001 |
 | **Subdominio / agregado** | SD-03 Trazabilidad · AG-04 |
 | **Concepto de origen** | CD-06 |
 
@@ -603,7 +619,7 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | **Estado** | SM-03 |
 | **Ciclo de vida** | Nace activa; se desactiva solo sin existencia; puede reactivarse; nunca se elimina. |
 | **Relaciones conceptuales** | → E-06 Zona: pertenece a 1 zona<br>→ E-08 Unidad de Inventario: aloja 0..n unidades de inventario<br>→ E-09 Identificador QR: se identifica con 1 QR de ubicación |
-| **Reglas asociadas** | RN-EXI-002, RN-MAE-005, RN-MAE-006, RN-MOV-001, RN-MOV-002, RN-MOV-005 |
+| **Reglas asociadas** | RN-EXI-002, RN-EXI-007, RN-MAE-005, RN-MAE-006, RN-MOV-001, RN-MOV-002, RN-MOV-005, RN-MOV-010 |
 | **Eventos que origina** | EV-BOD-004, EV-BOD-005, EV-BOD-006, EV-QRC-007, EV-INV-009 |
 | **Eventos que la afectan** | EV-BOD-003, EV-INV-001, EV-MOV-001 |
 | **Subdominio / agregado** | SD-06 Ubicaciones · AG-03 |
@@ -613,16 +629,16 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 
 | Campo | Contenido |
 |---|---|
-| **Descripción** | **La entidad que COLBASOFT controla**: la combinación SKU + Lote + Ubicación. Es el nivel al que se registra existencia, se ejecutan movimientos y se lleva kardex. |
+| **Descripción** | **La entidad que COLBASOFT controla**: la combinación SKU + Lote + Ubicación, es decir, la existencia de un lote de un SKU en una ubicación. Es el nivel al que se registra existencia, se ejecutan movimientos y se lleva kardex. **No tiene QR propio**: se identifica con el QR de su SKU + Lote más su ubicación `[DF5-01]`. |
 | **Responsabilidad** | Custodiar la partición de su existencia por estado (disponible, reservado, en tránsito, inmovilizado, en recepción) y rechazar toda operación que la dejaría negativa o comprometería más de lo disponible. |
-| **Identidad** | Combinación SKU + Lote + Ubicación (única). |
+| **Identidad** | Combinación SKU + Lote + Ubicación (única). En la operación se determina con el QR de mercancía (SKU + Lote) más la ubicación, escaneada o seleccionada con registro (RN-IDE-001, DF5-01). |
 | **Información que la define** | SKU · lote · ubicación · existencia derivada del kardex (VO-15 desglose por estado) · marca de inventario ajustado (derivada, CD-24). |
 | **Estado** | SM-06 (estados de la existencia, no de la unidad) |
-| **Ciclo de vida** | Nace con el primer movimiento que lleva existencia a su combinación; su existencia sube y baja solo por movimientos; puede quedar en cero y conserva su historia. |
-| **Relaciones conceptuales** | → E-02 SKU: materializa 1 SKU<br>→ E-04 Lote: pertenece a 1 lote<br>→ E-07 Ubicación: reside en 1 ubicación<br>→ E-10 Movimiento: es afectada por 1..n movimientos (su kardex)<br>→ E-09 Identificador QR: se identifica por QR (ver HD-04) |
-| **Reglas asociadas** | RN-INT-004, RN-INT-005, RN-EXI-001, RN-EXI-002, RN-EXI-003, RN-EXI-004, RN-EXI-005, RN-EXI-006, RN-IDE-001, RN-LOT-001 |
-| **Eventos que origina** | EV-INV-001, EV-INV-002, EV-INV-003, EV-INV-004, EV-TRZ-005, EV-TRZ-006 |
-| **Eventos que la afectan** | EV-QRC-003, EV-ENT-011, EV-ENT-012, EV-LOT-002, EV-LOT-003, EV-INV-005, EV-MOV-001, EV-MOV-002, EV-MOV-003, EV-MOV-005, EV-MOV-006, EV-MOV-007, EV-MOV-012, EV-MOV-013, EV-SAL-003, EV-SAL-006, EV-SAL-007, EV-SAL-008, EV-SAL-011, EV-AJU-005, EV-NOV-007, EV-TRZ-001, EV-TRZ-002 |
+| **Ciclo de vida** | Nace con el primer movimiento que lleva existencia a su combinación (la unidad de la ubicación de recepción, con la entrada; la de destino, con el movimiento interno de primera ubicación: DF5-03); su existencia sube y baja solo por movimientos; puede quedar en cero y conserva su historia. |
+| **Relaciones conceptuales** | → E-02 SKU: materializa 1 SKU<br>→ E-04 Lote: pertenece a 1 lote<br>→ E-07 Ubicación: reside en 1 ubicación<br>→ E-10 Movimiento: es afectada por 1..n movimientos (su kardex)<br>→ E-09 Identificador QR: se identifica con el QR de su SKU + Lote junto con su ubicación (DF5-01) |
+| **Reglas asociadas** | RN-INT-004, RN-INT-005, RN-EXI-001, RN-EXI-002, RN-EXI-003, RN-EXI-004, RN-EXI-005, RN-EXI-006, RN-EXI-007, RN-IDE-001, RN-LOT-001, RN-MOV-010 |
+| **Eventos que origina** | EV-INV-002, EV-INV-003, EV-INV-004, EV-TRZ-005, EV-TRZ-006 |
+| **Eventos que la afectan** | EV-ENT-011, EV-ENT-012, EV-LOT-002, EV-LOT-003, EV-INV-001, EV-INV-005, EV-MOV-001, EV-MOV-002, EV-MOV-003, EV-MOV-005, EV-MOV-006, EV-MOV-007, EV-MOV-012, EV-MOV-013, EV-SAL-003, EV-SAL-006, EV-SAL-007, EV-SAL-008, EV-SAL-011, EV-AJU-005, EV-NOV-007, EV-TRZ-001, EV-TRZ-002 |
 | **Subdominio / agregado** | SD-01 Inventario y existencia · AG-05 |
 | **Concepto de origen** | CD-07 |
 
@@ -630,13 +646,13 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 
 | Campo | Contenido |
 |---|---|
-| **Descripción** | Código único generado por el sistema, asociado a mercancía o a una ubicación. Medio primario de interacción del operario `[DC-08]`. Es de un solo uso: nunca se repite ni se reutiliza. |
+| **Descripción** | Código único generado por el sistema. El **QR de mercancía** identifica un **SKU + Lote** y **no** identifica ubicación, bodega ni cantidad; el **QR de ubicación** identifica una ubicación `[DF5-01]`. Medio primario de interacción del operario `[DC-08]`. Es de un solo uso: nunca se repite ni se reutiliza. |
 | **Responsabilidad** | Resolver un escaneo al elemento que identifica; conservar su historia al ser reemplazado; impedir escrituras con identificadores secundarios. |
 | **Identidad** | VO-07 Código QR (irrepetible en toda la vida del sistema). |
-| **Información que la define** | Código · tipo (mercancía / ubicación) · elemento identificado · identificador secundario asociado (VO-08) · identificador al que reemplaza · estado. |
+| **Información que la define** | Código · tipo (mercancía / ubicación) · elemento identificado (SKU + Lote o ubicación) · identificador secundario asociado (VO-08) · identificador al que reemplaza · estado. |
 | **Estado** | SM-05 |
-| **Ciclo de vida** | Se genera, se imprime, se activa al verificarse su legibilidad; puede ser reemplazado (reimpresión) o anulado; nunca se reutiliza. |
-| **Relaciones conceptuales** | → E-08 Unidad de Inventario: identifica mercancía (alcance en HD-04)<br>→ E-07 Ubicación: identifica 1 ubicación<br>→ E-09 Identificador QR: reemplaza a 0..1 identificador anterior |
+| **Ciclo de vida** | Se genera, se imprime, se activa al verificarse su legibilidad; puede ser reemplazado (reimpresión) o anulado; nunca se reutiliza. ⚠️ Copias impresas de un mismo QR de mercancía y su reimpresión: HD-25. |
+| **Relaciones conceptuales** | → E-04 Lote: identifica 1 SKU + Lote (QR de mercancía, DF5-01)<br>→ E-07 Ubicación: identifica 1 ubicación<br>→ E-09 Identificador QR: reemplaza a 0..1 identificador anterior |
 | **Reglas asociadas** | RN-IDE-001, RN-IDE-002, RN-IDE-003, RN-IDE-004 |
 | **Eventos que origina** | EV-QRC-001, EV-QRC-002, EV-QRC-003, EV-QRC-004, EV-QRC-005, EV-QRC-006 |
 | **Eventos que la afectan** | EV-QRC-007, EV-NOV-007 |
@@ -647,15 +663,15 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 
 | Campo | Contenido |
 |---|---|
-| **Descripción** | **Hecho registrado que altera la existencia o la ubicación de una unidad de inventario.** Unidad transaccional del sistema. Tipos: entrada, salida, movimiento interno, ajuste y anulación (la transferencia es un movimiento compuesto). Su conjunto ordenado por unidad es el **kardex** (CD-37). |
+| **Descripción** | **Hecho registrado que altera la existencia o la ubicación de una unidad de inventario.** Unidad transaccional del sistema. Tipos: entrada, salida, movimiento interno, ajuste y anulación (la transferencia es un movimiento compuesto). La primera ubicación de la mercancía en recepción es un movimiento interno (DF5-03): ninguna existencia cambia de ubicación sin movimiento. Su conjunto ordenado por unidad es el **kardex** (CD-37). |
 | **Responsabilidad** | Dejar constancia inmutable de qué cambió, cuánto, dónde, quién, cuándo y por qué, con su documento de respaldo. |
 | **Identidad** | Identificador de movimiento asignado por el sistema (formato por definir en Fase 5). |
 | **Información que la define** | Tipo (VO-21) · cantidad · unidad(es) afectada(s) · ubicación · actor (VO-38) · fecha operativa (VO-32) · motivo aplicado (VO-22) · documento de respaldo (VO-25) · modo de identificación (VO-40) · existencia resultante. |
 | **Estado** | SM-07 |
-| **Ciclo de vida** | Se prepara en registro, puede quedar pendiente de sincronización y se confirma; desde entonces es inmutable. Un error se neutraliza con un movimiento inverso (anulación), nunca editándolo. |
+| **Ciclo de vida** | Se prepara en registro, puede quedar pendiente de sincronización y se confirma; desde entonces es inmutable. Uno pendiente de sincronización se valida de nuevo al sincronizarse y se confirma o se rechaza, una sola vez (DF5-05). Un error se neutraliza con un movimiento inverso (anulación), nunca editándolo. |
 | **Relaciones conceptuales** | → E-08 Unidad de Inventario: afecta 1..2 unidades de inventario<br>→ E-11 Documento de entrada: respalda 0..1 documento de entrada<br>→ E-12 Solicitud de salida: ejecuta 0..1 solicitud de salida<br>→ E-13 Transferencia: forma parte de 0..1 transferencia<br>→ E-14 Solicitud de ajuste: aplica 0..1 solicitud de ajuste<br>→ E-10 Movimiento: anula a 0..1 movimiento previo |
-| **Reglas asociadas** | RN-INT-001, RN-INT-002, RN-INT-003, RN-INT-004, RN-EXI-001, RN-MOV-004, RN-MOV-005, RN-AJU-007, RN-CNT-006 |
-| **Eventos que origina** | EV-MOV-001, EV-MOV-002, EV-MOV-003, EV-MOV-004, EV-TRZ-001, EV-TRZ-002, EV-TRZ-003, EV-TRZ-004 |
+| **Reglas asociadas** | RN-INT-001, RN-INT-002, RN-INT-003, RN-INT-004, RN-INT-008, RN-EXI-001, RN-MOV-004, RN-MOV-005, RN-MOV-010, RN-AJU-007, RN-CNT-006 |
+| **Eventos que origina** | EV-INV-001, EV-MOV-001, EV-MOV-002, EV-MOV-003, EV-MOV-004, EV-TRZ-001, EV-TRZ-002, EV-TRZ-003, EV-TRZ-004, EV-TRZ-007 |
 | **Eventos que la afectan** | EV-ENT-012, EV-ENT-013, EV-MOV-007, EV-MOV-013, EV-SAL-006, EV-SAL-008, EV-AJU-005, EV-CNT-004, EV-CNT-005, EV-CNT-016 |
 | **Subdominio / agregado** | SD-02 Movimientos · AG-06 |
 | **Concepto de origen** | CD-28 |
@@ -669,9 +685,9 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | **Identidad** | Identificador de documento asignado por el sistema. |
 | **Información que la define** | Origen (VO-39) · fecha esperada · líneas esperadas (SKU, cantidad) · líneas recibidas · receptores · confirmador · estado. |
 | **Estado** | SM-08 |
-| **Ciclo de vida** | Se crea pendiente de recepción; se recibe total o parcialmente; queda conforme o con novedad; se confirma y genera el movimiento de entrada. |
+| **Ciclo de vida** | Se crea pendiente de recepción; se recibe total o parcialmente; queda conforme o con novedad; se confirma y genera el movimiento de entrada, que deja la existencia en recepción (DF5-02). |
 | **Relaciones conceptuales** | → E-01 Referencia: solicita 1..n referencias activas<br>→ E-04 Lote: origina 1..n lotes<br>→ E-10 Movimiento: genera 1..n movimientos de entrada<br>→ E-17 Novedad: puede abrir novedades por daño |
-| **Reglas asociadas** | RN-ENT-001, RN-ENT-002, RN-ENT-003, RN-ENT-004, RN-ENT-005, RN-ENT-006, RN-ENT-007, RN-INT-003 |
+| **Reglas asociadas** | RN-ENT-001, RN-ENT-002, RN-ENT-003, RN-ENT-004, RN-ENT-005, RN-ENT-006, RN-ENT-007, RN-EXI-007, RN-INT-003, RN-INT-008 |
 | **Eventos que origina** | EV-ENT-001, EV-ENT-002, EV-ENT-003, EV-ENT-004, EV-ENT-005, EV-ENT-006, EV-ENT-007, EV-ENT-008, EV-ENT-009, EV-ENT-010, EV-ENT-011, EV-ENT-012, EV-ENT-013, EV-ENT-014, EV-ENT-015, EV-LOT-001 |
 | **Eventos que la afectan** | — |
 | **Subdominio / agregado** | SD-02 Movimientos · AG-08 |
@@ -766,16 +782,16 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 
 | Campo | Contenido |
 |---|---|
-| **Descripción** | Reporte de una anomalía física observada por un operario que el sistema no puede detectar por sí solo: mercancía dañada, sin identificador, en ubicación incorrecta o inexistente. **Nunca se elimina: se cierra.** |
+| **Descripción** | Reporte de una anomalía física observada por un operario que el sistema no puede detectar por sí solo: mercancía dañada, sin identificador, en ubicación incorrecta o inexistente. También la abre el Sistema, como actor, cuando rechaza al sincronizar un registro que describe un hecho físico ya realizado (RN-INT-008, DF5-05). **Nunca se elimina: se cierra.** |
 | **Responsabilidad** | Llevar la anomalía al Coordinador sin imputarla al reportante, y vincularla al movimiento que la resuelve. |
 | **Identidad** | Identificador de novedad asignado por el sistema. |
 | **Información que la define** | Tipo (VO-31) · unidad asociada (si existe) · ubicación · descripción · evidencia · reportante · acción determinada · movimiento de resolución · estado. |
 | **Estado** | SM-14 |
 | **Ciclo de vida** | Se abre al reportarse; puede escalar; se cierra resuelta o improcedente. |
 | **Relaciones conceptuales** | → E-08 Unidad de Inventario: se asocia a 0..1 unidad de inventario<br>→ E-07 Ubicación: se localiza en 1 ubicación<br>→ E-14 Solicitud de ajuste: puede derivar en 0..1 solicitud de ajuste<br>→ E-17 Novedad: agrupa novedades vinculadas |
-| **Reglas asociadas** | RN-NOV-001, RN-NOV-002, RN-NOV-003, RN-MAE-007 |
+| **Reglas asociadas** | RN-NOV-001, RN-NOV-002, RN-NOV-003, RN-MAE-007, RN-INT-008 |
 | **Eventos que origina** | EV-NOV-001, EV-NOV-002, EV-NOV-003, EV-NOV-004, EV-NOV-005, EV-NOV-006, EV-NOV-007 |
-| **Eventos que la afectan** | EV-ENT-011, EV-MOV-008 |
+| **Eventos que la afectan** | EV-ENT-011, EV-MOV-008, EV-TRZ-007 |
 | **Subdominio / agregado** | SD-09 Novedades · AG-13 |
 | **Concepto de origen** | CD-48 |
 
@@ -940,9 +956,9 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | | |
 |---|---|
 | **Completado** | 26 entidades con descripción, responsabilidad, identidad, estado, ciclo de vida, relaciones, reglas y eventos |
-| **Riesgos** | Identidad de la mercancía identificada por QR sin decidir (HD-04); Bodega, Zona y SKU sin estados propios definidos en el SPEC |
+| **Riesgos** | Bodega, Zona y SKU sin estados propios definidos en el SPEC (HD-19); copias impresas de un mismo QR de mercancía (HD-25) |
 | **Dependencias** | Cap. 4 (identidades como objetos de valor), Cap. 5 (agregados), EVENT_CATALOG |
-| **Hallazgos** | HD-01, HD-04, HD-05, HD-06, HD-11, HD-19 |
+| **Hallazgos** | HD-01, HD-04 (resuelto, DF5-01), HD-05, HD-06 (resuelto, DF5-02), HD-11, HD-19, HD-23, HD-25 |
 
 ---
 
@@ -960,8 +976,8 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | **VO-04** | Color | Valor de la dimensión cromática. | Inmutable; la entidad lo reemplaza completo | Pertenece al conjunto de colores definido por la empresa. | Azul, Negro, Crudo | — |
 | **VO-05** | Unidad de medida | Magnitud en que se cuenta una referencia. | No se sustituye si hay movimientos | Pertenece a la lista configurada (unidades, metros, rollos, kilogramos); fija por referencia una vez hay movimientos `[RN-MAE-002]`. | metros (tela), unidades (prenda) | RN-MAE-002, RN-INT-007 |
 | **VO-06** | Código de lote | Identidad de un lote dentro de su SKU. | No se sustituye | Único dentro de su SKU `[RN-MAE-006]`; si la empresa no distingue lotes, el sistema genera uno por evento de entrada `[RN-LOT-001]`. | L-2026-0142 | RN-MAE-006, RN-LOT-001 |
-| **VO-07** | Código QR | Valor codificado de un identificador QR. | No se sustituye ni se reutiliza jamás | Irrepetible en toda la vida del sistema, incluso tras anulación o reemplazo `[RN-IDE-002]`; distingue si identifica mercancía o ubicación. | Valor opaco generado por el sistema, acompañado de texto legible de respaldo | RN-IDE-002 |
-| **VO-08** | Código de barras secundario | Código externo (típicamente del proveedor) asociado a mercancía. | Inmutable; la entidad lo reemplaza completo | Asociado a lo sumo a una unidad `[RN-IDE-003]`; habilita consulta, **nunca escritura** `[DC-08]`. | Código de barras impreso por el proveedor en la bolsa | RN-IDE-003 |
+| **VO-07** | Código QR | Valor codificado de un identificador QR. | No se sustituye ni se reutiliza jamás | Irrepetible en toda la vida del sistema, incluso tras anulación o reemplazo `[RN-IDE-002]`; distingue si identifica mercancía o ubicación. El de mercancía identifica un SKU + Lote y no contiene ubicación, bodega ni cantidad `[DF5-01]`. | Valor opaco generado por el sistema, acompañado de texto legible de respaldo | RN-IDE-002 |
+| **VO-08** | Código de barras secundario | Código externo (típicamente del proveedor) asociado a mercancía. | Inmutable; la entidad lo reemplaza completo | Asociado a lo sumo a un QR de mercancía, es decir, a un SKU + Lote `[RN-IDE-003]` `[DF5-01]` (ver HD-26); habilita consulta, **nunca escritura** `[DC-08]`. | Código de barras impreso por el proveedor en la bolsa | RN-IDE-003 |
 | **VO-09** | Código de ubicación | Identidad de una ubicación dentro de su bodega. | Inmutable; la entidad lo reemplaza completo | Único en la bodega `[RN-MAE-006]`. | Z2-E03-N2 | RN-MAE-006 |
 | **VO-10** | Ubicación física | Dirección completa Bodega › Zona › Ubicación. | Inmutable; la entidad lo reemplaza completo | Los tres niveles deben existir y la ubicación debe estar activa para recibir mercancía `[RN-MOV-002]`. | Bodega Principal › Almacenamiento › Z2-E03-N2 | RN-MOV-002, RN-EXI-002 |
 | **VO-11** | Tipo de zona | Propósito operativo de una zona. | Inmutable; la entidad lo reemplaza completo | Uno de: recepción, almacenamiento, preparación de salida, cuarentena. Toda bodega tiene al menos una de recepción `[RN-EXI-002]`. | Recepción | RN-EXI-002 |
@@ -974,7 +990,7 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | **VO-18** | Diferencia de inventario | Existencia contada (u observada) menos existencia teórica (CD-27). | Inmutable; la entidad lo reemplaza completo | Positiva = sobrante; negativa = faltante; cero = conforme. | −2 (faltante) | RN-CNT-003, RN-AJU-003 |
 | **VO-19** | Resultado de línea de conteo | Clasificación de una línea contada. | Inmutable; la entidad lo reemplaza completo | Uno de: Conforme, Sobrante, Faltante; derivado de VO-18. | Faltante | RN-CNT-003 |
 | **VO-20** | Exactitud | Proporción de líneas conformes sobre líneas contadas (CD-43, KPI-01). | Inmutable; la entidad lo reemplaza completo | Entre 0 % y 100 %; se calcula al cierre del conteo; **sin meta numérica** hasta existir línea base. | 92,5 % | RN-CNT-004 |
-| **VO-21** | Tipo de movimiento | Naturaleza del movimiento. | Inmutable; la entidad lo reemplaza completo | Uno de: Entrada, Salida, Movimiento interno, Ajuste, Anulación; los despachos y recepciones de transferencia son movimientos internos o entre bodegas marcados como parte de una transferencia. | Ajuste | RN-INT-002 |
+| **VO-21** | Tipo de movimiento | Naturaleza del movimiento. | Inmutable; la entidad lo reemplaza completo | Uno de: Entrada, Salida, Movimiento interno, Ajuste, Anulación; los despachos y recepciones de transferencia son movimientos internos o entre bodegas marcados como parte de una transferencia; la primera ubicación de la mercancía en recepción es un Movimiento interno `[RN-MOV-010]` `[DF5-03]`. | Ajuste | RN-INT-002 |
 | **VO-22** | Motivo aplicado | Motivo tipificado seleccionado + texto complementario opcional. | Inmutable; la entidad lo reemplaza completo | El motivo tipificado es obligatorio donde la regla lo exige y debe estar activo; el texto libre nunca lo sustituye `[RN-AJU-003]` `[RN-SAL-002]`. | «Faltante por daño en manipulación» + «bolsa rota en estante» | RN-AJU-003, RN-SAL-002 |
 | **VO-23** | Evidencia | Adjunto que respalda una afirmación (fotografía, documento). | Inmutable; la entidad lo reemplaza completo | Obligatoria cuando el motivo tipificado lo exige; inmutable una vez adjuntada a una solicitud confirmada. | Fotografía de la mercancía dañada | RN-AJU-003, RN-SAL-006 |
 | **VO-24** | Justificación | Texto que explica una decisión de rechazo, descarte, exclusión o cancelación. | Inmutable; la entidad lo reemplaza completo | No vacía cuando la regla la exige `[RN-AJU-006]` `[RN-CNT-007]`. | «Evidencia no corresponde al motivo declarado» | RN-AJU-006, RN-CNT-007 |
@@ -985,7 +1001,7 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | **VO-29** | Prioridad de tarea | Orden en que el panel presenta las tareas. | Inmutable; la entidad lo reemplaza completo | **El SPEC no define la escala ni el criterio** (HD-15). | — | — |
 | **VO-30** | Tipo de alerta | Condición de negocio que la alerta representa. | Inmutable; la entidad lo reemplaza completo | Uno de los diez tipos del MVP (RF-ALE-004): ruptura inminente, sobre stock, existencia en cero, lote próximo a vencer inmovilización, tránsito prolongado, ajustes recurrentes, exactitud bajo el objetivo, conteo vencido, ubicación sobreocupada, solicitud de ajuste sin resolver. | Sobre stock | RN-ALE-001 |
 | **VO-31** | Tipo de novedad | Clase de anomalía física reportada. | Inmutable; la entidad lo reemplaza completo | Seleccionado de lista tipificada; como mínimo: dañada, sin identificador, en ubicación incorrecta, inexistente (PN-12). | Sin identificador | RN-NOV-003 |
-| **VO-32** | Fecha operativa | Instante (fecha y hora) en que ocurrió un hecho, con su jornada. | No se sustituye | Es el instante del hecho, no el de su sincronización (HD-16); no puede ser futuro. | 2026-10-05 09:42, jornada del 2026-10-05 | RN-INT-003 |
+| **VO-32** | Fecha operativa | Instante (fecha y hora) en que ocurrió un hecho, con su jornada. | No se sustituye | Es el instante del hecho, no el de su sincronización (HD-16); se conserva al confirmar un registro sincronizado `[RN-INT-008]`; no puede ser futuro. | 2026-10-05 09:42, jornada del 2026-10-05 | RN-INT-003 |
 | **VO-33** | Período | Rango de fechas operativas. | Inmutable; la entidad lo reemplaza completo | Inicio ≤ fin. | Semana del 5 al 11 de octubre | — |
 | **VO-34** | Fecha de corte | Instante de referencia de un conteo general o de una consulta histórica. | Inmutable; la entidad lo reemplaza completo | Explícita en todo resultado que la use; la reconstrucción a una misma fecha de corte da siempre el mismo resultado. | 2026-12-31 18:00 | RN-CNT-006, RN-INT-004 |
 | **VO-35** | Plazo | Duración máxima configurable. | Inmutable; la entidad lo reemplaza completo | Positiva; aplica a tránsito, reserva, aprobación, novedad, conteo, atención de alerta, inactividad. | 48 horas | RN-MOV-008, RN-SAL-005, RN-AJU-005, RN-NOV-002, RN-CNT-005, RN-ALE-002 |
@@ -1025,15 +1041,15 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | **AG-02** | Categoría | E-03 Categoría | — | IN-21, IN-22 | E-06 zona preferente (por identidad) |
 | **AG-03** | Bodega | E-05 Bodega | E-06 Zona, E-07 Ubicación | IN-09, IN-19, IN-20, IN-43 | E-19 Coordinador por zona (por identidad) |
 | **AG-04** | Lote | E-04 Lote | — | IN-27, IN-28, IN-29, IN-30 | E-02 SKU, E-11 documento (por identidad) |
-| **AG-05** | Unidad de Inventario | E-08 Unidad de Inventario | — | IN-03, IN-04, IN-08, IN-10, IN-11, IN-12, IN-13, IN-14, IN-23 | E-02, E-04, E-07 (por identidad) |
-| **AG-06** | Movimiento | E-10 Movimiento | — | IN-01, IN-02, IN-07, IN-41, IN-42, IN-51 | E-08 unidades, documento de respaldo (por identidad) |
-| **AG-07** | Identificador QR | E-09 Identificador QR | — | IN-24, IN-25, IN-26 | Elemento identificado (por identidad) |
-| **AG-08** | Documento de entrada | E-11 Documento de entrada | — | IN-31, IN-32, IN-33, IN-34, IN-35, IN-07 | E-01 referencias, E-04 lotes creados (por identidad) |
+| **AG-05** | Unidad de Inventario | E-08 Unidad de Inventario | — | IN-03, IN-04, IN-08, IN-10, IN-11, IN-12, IN-13, IN-14, IN-23, IN-70 | E-02, E-04, E-07 (por identidad) |
+| **AG-06** | Movimiento | E-10 Movimiento | — | IN-01, IN-02, IN-07, IN-41, IN-42, IN-51, IN-71, IN-72 | E-08 unidades, documento de respaldo (por identidad) |
+| **AG-07** | Identificador QR | E-09 Identificador QR | — | IN-23, IN-24, IN-25, IN-26 | E-04 Lote o E-07 Ubicación identificados (por identidad) |
+| **AG-08** | Documento de entrada | E-11 Documento de entrada | — | IN-31, IN-32, IN-33, IN-34, IN-35, IN-07, IN-70 | E-01 referencias, E-04 lotes creados (por identidad) |
 | **AG-09** | Solicitud de salida | E-12 Solicitud de salida | — | IN-36, IN-37, IN-38, IN-39, IN-40, IN-47 | E-08 unidades reservadas (por identidad) |
 | **AG-10** | Transferencia | E-13 Transferencia | — | IN-12, IN-44, IN-45 | E-08 unidades origen y destino (por identidad) |
 | **AG-11** | Solicitud de ajuste | E-14 Solicitud de ajuste | — | IN-47, IN-48, IN-49, IN-50, IN-51, IN-08 | E-08 unidad corregida; conteo o novedad de origen (por identidad) |
 | **AG-12** | Conteo | E-15 Conteo | E-16 Tarea de conteo | IN-52, IN-53, IN-54, IN-55, IN-56, IN-57, IN-58 | E-08 unidades, E-07 ubicaciones (por identidad) |
-| **AG-13** | Novedad | E-17 Novedad | — | IN-59, IN-58, IN-21 | E-08, E-07, E-14 (por identidad) |
+| **AG-13** | Novedad | E-17 Novedad | — | IN-59, IN-58, IN-21, IN-72 | E-08, E-07, E-14 (por identidad) |
 | **AG-14** | Alerta | E-18 Alerta | — | IN-60, IN-61, IN-62 | Elemento afectado (por identidad) |
 | **AG-15** | Usuario | E-19 Usuario | E-20 Sesión | IN-01, IN-18, IN-68 | E-05, E-06 ámbito (por identidad) |
 | **AG-16** | Bitácora de auditoría | E-21 Registro de bitácora | — | IN-63, IN-65, IN-66 | Actor, elemento del evento (por identidad) |
@@ -1057,7 +1073,7 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 
 **AG-06 · Movimiento.** Un movimiento es un hecho inmutable: una vez confirmado ninguna operación lo modifica. Un movimiento que afecta dos unidades (movimiento interno) debe confirmarse de forma indivisible para conservar la existencia total (ver riesgo RF5-02).
 
-**AG-07 · Identificador QR.** Su regla central —un código se emite una sola vez en toda la vida del sistema y el reemplazo hereda la trazabilidad— es independiente de la mercancía que identifica.
+**AG-07 · Identificador QR.** Su regla central —un código se emite una sola vez en toda la vida del sistema y el reemplazo hereda la trazabilidad— es independiente de la mercancía que identifica. El QR de mercancía identifica un SKU + Lote, no una unidad de inventario: la unidad se resuelve con ese QR más la ubicación (DF5-01), por eso reubicar no cambia el QR.
 
 **AG-08 · Documento de entrada.** Las líneas esperadas y recibidas se comparan y confirman juntas; la segregación receptor ≠ confirmador se verifica sobre el documento completo.
 
@@ -1069,7 +1085,7 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 
 **AG-12 · Conteo.** La existencia congelada, las tareas, los segundos conteos y la conciliación deben ser coherentes entre sí: quién contó, quién recontó y quién cierra se verifica dentro del mismo límite.
 
-**AG-13 · Novedad.** Tiene ciclo propio de reporte, escalamiento y cierre; la regla «no duplicar sobre una unidad con novedad abierta» se evalúa al crearla.
+**AG-13 · Novedad.** Tiene ciclo propio de reporte, escalamiento y cierre; la regla «no duplicar sobre una unidad con novedad abierta» se evalúa al crearla. La que nace de un registro rechazado al sincronizar se vincula a ese rechazo (IN-72).
 
 **AG-14 · Alerta.** Su invariante —una sola alerta activa por condición vigente— y su ciclo de atención son independientes del elemento que la originó.
 
@@ -1093,7 +1109,8 @@ Algunas operaciones del negocio afectan a más de un agregado. El dominio declar
 
 | Operación | Agregados involucrados | Coherencia exigida por el negocio | Regla |
 |---|---|---|---|
-| Confirmar una entrada | AG-08 → AG-04, AG-06, AG-05, AG-07 | Lote, movimiento de entrada y existencia en recepción nacen juntos o no nace ninguno | RN-ENT-007, RN-LOT-001, RN-INT-004 |
+| Confirmar una entrada | AG-08 → AG-04, AG-06, AG-05, AG-07 | Lote, movimiento de entrada y existencia en recepción nacen juntos o no nace ninguno | RN-ENT-007, RN-LOT-001, RN-INT-004, RN-EXI-007 |
+| Primera ubicación (v1.1) | AG-06 → AG-05 (unidad de recepción) y AG-05 (unidad destino) | El descuento en la unidad de recepción y el incremento disponible en la unidad destino son indivisibles; la existencia total no cambia | RN-MOV-010, RN-MOV-004 |
 | Movimiento interno | AG-06 → AG-05 (origen) y AG-05 (destino) | La existencia total no cambia: el descuento y el incremento son indivisibles | RN-MOV-004 |
 | Transferencia | AG-10 → AG-05 (origen y destino), AG-06 | Reserva, tránsito y recepción mantienen la partición por estado | RN-EXI-004, RN-EXI-005, RN-MOV-007 |
 | Autorizar una salida | AG-09 → AG-05 | Nadie más compromete la misma existencia | RN-EXI-003, RN-EXI-004 |
@@ -1101,6 +1118,7 @@ Algunas operaciones del negocio afectan a más de un agregado. El dominio declar
 | Cerrar un conteo | AG-12 → AG-11 | Cada diferencia elegida para ajuste origina una solicitud de ajuste | RN-CNT-004 |
 | Inmovilizar un lote | AG-04 → AG-05 (todas sus unidades) | Toda la existencia del lote cambia de estado a la vez | RN-LOT-003 |
 | Desactivar referencia o ubicación | AG-01 / AG-03 → AG-05 (consulta) | Solo con existencia cero | RN-MAE-003, RN-MAE-005 |
+| Sincronizar un registro retenido (v1.1) | AG-06 → AG-05 (y AG-13 si se rechaza) | Se confirma o se rechaza una sola vez, contra el estado vigente; si se rechaza y describe un hecho físico, la novedad nace con el rechazo | RN-INT-008 |
 | Cualquier evento auditable | Todos → AG-16 | Todo hecho auditable deja su registro en la bitácora | RN-AUD-001 |
 
 
@@ -1110,10 +1128,10 @@ Algunas operaciones del negocio afectan a más de un agregado. El dominio declar
 
 | | |
 |---|---|
-| **Completado** | 21 agregados con raíz, entidades internas, invariantes protegidas, referencias por identidad y justificación; 9 operaciones que involucran varios agregados |
+| **Completado** | 21 agregados con raíz, entidades internas, invariantes protegidas, referencias por identidad y justificación; 11 operaciones que involucran varios agregados |
 | **Riesgos** | Operaciones indivisibles sobre dos unidades (RF5-02) y concurrencia sobre la disponibilidad (RF5-03) |
 | **Dependencias** | Cap. 3, Cap. 6 |
-| **Hallazgos** | HD-04 (cambia la identidad de AG-05 y AG-07) |
+| **Hallazgos** | HD-04 resuelto por DF5-01: la identidad de AG-05 no cambia; AG-07 identifica SKU + Lote |
 
 ---
 
@@ -1147,9 +1165,9 @@ Algunas operaciones del negocio afectan a más de un agregado. El dominio declar
 | **IN-20** | El código de lote es único en su SKU; el de ubicación, en su bodega; el identificador de usuario, en todo el sistema. | RN-MAE-006 | AG-04, AG-03, AG-15 | Estructural |
 | **IN-21** | Nada se elimina físicamente: usuarios, referencias, categorías, lotes, ubicaciones, motivos, novedades y observaciones se desactivan o se cierran. | RN-MAE-007 | Todos | Estructural |
 | **IN-22** | Un elemento desactivado no participa en operaciones nuevas pero conserva su identidad en el histórico, y puede reactivarse dejando constancia. | RN-MAE-008, RN-MAE-009 | Todos | Estructural / Configurable |
-| **IN-23** | Toda existencia tiene un identificador QR activo (alcance del identificador: ver HD-04). | RN-IDE-001 | AG-05 / AG-07 | Estructural |
+| **IN-23** | Toda existencia tiene un identificador QR activo: el de su SKU + Lote. La unidad de inventario se determina con ese QR más su ubicación; si el SKU + Lote está en más de una ubicación y no se indica cuál, la operación no se registra (DF5-01). | RN-IDE-001 | AG-05 / AG-07 | Estructural |
 | **IN-24** | Un código QR se emite una sola vez en toda la vida del sistema; ni la anulación ni el reemplazo permiten reutilizarlo. | RN-IDE-002 | AG-07 | Estructural |
-| **IN-25** | Un código de barras secundario se asocia a lo sumo a una unidad y nunca basta por sí solo para una operación de escritura. | RN-IDE-003 | AG-07 | Estructural |
+| **IN-25** | Un código de barras secundario se asocia a lo sumo a un QR de mercancía (un SKU + Lote) y nunca basta por sí solo para una operación de escritura. | RN-IDE-003 | AG-07 | Estructural |
 | **IN-26** | El identificador que reemplaza a otro hereda íntegramente su trazabilidad; el reemplazado permanece consultable. | RN-IDE-004 | AG-07 | Estructural |
 | **IN-27** | Toda existencia pertenece a un lote; si la empresa no distingue lotes, cada evento de entrada genera uno. | RN-LOT-001 | AG-04 / AG-05 | Estructural |
 | **IN-28** | Un lote pertenece a un solo SKU. | RN-LOT-002 | AG-04 | Estructural |
@@ -1194,6 +1212,9 @@ Algunas operaciones del negocio afectan a más de un agregado. El dominio declar
 | **IN-67** | Las reglas estructurales no son parametrizables por ningún rol, incluido el Administrador (interpretación del SRS, DEC-04). | RN-INT-001, RN-INT-002, RN-EXI-001, RN-AJU-001, RN-AJU-003, RN-CNT-002, RN-CNT-003, RN-AUD-001, RN-MAE-007, RN-INT-004 | AG-20 | Estructural |
 | **IN-68** | Un usuario tiene exactamente un rol activo, y ese rol es uno de los cinco oficiales `[DC-04]`. | RN-MAE-004 | AG-15 | Estructural |
 | **IN-69** | Una tarea operativa se cierra por la confirmación del hecho asociado, nunca por declaración del usuario; su reasignación no viola la regla del segundo conteo. | RN-CNT-003, RN-INT-001 | AG-18 | Estructural |
+| **IN-70** | La existencia de una entrada confirmada ingresa En recepción, en una ubicación de una zona de recepción: no se reserva, no sale ni se transfiere hasta ubicarse. Toda zona de recepción tiene al menos una ubicación. La cantidad dañada ingresa inmovilizada (IN-34). | RN-EXI-007 | AG-08 / AG-05 | Estructural |
+| **IN-71** | La primera ubicación de la existencia en recepción es un movimiento interno confirmado en el kardex (qué, cuánto, origen, destino, quién, cuándo y documento de entrada); ninguna existencia cambia de ubicación sin movimiento. La cantidad movida queda Disponible en el destino, salvo que el destino pertenezca a una zona de recepción. | RN-MOV-010 | AG-06 / AG-05 | Estructural |
+| **IN-72** | Un registro retenido sin conectividad se confirma o se rechaza una sola vez, al sincronizarse y tras validarse de nuevo contra el estado vigente; nunca se aplica un registro que viole una invariante, y el intento y su resultado quedan registrados. | RN-INT-008 | AG-06 | Estructural |
 
 ## 6.2 Políticas del dominio (reglas reactivas)
 
@@ -1216,7 +1237,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | **PO-13** | RN-SAL-003 | La toma de mercancía para una salida sigue la política configurada de selección de ubicación: primero en entrar primero en salir por lote, ubicación de mayor cantidad, o ubicación más próxima. El sistema propone; el operario… | EV-SAL-003, EV-SAL-010 |
 | **PO-14** | RN-SAL-005 | Una reserva no ejecutada dentro del plazo configurado se libera automáticamente, la existencia vuelve a disponible y se genera alerta al solicitante. | EV-INV-005 |
 
-**Cobertura:** las 82 reglas del SRS quedan cubiertas: 68 como invariantes y 14 como políticas (82/82).
+**Cobertura:** las 85 reglas del SRS quedan cubiertas: 71 como invariantes y 14 como políticas (85/85).
 
 
 ---
@@ -1225,8 +1246,8 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 
 | | |
 |---|---|
-| **Completado** | 69 invariantes (mínimo exigido: 40), cada una vinculada a reglas del SRS; 14 políticas reactivas; 82/82 reglas cubiertas |
-| **Riesgos** | IN-23 depende de HD-04; IN-67 depende de DEC-04; IN-46 depende de HD-13 |
+| **Completado** | 72 invariantes (mínimo exigido: 40), cada una vinculada a reglas del SRS; 14 políticas reactivas; 85/85 reglas cubiertas (82 + 3 de la v1.1: IN-70…IN-72) |
+| **Riesgos** | IN-67 depende de DEC-04; IN-46 depende de HD-13; IN-23 actualizada por DF5-01 |
 | **Dependencias** | SRS Cap. 8 |
 | **Hallazgos** | HD-04, HD-13 · distinción invariante/política (nueva en esta fase) |
 
@@ -1242,9 +1263,9 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | **E-02 SKU** | Generado con su referencia → recibe umbrales mínimo/máximo → se materializa en unidades de inventario → sigue el estado de su referencia. | Si no tiene umbrales configurados no dispara alertas de mínimo y máximo y figura como pendiente de parametrizar. |
 | **E-04 Lote** | Creado **Habilitado** al confirmarse la entrada → se reparte en ubicaciones → **Inmovilizado** (todo el lote) → **Habilitado** al liberarse → su existencia puede llegar a cero sin que el lote desaparezca. | La antigüedad sobre el umbral genera alerta informativa, no un cambio de estado. |
 | **E-07 Ubicación** | Creada **Activa** con su QR → recibe existencia dentro de su capacidad → **Inactiva** solo sin existencia → **Activa** al reactivarse. | «Sobreocupada» es una condición derivada (alerta), no un estado. |
-| **E-08 Unidad de inventario** | Nace con el primer movimiento que lleva existencia a su combinación SKU+Lote+Ubicación → su existencia pasa por los estados **En recepción → Disponible ↔ Reservado / En tránsito / Inmovilizado** → puede llegar a cero y conserva su kardex. | La unidad no tiene estado propio: los estados son de porciones de su existencia (SM-06). |
-| **E-09 Identificador QR** | **Generado** → impreso → **Activo** al verificarse su legibilidad → **Reemplazado** (reimpresión con herencia) o **Anulado**. | Un código jamás vuelve a emitirse. |
-| **E-10 Movimiento** | **En registro** (corregible por su autor, RNF-USA-007) → **Pendiente de sincronización** (si no hay conectividad) → **Confirmado** (inmutable). | No existen los estados «Ejecutado» ni «Auditado» (HD-03): confirmar es ejecutar, y auditar no modifica. La anulación es otro movimiento que neutraliza al primero. |
+| **E-08 Unidad de inventario** | Nace con el primer movimiento que lleva existencia a su combinación SKU+Lote+Ubicación (la unidad de recepción, con la entrada; la de destino, con el movimiento interno de primera ubicación) → su existencia pasa por los estados **En recepción → Disponible ↔ Reservado / En tránsito / Inmovilizado** → puede llegar a cero y conserva su kardex. | La unidad no tiene estado propio: los estados son de porciones de su existencia (SM-06). Pasar de En recepción a Disponible es un movimiento interno entre dos unidades (DF5-03). |
+| **E-09 Identificador QR** | **Generado** → impreso → **Activo** al verificarse su legibilidad → **Reemplazado** (reimpresión con herencia) o **Anulado**. | Un código jamás vuelve a emitirse. El QR de mercancía identifica un SKU + Lote y no cambia al reubicar (DF5-01). ⚠️ Copias impresas y reimpresión: HD-25. |
+| **E-10 Movimiento** | **En registro** (corregible por su autor, RNF-USA-007) → **Pendiente de sincronización** (si no hay conectividad) → **Confirmado** (inmutable) o **Rechazado en sincronización** (si al validarse de nuevo ya no cumple las reglas; DF5-05). | No existen los estados «Ejecutado» ni «Auditado» (HD-03): confirmar es ejecutar, y auditar no modifica. La anulación es otro movimiento que neutraliza al primero. |
 | **E-11 Documento de entrada** | **Pendiente de recepción** → **Recepción parcial** (interrumpida, continuable por otro usuario) → **Recibido conforme** o **Recibido con novedad** → **Confirmado** por una segunda persona (genera lote y movimiento de entrada). | Un sobrante detiene la confirmación hasta la autorización del Jefe. |
 | **E-12 Solicitud de salida** | **Solicitada** → **Autorizada** (reserva) → **En preparación** (escaneo validado) → **Ejecutada** (movimiento de salida, reserva liberada). | Caminos alternos: **Rechazada** por el autorizador; **Vencida** si no se ejecuta en plazo (reserva liberada); **Cancelada**. |
 | **E-13 Transferencia** | **Pendiente de despacho** (reserva en origen) → **En tránsito** (despacho confirmado) → **Completada** (recepción conforme). | **Con diferencia** hasta que el Jefe resuelva; **Cancelada** antes del despacho (Coordinador) o en tránsito (solo Jefe, con retorno). |
@@ -1289,8 +1310,8 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | SM-03 | Ubicación (E-07) | 2 | 3 | SPEC CD-14, M-05 |
 | SM-04 | Lote (E-04) | 2 | 3 | SPEC M-04; nombre «Habilitado» nuevo (HD-19) |
 | SM-05 | Identificador QR (E-09) | 4 | 5 | SPEC CD-08, PN-02 |
-| SM-06 | Estado de inventario (porción de existencia de E-08) | 5 | 12 | SPEC CD-44; CD-16, CD-17 |
-| SM-07 | Movimiento (E-10) | 3 | 4 | SPEC CD-28, RN-054 (SRS RN-INT-003); HD-03 |
+| SM-06 | Estado de inventario (porción de existencia de E-08) | 5 | 14 | SPEC CD-44; CD-16, CD-17 |
+| SM-07 | Movimiento (E-10) | 4 | 5 | SPEC CD-28, RN-054 (SRS RN-INT-003); HD-03; «Rechazado en sincronización» nuevo (DF5-05) |
 | SM-08 | Documento de entrada (E-11) | 6 | 11 | SPEC PN-01, M-07 |
 | SM-09 | Solicitud de salida (E-12) | 7 | 7 | SPEC PN-10, M-08 |
 | SM-10 | Transferencia (E-13) | 5 | 8 | SPEC PN-06, M-09 |
@@ -1305,7 +1326,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | SM-19 | Tarea operativa (E-23) | 3 | 4 | SPEC M-20; «Cancelada» nuevo |
 | SM-20 | Motivo tipificado (E-24) | 2 | 3 | SPEC HU-099 (SRS HU-PAR-002) |
 | SM-21 | Cierre de jornada (E-26) ⚠️ | 3 | 2 | SPEC PN-14 (sin RF: DEC-05) |
-| **Total** | 21 máquinas | **75** | **114** | |
+| **Total** | 21 máquinas | **76** | **117** | |
 
 ## 8.2 SM-01 · Referencia (E-01)
 
@@ -1379,7 +1400,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 
 | Estado | Significado | Tipo |
 |---|---|:--:|
-| **En recepción** | En el inventario, no disponible; solo reubicable | inicial |
+| **En recepción** | En el inventario, no disponible; solo admite el movimiento interno de ubicación (RN-EXI-007) | inicial |
 | **Disponible** | Puede comprometerse | — |
 | **Reservado** | Comprometido por salida o transferencia | — |
 | **En tránsito** | Despachado, no recibido | — |
@@ -1387,14 +1408,16 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 
 | Desde | Hacia | Evento | Actor | Condición (guarda) |
 |---|---|---|---|---|
-| — | En recepción | EV-ENT-012 | Coordinador | Entrada confirmada (HD-07) |
+| — | En recepción | EV-ENT-012 | Coordinador | Entrada confirmada (RN-EXI-007, DF5-02) |
 | — | Inmovilizado | EV-ENT-011 | Auxiliar | Mercancía dañada a cuarentena (RN-ENT-006) |
-| En recepción | Disponible | EV-INV-001 | Auxiliar | Ubicación activa con capacidad (RN-MOV-002) |
+| En recepción | Disponible | EV-INV-001 | Auxiliar | Movimiento interno de primera ubicación confirmado hacia una ubicación activa con capacidad fuera de la zona de recepción: la porción pasa de la unidad de recepción a la unidad destino (RN-MOV-010, RN-MOV-002) |
+| En recepción | En tránsito | EV-MOV-003 | Auxiliar | Primera ubicación interrumpida (RN-MOV-006, RN-MOV-010) |
 | Disponible | Reservado | EV-INV-003 | Sistema | Salida autorizada o transferencia creada (RN-EXI-004) |
 | Reservado | Disponible | EV-INV-004 | Sistema | Cancelación (RN-MOV-009) o vencimiento (RN-SAL-005) |
 | Reservado | En tránsito | EV-MOV-006 | Auxiliar | Despacho confirmado (RN-EXI-005) |
 | Disponible | En tránsito | EV-MOV-003 | Auxiliar | Movimiento interno interrumpido (RN-MOV-006) |
-| En tránsito | Disponible | EV-MOV-007 | Auxiliar | Recepción confirmada en destino; también al completarse un movimiento interno interrumpido (EV-MOV-001) |
+| En tránsito | Disponible | EV-MOV-007 | Auxiliar | Recepción confirmada en destino; también al completarse un movimiento interno interrumpido (EV-MOV-001 o, si era la primera ubicación, EV-INV-001) |
+| En tránsito | En recepción | EV-MOV-007 | Auxiliar (destino) | Destino sin capacidad: se recibe en la zona de recepción del destino y se ubica después como primera ubicación (PN-06 E-07, CD-16, RN-MOV-010) |
 | En tránsito | Disponible | EV-MOV-013 | Jefe | Cancelación en tránsito con retorno al origen |
 | Disponible | Inmovilizado | EV-LOT-002 | Jefe / Administrador | Inmovilización del lote (RN-LOT-003) |
 | Inmovilizado | Disponible | EV-LOT-003 | Jefe / Administrador | Liberación (RN-LOT-004) |
@@ -1407,12 +1430,14 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | **En registro** | Preparado por su autor; corregible antes de confirmar | inicial |
 | **Pendiente de sincronización** | Registrado sin conectividad; no confirma documentos | — |
 | **Confirmado** | Inmutable; forma parte del kardex | final |
+| **Rechazado en sincronización** | Al validarse de nuevo ya no cumplía las reglas; no se aplicó y queda con su motivo | final |
 
 | Desde | Hacia | Evento | Actor | Condición (guarda) |
 |---|---|---|---|---|
 | — | En registro | — | Usuario | Acción del usuario (no es evento del dominio) |
 | En registro | Pendiente de sincronización | EV-TRZ-003 | Sistema | Sin conectividad (RN-INT-003) |
-| Pendiente de sincronización | Confirmado | EV-TRZ-004 | Sistema | Sincronizado y validado |
+| Pendiente de sincronización | Confirmado | EV-TRZ-004 | Sistema | Validado de nuevo contra el estado vigente y todas las reglas (RN-INT-008) |
+| Pendiente de sincronización | Rechazado en sincronización | EV-TRZ-007 | Sistema | Ya no cumple alguna regla o invariante (RN-INT-008) |
 | En registro | Confirmado | EV-TRZ-001 | Usuario / Sistema | Reglas del tipo de movimiento satisfechas |
 
 ## 8.9 SM-08 · Documento de entrada (E-11)
@@ -1671,7 +1696,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 
 | | |
 |---|---|
-| **Completado** | 21 máquinas de estado, 75 estados oficiales y 114 transiciones permitidas |
+| **Completado** | 21 máquinas de estado, 76 estados oficiales y 117 transiciones permitidas |
 | **Riesgos** | Nombres de estado nuevos (Habilitado, Generado, Reversado, Cancelada) pendientes de confirmación |
 | **Dependencias** | Cap. 7, EVENT_CATALOG |
 | **Hallazgos** | HD-03, HD-07, HD-19 |
@@ -1691,20 +1716,20 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | **E-01 Referencia** | 6 | EV-CAT-001, EV-CAT-002, EV-CAT-003, EV-CAT-005, EV-CAT-006, EV-CAT-007 | 0 | — |
 | **E-02 SKU** | 4 | EV-CAT-004, EV-INV-006, EV-INV-007, EV-INV-008 | 2 | EV-CAT-002, EV-CAT-007 |
 | **E-03 Categoría** | 2 | EV-CAT-008, EV-CAT-009 | 0 | — |
-| **E-04 Lote** | 3 | EV-LOT-002, EV-LOT-003, EV-LOT-004 | 2 | EV-ENT-012, EV-LOT-001 |
+| **E-04 Lote** | 3 | EV-LOT-002, EV-LOT-003, EV-LOT-004 | 3 | EV-QRC-003, EV-ENT-012, EV-LOT-001 |
 | **E-05 Bodega** | 4 | EV-BOD-001, EV-BOD-002, EV-BOD-003, EV-BOD-008 | 0 | — |
 | **E-06 Zona** | 1 | EV-BOD-007 | 1 | EV-BOD-002 |
 | **E-07 Ubicación** | 5 | EV-BOD-004, EV-BOD-005, EV-BOD-006, EV-QRC-007, EV-INV-009 | 3 | EV-BOD-003, EV-INV-001, EV-MOV-001 |
-| **E-08 Unidad de Inventario** | 6 | EV-INV-001, EV-INV-002, EV-INV-003, EV-INV-004, EV-TRZ-005, EV-TRZ-006 | 23 | EV-QRC-003, EV-ENT-011, EV-ENT-012, EV-LOT-002, EV-LOT-003, EV-INV-005, EV-MOV-001, EV-MOV-002, EV-MOV-003, EV-MOV-005, EV-MOV-006, EV-MOV-007, EV-MOV-012, EV-MOV-013, EV-SAL-003, EV-SAL-006, EV-SAL-007, EV-SAL-008, EV-SAL-011, EV-AJU-005, EV-NOV-007, EV-TRZ-001, EV-TRZ-002 |
+| **E-08 Unidad de Inventario** | 5 | EV-INV-002, EV-INV-003, EV-INV-004, EV-TRZ-005, EV-TRZ-006 | 23 | EV-ENT-011, EV-ENT-012, EV-LOT-002, EV-LOT-003, EV-INV-001, EV-INV-005, EV-MOV-001, EV-MOV-002, EV-MOV-003, EV-MOV-005, EV-MOV-006, EV-MOV-007, EV-MOV-012, EV-MOV-013, EV-SAL-003, EV-SAL-006, EV-SAL-007, EV-SAL-008, EV-SAL-011, EV-AJU-005, EV-NOV-007, EV-TRZ-001, EV-TRZ-002 |
 | **E-09 Identificador QR** | 6 | EV-QRC-001, EV-QRC-002, EV-QRC-003, EV-QRC-004, EV-QRC-005, EV-QRC-006 | 2 | EV-QRC-007, EV-NOV-007 |
-| **E-10 Movimiento** | 8 | EV-MOV-001, EV-MOV-002, EV-MOV-003, EV-MOV-004, EV-TRZ-001, EV-TRZ-002, EV-TRZ-003, EV-TRZ-004 | 10 | EV-ENT-012, EV-ENT-013, EV-MOV-007, EV-MOV-013, EV-SAL-006, EV-SAL-008, EV-AJU-005, EV-CNT-004, EV-CNT-005, EV-CNT-016 |
+| **E-10 Movimiento** | 10 | EV-INV-001, EV-MOV-001, EV-MOV-002, EV-MOV-003, EV-MOV-004, EV-TRZ-001, EV-TRZ-002, EV-TRZ-003, EV-TRZ-004, EV-TRZ-007 | 10 | EV-ENT-012, EV-ENT-013, EV-MOV-007, EV-MOV-013, EV-SAL-006, EV-SAL-008, EV-AJU-005, EV-CNT-004, EV-CNT-005, EV-CNT-016 |
 | **E-11 Documento de entrada** | 16 | EV-ENT-001, EV-ENT-002, EV-ENT-003, EV-ENT-004, EV-ENT-005, EV-ENT-006, EV-ENT-007, EV-ENT-008, EV-ENT-009, EV-ENT-010, EV-ENT-011, EV-ENT-012, EV-ENT-013, EV-ENT-014, EV-ENT-015, EV-LOT-001 | 0 | — |
 | **E-12 Solicitud de salida** | 12 | EV-INV-005, EV-SAL-001, EV-SAL-002, EV-SAL-003, EV-SAL-004, EV-SAL-005, EV-SAL-006, EV-SAL-007, EV-SAL-008, EV-SAL-009, EV-SAL-010, EV-SAL-011 | 0 | — |
 | **E-13 Transferencia** | 9 | EV-MOV-005, EV-MOV-006, EV-MOV-007, EV-MOV-008, EV-MOV-009, EV-MOV-010, EV-MOV-011, EV-MOV-012, EV-MOV-013 | 0 | — |
 | **E-14 Solicitud de ajuste** | 12 | EV-AJU-001, EV-AJU-002, EV-AJU-003, EV-AJU-004, EV-AJU-005, EV-AJU-006, EV-AJU-007, EV-AJU-008, EV-AJU-009, EV-AJU-010, EV-TAR-004, EV-TAR-005 | 2 | EV-CNT-014, EV-NOV-007 |
 | **E-15 Conteo** | 18 | EV-CNT-001, EV-CNT-002, EV-CNT-003, EV-CNT-004, EV-CNT-005, EV-CNT-006, EV-CNT-008, EV-CNT-009, EV-CNT-010, EV-CNT-012, EV-CNT-013, EV-CNT-014, EV-CNT-015, EV-CNT-016, EV-CNT-017, EV-CNT-018, EV-ALE-007, EV-REP-005 | 0 | — |
 | **E-16 Tarea de conteo** | 2 | EV-CNT-007, EV-CNT-011 | 2 | EV-CNT-006, EV-CNT-009 |
-| **E-17 Novedad** | 7 | EV-NOV-001, EV-NOV-002, EV-NOV-003, EV-NOV-004, EV-NOV-005, EV-NOV-006, EV-NOV-007 | 2 | EV-ENT-011, EV-MOV-008 |
+| **E-17 Novedad** | 7 | EV-NOV-001, EV-NOV-002, EV-NOV-003, EV-NOV-004, EV-NOV-005, EV-NOV-006, EV-NOV-007 | 3 | EV-ENT-011, EV-MOV-008, EV-TRZ-007 |
 | **E-18 Alerta** | 6 | EV-ALE-001, EV-ALE-002, EV-ALE-003, EV-ALE-004, EV-ALE-005, EV-ALE-006 | 13 | EV-LOT-004, EV-INV-006, EV-INV-007, EV-INV-008, EV-INV-009, EV-MOV-004, EV-MOV-011, EV-AJU-008, EV-AJU-009, EV-CNT-018, EV-NOV-006, EV-ALE-007, EV-JOR-005 |
 | **E-19 Usuario** | 13 | EV-ACC-001, EV-ACC-002, EV-ACC-003, EV-ACC-006, EV-ACC-007, EV-USR-001, EV-USR-002, EV-USR-003, EV-USR-004, EV-USR-005, EV-USR-006, EV-AUD-003, EV-AUD-004 | 3 | EV-BOD-007, EV-TAR-004, EV-TAR-005 |
 | **E-20 Sesión** | 2 | EV-ACC-004, EV-ACC-005 | 3 | EV-ACC-001, EV-ACC-006, EV-USR-004 |
@@ -1724,20 +1749,20 @@ Reglas asociadas a la entidad (ficha) más las citadas por los eventos que origi
 | **E-01 Referencia** | 9 | RN-ENT-001, RN-INT-007, RN-LOT-002, RN-MAE-001, RN-MAE-002, RN-MAE-003, RN-MAE-007, RN-MAE-008, RN-MAE-009 |
 | **E-02 SKU** | 4 | RN-ALE-001, RN-ALE-005, RN-AUD-004, RN-LOT-002 |
 | **E-03 Categoría** | 3 | RN-MAE-007, RN-MAE-008, RN-MOV-001 |
-| **E-04 Lote** | 7 | RN-EXI-006, RN-LOT-001, RN-LOT-002, RN-LOT-003, RN-LOT-004, RN-LOT-005, RN-MAE-006 |
+| **E-04 Lote** | 8 | RN-EXI-006, RN-IDE-001, RN-LOT-001, RN-LOT-002, RN-LOT-003, RN-LOT-004, RN-LOT-005, RN-MAE-006 |
 | **E-05 Bodega** | 4 | RN-EXI-002, RN-MAE-004, RN-MAE-006, RN-MOV-001 |
 | **E-06 Zona** | 2 | RN-ALE-005, RN-EXI-002 |
-| **E-07 Ubicación** | 10 | RN-ALE-001, RN-EXI-002, RN-IDE-002, RN-MAE-005, RN-MAE-006, RN-MAE-007, RN-MAE-009, RN-MOV-001, RN-MOV-002, RN-MOV-005 |
-| **E-08 Unidad de Inventario** | 15 | RN-AUD-005, RN-EXI-001, RN-EXI-002, RN-EXI-003, RN-EXI-004, RN-EXI-005, RN-EXI-006, RN-IDE-001, RN-INT-004, RN-INT-005, RN-LOT-001, RN-MOV-001, RN-MOV-002, RN-MOV-003, RN-MOV-009 |
+| **E-07 Ubicación** | 12 | RN-ALE-001, RN-EXI-002, RN-EXI-007, RN-IDE-002, RN-MAE-005, RN-MAE-006, RN-MAE-007, RN-MAE-009, RN-MOV-001, RN-MOV-002, RN-MOV-005, RN-MOV-010 |
+| **E-08 Unidad de Inventario** | 15 | RN-AUD-005, RN-EXI-001, RN-EXI-002, RN-EXI-003, RN-EXI-004, RN-EXI-005, RN-EXI-006, RN-EXI-007, RN-IDE-001, RN-INT-004, RN-INT-005, RN-LOT-001, RN-MOV-003, RN-MOV-009, RN-MOV-010 |
 | **E-09 Identificador QR** | 4 | RN-IDE-001, RN-IDE-002, RN-IDE-003, RN-IDE-004 |
-| **E-10 Movimiento** | 14 | RN-AJU-007, RN-CNT-006, RN-EXI-001, RN-EXI-003, RN-EXI-005, RN-EXI-006, RN-INT-001, RN-INT-002, RN-INT-003, RN-INT-004, RN-MOV-002, RN-MOV-004, RN-MOV-005, RN-MOV-006 |
-| **E-11 Documento de entrada** | 17 | RN-AJU-001, RN-ENT-001, RN-ENT-002, RN-ENT-003, RN-ENT-004, RN-ENT-005, RN-ENT-006, RN-ENT-007, RN-INT-001, RN-INT-002, RN-INT-003, RN-INT-004, RN-LOT-001, RN-LOT-002, RN-MAE-006, RN-MAE-007, RN-SAL-007 |
+| **E-10 Movimiento** | 18 | RN-AJU-007, RN-CNT-006, RN-EXI-001, RN-EXI-002, RN-EXI-003, RN-EXI-005, RN-EXI-006, RN-INT-001, RN-INT-002, RN-INT-003, RN-INT-004, RN-INT-008, RN-MOV-001, RN-MOV-002, RN-MOV-004, RN-MOV-005, RN-MOV-006, RN-MOV-010 |
+| **E-11 Documento de entrada** | 19 | RN-AJU-001, RN-ENT-001, RN-ENT-002, RN-ENT-003, RN-ENT-004, RN-ENT-005, RN-ENT-006, RN-ENT-007, RN-EXI-007, RN-INT-001, RN-INT-002, RN-INT-003, RN-INT-004, RN-INT-008, RN-LOT-001, RN-LOT-002, RN-MAE-006, RN-MAE-007, RN-SAL-007 |
 | **E-12 Solicitud de salida** | 12 | RN-AJU-001, RN-EXI-001, RN-EXI-003, RN-EXI-004, RN-INT-002, RN-INT-004, RN-SAL-001, RN-SAL-002, RN-SAL-003, RN-SAL-004, RN-SAL-005, RN-SAL-006 |
 | **E-13 Transferencia** | 7 | RN-EXI-003, RN-EXI-004, RN-EXI-005, RN-INT-002, RN-MOV-007, RN-MOV-008, RN-MOV-009 |
 | **E-14 Solicitud de ajuste** | 10 | RN-AJU-001, RN-AJU-002, RN-AJU-003, RN-AJU-004, RN-AJU-005, RN-AJU-006, RN-AJU-007, RN-EXI-001, RN-EXI-006, RN-INT-004 |
 | **E-15 Conteo** | 11 | RN-AJU-001, RN-ALE-001, RN-CNT-001, RN-CNT-002, RN-CNT-003, RN-CNT-004, RN-CNT-005, RN-CNT-006, RN-CNT-007, RN-CNT-008, RN-NOV-001 |
 | **E-16 Tarea de conteo** | 2 | RN-CNT-002, RN-CNT-003 |
-| **E-17 Novedad** | 5 | RN-AJU-003, RN-MAE-007, RN-NOV-001, RN-NOV-002, RN-NOV-003 |
+| **E-17 Novedad** | 6 | RN-AJU-003, RN-INT-008, RN-MAE-007, RN-NOV-001, RN-NOV-002, RN-NOV-003 |
 | **E-18 Alerta** | 9 | RN-AJU-004, RN-ALE-001, RN-ALE-002, RN-ALE-003, RN-ALE-004, RN-ALE-005, RN-CNT-005, RN-LOT-005, RN-MOV-008 |
 | **E-19 Usuario** | 6 | RN-AUD-002, RN-INT-001, RN-MAE-004, RN-MAE-006, RN-MAE-007, RN-MAE-009 |
 | **E-20 Sesión** | 1 | RN-INT-001 |
@@ -1763,7 +1788,7 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | **E-07 Ubicación** | KPI-05 Tiempo Medio de Registro de un Movimiento, KPI-10 Desviaciones de ubicación, KPI-11 Volumen de movimientos, KPI-18 Ocupación de bodega, KPI-19 Alertas generadas y atendidas |
 | **E-08 Unidad de Inventario** | KPI-05 Tiempo Medio de Registro de un Movimiento, KPI-08 Frecuencia de Errores de Registro, KPI-09 Integridad del kardex, KPI-10 Desviaciones de ubicación, KPI-11 Volumen de movimientos, KPI-12 Tiempo medio de recepción, KPI-13 Tasa de merma, KPI-14 Volumen y magnitud de ajustes, KPI-15 Tiempo medio en tránsito, KPI-16 Rotación por referencia, KPI-17 Existencia sin movimiento, KPI-18 Ocupación de bodega, KPI-22 Tiempo medio de aprobación, KPI-23 Novedades reportadas y resueltas, KPI-24 Adopción del sistema |
 | **E-09 Identificador QR** | — |
-| **E-10 Movimiento** | KPI-05 Tiempo Medio de Registro de un Movimiento, KPI-08 Frecuencia de Errores de Registro, KPI-11 Volumen de movimientos, KPI-12 Tiempo medio de recepción, KPI-13 Tasa de merma, KPI-14 Volumen y magnitud de ajustes, KPI-15 Tiempo medio en tránsito, KPI-16 Rotación por referencia, KPI-17 Existencia sin movimiento, KPI-24 Adopción del sistema |
+| **E-10 Movimiento** | KPI-05 Tiempo Medio de Registro de un Movimiento, KPI-08 Frecuencia de Errores de Registro, KPI-10 Desviaciones de ubicación, KPI-11 Volumen de movimientos, KPI-12 Tiempo medio de recepción, KPI-13 Tasa de merma, KPI-14 Volumen y magnitud de ajustes, KPI-15 Tiempo medio en tránsito, KPI-16 Rotación por referencia, KPI-17 Existencia sin movimiento, KPI-18 Ocupación de bodega, KPI-24 Adopción del sistema |
 | **E-11 Documento de entrada** | KPI-05 Tiempo Medio de Registro de un Movimiento, KPI-11 Volumen de movimientos, KPI-12 Tiempo medio de recepción, KPI-23 Novedades reportadas y resueltas |
 | **E-12 Solicitud de salida** | KPI-05 Tiempo Medio de Registro de un Movimiento, KPI-11 Volumen de movimientos, KPI-13 Tasa de merma, KPI-16 Rotación por referencia, KPI-22 Tiempo medio de aprobación |
 | **E-13 Transferencia** | KPI-05 Tiempo Medio de Registro de un Movimiento, KPI-11 Volumen de movimientos, KPI-15 Tiempo medio en tránsito, KPI-19 Alertas generadas y atendidas, KPI-23 Novedades reportadas y resueltas |
@@ -1794,7 +1819,7 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | KPI-07 | Movimientos sin identificador escaneado | E-15, E-25 |
 | KPI-08 | Frecuencia de Errores de Registro | E-08, E-10, E-14, E-15, E-25 |
 | KPI-09 | Integridad del kardex | E-08, E-15, E-25 |
-| KPI-10 | Desviaciones de ubicación | E-05, E-07, E-08, E-15, E-25 |
+| KPI-10 | Desviaciones de ubicación | E-05, E-07, E-08, E-10, E-15, E-25 |
 | KPI-11 | Volumen de movimientos | E-04, E-07, E-08, E-10, E-11, E-12, E-13, E-15, E-25 |
 | KPI-12 | Tiempo medio de recepción | E-04, E-08, E-10, E-11, E-15, E-25 |
 | KPI-13 | Tasa de merma | E-08, E-10, E-12, E-15, E-25 |
@@ -1802,7 +1827,7 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | KPI-15 | Tiempo medio en tránsito | E-08, E-10, E-13, E-15, E-18, E-25 |
 | KPI-16 | Rotación por referencia | E-02, E-08, E-10, E-12, E-15, E-18, E-25 |
 | KPI-17 | Existencia sin movimiento | E-04, E-08, E-10, E-15, E-18, E-25 |
-| KPI-18 | Ocupación de bodega | E-07, E-08, E-15, E-18, E-25 |
+| KPI-18 | Ocupación de bodega | E-07, E-08, E-10, E-15, E-18, E-25 |
 | KPI-19 | Alertas generadas y atendidas | E-02, E-07, E-13, E-14, E-15, E-18, E-25 |
 | KPI-20 | Tiempo medio de atención de alerta | E-15, E-18, E-25 |
 | KPI-21 | Eventos de ruptura de stock | E-02, E-15, E-18, E-25 |
@@ -1816,7 +1841,7 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 
 | | |
 |---|---|
-| **Completado** | Matrices A (26 entidades × 164 eventos), B (entidad ↔ regla) y C (entidad ↔ KPI, con vista inversa) |
+| **Completado** | Matrices A (26 entidades × 165 eventos), B (entidad ↔ regla) y C (entidad ↔ KPI, con vista inversa) |
 | **Riesgos** | Matriz C depende de datos que ningún RF exige capturar (KPI-05, 07, 10, 12, 17, 24; H-12 del SRS) |
 | **Dependencias** | Cap. 3, EVENT_CATALOG |
 | **Hallazgos** | H-12 del SRS (heredado) |
@@ -1825,17 +1850,17 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 
 # CAPÍTULO 10 — HALLAZGOS DEL DOMINIO
 
-> Inconsistencias o vacíos entre la monografía, el SPEC, el SRS y el Prompt #004 detectados al modelar. **Ninguno se corrigió en silencio**: cada uno declara el tratamiento provisional que adopta este modelo y quién debe resolverlo.
+> Inconsistencias o vacíos entre la monografía, el SPEC, el SRS y el Prompt #004 detectados al modelar. **Ninguno se corrigió en silencio**: cada uno declara el tratamiento provisional que adopta este modelo y quién debe resolverlo. En la v1.1, los resueltos por las decisiones del cierre del CP-04 conservan su evidencia y registran la decisión (DF5-nn); HD-23 a HD-27 se agregaron en ese cierre.
 
 | ID | Hallazgo | Evidencia | Tratamiento en el modelo | Resuelve |
 |---|---|---|---|---|
 | **HD-01** | **Nombres pedidos por el Prompt #004 frente al vocabulario controlado del SPEC** | El prompt nombra las entidades «Producto», «Variante», «Área», «Inventario» y «Auditoría». El SPEC (§0.5) impone un vocabulario único sin sinónimos y usa «Referencia» (CD-02), «SKU» (CD-05), «Zona» (CD-13), «Unidad de Inventario» (CD-07) y «Bitácora de auditoría» (CD-47). Además, en el SPEC «producto» designa al propio COLBASOFT («propuesta de valor del producto»). | Se conserva el término oficial del SPEC y se registra el nombre pedido como etiqueta de solicitud. «Producto», «variante», «área» e «inventario» (como entidad) pasan a sinónimos prohibidos en el glosario. «Auditoría» se modela como Registro de bitácora (E-21) + Observación de auditoría (E-22). | Director — confirmar |
 | **HD-02** | **El ciclo de vida de ejemplo «Producto: Creado → Disponible → En Movimiento → Agotado → Inactivo» mezcla tres planos** | Mezcla el estado de catálogo de la Referencia (Activa/Inactiva), los estados de la existencia (Disponible, En tránsito…, CD-44) y una condición que dispara alerta (existencia en cero). | Se modelan por separado: SM-01 (Referencia), SM-06 (Estado de inventario) y el evento derivado EV-INV-008 (existencia en cero alcanzada). | Informativo |
 | **HD-03** | **El ciclo de vida de ejemplo «Movimiento: Borrador → Confirmado → Ejecutado → Auditado» contradice el SPEC** | En el SPEC un movimiento es inmutable una vez confirmado (RN-012 → RN-INT-002); confirmar es ejecutar (el movimiento **es** el hecho). La auditoría no modifica nada (PR-02, RN-064 → RN-AUD-002), por lo que «Auditado» no puede ser un estado del movimiento. | SM-07: En registro → Pendiente de sincronización → Confirmado. «Ejecutado» y «Auditado» se descartan como estados. | Informativo |
-| **HD-04** | **Alcance del identificador QR de mercancía: ¿unidad de inventario o SKU + Lote?** | CD-08, RF-040 (RF-QRC-001) y RN-015 (RN-IDE-001) dicen «un QR por unidad de inventario» (SKU + Lote + **Ubicación**). Pero PN-02 paso 2 asocia el QR a «referencia + talla + color + lote» (sin ubicación), y en PN-05 la mercancía se mueve de ubicación conservando su etiqueta. Si el QR identificara la unidad, cada reubicación exigiría reetiquetar. | Interpretación de trabajo: el QR de mercancía identifica **SKU + Lote** (lo que contiene la etiqueta); la ubicación se obtiene del QR de ubicación escaneado; ambos resuelven la unidad de inventario. **No se adopta como decisión**: debe resolverse antes de la Fase 5 porque cambia la identidad de un agregado. | Director / Fase 5 — **bloqueante para el modelo de datos** |
+| **HD-04** | **Alcance del identificador QR de mercancía: ¿unidad de inventario o SKU + Lote?** | CD-08, RF-040 (RF-QRC-001) y RN-015 (RN-IDE-001) dicen «un QR por unidad de inventario» (SKU + Lote + **Ubicación**). Pero PN-02 paso 2 asocia el QR a «referencia + talla + color + lote» (sin ubicación), y en PN-05 la mercancía se mueve de ubicación conservando su etiqueta. Si el QR identificara la unidad, cada reubicación exigiría reetiquetar. | **Decisión DF5-01 (29-sep-2026):** el QR de mercancía identifica **SKU + Lote**; no identifica ubicación, bodega ni cantidad. La unidad de inventario **sigue** siendo SKU + Lote + Ubicación (RN-INT-005 sin cambios) y se determina con el QR de mercancía más la ubicación escaneada o seleccionada (RN-IDE-001, IN-23). Reubicar no cambia el QR. Cambian los textos de RN-IDE-001 y RN-IDE-003 y de E-08, E-09, AG-07, IN-23 e IN-25. | **Resuelto — DF5-01** |
 | **HD-05** | **La existencia en tránsito no tiene ubicación** | La unidad de inventario se define por SKU + Lote + Ubicación, pero la existencia en tránsito (transferencia, movimiento interno interrumpido) no está en ninguna ubicación (RN-032 → RN-EXI-005). | La porción en tránsito permanece asociada a la unidad **origen** en estado «En tránsito» hasta confirmarse la recepción (coherente con PN-06 paso 9, que descuenta del origen al completar). | Fase 5 — confirmar |
-| **HD-06** | **La zona de recepción y la exigencia de ubicación** | CD-16 describe la zona de recepción como zona de tránsito, pero la unidad de inventario exige una ubicación. El SPEC no dice que la zona de recepción tenga ubicaciones. | Toda zona de recepción contiene al menos una ubicación; la mercancía recibida reside allí en estado «En recepción». | Fase 5 — confirmar |
-| **HD-07** | **¿La entrada confirmada es disponible o en recepción?** | PN-01 paso 10 dice que al confirmar «se incrementa la existencia **disponible**», pero CD-16 dice que la existencia en zona de recepción «ya está en el inventario pero **aún no está disponible**», y CD-44 incluye el estado «En recepción». | La entrada confirmada ingresa **En recepción**; pasa a **Disponible** al ubicarse (EV-INV-001). Se prioriza el catálogo de conceptos (CD-16, CD-44) sobre el paso del proceso. | Director — confirmar |
+| **HD-06** | **La zona de recepción y la exigencia de ubicación** | CD-16 describe la zona de recepción como zona de tránsito, pero la unidad de inventario exige una ubicación. El SPEC no dice que la zona de recepción tenga ubicaciones. | **Decisión DF5-02:** toda zona de recepción contiene al menos una ubicación; la mercancía recibida reside allí en estado «En recepción» (RN-EXI-007, IN-70). | **Resuelto — DF5-02** |
+| **HD-07** | **¿La entrada confirmada es disponible o en recepción?** | PN-01 paso 10 dice que al confirmar «se incrementa la existencia **disponible**», pero CD-16 dice que la existencia en zona de recepción «ya está en el inventario pero **aún no está disponible**», y CD-44 incluye el estado «En recepción». | **Decisión DF5-02:** la entrada confirmada ingresa **En recepción**; pasa a **Disponible** al ubicarse, mediante el movimiento interno de primera ubicación (EV-INV-001, DF5-03). Nueva regla RN-EXI-007 (IN-70); el SPEC v1.1 corrige PN-01 paso 10 y su resultado. | **Resuelto — DF5-02** |
 | **HD-08** | **Solicitante de un ajuste derivado de conteo** | Al cerrar un conteo, el Jefe «decide qué diferencias generan ajuste» (RN-042 → RN-CNT-004) y esos ajustes siguen PN-07, cuyo aprobador menor es… el Jefe. No se define quién figura como solicitante, y si es el Jefe, RN-023 (RN-AJU-001) lo obliga a escalar todo ajuste de conteo al Administrador. | Se modela el ajuste de conteo como Solicitud de ajuste con origen «conteo» y solicitante = el Jefe que cierra; por RN-AJU-001 escala al Administrador. Esto puede cargar al Administrador (riesgo RG-18). | Director — decidir |
 | **HD-09** | **«Valorización» sin dato de origen (H-07 / DEC-07 del SRS)** | El dominio no contiene costo ni precio (DC-03, RF-ENT-002, RF-SAL-002). El permiso «consultar valorización» no tiene objeto. | El modelo de dominio **no incluye** ningún atributo monetario. Si DEC-07 decide una política de costeo, se abrirá un subdominio nuevo. | DEC-07 |
 | **HD-10** | **Alerta «lote próximo a vencer inmovilización» sin fecha límite (H-18 / DEC-09)** | El lote solo tiene fecha de ingreso; ninguna regla define una «fecha límite». | Se modela solo la condición definida: antigüedad del lote sobre el umbral (RN-LOT-005 → EV-LOT-004). El tipo de alerta queda como en el SPEC, sin condición propia. | DEC-09 |
@@ -1849,10 +1874,15 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | **HD-18** | **Precisión de las cantidades** | Unidades de medida como metros o kilogramos requieren cantidades fraccionarias; el SPEC no fija la precisión. | VO-13 admite fracciones según la unidad de medida; la precisión se fija en Fase 5. | Fase 5 |
 | **HD-19** | **Estados y actores que el SPEC no nombra** | Para completar las máquinas de estado fue necesario nombrar: «Habilitado» (lote no inmovilizado), «Generado» (QR antes de verificarse), «Reversado» (documento de entrada anulado sin confirmar: función de M-07 sin RF), «Cancelada» (solicitud de salida y tarea operativa: el SPEC menciona la cancelación sin actor ni RF), y no se definen estados propios de Bodega, Zona ni SKU. | Se marcan como nombres nuevos del dominio (origen «Nuevo — Fase 4»), sin crear reglas nuevas. | Director — confirmar |
 | **HD-20** | **El cierre de tarea por «movimiento» no cubre las tareas de conteo** | RF-160 (RF-TAR-003) cierra la tarea «por la confirmación del movimiento asociado», pero registrar un conteo no es un movimiento. | Se generaliza a «hecho asociado confirmado» (IN-69): movimiento para tareas operativas, conteo confirmado para tareas de conteo. | Informativo |
-| **HD-21** | **Estado de aprobación del SRS** | El Prompt #004 declara el SRS aprobado, pero el archivo sigue «Emitido para revisión del Director» y sus 9 decisiones (DEC-01…DEC-09) no tienen respuesta registrada. | El modelo se construye sobre el baseline del SRS sin asumir respuestas a las decisiones; donde una decisión afecta al dominio se marca ⚠️. | Director |
+| **HD-21** | **Estado de aprobación del SRS** | El Prompt #004 declara el SRS aprobado, pero el archivo sigue «Emitido para revisión del Director» y sus 9 decisiones (DEC-01…DEC-09) no tienen respuesta registrada. | El modelo se construye sobre el baseline del SRS sin asumir respuestas a las decisiones; donde una decisión afecta al dominio se marca ⚠️. **DF5-06** (revisada) registra la **validación técnica** del SPEC, el SRS y este modelo en su v1.1; la aprobación funcional y académica sigue pendiente de DEC-01…DEC-09 y HD-25. | Director — aprobación pendiente (DEC-01…DEC-09) |
 | **HD-22** | **Unidades de manejo agrupadas** | PN-02 E-03 (MVP) permite rotular un contenedor como «unidad de manejo agrupada», pero el backlog sitúa la «gestión de unidades de manejo y contenedores» en el Horizonte 3. | No se modela como entidad; queda como término del glosario marcado fuera del MVP. | Director — confirmar |
+| **HD-23** | **La primera ubicación cambiaba la existencia de unidad sin movimiento (HA-02 de la auditoría del CP-04)** | Tras la entrada, la existencia está en la unidad (SKU, Lote, ubicación de recepción); al ubicarla (PN-03, HU-ENT-006) pasa a (SKU, Lote, ubicación destino), que es otra unidad (RN-INT-005). La v1.0 lo modelaba como cambio de estado de la misma unidad (SM-06, EV-INV-001) sin movimiento en el kardex, en contra de IN-03 (la existencia es la suma de sus movimientos) y dejando sin «dónde» el primer tramo de la trazabilidad (CD-21). | **Decisión DF5-03:** la primera ubicación es un **movimiento interno** (tipo existente en VO-21) desde la ubicación de recepción hacia la destino. Nueva regla RN-MOV-010 (IN-71). EV-INV-001 conserva su ID y su nombre y pasa a designar ese movimiento confirmado; SM-06 agrega la interrupción de la primera ubicación (En recepción → En tránsito). La operación se suma a las indivisibles del Cap. 5.3. | **Resuelto — DF5-03** |
+| **HD-24** | **Registros retenidos sin conectividad que al sincronizarse ya no cumplen una regla (HA-04 de la auditoría del CP-04)** | Con retención local (RN-INT-003) un registro puede ser válido cuando se hace y dejar de serlo al sincronizarse, porque otro usuario cambió la existencia. IN-08 prohíbe la existencia negativa sin excepción, y el hecho físico ya ocurrió. El SPEC v1.0 no decía qué pasa en ese caso (RF5-05). | **Decisión DF5-05:** al sincronizar, el registro se valida de nuevo contra el estado vigente; si cumple, se confirma con su fecha operativa original (EV-TRZ-004); si no, no se aplica y se rechaza con constancia (nuevo estado «Rechazado en sincronización» en SM-07 y nuevo evento EV-TRZ-007) y, si describe un hecho físico, abre una novedad (E-17). Nueva regla RN-INT-008 (IN-72). El orden del kardex con registros tardíos sigue en HD-16. | **Resuelto — DF5-05** |
+| **HD-25** | **Qué identifica físicamente cada etiqueta de mercancía (copias de un QR de lote, reimpresión y relación escaneo–cantidad)** | Con DF5-01, un mismo QR de SKU + Lote identifica mercancía repartida en varias ubicaciones, lo que exige varias etiquetas con el mismo código. Pero RN-IDE-004 (reimpresión) emite un código **nuevo** y deja el anterior Reemplazado (SM-05: solo el Activo resuelve escaneos): reimprimir una etiqueta deteriorada invalidaría las demás copias del lote. RN-IDE-002 (el código no se repite) se refiere a emitir códigos, no a imprimir copias; el SPEC no distingue los dos casos. Además, PN-10 paso 7 dice que el Auxiliar «escanea cada unidad al tomarla» (RN-SAL-004): con copias del mismo código, dos escaneos de la misma etiqueta no se distinguen de dos piezas distintas. | No se decide. SM-05 y RN-IDE-004 no cambian. Se analizan tres alternativas en `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md` §2: (A) todas las etiquetas del lote comparten el QR; (B) QR de lote más identificador físico único por etiqueta; (C) el QR identifica un paquete físico, lo que revisa DF5-01. | Director — **decidir antes de la Fase 5**; bloqueante mientras la alternativa C siga abierta · **Información requerida:** qué representa cada etiqueta física (rollo, pieza, bulto o lote), si un escaneo debe equivaler a una cantidad y qué trazabilidad física exige el proyecto |
+| **HD-26** | **Código de barras del proveedor frente al QR por SKU + Lote** | Con DF5-01, RN-IDE-003 limita un código de barras secundario a un solo QR de mercancía (un SKU + Lote). Un código de barras de proveedor suele identificar el producto y repetirse en lotes distintos: con la regla actual, el segundo lote de un mismo SKU no podría asociarlo. | Se aplica RN-IDE-003 tal como quedó en el SRS v1.1. La funcionalidad está en el Horizonte 2 del backlog (SPEC §12.3, elemento 11), por lo que no afecta al MVP. | Director — decidir · **Información requerida:** qué identifica el código de barras de los proveedores reales. No bloquea la Fase 5 (H2) |
+| **HD-27** | **Alcance de las operaciones que se pueden registrar sin conectividad** | RN-INT-003 se traza a recepción (PN-01), movimiento interno (PN-05) y cierre de jornada (PN-14), pero RNF-DSP-002 habla, en general, del «registro de movimientos desde tablet». El SPEC no fija qué operaciones deben poder registrarse sin conectividad. | No se decide el alcance. Con DF5-05, toda operación retenida, sea cual sea, se valida de nuevo al sincronizar (RN-INT-008), así que el alcance ya no pone en riesgo las invariantes: es una decisión de producto y de experiencia de uso. | Director — decidir · **Información requerida:** conectividad real de la bodega. No bloquea la Fase 5 |
 
-**Bloqueantes para la Fase 5:** HD-04. **Requieren decisión del Director:** HD-01, HD-04, HD-07, HD-08, HD-09, HD-10, HD-11, HD-13, HD-15, HD-17, HD-19, HD-21, HD-22.
+**Resueltos en el cierre del CP-04:** HD-04, HD-06, HD-07, HD-23, HD-24. **Bloqueantes para la Fase 5:** HD-25. **Requieren decisión del Director:** HD-01, HD-08, HD-09, HD-10, HD-11, HD-13, HD-15, HD-17, HD-19, HD-21, HD-22, HD-25, HD-26, HD-27.
 
 
 ---
@@ -1861,11 +1891,11 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 
 | | |
 |---|---|
-| **Completado** | 22 hallazgos con evidencia, tratamiento y responsable |
-| **Riesgos** | HD-04 bloquea la definición de identidad del modelo de datos |
+| **Completado** | 27 hallazgos con evidencia, tratamiento y responsable |
+| **Riesgos** | HD-25 debe decidirse antes de la Fase 5 (04_CP04_DECISIONES_PENDIENTES); los demás pendientes no bloquean la arquitectura |
 | **Dependencias** | Todos los capítulos |
 | **Hallazgos** | — |
 
 ---
 
-*Fin de DOMAIN_MODEL v1.0. La monografía original permanece sin modificaciones.*
+*Fin de DOMAIN_MODEL v1.1. La monografía original permanece sin modificaciones.*

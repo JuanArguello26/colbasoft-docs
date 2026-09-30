@@ -1,4 +1,4 @@
-# SRS_COLBASOFT v1.0
+# SRS_COLBASOFT v1.1
 ## Especificación de Requisitos de Software (Software Requirements Specification)
 
 **COLBASOFT — Plataforma inteligente para la automatización y trazabilidad de inventarios en PYMES del sector textil del Eje Cafetero**
@@ -8,20 +8,35 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | SRS_COLBASOFT |
-| **Versión** | 1.0 |
+| **Versión** | 1.1 |
 | **Fase** | Fase 3 del proyecto — Especificación de Requisitos de Software (SRS) |
-| **Fecha** | 28 de septiembre de 2026 |
-| **Estado** | Emitido para revisión del Director |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) |
+| **Estado** | **Validado técnicamente** (cierre del CP-04, 29-sep-2026). **Aprobación funcional y académica pendiente**: HD-25 y DEC-01…DEC-09 sin responder (`04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`) |
+| **Versión anterior** | `SRS_COLBASOFT_v1.0.md` (28-sep-2026), conservada sin cambios |
 | **Norma de referencia** | ISO/IEC/IEEE 29148 (Ingeniería de requisitos), adaptada al proyecto y en español |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.0 → **SRS v1.0** |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.1 → **SRS v1.1** |
 | **Fuente de verdad** | `MONOGRAFÍA  COLBASOFT.docx` (íntegra, sin modificación) |
-| **Documentos antecesores** | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (Fase 0) · `COLBASOFT_SPEC_v1.0.md` (Fase 2) |
+| **Documentos antecesores** | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (Fase 0) · `COLBASOFT_SPEC_v1.1.md` (Fase 2, revisado en el cierre del CP-04) |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
 | **Alcance de este documento** | Requisitos funcionales, no funcionales, reglas de negocio, casos de uso, historias normalizadas, trazabilidad y criterios de aceptación |
 | **Fuera de alcance de este documento** | Código · Base de datos · Arquitectura técnica · ERD/UML · Endpoints/APIs · Frameworks · Tecnologías |
 
-> **Naturaleza del documento.** Este SRS **no crea requisitos nuevos**: normaliza, reorganiza y hace trazable el contenido aprobado del COLBASOFT_SPEC v1.0. Aporta identificadores permanentes, prioridad MoSCoW, criterios en Gherkin, casos de uso completos, matrices de trazabilidad y criterios de aceptación del MVP. Todo elemento que este documento deriva (y que el SPEC no traía) se marca con la etiqueta `[SRS]` y se somete a validación del Director. Las brechas que se detectan **se registran como hallazgos y decisiones pendientes; no se resuelven inventando funcionalidad** (Regla Innegociable 3).
+> **Naturaleza del documento.** Este SRS **no crea requisitos nuevos**: normaliza, reorganiza y hace trazable el contenido aprobado del COLBASOFT_SPEC v1.1. Aporta identificadores permanentes, prioridad MoSCoW, criterios en Gherkin, casos de uso completos, matrices de trazabilidad y criterios de aceptación del MVP. Todo elemento que este documento deriva (y que el SPEC no traía) se marca con la etiqueta `[SRS]` y se somete a validación del Director. Las brechas que se detectan **se registran como hallazgos y decisiones pendientes; no se resuelven inventando funcionalidad** (Regla Innegociable 3).
+
+## Control de cambios de la versión 1.1
+
+> La v1.1 se regenera desde las mismas fuentes que la v1.0, tras incorporar al SPEC v1.1 las decisiones del **cierre del CP-04** (`04_CP04_AUDITORIA/04_CP04_CIERRE.md`). La v1.0 se conserva sin cambios en `SRS_COLBASOFT_v1.0.md`.
+
+| Decisión | Efecto en este SRS |
+|---|---|
+| **DF5-01** — el QR de mercancía identifica SKU + Lote | Cambia el texto de RF-QRC-001, RF-QRC-003, RN-IDE-001 y RN-IDE-003, de los criterios de HU-QRC-001, HU-QRC-002, HU-QRC-004 y HU-QRC-005 y de sus escenarios Gherkin. La unidad de inventario sigue definida por SKU + Lote + Ubicación (RN-INT-005, sin cambios) |
+| **DF5-02** — la entrada confirmada queda en recepción | Regla nueva **RN-EXI-007** |
+| **DF5-03** — la primera ubicación es un movimiento interno | Regla nueva **RN-MOV-010** |
+| **DF5-05** — revalidación al sincronizar | Regla nueva **RN-INT-008** |
+| **DF5-06** (revisada) — validación técnica | Estado del documento: validado técnicamente; aprobación pendiente de HD-25 y DEC-01…DEC-09 |
+
+No cambia ninguna cifra de historias (103), requisitos funcionales (162), requisitos no funcionales (47), escenarios (462), casos de uso (24) ni KPI (24), ni ningún horizonte H1/H2. Las reglas pasan de 82 a **85**. Los números de capítulo 0 que siguen describen la reconstrucción de contexto de la v1.0 y se conservan como registro histórico.
 
 ## Índice general
 

@@ -43,11 +43,11 @@
 | **Precondiciones** | La unidad de inventario existe y tiene ubicación actual registrada. |
 | **Postcondiciones (éxito)** | La ubicación registrada corresponde a la física real; la existencia total permanece invariante; el movimiento queda en el kardex. |
 | **Postcondiciones (fallo)** | Ninguna existencia cambia de ubicación; el rechazo se explica. |
-| **Trazabilidad** | HU: @HU045 @HU046 · RF: @RF072 @RF073 @RF074 @RF075 @RF076 @RF077 · RN: @RN026 @RN025 @RN027 @RN021 @RN036 @RN028 @RN054 |
+| **Trazabilidad** | HU: @HU045 @HU046 · RF: @RF072 @RF073 @RF074 @RF075 @RF076 @RF077 · RN: @RN026 @RN025 @RN027 @RN021 @RN036 @RN028 @RN054 @RN015 @RN083 |
 
 **Flujo principal**
-1. El Auxiliar escanea el identificador de la mercancía.
-2. El sistema muestra su ubicación actual y su existencia.
+1. El Auxiliar escanea el identificador de la mercancía, que identifica su SKU + Lote.
+2. El sistema muestra las ubicaciones donde ese SKU + Lote tiene existencia; si hay más de una, el Auxiliar indica la de origen escaneando su identificador o seleccionándola, y la selección queda registrada (@RN015, DF5-01).
 3. El Auxiliar indica la cantidad a mover (total o parcial).
 4. El Auxiliar traslada físicamente la mercancía y escanea el identificador de la ubicación destino.
 5. El sistema valida la ubicación destino.
@@ -56,7 +56,7 @@
 
 **Flujos alternos**
 - **A1 · Movimiento interrumpido a mitad de camino:** queda **En tránsito**; la existencia no está disponible en origen ni en destino hasta cerrarlo y el sistema alerta si supera el tiempo configurado.
-- **A2 · Sin conectividad:** el registro se retiene localmente y se sincroniza al restablecerse.
+- **A2 · Sin conectividad:** el registro se retiene localmente y se sincroniza al restablecerse; al sincronizar se valida de nuevo contra el estado vigente y, si ya no cumple las reglas, no se aplica: se rechaza con constancia y, si describe un hecho físico, se abre una novedad (@RN083, DF5-05).
 
 **Excepciones**
 - **E1 · Cantidad mayor que la existencia en origen:** se rechaza.

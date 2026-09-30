@@ -8,17 +8,19 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | GLOSSARY |
-| **Versión** | 1.0 |
+| **Versión** | 1.1 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 |
-| **Estado** | Emitido para revisión del Director |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.0 → SRS_COLBASOFT v1.0 → **Modelo de Dominio v1.0** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) |
+| **Estado** | **Validado técnicamente** (cierre del CP-04, 29-sep-2026). **Aprobación funcional y académica pendiente**: HD-25 y DEC-01…DEC-09 sin responder (`04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`) |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.1 → SRS_COLBASOFT v1.1 → **Modelo de Dominio v1.1** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `DOMAIN_MODEL.md` · `EVENT_CATALOG.md` |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
 | **Fuera de alcance** | Arquitectura, modelo de datos, tecnologías, interfaces de integración, notaciones de diseño y código: pertenecen a la Fase 5 y posteriores |
 
 > **Naturaleza.** Este documento es **derivado**: no modifica la monografía, la auditoría, el SPEC ni el SRS. Modela el negocio que esos documentos describen. Toda diferencia entre ellos o frente al Prompt Maestro #004 se registra como **Hallazgo del Dominio (HD-nn)**; no se corrige en silencio.
+
+> **Versión 1.1.** Incorpora las decisiones del cierre del CP-04 (DF5-01, DF5-02, DF5-03, DF5-05 y DF5-06), registradas en `04_CP04_AUDITORIA/04_CP04_CIERRE.md`. El detalle de los cambios está en DOMAIN_MODEL §0.8. La v1.0 se conserva en el historial del repositorio (commit `79f823c`).
 
 
 > **Reconstrucción de contexto.** Ver DOMAIN_MODEL, Cap. 0 (ESTADO: CONTEXTO RECONSTRUIDO).
@@ -33,9 +35,9 @@
 
 **Campos de cada entrada:** definición oficial · definición prohibida · sinónimos prohibidos · contexto (subdominio o ámbito) · documento de origen · relaciones.
 
-**Distribución por contexto:** Movimientos 29 · Conteos y exactitud 19 · Modelado 16 · Trazabilidad 16 · Alertas y reglas 15 · Ubicaciones 15 · Transversal 12 · Proyecto 12 · Inventario y existencia 11 · Usuarios y acceso 10 · Catálogo textil 10 · Reportes y medición 8 · Identificación 7 · Auditoría 6 · Configuración 5 · Tareas y notificaciones 5 · Novedades 4 · Operación diaria 3
+**Distribución por contexto:** Movimientos 30 · Conteos y exactitud 19 · Trazabilidad 17 · Modelado 16 · Alertas y reglas 15 · Ubicaciones 15 · Transversal 12 · Proyecto 12 · Inventario y existencia 11 · Usuarios y acceso 10 · Catálogo textil 10 · Reportes y medición 8 · Identificación 7 · Auditoría 6 · Configuración 5 · Tareas y notificaciones 5 · Novedades 4 · Operación diaria 3
 
-**Total de términos: 203.**
+**Total de términos: 205.**
 
 
 ---
@@ -1042,18 +1044,18 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Código único generado por el sistema, asociado a mercancía o a una ubicación; medio primario de interacción del operario. Es de un solo uso: nunca se repite ni se reutiliza. Estados: generado, activo, reemplazado, anulado. |
-| **Definición prohibida** | No es el código de barras del proveedor ni un dato que el usuario digite. |
+| **Definición oficial** | Código único generado por el sistema, asociado a un SKU + Lote (QR de mercancía) o a una ubicación (QR de ubicación); medio primario de interacción del operario. El de mercancía no identifica ubicación, bodega ni cantidad, y no cambia al reubicar. Es de un solo uso: nunca se repite ni se reutiliza. Estados: generado, activo, reemplazado, anulado. |
+| **Definición prohibida** | No es el código de barras del proveedor, ni un dato que el usuario digite, ni el identificador de una unidad de inventario (DF5-01). |
 | **Sinónimos prohibidos** | etiqueta (como sinónimo del código), código de barras |
 | **Contexto** | Identificación |
-| **Documento origen** | SPEC · CD-08 · DC-08 |
-| **Relaciones** | Código QR (GL-037); Identificador secundario (GL-089); Unidad de inventario (GL-193) |
+| **Documento origen** | SPEC · CD-08 · DC-08 · DF5-01 |
+| **Relaciones** | Código QR (GL-037); Identificador secundario (GL-089); Lote (GL-107); Unidad de inventario (GL-193) |
 
 ### GL-089 · Identificador secundario ★
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Código de barras u otro código externo asociado a mercancía; admitido para consulta, nunca para escritura, y asociado a lo sumo a una unidad. |
+| **Definición oficial** | Código de barras u otro código externo asociado a mercancía; admitido para consulta, nunca para escritura, y asociado a lo sumo a un QR de mercancía (un SKU + Lote). |
 | **Definición prohibida** | No reemplaza al QR como identificador principal. |
 | **Sinónimos prohibidos** | — |
 | **Contexto** | Identificación |
@@ -1119,8 +1121,8 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Existencia ya incorporada al inventario en la zona de recepción, aún no ubicada ni disponible. |
-| **Definición prohibida** | No es disponible (HD-07). |
+| **Definición oficial** | Existencia ya incorporada al inventario en la zona de recepción, aún no ubicada ni disponible; es donde queda toda entrada confirmada. |
+| **Definición prohibida** | No es disponible (DF5-02). |
 | **Sinónimos prohibidos** | — |
 | **Contexto** | Inventario y existencia |
 | **Documento origen** | SPEC · CD-16, CD-44 |
@@ -1340,7 +1342,7 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Movimiento que cambia la ubicación de existencia dentro de la misma bodega sin alterar la existencia total. |
+| **Definición oficial** | Movimiento que cambia la ubicación de existencia dentro de la misma bodega sin alterar la existencia total; incluye la primera ubicación de la mercancía en recepción. |
 | **Definición prohibida** | No es una transferencia entre ámbitos con responsables distintos. |
 | **Sinónimos prohibidos** | traslado, reubicación (como sinónimos del movimiento) |
 | **Contexto** | Movimientos |
@@ -1387,7 +1389,7 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Reporte de una anomalía física observada por un operario que el sistema no puede detectar por sí solo. Nunca se elimina: se cierra. No se imputa al reportante. |
+| **Definición oficial** | Reporte de una anomalía física observada por un operario que el sistema no puede detectar por sí solo; también la abre el Sistema al rechazar en la sincronización un registro que describe un hecho físico ya realizado. Nunca se elimina: se cierra. No se imputa al reportante. |
 | **Definición prohibida** | No es una alerta (las alertas las genera el sistema) ni una falta del operario. |
 | **Sinónimos prohibidos** | reclamo, incidente (como sinónimos) |
 | **Contexto** | Novedades |
@@ -1532,6 +1534,17 @@
 | **Documento origen** | SPEC · PN-10 |
 | **Relaciones** | Política de toma (GL-127); Solicitud de salida (GL-170) |
 
+### GL-204 · Primera ubicación
+
+| Campo | Contenido |
+|---|---|
+| **Definición oficial** | Movimiento interno que lleva existencia en recepción desde la ubicación de la zona de recepción hasta su ubicación destino, donde queda disponible; queda en el kardex como cualquier movimiento. |
+| **Definición prohibida** | No es un cambio de estado sin movimiento, ni una asignación que se registre fuera del kardex. |
+| **Sinónimos prohibidos** | asignación de ubicación (como hecho sin movimiento) |
+| **Contexto** | Movimientos |
+| **Documento origen** | DF5-03 · RN-MOV-010 · SPEC PN-03 |
+| **Relaciones** | Movimiento interno (GL-114); Inventario en recepción (GL-095); Zona de recepción (GL-203) |
+
 ### GL-131 · Prioridad de tarea
 
 | Campo | Contenido |
@@ -1634,6 +1647,17 @@
 | **Documento origen** | SPEC · PN-01 E-06 |
 | **Relaciones** | Documento de entrada (GL-060) |
 
+### GL-205 · Rechazado en sincronización
+
+| Campo | Contenido |
+|---|---|
+| **Definición oficial** | Estado final de un registro retenido sin conectividad que, al validarse de nuevo en la sincronización, ya no cumplía las reglas: no se aplicó y conserva su motivo; si describía un hecho físico, abrió una novedad. |
+| **Definición prohibida** | No es un movimiento anulado (nunca se confirmó) ni un registro perdido. |
+| **Sinónimos prohibidos** | — |
+| **Contexto** | Trazabilidad |
+| **Documento origen** | DF5-05 · RN-INT-008 |
+| **Relaciones** | Sincronización (GL-163); Pendiente de sincronización (GL-125); Novedad (GL-118) |
+
 ### GL-140 · Recibido con novedad
 
 | Campo | Contenido |
@@ -1726,7 +1750,7 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Emisión de un identificador nuevo para reemplazar uno deteriorado o ilegible, con motivo; el nuevo hereda la trazabilidad y el anterior queda reemplazado. |
+| **Definición oficial** | Emisión de un identificador nuevo para reemplazar uno deteriorado o ilegible, con motivo; el nuevo hereda la trazabilidad y el anterior queda reemplazado. ⚠️ Su efecto sobre las demás copias impresas de un mismo QR de mercancía está pendiente (HD-25). |
 | **Definición prohibida** | No reutiliza el código anterior. |
 | **Sinónimos prohibidos** | reetiquetado |
 | **Contexto** | Identificación |
@@ -1894,7 +1918,7 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Envío al sistema de los registros retenidos al restablecerse la conectividad; los confirma conservando su fecha operativa. |
+| **Definición oficial** | Envío al sistema de los registros retenidos al restablecerse la conectividad; cada uno se valida de nuevo contra el estado vigente y se confirma, conservando su fecha operativa, o se rechaza. |
 | **Definición prohibida** | No altera el orden ni el contenido del hecho. |
 | **Sinónimos prohibidos** | — |
 | **Contexto** | Trazabilidad |
@@ -2230,8 +2254,8 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | La entidad que COLBASOFT controla: la combinación SKU + Lote + Ubicación. Nivel al que se registra existencia, se ejecutan movimientos y se lleva kardex. |
-| **Definición prohibida** | No es «el inventario» completo, ni una prenda individual, ni un SKU. |
+| **Definición oficial** | La entidad que COLBASOFT controla: la combinación SKU + Lote + Ubicación. Nivel al que se registra existencia, se ejecutan movimientos y se lleva kardex. No tiene QR propio: se identifica con el QR de su SKU + Lote más su ubicación. |
+| **Definición prohibida** | No es «el inventario» completo, ni una prenda individual, ni un SKU, ni lo que identifica un QR de mercancía (DF5-01). |
 | **Sinónimos prohibidos** | inventario (como entidad, HD-01), ítem, artículo |
 | **Contexto** | Inventario y existencia |
 | **Documento origen** | SPEC · CD-07 |
@@ -2346,7 +2370,7 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Zona donde permanece la mercancía entre su llegada y su ubicación definitiva; su existencia está en el inventario pero no está disponible. Toda bodega tiene al menos una. |
+| **Definición oficial** | Zona donde permanece la mercancía entre su llegada y su ubicación definitiva; su existencia está en el inventario pero no está disponible. Toda bodega tiene al menos una, y toda zona de recepción tiene al menos una ubicación. |
 | **Definición prohibida** | No es un lugar fuera del inventario ni existencia disponible. |
 | **Sinónimos prohibidos** | muelle, andén (como sinónimos) |
 | **Contexto** | Ubicaciones |
@@ -2362,7 +2386,7 @@
 
 | | |
 |---|---|
-| **Completado** | 203 términos con los cinco campos exigidos más sinónimos prohibidos |
+| **Completado** | 205 términos con los cinco campos exigidos más sinónimos prohibidos |
 | **Riesgos** | — |
 | **Dependencias** | DOMAIN_MODEL · EVENT_CATALOG |
 | **Hallazgos** | HD-01, HD-14, HD-22 |
@@ -2384,6 +2408,7 @@
 | área (HD-01) | **Zona** | GL-199 |
 | artículo | **Referencia** | GL-142 |
 | artículo | **Unidad de inventario** | GL-193 |
+| asignación de ubicación (como hecho sin movimiento) | **Primera ubicación** | GL-204 |
 | asignación obligatoria | **Propuesta de ubicación** | GL-132 |
 | autoaprobación permitida | **Aprobación propia** | GL-016 |
 | aviso inteligente | **Alerta** | GL-012 |
@@ -2510,7 +2535,7 @@
 
 | | |
 |---|---|
-| **Completado** | 129 sinónimos prohibidos con su término oficial |
+| **Completado** | 130 sinónimos prohibidos con su término oficial |
 | **Riesgos** | — |
 | **Dependencias** | Cap. 2 |
 | **Hallazgos** | — |
@@ -2530,11 +2555,11 @@
 | **Entidades** | **26** | 13 | ✅ |
 | **Objetos de valor** | **42** | — (7 ejemplos) | ✅ |
 | **Agregados** | **21** | — | ✅ |
-| **Invariantes** | **69** (+ 14 políticas reactivas) | 40 | ✅ |
-| **Estados oficiales** | **75** en 21 máquinas (114 transiciones) | — | ✅ |
-| **Eventos** | **164** (60 derivados) | 70 | ✅ |
-| **Términos del glosario** | **203** (54 centrales; 129 sinónimos prohibidos indexados) | 120 | ✅ |
-| Hallazgos del dominio | 22 | — | — |
+| **Invariantes** | **72** (+ 14 políticas reactivas) | 40 | ✅ |
+| **Estados oficiales** | **76** en 21 máquinas (117 transiciones) | — | ✅ |
+| **Eventos** | **165** (61 derivados) | 70 | ✅ |
+| **Términos del glosario** | **205** (54 centrales; 130 sinónimos prohibidos indexados) | 120 | ✅ |
+| Hallazgos del dominio | 27 | — | — |
 | Líneas temporales | 14 procesos | 14 | ✅ |
 | Matrices | A, B, C (DOMAIN_MODEL Cap. 9) · D, E (EVENT_CATALOG Cap. 6) | 5 | ✅ |
 
@@ -2546,11 +2571,11 @@
 | V-2 | Toda entidad citada por un evento, relación o agregado existe | ✅ |
 | V-3 | Todo evento citado en estados y líneas temporales existe | ✅ |
 | V-4 | Toda invariante citada por un agregado existe | ✅ |
-| V-5 | Las 82 reglas del SRS quedan cubiertas como invariante o política | ✅ 68 + 14 = 82/82 |
+| V-5 | Las 85 reglas del SRS (82 + 3 de la v1.1) quedan cubiertas como invariante o política | ✅ 71 + 14 = 85/85 |
 | V-6 | Los 24 KPI aparecen en al menos un evento | ✅ 24/24 |
 | V-7 | Historias con evento | 🟡 94/103 (el resto son de consulta) |
 | V-8 | RF con evento | 🟡 138/162 (el resto son de consulta, restricción o presentación) |
-| V-9 | Toda invariante cita al menos una regla del SRS | ✅ 69/69 |
+| V-9 | Toda invariante cita al menos una regla del SRS | ✅ 72/72 |
 | V-10 | Las definiciones del lenguaje ubicuo y del glosario son idénticas | ✅ (misma fuente) |
 | V-11 | Ninguna relación del glosario apunta a un término inexistente | ✅ |
 | V-12 | Ningún término nombra a la empresa de estudio (DC-01) ni introduce IA (DC-07) | ✅ |
@@ -2561,21 +2586,22 @@
 
 | ID | Riesgo | Origen | Sev. | Consecuencia si no se atiende |
 |---|---|---|:--:|---|
-| **RF5-01** | Identidad de la mercancía identificada por QR sin decidir: ¿SKU + Lote o unidad de inventario? | HD-04 | 🔴 | Define la identidad de AG-05 y AG-07 y el comportamiento al reubicar |
-| **RF5-02** | Operaciones que deben ser indivisibles sobre dos unidades (movimiento interno, transferencia, confirmación de entrada) | Cap. 5.3 · RN-MOV-004 | 🔴 | Si se confirma solo una mitad, la existencia total cambia |
+| **RF5-01** | Identidad de la mercancía identificada por QR — **resuelto por DF5-01** (el QR identifica SKU + Lote) | HD-04 | ✅ | Ya no condiciona la Fase 5; queda el tratamiento de copias impresas (RF5-14) |
+| **RF5-02** | Operaciones que deben ser indivisibles sobre dos unidades (movimiento interno, primera ubicación, transferencia, confirmación de entrada) | Cap. 5.3 · RN-MOV-004 · RN-MOV-010 | 🔴 | Si se confirma solo una mitad, la existencia total cambia |
 | **RF5-03** | Concurrencia sobre la disponibilidad de una misma unidad | IN-08, IN-10, IN-11 | 🔴 | Dos operaciones simultáneas podrían comprometer la misma existencia |
 | **RF5-04** | Existencia derivada del kardex frente a tiempos de consulta | IN-03 · RNF-REN-001 · RNF-ESC-004 | 🟠 | Derivar en cada consulta puede degradar el rendimiento al crecer el kardex |
-| **RF5-05** | Registros sin conectividad que al sincronizarse ya no cumplen una regla | HD-16 · RN-INT-003 | 🟠 | La existencia pudo consumirse mientras el registro esperaba |
+| **RF5-05** | Registros sin conectividad que al sincronizarse ya no cumplen una regla — la regla ya está definida (DF5-05, RN-INT-008, IN-72); falta garantizarla técnicamente | HD-16 · HD-24 · RN-INT-003 · RN-INT-008 | 🟠 | Sin la revalidación, la sincronización podría dejar existencia negativa o duplicados |
 | **RF5-06** | Capacidad y ocupación con unidades de medida heterogéneas | HD-17 | 🟠 | KPI-18 y la alerta de sobreocupación no son calculables |
 | **RF5-07** | Inmutabilidad y continuidad demostrables de kardex y bitácora | IN-02, IN-63 · RNF-AUD-002 | 🟠 | El jurado y el Auditor deben poder comprobarlas |
 | **RF5-08** | Decisiones del Director abiertas que cambian el modelo | DEC-01, DEC-04, DEC-05, DEC-07, DEC-09 · HD-21 | 🟠 | Entidades y eventos ⚠️ pueden cambiar o desaparecer |
 | **RF5-09** | Escalas no definidas de severidad y prioridad | HD-15 | 🟡 | Ordenamiento de alertas y tareas indefinido |
-| **RF5-10** | Ubicación de la existencia en tránsito y ubicaciones de la zona de recepción | HD-05, HD-06, HD-07 | 🟠 | Condiciona la definición de unidad de inventario |
+| **RF5-10** | Ubicación de la existencia en tránsito (HD-05); la zona de recepción y el estado inicial quedaron resueltos por DF5-02 | HD-05 | 🟡 | Cómo se representa la porción en tránsito respecto de su unidad origen |
 | **RF5-11** | Carga del Administrador por ajustes derivados de conteo | HD-08 · RG-18 | 🟡 | Cuello de botella de aprobaciones |
 | **RF5-12** | Eventos sin requisito que los implemente | EVENT_CATALOG Cap. 6 | 🟠 | Comportamientos del dominio sin criterio de aceptación |
 | **RF5-13** | Crecimiento ilimitado de kardex, bitácora e historiales (sin purga) | RNF-AUD-004 · RNF-ESC-004 | 🟡 | Volumen a tres años sin estimación |
+| **RF5-14** | Qué identifica físicamente cada etiqueta de mercancía: copias de un QR de lote, etiqueta física única o paquete (HD-25) | HD-25 · RN-IDE-004 · RN-SAL-004 | 🔴 | Sin decidirlo no se sabe si un escaneo equivale a una cantidad, cómo se reimprime sin invalidar otras etiquetas ni si cambia la identidad de la mercancía |
 
-**Precondiciones recomendadas antes de iniciar la Fase 5:** resolver HD-04 (identidad del QR), HD-07 (estado de la entrada confirmada) y HD-17 (capacidad con unidades heterogéneas), y obtener respuesta a DEC-01, DEC-04 y DEC-05. Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
+**Estado frente a la Fase 5 (v1.1).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05). **HD-25** (qué identifica físicamente cada etiqueta) requiere una decisión antes de la Fase 5. HD-17, HD-26 y HD-27 requieren información de la operación real y DEC-01…DEC-09 siguen abiertas, sin bloquear la arquitectura (ver `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
 
 ---
 
@@ -2584,11 +2610,11 @@
 | | |
 |---|---|
 | **Completado** | DOMAIN_MODEL (11 capítulos), EVENT_CATALOG (6 capítulos), GLOSSARY (3 capítulos + auditoría interna) |
-| **Riesgos** | 13 riesgos para la Fase 5 (3 críticos) · R-S01 heredado |
-| **Dependencias** | Decisiones del Director DEC-01…DEC-09 y hallazgos HD-01…HD-22 |
-| **Hallazgos** | 22 hallazgos del dominio (DOMAIN_MODEL Cap. 10) |
+| **Riesgos** | 14 riesgos para la Fase 5 (3 críticos abiertos; RF5-01 resuelto) · R-S01 heredado |
+| **Dependencias** | Decisiones del Director DEC-01…DEC-09 y hallazgos pendientes (DOMAIN_MODEL Cap. 10) |
+| **Hallazgos** | 27 hallazgos del dominio (DOMAIN_MODEL Cap. 10) |
 
 
 ---
 
-*Fin de GLOSSARY v1.0. La monografía original permanece sin modificaciones.*
+*Fin de GLOSSARY v1.1. La monografía original permanece sin modificaciones.*

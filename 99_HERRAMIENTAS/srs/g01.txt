@@ -483,10 +483,10 @@ Escenario: C4 - La propuesta es una sugerencia que el Coordinador puede reasigna
   Entonces el sistema permite reasignarla porque la propuesta no es una imposición
 
 === HU-025 | Generar e imprimir códigos QR para la mercancía
-Escenario: C1 - Un identificador único por unidad de inventario
-  Dado una unidad de inventario sin identificador
+Escenario: C1 - Un identificador único por SKU + Lote
+  Dado un SKU + Lote sin identificador
   Cuando el Coordinador genera su código QR
-  Entonces el sistema le asigna un identificador único
+  Entonces el sistema le asigna un identificador único, que no depende de la ubicación
 Escenario: C2 - Impresión individual y por lote de impresión
   Dado varios identificadores generados
   Cuando el Coordinador imprime
@@ -509,10 +509,10 @@ Escenario: C1 - El escaneo se hace desde la tablet
   Dado un Auxiliar con la tablet en su punto de trabajo
   Cuando escanea una etiqueta con la cámara de la tablet
   Entonces el sistema recibe el código escaneado
-Escenario: C2 - El sistema resuelve el identificador y muestra la unidad
+Escenario: C2 - El sistema resuelve el identificador y muestra el SKU + Lote
   Dado un identificador reconocido
   Cuando se escanea
-  Entonces el sistema muestra la unidad de inventario correspondiente
+  Entonces el sistema muestra el SKU + Lote y las ubicaciones donde tiene existencia
 Escenario: C3 - Identificador no reconocido ofrece reportar novedad
   Dado un identificador que no existe en el sistema
   Cuando se escanea
@@ -557,8 +557,8 @@ Escenario: C3 - El anterior queda como reemplazado, no eliminado
   Dado una reimpresión completada
   Cuando se consulta el identificador anterior
   Entonces figura como reemplazado y no ha sido eliminado
-Escenario: C4 - El historial de identificadores de la unidad es consultable
-  Dado una unidad con identificadores reemplazados
+Escenario: C4 - El historial de identificadores del SKU + Lote es consultable
+  Dado un SKU + Lote con identificadores reemplazados
   Cuando se consulta su historial de identificadores
   Entonces se muestran todos los identificadores que ha tenido
 Escenario: C5 - La reimpresión queda en bitácora
@@ -568,18 +568,18 @@ Escenario: C5 - La reimpresión queda en bitácora
 
 === HU-029 | Asociar el código de barras del proveedor como identificador secundario
 Escenario: C1 - El código de barras se asocia como identificador secundario
-  Dado una unidad de inventario y un código de barras del proveedor
+  Dado un identificador QR de SKU + Lote y un código de barras del proveedor
   Cuando el Coordinador los asocia
-  Entonces el código de barras queda como identificador secundario de la unidad
-Escenario: C2 - Su lectura permite consultar la unidad
-  Dado un código de barras asociado a una unidad
+  Entonces el código de barras queda como identificador secundario de ese SKU + Lote
+Escenario: C2 - Su lectura permite consultar el SKU + Lote
+  Dado un código de barras asociado a un SKU + Lote
   Cuando se lee en el sistema
-  Entonces el sistema muestra la unidad para consulta
+  Entonces el sistema muestra el SKU + Lote para consulta
 Escenario: C3 - No permite por sí solo operaciones de escritura
   Dado una operación de escritura iniciada solo con el código de barras
   Cuando el usuario intenta confirmarla
   Entonces el sistema la rechaza porque la escritura exige el identificador QR
-Escenario: C4 - Un código de barras no se asocia a dos unidades
-  Dado un código de barras asociado a una unidad
-  Cuando se intenta asociarlo a otra unidad distinta
+Escenario: C4 - Un código de barras no se asocia a dos identificadores QR
+  Dado un código de barras asociado al identificador QR de un SKU + Lote
+  Cuando se intenta asociarlo al identificador QR de otro SKU + Lote
   Entonces el sistema lo rechaza

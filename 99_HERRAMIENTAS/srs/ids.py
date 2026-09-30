@@ -50,14 +50,14 @@ for r in D["rnf"]:
     RNF_NEW[r["id"]] = f"RNF-{c}-{cnt[c]:03d}"
 
 RN_DOM = {
- "INT": ("Integridad y atribución del registro", ["RN-001","RN-012","RN-054","RN-065","RN-066","RN-067","RN-068"]),
- "EXI": ("Existencia, disponibilidad y estados", ["RN-009","RN-019","RN-025","RN-031","RN-032","RN-036"]),
+ "INT": ("Integridad y atribución del registro", ["RN-001","RN-012","RN-054","RN-065","RN-066","RN-067","RN-068","RN-083*"]),
+ "EXI": ("Existencia, disponibilidad y estados", ["RN-009","RN-019","RN-025","RN-031","RN-032","RN-036","RN-081*"]),
  "MAE": ("Maestros, unicidad y eliminación lógica", ["RN-002","RN-004","RN-010","RN-011","RN-013","RN-014","RN-063","RN-076*","RN-077*"]),
  "IDE": ("Identificación por QR", ["RN-015","RN-016","RN-017","RN-018"]),
  "LOT": ("Lotes", ["RN-071*","RN-072*","RN-036b*","RN-073*","RN-074*"]),
  "ENT": ("Entradas y recepción", ["RN-002b*","RN-003","RN-005","RN-006","RN-007","RN-008","RN-057b*"]),
  "SAL": ("Salidas", ["RN-030","RN-048","RN-049","RN-050","RN-051","RN-052","RN-053"]),
- "MOV": ("Movimientos, ubicación y transferencias", ["RN-020","RN-021","RN-022","RN-026","RN-027","RN-028","RN-033","RN-034","RN-035"]),
+ "MOV": ("Movimientos, ubicación y transferencias", ["RN-020","RN-021","RN-022","RN-026","RN-027","RN-028","RN-033","RN-034","RN-035","RN-082*"]),
  "AJU": ("Ajustes y aprobaciones", ["RN-023","RN-024","RN-029","RN-037","RN-038","RN-062","RN-070*"]),
  "CNT": ("Conteos", ["RN-039","RN-040","RN-041","RN-042","RN-044","RN-045","RN-046","RN-047"]),
  "NOV": ("Novedades y mercancía sin registro", ["RN-043","RN-059","RN-060"]),

@@ -699,11 +699,11 @@
    "tags": "`[DC-08]`",
    "mod": "M-06",
    "story": "**COMO** Coordinador de Bodega **QUIERO** generar e imprimir un código QR para la mercancía que ingresa **PARA** que después se pueda escanear en lugar de escribir a mano.",
-   "crit_raw": "*Criterios:* (1) El sistema genera un identificador único por unidad de inventario `[RN-016]`. (2) Permite impresión individual y por lote de impresión. (3) El identificador impreso incluye información legible de respaldo: referencia, talla, color y lote. (4) El identificador queda en estado activo. (5) **Ningún identificador se repite jamás, ni tras su anulación** `[RN-016]`.",
+   "crit_raw": "*Criterios:* (1) El sistema genera un identificador único por SKU + Lote `[RN-016]` `[DF5-01]`. (2) Permite impresión individual y por lote de impresión. (3) El identificador impreso incluye información legible de respaldo: referencia, talla, color y lote. (4) El identificador queda en estado activo. (5) **Ningún identificador se repite jamás, ni tras su anulación** `[RN-016]`.",
    "crit": [
     [
      1,
-     "El sistema genera un identificador único por unidad de inventario `[RN-016]`."
+     "El sistema genera un identificador único por SKU + Lote `[RN-016]` `[DF5-01]`."
     ],
     [
      2,
@@ -730,7 +730,7 @@
    "tags": "`[DC-08]` `[MON §7.2]`",
    "mod": "M-06",
    "story": "**COMO** Auxiliar de Bodega **QUIERO** escanear el código QR en lugar de escribir códigos **PARA** no equivocarme y terminar más rápido.",
-   "crit_raw": "*Criterios:* (1) El escaneo se hace desde la tablet `[DC-05]`. (2) El sistema resuelve el identificador y muestra la unidad de inventario correspondiente. (3) Si el identificador no se reconoce, lo informa y ofrece reportar novedad. (4) Si el identificador está anulado, lo informa y rechaza la operación. (5) El tiempo entre escaneo y respuesta cumple RNF-014.",
+   "crit_raw": "*Criterios:* (1) El escaneo se hace desde la tablet `[DC-05]`. (2) El sistema resuelve el identificador y muestra el SKU + Lote y las ubicaciones donde tiene existencia `[DF5-01]`. (3) Si el identificador no se reconoce, lo informa y ofrece reportar novedad. (4) Si el identificador está anulado, lo informa y rechaza la operación. (5) El tiempo entre escaneo y respuesta cumple RNF-014.",
    "crit": [
     [
      1,
@@ -738,7 +738,7 @@
     ],
     [
      2,
-     "El sistema resuelve el identificador y muestra la unidad de inventario correspondiente."
+     "El sistema resuelve el identificador y muestra el SKU + Lote y las ubicaciones donde tiene existencia `[DF5-01]`."
     ],
     [
      3,
@@ -788,7 +788,7 @@
    "tags": "`[RN-018]`",
    "mod": "M-06",
    "story": "**COMO** Auxiliar de Bodega **QUIERO** solicitar la reimpresión de una etiqueta deteriorada **PARA** poder seguir trabajando sin perder la trazabilidad de esa mercancía.",
-   "crit_raw": "*Criterios:* (1) La reimpresión exige motivo. (2) **El identificador nuevo hereda toda la trazabilidad del anterior** `[RN-018]`. (3) El anterior queda marcado como reemplazado, no eliminado. (4) El historial de identificadores de la unidad es consultable. (5) La reimpresión queda en la bitácora.",
+   "crit_raw": "*Criterios:* (1) La reimpresión exige motivo. (2) **El identificador nuevo hereda toda la trazabilidad del anterior** `[RN-018]`. (3) El anterior queda marcado como reemplazado, no eliminado. (4) El historial de identificadores del SKU + Lote es consultable. (5) La reimpresión queda en la bitácora.",
    "crit": [
     [
      1,
@@ -804,7 +804,7 @@
     ],
     [
      4,
-     "El historial de identificadores de la unidad es consultable."
+     "El historial de identificadores del SKU + Lote es consultable."
     ],
     [
      5,
@@ -818,8 +818,8 @@
    "actor": "Coordinador",
    "tags": "`[DC-08]` `[RN-017]`",
    "mod": "M-06",
-   "story": "**COMO** Coordinador de Bodega **QUIERO** asociar el código de barras del proveedor a nuestra unidad de inventario **PARA** aprovechar la etiqueta que ya viene, sin dejar de usar el QR como identificador principal.",
-   "crit_raw": "*Criterios:* (1) El código de barras se asocia como identificador secundario. (2) Su lectura permite **consultar** la unidad. (3) `[RN-017]` **No permite por sí solo ejecutar operaciones de escritura**: estas exigen el QR. (4) Un mismo código de barras no puede asociarse a dos unidades distintas.",
+   "story": "**COMO** Coordinador de Bodega **QUIERO** asociar el código de barras del proveedor a nuestro identificador QR de SKU + Lote **PARA** aprovechar la etiqueta que ya viene, sin dejar de usar el QR como identificador principal.",
+   "crit_raw": "*Criterios:* (1) El código de barras se asocia como identificador secundario. (2) Su lectura permite **consultar** el SKU + Lote. (3) `[RN-017]` **No permite por sí solo ejecutar operaciones de escritura**: estas exigen el QR. (4) Un mismo código de barras no puede asociarse a dos identificadores QR distintos `[DF5-01]`.",
    "crit": [
     [
      1,
@@ -827,7 +827,7 @@
     ],
     [
      2,
-     "Su lectura permite **consultar** la unidad."
+     "Su lectura permite **consultar** el SKU + Lote."
     ],
     [
      3,
@@ -835,7 +835,7 @@
     ],
     [
      4,
-     "Un mismo código de barras no puede asociarse a dos unidades distintas."
+     "Un mismo código de barras no puede asociarse a dos identificadores QR distintos `[DF5-01]`."
     ]
    ]
   },
@@ -3336,11 +3336,11 @@
   },
   {
    "id": "RF-040",
-   "text": "El sistema debe generar un identificador QR único por unidad de inventario",
+   "text": "El sistema debe generar un identificador QR único por SKU + Lote (no por ubicación)",
    "prio": "P0",
    "actor": "Coordinador",
    "dep": "M-07",
-   "origin": "`[DC-08]`",
+   "origin": "`[DC-08]` `[DF5-01]`",
    "mod": "M-06"
   },
   {
@@ -3354,11 +3354,11 @@
   },
   {
    "id": "RF-042",
-   "text": "El sistema debe permitir el escaneo de identificadores desde tablet y resolverlos a su unidad de inventario",
+   "text": "El sistema debe permitir el escaneo de identificadores desde tablet y resolverlos a su SKU + Lote y, junto con la ubicación, a la unidad de inventario",
    "prio": "P0",
    "actor": "Auxiliar",
    "dep": "`[DC-05]`",
-   "origin": "`[DC-08]`",
+   "origin": "`[DC-08]` `[DF5-01]`",
    "mod": "M-06"
   },
   {
@@ -4860,9 +4860,9 @@
   },
   {
    "id": "RN-017",
-   "text": "Un mismo identificador secundario de código de barras no puede asociarse a dos unidades de inventario distintas.",
+   "text": "Un mismo identificador secundario de código de barras no puede asociarse a dos identificadores QR de mercancía distintos (es decir, a dos SKU + Lote distintos).",
    "tipo": "Estructural",
-   "origin": "`[DC-08]`",
+   "origin": "`[DC-08]` `[DF5-01]`",
    "sec": "Reglas de duplicados y unicidad"
   },
   {
@@ -5238,9 +5238,9 @@
   },
   {
    "id": "RN-015",
-   "text": "**Toda unidad de inventario debe tener un identificador activo.** No existe existencia sin identificador.",
+   "text": "**Toda unidad de inventario debe tener un identificador activo.** No existe existencia sin identificador. El identificador de mercancía es el QR de su **SKU + Lote**; la unidad de inventario se determina con ese QR más su ubicación, obtenida por escaneo del QR de ubicación o por selección registrada. Si el SKU + Lote está en más de una ubicación y no se indica cuál, la operación no se registra.",
    "tipo": "Estructural",
-   "origin": "`[DC-08]`",
+   "origin": "`[DC-08]` `[DF5-01]`",
    "sec": "Reglas de recepción y salida"
   },
   {
@@ -5361,6 +5361,27 @@
    "tipo": "Estructural",
    "origin": "`[RN-065]`",
    "sec": "Reglas de auditoría"
+  },
+  {
+   "id": "RN-081*",
+   "text": "**La existencia que ingresa por una entrada confirmada queda en recepción**, en una ubicación de una zona de recepción de la bodega: ya está en el inventario pero **no está disponible**, por lo que no se reserva, no sale ni se transfiere hasta ubicarse. Toda zona de recepción tiene al menos una ubicación. Se exceptúa la cantidad dañada, que ingresa inmovilizada en cuarentena (RN-008).",
+   "tipo": "Estructural",
+   "origin": "`[DF5-02]` `[CD-16]` `[CD-44]`",
+   "sec": "Reglas incorporadas en la versión 1.1 (cierre del CP-04)"
+  },
+  {
+   "id": "RN-082*",
+   "text": "**La primera ubicación de la existencia en recepción es un movimiento interno** desde la ubicación de recepción hacia la ubicación destino, y queda en el kardex con qué, cuánto, origen, destino, quién, cuándo y el documento de entrada que la origina. Cumple las reglas del movimiento interno (RN-021, RN-026, RN-027): la existencia total no cambia y el descuento en origen y el incremento en destino son indivisibles. Al confirmarse, la cantidad movida queda **disponible** en el destino, salvo que el destino pertenezca a una zona de recepción, donde sigue en recepción.",
+   "tipo": "Estructural",
+   "origin": "`[DF5-03]` `[PN-03]` `[RN-026]`",
+   "sec": "Reglas incorporadas en la versión 1.1 (cierre del CP-04)"
+  },
+  {
+   "id": "RN-083*",
+   "text": "**Un registro retenido sin conectividad no se aplica sin validarse de nuevo.** Al sincronizarse se valida contra el estado vigente y contra todas las reglas aplicables. Si las cumple, se confirma conservando la fecha y hora en que ocurrió el hecho; si no, **no se aplica**: se rechaza dejando constancia del registro original, de su autor, del motivo del rechazo y del instante. Cuando el registro rechazado describe un hecho físico ya realizado (mercancía recibida o trasladada), se abre una novedad para su resolución. Cada registro retenido se confirma o se rechaza una sola vez: la sincronización nunca produce existencia negativa, movimientos inválidos, estados imposibles, duplicados ni pérdida de trazabilidad.",
+   "tipo": "Estructural",
+   "origin": "`[DF5-05]` `[RN-054]`",
+   "sec": "Reglas incorporadas en la versión 1.1 (cierre del CP-04)"
   }
  ],
  "kpi": [
@@ -5612,72 +5633,72 @@
   {
    "id": "PN-01",
    "name": "Recepción de mercancía",
-   "line": 675
+   "line": 690
   },
   {
    "id": "PN-02",
    "name": "Registro inicial e identificación",
-   "line": 714
+   "line": 729
   },
   {
    "id": "PN-03",
    "name": "Ubicación física de mercancía",
-   "line": 746
+   "line": 761
   },
   {
    "id": "PN-04",
    "name": "Consulta de existencia y ubicación",
-   "line": 780
+   "line": 795
   },
   {
    "id": "PN-05",
    "name": "Movimiento interno (reubicación)",
-   "line": 809
+   "line": 824
   },
   {
    "id": "PN-06",
    "name": "Transferencia entre zonas o bodegas",
-   "line": 844
+   "line": 859
   },
   {
    "id": "PN-07",
    "name": "Ajuste de inventario",
-   "line": 881
+   "line": 896
   },
   {
    "id": "PN-08",
    "name": "Conteo cíclico",
-   "line": 923
+   "line": 938
   },
   {
    "id": "PN-09",
    "name": "Conteo general",
-   "line": 966
+   "line": 981
   },
   {
    "id": "PN-10",
    "name": "Salida de mercancía",
-   "line": 1006
+   "line": 1021
   },
   {
    "id": "PN-11",
    "name": "Gestión de alerta operativa",
-   "line": 1046
+   "line": 1061
   },
   {
    "id": "PN-12",
    "name": "Reporte de novedad de mercancía",
-   "line": 1094
+   "line": 1109
   },
   {
    "id": "PN-13",
    "name": "Auditoría de inventario",
-   "line": 1131
+   "line": 1146
   },
   {
    "id": "PN-14",
    "name": "Cierre operativo de jornada",
-   "line": 1167
+   "line": 1182
   }
  ],
  "cd": [

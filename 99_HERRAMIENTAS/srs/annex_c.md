@@ -96,13 +96,25 @@ Los hallazgos H-01…H-18 se describen con su evidencia en el §0.5-b. Su estado
 | H-17 | Abierto | DEC-02 |
 | H-18 | Abierto | DEC-09 |
 
+## C.9 Decisiones del cierre del CP-04 (versión 1.1)
+
+> Tomadas el 29 de septiembre de 2026 y registradas en `04_CP04_AUDITORIA/04_CP04_CIERRE.md`. No responden ninguna DEC-nn: resuelven los bloqueos de dominio que la auditoría del CP-04 encontró antes de la Fase 5.
+
+| ID | Decisión | Reglas afectadas en este SRS | Relación con este anexo |
+|---|---|---|---|
+| **DF5-01** | El QR de mercancía identifica **SKU + Lote**; no identifica ubicación, bodega ni cantidad. La unidad de inventario sigue siendo SKU + Lote + Ubicación | Texto de @RN015 y @RN017 | — |
+| **DF5-02** | La entrada confirmada queda **en recepción**; pasa a disponible al ubicarse | Nueva @RN081 | — |
+| **DF5-03** | La primera ubicación es un **movimiento interno** en el kardex | Nueva @RN082 | Relacionada con PROP-RN-01 (la desviación de ubicación sigue sin RF propio) |
+| **DF5-05** | Un registro retenido sin conectividad se **valida de nuevo** al sincronizar; si ya no es válido, se rechaza con constancia y, si describe un hecho físico, abre una novedad | Nueva @RN083 | — |
+| **DF5-06** (revisada) | SPEC, SRS y Modelo de Dominio v1.1 **validados técnicamente**; la aprobación funcional y académica queda pendiente | — | **DEC-01…DEC-09 siguen abiertas** y se analizan una por una en `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`. H-15 (DEC-08) sigue abierto |
+
 ---
 
 **ESTADO DEL ANEXO C**
 
 | | |
 |---|---|
-| **Completado** | 9 decisiones · 6 + 6 + 3 propuestas de cierre de brechas · 10 riesgos de fase · riesgos críticos heredados |
+| **Completado** | 9 decisiones · 5 decisiones del cierre del CP-04 (C.9) · 6 + 6 + 3 propuestas de cierre de brechas · 10 riesgos de fase · riesgos críticos heredados |
 | **Pendiente** | Respuesta del Director a DEC-01…DEC-09 |
 | **Riesgos encontrados** | R-S01 (crítico) y los 9 restantes |
 | **Dependencias** | Cap. 12 depende de DEC-01 y DEC-05 |

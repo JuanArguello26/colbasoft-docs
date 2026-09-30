@@ -13,7 +13,7 @@ ROOT = _pl.Path(__file__).resolve().parents[2]
 HERE_DIR = _pl.Path(__file__).resolve().parent
 # Uso: python build_srs.py [carpeta_de_salida]  (por defecto, 02_SRS_FASE_3 del proyecto)
 OUT_DIR = sys.argv[1] if len(sys.argv) > 1 else str(ROOT / "02_SRS_FASE_3")
-OUT = os.path.join(OUT_DIR, "SRS_COLBASOFT_v1.0.md")
+OUT = os.path.join(OUT_DIR, "SRS_COLBASOFT_v1.1.md")
 
 # ============================================================ conversión de IDs
 def rnn(legacy_tok):
@@ -438,6 +438,8 @@ def cap8():
 
 > **Hallazgo H-01 — cifra real.** El SPEC declara «68 reglas» y su §9.14 «68 = 51 estructurales + 17 configurables», pero las tablas §9.2–§9.12 contienen **82 reglas distintas: 60 estructurales + 22 configurables** (la propia suma de la tabla §9.14 da 82). Este SRS conserva **las 82**; ninguna se perdió. Los dos marcadores sin contenido `RN-069*` («reservado») y `RN-026b*` («ver nota de numeración») **no son reglas** y no reciben ID permanente (H-09).
 
+> **Versión 1.1 — cierre del CP-04.** Se incorporan **3 reglas estructurales nuevas**, separadas de las 82: RN-EXI-007 (la entrada confirmada queda en recepción, DF5-02), RN-MOV-010 (la primera ubicación es un movimiento interno, DF5-03) y RN-INT-008 (revalidación al sincronizar, DF5-05); vienen de SPEC v1.1 §9.15. Además cambia el texto de **RN-IDE-001** y **RN-IDE-003** por DF5-01 (el QR de mercancía identifica SKU + Lote). Total del SRS v1.1: **85 reglas**. La discrepancia 68/82 del SPEC sigue abierta (H-01, DEC-03).
+
 ## 8.1 Distribución por dominio
 
 """]
@@ -468,7 +470,7 @@ def cap8():
             hus = ", ".join(HU_NEW[x] for x in sorted(rn_hu.get(k, []))) or "**sin HU** (H-11)"
             o.append(f"| **{RN_NEW[k]}**<br>*({leg}{star})* | {L(r['text'])} | {r['tipo']} | {core} | {L(r['origin'])} | {rfs} | {hus} |")
     o.append("""
-\\* Las reglas con asterisco en el SPEC (`RN-002b`, `RN-036b`, `RN-057b`, `RN-070` a `RN-080`) se incorporaron durante la consolidación del Cap. 9 del SPEC (§9.13); su contenido se conserva íntegro y ya no requieren el asterisco.
+\\* Las reglas con asterisco en el SPEC (`RN-002b`, `RN-036b`, `RN-057b`, `RN-070` a `RN-080`) se incorporaron durante la consolidación del Cap. 9 del SPEC (§9.13); `RN-081` a `RN-083` se incorporaron en la v1.1 del SPEC (§9.15, cierre del CP-04); su contenido se conserva íntegro y ya no requieren el asterisco.
 
 ---
 
@@ -476,7 +478,7 @@ def cap8():
 
 | | |
 |---|---|
-| **Completado** | 82 reglas en 13 dominios con ID `RN-<DOM>-nnn`, tipo, origen, RF e HU relacionados |
+| **Completado** | 85 reglas en 13 dominios (82 del SPEC v1.0 + 3 de la v1.1) con ID `RN-<DOM>-nnn`, tipo, origen, RF e HU relacionados |
 | **Pendiente** | Confirmar la cifra de 82 y la renumeración canónica (DEC-03) · ambigüedad estructural/configurable (DEC-04) · 6 reglas sin RF (Anexo C, PROP-RN) |
 | **Riesgos encontrados** | H-01, H-06, H-09, H-11 · R-S06, R-S08 |
 | **Dependencias** | Cap. 6 (RF), Cap. 5 (HU), Cap. 12 (CA-06 y CA-07) |
@@ -485,7 +487,7 @@ def cap8():
 
 # ============================================================ CAPÍTULO 9 — trazabilidad
 def pn_rules():
-    lines = open(str(ROOT / "01_SPEC_FASE_2" / "COLBASOFT_SPEC_v1.0.md"), encoding="utf8").read().split("\n")
+    lines = open(str(ROOT / "01_SPEC_FASE_2" / "COLBASOFT_SPEC_v1.1.md"), encoding="utf8").read().split("\n")
     starts = [(i, m.group(1)) for i, ln in enumerate(lines) for m in [re.match(r"^## (PN-\d\d) — ", ln)] if m and i > 600]
     res = {}
     for j, (i, pid) in enumerate(starts):
@@ -562,7 +564,7 @@ Concepto del SPEC (CD-nn / PR-nn / DC-nn) ──► Historia de usuario (HU-<DOM
     pn_of = {}
     for pid, ks in PN_RN.items():
         for k in ks: pn_of.setdefault(k, []).append(pid)
-    o.append("\n## 9.5 Cobertura por regla de negocio (82)\n")
+    o.append("\n## 9.5 Cobertura por regla de negocio (85)\n")
     o.append("| Regla | Tipo | Proceso(s) | Caso(s) de uso | Historia(s) | RF |")
     o.append("|---|:--:|---|---|---|---|")
     for dom, (nm, lst) in RN_DOM.items():
@@ -670,7 +672,7 @@ def annex_a():
         cells = [f"{r['id']} | {RNF_NEW[r['id']]}" for r in ns[i:i + 4]]
         while len(cells) < 4: cells.append(" | ")
         o.append("| " + " | | ".join(cells) + " |")
-    o.append("\n## A.4 Reglas de negocio (82)\n")
+    o.append("\n## A.4 Reglas de negocio (85)\n")
     o.append("| SPEC | SRS | Tipo | | SPEC | SRS | Tipo | | SPEC | SRS | Tipo |")
     o.append("|---|---|:--:|---|---|---|:--:|---|---|---|:--:|")
     keys = [k for dom, (nm, lst) in RN_DOM.items() for k in lst]
@@ -719,7 +721,7 @@ def annex_b(doc_text_wo_annex=None):
     o.append(f"| Criterios de aceptación → escenarios Gherkin | — | {n_crit} | **{n_scn}** | **No** (1:1) |")
     o.append(f"| **Requisitos funcionales** | 162 | 162 | **{len(RF_NEW)}** (Must {rc['P0']} · Should {rc['P1']} · Could {rc['P2']} · Won't {rc['P3']}) | **No** |")
     o.append(f"| **Requisitos no funcionales** | 47 | 47 | **{len(RNF_NEW)}** ({', '.join(f'{RNF_CAT[c]} {rnf_cat[c]}' for c in CAT_ORDER)}) | **No** |")
-    o.append(f"| **Reglas de negocio** | **68** | **82** | **{len(RN_NEW)}** ({nrn_e} estructurales · {nrn_c} configurables) | **No** — discrepancia del SPEC (H-01) |")
+    o.append(f"| **Reglas de negocio** | **68** (v1.0) | **82** (v1.0) + **3** (v1.1) | **{len(RN_NEW)}** ({nrn_e} estructurales · {nrn_c} configurables) | **No** — discrepancia del SPEC (H-01) |")
     o.append(f"| **KPI** | 24 | 24 | **{len(D['kpi'])}** | **No** |")
     o.append("| **Casos de uso** | — | — | **24** (14 procesos PN + 10 de módulos) | — |")
     o.append("| Procesos de negocio (PN) | 14 | 14 | 14 (14 con caso de uso; 13 con requisitos, PN-14 sin ellos) | **No** |")
@@ -735,13 +737,13 @@ def annex_b(doc_text_wo_annex=None):
 | V-2 | Todos los criterios de aceptación tienen un escenario Gherkin | ✅ {n_scn}/{n_crit} |
 | V-3 | Todos los RF del SPEC (162) están en el SRS | ✅ {len(RF_NEW)}/162 |
 | V-4 | Todos los RNF del SPEC (47) están en el SRS | ✅ {len(RNF_NEW)}/47 |
-| V-5 | Todas las reglas con contenido (82) están en el SRS; los 2 marcadores vacíos quedan documentados | ✅ {len(RN_NEW)}/82 |
+| V-5 | Todas las reglas con contenido (85: 82 de la v1.0 + 3 de la v1.1) están en el SRS; los 2 marcadores vacíos quedan documentados | ✅ {len(RN_NEW)}/85 |
 | V-6 | Todos los KPI (24) están en el SRS con su fórmula | ✅ {len(D['kpi'])}/24 |
 | V-7 | Los IDs permanentes son únicos | {'✅' if uniq else '❌'} {len(allids)} IDs |
 | V-8 | Toda HU tiene al menos un RF | ✅ {sum(1 for h in HU if HU_RF.get(h))}/103 |
 | V-9 | Todo RF tiene al menos una HU | ✅ {sum(1 for r in RF if RF_HU.get(r))}/162 |
-| V-10 | Toda regla está cubierta por algún RF | 🟡 {sum(1 for k in RNR if rn_rf.get(k))}/82 (faltan: {', '.join(RN_NEW[k] for k in sorted((k for k in RNR if not rn_rf.get(k)), key=lambda k: RN_NEW[k]))}) |
-| V-11 | Toda regla está cubierta por alguna HU | 🟡 {sum(1 for k in RNR if rn_hu.get(k))}/82 (faltan: {', '.join(RN_NEW[k] for k in sorted((k for k in RNR if not rn_hu.get(k)), key=lambda k: RN_NEW[k]))}) |
+| V-10 | Toda regla está cubierta por algún RF | 🟡 {sum(1 for k in RNR if rn_rf.get(k))}/{len(RNR)} (faltan: {', '.join(RN_NEW[k] for k in sorted((k for k in RNR if not rn_rf.get(k)), key=lambda k: RN_NEW[k]))}) |
+| V-11 | Toda regla está cubierta por alguna HU | 🟡 {sum(1 for k in RNR if rn_hu.get(k))}/{len(RNR)} (faltan: {', '.join(RN_NEW[k] for k in sorted((k for k in RNR if not rn_hu.get(k)), key=lambda k: RN_NEW[k]))}) |
 | V-12 | Todo KPI tiene al menos un RF que lo alimenta | ✅ {sum(1 for k in KPI_RF if KPI_RF[k])}/24 |
 | V-13 | Todo proceso PN tiene caso de uso | ✅ 14/14 |
 | V-14 | Todo proceso PN tiene al menos una HU y un RF | 🟡 13/14 (PN-14 sin ellos, H-10) |
@@ -755,7 +757,7 @@ def annex_b(doc_text_wo_annex=None):
 
 | Hallazgo | SPEC declara | Contenido real | Tratamiento |
 |---|---|---|---|
-| H-01 | 68 reglas (51 est. + 17 conf.) | 82 (60 + 22) | Se conservan 82 |
+| H-01 | 68 reglas (51 est. + 17 conf.) | 82 (60 + 22) | Se conservan 82 (+3 incorporadas en la v1.1) |
 | H-02 | RF: 72 P0 / 69 P1 / 21 P2 | 74 / 70 / 18 | Se usa la prioridad de cada fila |
 | H-03 | Rangos HU-001…096 y RF-001…138 (§0.4) | HU-001…103 y RF-001…162 | Prevalece el contenido |
 | H-04 | Trazabilidad 41/12/9/38 % (§0.3) | 34/12/17/37 % (§13.3) | Sin impacto en requisitos |
@@ -866,7 +868,7 @@ def assemble():
     parts.append(annex_a())
     parts.append(annex_b())
     parts.append(conv(rd("annex_c.md")))
-    parts.append("\n---\n\n*Fin del documento SRS_COLBASOFT v1.0 — La monografía original permanece sin modificaciones.*\n")
+    parts.append("\n---\n\n*Fin del documento SRS_COLBASOFT v1.1 — La monografía original permanece sin modificaciones.*\n")
     return "\n".join(parts)
 
 if __name__ == "__main__":

@@ -5,19 +5,27 @@ sys.path.insert(0, os.path.dirname(__file__))
 from dm_data import *
 from ev_data import EVENTS
 from gl_data import TERMS
+import io as _io, contextlib as _cl
+with _cl.redirect_stdout(_io.StringIO()):
+    from build_f4 import RISKS_F5
 
 import pathlib as _pl
 B = str(_pl.Path(__file__).resolve().parents[2])
 S = json.load(open(os.path.join(os.path.dirname(__file__), "srs_ids.json"), encoding="utf8"))
 docs = {
- "SRS": os.path.join(B, "02_SRS_FASE_3", "SRS_COLBASOFT_v1.0.md"),
+ "SRS": os.path.join(B, "02_SRS_FASE_3", "SRS_COLBASOFT_v1.1.md"),
  "DM": os.path.join(B, "03_DOMINIO_FASE_4", "DOMAIN_MODEL.md"),
  "EC": os.path.join(B, "03_DOMINIO_FASE_4", "EVENT_CATALOG.md"),
  "GL": os.path.join(B, "03_DOMINIO_FASE_4", "GLOSSARY.md"),
  "CL": os.path.join(B, "CLAUDE.md"),
 }
+# documentos de control del CP-04 (se verifican si existen)
+for _k, _f in [("AU", "04_CP04_AUDITORIA.md"), ("CI", "04_CP04_CIERRE.md"), ("DP", "04_CP04_DECISIONES_PENDIENTES.md")]:
+    _p = os.path.join(B, "04_CP04_AUDITORIA", _f)
+    if os.path.exists(_p):
+        docs[_k] = _p
 T = {k: open(v, encoding="utf8").read() for k, v in docs.items()}
-spec = open(os.path.join(B, "01_SPEC_FASE_2", "COLBASOFT_SPEC_v1.0.md"), encoding="utf8").read()
+spec = open(os.path.join(B, "01_SPEC_FASE_2", "COLBASOFT_SPEC_v1.1.md"), encoding="utf8").read()
 
 valid = {
  "HU": set(S["HU"]), "RF": set(S["RF"]), "RN": set(S["RN"]), "RNF": set(S["RNF"]),
@@ -26,7 +34,7 @@ valid = {
  "RS": {f"R-S{i:02d}" for i in range(1, 11)}, "HD": {h[0] for h in DOMAIN_FINDINGS},
  "EV": {e["id"] for e in EVENTS}, "E": {e["id"] for e in ENTITIES}, "VO": {v[0] for v in VALUE_OBJECTS},
  "AG": {a[0] for a in AGGREGATES}, "IN": {i[0] for i in INVARIANTS}, "SM": {s[0] for s in STATE_MACHINES},
- "SD": {s["id"] for s in SUBDOMAINS}, "RF5": {f"RF5-{i:02d}" for i in range(1, 14)},
+ "SD": {s["id"] for s in SUBDOMAINS}, "RF5": {r[0] for r in RISKS_F5},
  "PN": {f"PN-{i:02d}" for i in range(1, 15)}, "CD": {f"CD-{i:02d}" for i in range(1, 49)},
  "M": {f"M-{i:02d}" for i in range(1, 21)}, "RG": {f"RG-{i:02d}" for i in range(1, 43)},
  "DC": {f"DC-{i:02d}" for i in range(1, 9)}, "PR": {f"PR-{i:02d}" for i in range(1, 7)},

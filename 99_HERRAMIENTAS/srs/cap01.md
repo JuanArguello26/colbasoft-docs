@@ -161,7 +161,7 @@ Los 48 conceptos de dominio están definidos operativamente en el **Capítulo 4 
 |---|---|---|
 | 1 | `MONOGRAFÍA  COLBASOFT.docx` — Argüello, J. E.; Osorio, B. A.; Guerrero, B. J. (27 nov. 2025). *Automatización del proceso logístico en la gestión de inventarios para PYMES del sector textil del Eje Cafetero.* CIAF | Fuente de verdad (inmutable) |
 | 2 | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (1 sep. 2026) | Vacíos, riesgos académicos, roadmap, preguntas al Director |
-| 3 | `COLBASOFT_SPEC_v1.0.md` (5 sep. 2026) | Fuente principal del SRS |
+| 3 | `COLBASOFT_SPEC_v1.1.md` (5 sep. 2026; v1.1 del 29 sep. 2026) | Fuente principal del SRS |
 | 4 | ISO/IEC/IEEE 29148 — *Systems and software engineering — Life cycle processes — Requirements engineering* | Estructura de referencia, adaptada |
 
 **Correspondencia con la estructura de la norma (adaptada):**

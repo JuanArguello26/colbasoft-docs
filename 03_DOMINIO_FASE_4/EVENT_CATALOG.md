@@ -8,17 +8,19 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | EVENT_CATALOG |
-| **Versión** | 1.0 |
+| **Versión** | 1.1 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 |
-| **Estado** | Emitido para revisión del Director |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.0 → SRS_COLBASOFT v1.0 → **Modelo de Dominio v1.0** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) |
+| **Estado** | **Validado técnicamente** (cierre del CP-04, 29-sep-2026). **Aprobación funcional y académica pendiente**: HD-25 y DEC-01…DEC-09 sin responder (`04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`) |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.1 → SRS_COLBASOFT v1.1 → **Modelo de Dominio v1.1** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `DOMAIN_MODEL.md` · `GLOSSARY.md` |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
 | **Fuera de alcance** | Arquitectura, modelo de datos, tecnologías, interfaces de integración, notaciones de diseño y código: pertenecen a la Fase 5 y posteriores |
 
 > **Naturaleza.** Este documento es **derivado**: no modifica la monografía, la auditoría, el SPEC ni el SRS. Modela el negocio que esos documentos describen. Toda diferencia entre ellos o frente al Prompt Maestro #004 se registra como **Hallazgo del Dominio (HD-nn)**; no se corrige en silencio.
+
+> **Versión 1.1.** Incorpora las decisiones del cierre del CP-04 (DF5-01, DF5-02, DF5-03, DF5-05 y DF5-06), registradas en `04_CP04_AUDITORIA/04_CP04_CIERRE.md`. El detalle de los cambios está en DOMAIN_MODEL §0.8. La v1.0 se conserva en el historial del repositorio (commit `79f823c`).
 
 ## Índice
 
@@ -92,14 +94,14 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | **AJU** | Ajustes | SD-02 Movimientos | 10 |
 | **CNT** | Conteos | SD-04 Conteos y exactitud | 18 |
 | **NOV** | Novedades | SD-09 Novedades | 7 |
-| **TRZ** | Trazabilidad y kardex | SD-03 Trazabilidad | 6 |
+| **TRZ** | Trazabilidad y kardex | SD-03 Trazabilidad | 7 |
 | **ALE** | Alertas | SD-05 Alertas y reglas | 7 |
 | **REP** | Reportes y exportación | SD-11 Reportes y medición | 5 |
 | **AUD** | Auditoría y control | SD-10 Auditoría | 6 |
 | **PAR** | Configuración | SD-13 Configuración | 5 |
 | **TAR** | Tareas y notificaciones | SD-14 Tareas y notificaciones | 6 |
 | **JOR** | Operación diaria (cierre de jornada) | SD-15 Operación diaria (cierre de jornada) | 5 |
-| **Total** | | | **164** |
+| **Total** | | | **165** |
 
 ---
 
@@ -172,9 +174,9 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | ID | Nombre | Actor | Entidad origen | Entidad afectada | Disparador | Resultado esperado | KPI | Reglas (SRS) |
 |---|---|---|---|---|---|---|---|---|
-| **EV-QRC-001** | Identificador QR generado | Sistema / Coordinador | E-09 Identificador QR | E-09 Identificador QR | Mercancía confirmada que requiere identificación, o reimpresión | Código nunca antes emitido, en estado Generado, listo para imprimir | — | RN-IDE-002 |
+| **EV-QRC-001** | Identificador QR generado | Sistema / Coordinador | E-09 Identificador QR | E-09 Identificador QR | SKU + Lote confirmado que requiere identificación (un QR por SKU + Lote, DF5-01), o reimpresión | Código nunca antes emitido, en estado Generado, listo para imprimir | — | RN-IDE-002 |
 | **EV-QRC-002** | Identificador QR impreso | Coordinador | E-09 Identificador QR | E-09 Identificador QR | Impresión individual o por lote de impresión | Etiqueta física con información legible de respaldo | — | — |
-| **EV-QRC-003** | Identificador QR activado | Auxiliar | E-09 Identificador QR | E-09 Identificador QR, E-08 Unidad de Inventario | Escaneo de verificación tras adherir la etiqueta | Identificador Activo; la mercancía queda identificable | — | RN-IDE-001 |
+| **EV-QRC-003** | Identificador QR activado | Auxiliar | E-09 Identificador QR | E-09 Identificador QR, E-04 Lote | Escaneo de verificación tras adherir la etiqueta | Identificador Activo; el SKU + Lote queda identificable en cualquier ubicación donde esté (DF5-01) | — | RN-IDE-001 |
 | **EV-QRC-004** | Identificador QR reemplazado | Coordinador / Auxiliar | E-09 Identificador QR | E-09 Identificador QR | Reimpresión por deterioro o ilegibilidad, con motivo | Nuevo identificador hereda la trazabilidad; el anterior queda Reemplazado | — | RN-IDE-004, RN-IDE-002 |
 | **EV-QRC-005** | Identificador QR anulado | Coordinador | E-09 Identificador QR | E-09 Identificador QR | El identificador deja de tener efecto | Estado Anulado; su código jamás se reemite; su escaneo se rechaza | — | RN-IDE-002 |
 | **EV-QRC-006** | Identificador secundario asociado | Coordinador | E-09 Identificador QR | E-09 Identificador QR | Asociación del código de barras del proveedor | Código de barras habilitado solo para consulta | — | RN-IDE-003 |
@@ -195,7 +197,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | **EV-ENT-009** | Sobrante de recepción registrado | Sistema | E-11 Documento de entrada | E-11 Documento de entrada | Recibido > esperado en una línea | Documento Recibido con novedad; confirmación detenida hasta autorización | — | RN-ENT-005 |
 | **EV-ENT-010** | Sobrante autorizado | Jefe de Bodega | E-11 Documento de entrada | E-11 Documento de entrada | El Jefe acepta el sobrante | El sobrante puede ingresar al confirmar | — | RN-ENT-005, RN-AJU-001 |
 | **EV-ENT-011** | Mercancía dañada registrada en recepción | Auxiliar | E-11 Documento de entrada | E-11 Documento de entrada, E-08 Unidad de Inventario, E-17 Novedad | Parte de lo recibido llega dañada | Cantidad dañada separada; ingresa inmovilizada en cuarentena; novedad abierta; Jefe notificado | KPI-23 | RN-ENT-006 |
-| **EV-ENT-012** | Entrada confirmada | Coordinador | E-11 Documento de entrada | E-11 Documento de entrada, E-04 Lote, E-08 Unidad de Inventario, E-10 Movimiento | Verificación por una persona distinta de quien recibió | Lote creado o asociado; movimiento de entrada en el kardex; existencia En recepción (HD-07) | KPI-05, KPI-11, KPI-12 | RN-ENT-007, RN-INT-002, RN-INT-004, RN-INT-003, RN-LOT-001 |
+| **EV-ENT-012** | Entrada confirmada | Coordinador | E-11 Documento de entrada | E-11 Documento de entrada, E-04 Lote, E-08 Unidad de Inventario, E-10 Movimiento | Verificación por una persona distinta de quien recibió | Lote creado o asociado; movimiento de entrada en el kardex; existencia En recepción en una ubicación de la zona de recepción (RN-EXI-007, DF5-02) | KPI-05, KPI-11, KPI-12 | RN-ENT-007, RN-EXI-007, RN-INT-002, RN-INT-004, RN-INT-003, RN-LOT-001 |
 | **EV-ENT-013** | Retorno registrado como entrada | Coordinador | E-11 Documento de entrada | E-11 Documento de entrada, E-10 Movimiento | Vuelve mercancía que había salido | Entrada nueva que referencia la salida original; la salida no se reversa | — | RN-SAL-007 |
 | **EV-ENT-014** | Autoconfirmación de entrada rechazada | Sistema | E-11 Documento de entrada | E-11 Documento de entrada | Quien registró la recepción intenta confirmarla | Confirmación rechazada; se exige un segundo actor | — | RN-ENT-007 |
 | **EV-ENT-015** | Documento de entrada reversado ⚠️ | Coordinador | E-11 Documento de entrada | E-11 Documento de entrada | Documento aún no confirmado que no procede | Documento Reversado, sin efecto en el inventario | — | RN-MAE-007 |
@@ -216,7 +218,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | ID | Nombre | Actor | Entidad origen | Entidad afectada | Disparador | Resultado esperado | KPI | Reglas (SRS) |
 |---|---|---|---|---|---|---|---|---|
-| **EV-INV-001** | Mercancía ubicada | Auxiliar | E-08 Unidad de Inventario | E-08 Unidad de Inventario, E-07 Ubicación | Escaneo de mercancía y de ubicación destino | Existencia pasa de En recepción a Disponible en la ubicación; confirmación visible | KPI-05, KPI-10, KPI-18 | RN-EXI-002, RN-MOV-002, RN-MOV-001 |
+| **EV-INV-001** | Mercancía ubicada | Auxiliar | E-10 Movimiento | E-10 Movimiento, E-08 Unidad de Inventario, E-07 Ubicación | Escaneo de la mercancía en recepción y de la ubicación destino | Movimiento interno de primera ubicación confirmado: la cantidad sale de la unidad de la ubicación de recepción y entra Disponible a la unidad destino; existencia total invariante; kardex con qué, cuánto, origen, destino, quién, cuándo y documento de entrada; confirmación visible | KPI-05, KPI-10, KPI-18 | RN-MOV-010, RN-MOV-004, RN-EXI-002, RN-MOV-002, RN-MOV-001 |
 | **EV-INV-002** | Desviación de ubicación registrada ⚠️ | Sistema | E-08 Unidad de Inventario | E-08 Unidad de Inventario | Mercancía ubicada en un lugar distinto al propuesto | Desviación registrada como información (no falta); Coordinador notificado | KPI-10 | RN-MOV-003 |
 | **EV-INV-003** | Existencia reservada | Sistema | E-08 Unidad de Inventario | E-08 Unidad de Inventario | Salida autorizada o transferencia creada | Porción Disponible → Reservado; ninguna otra operación puede comprometerla | — | RN-EXI-004, RN-EXI-003 |
 | **EV-INV-004** | Reserva liberada | Sistema | E-08 Unidad de Inventario | E-08 Unidad de Inventario | Cancelación de la salida o de la transferencia antes del despacho | Porción Reservado → Disponible | — | RN-EXI-004, RN-MOV-009 |
@@ -234,9 +236,9 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | ID | Nombre | Actor | Entidad origen | Entidad afectada | Disparador | Resultado esperado | KPI | Reglas (SRS) |
 |---|---|---|---|---|---|---|---|---|
-| **EV-MOV-001** | Movimiento interno confirmado | Auxiliar | E-10 Movimiento | E-08 Unidad de Inventario, E-07 Ubicación | Escaneo de mercancía y ubicación destino con cantidad total o parcial | Existencia descontada del origen y sumada al destino; total invariante; kardex actualizado | KPI-05, KPI-11 | RN-MOV-004, RN-MOV-005, RN-INT-002, RN-EXI-003 |
+| **EV-MOV-001** | Movimiento interno confirmado | Auxiliar | E-10 Movimiento | E-08 Unidad de Inventario, E-07 Ubicación | Escaneo de mercancía, ubicación de origen si hay varias (DF5-01) y ubicación destino, con cantidad total o parcial; la primera ubicación desde la zona de recepción es EV-INV-001 | Existencia descontada del origen y sumada al destino; total invariante; kardex actualizado | KPI-05, KPI-11 | RN-MOV-004, RN-MOV-005, RN-INT-002, RN-EXI-003 |
 | **EV-MOV-002** | Movimiento interno rechazado | Sistema | E-10 Movimiento | E-08 Unidad de Inventario | Cantidad mayor a la disponible, destino igual al origen, destino inactivo o sin capacidad, o existencia inmovilizada | Operación rechazada con explicación comprensible | — | RN-EXI-003, RN-MOV-005, RN-MOV-002, RN-EXI-006 |
-| **EV-MOV-003** | Movimiento interno interrumpido ⚠️ | Auxiliar / Sistema | E-10 Movimiento | E-08 Unidad de Inventario | El traslado se inicia y no se cierra | Porción En tránsito: no disponible en origen ni destino | — | RN-MOV-006, RN-EXI-005 |
+| **EV-MOV-003** | Movimiento interno interrumpido ⚠️ | Auxiliar / Sistema | E-10 Movimiento | E-08 Unidad de Inventario | El traslado se inicia y no se cierra (también el de primera ubicación) | Porción En tránsito: no disponible en origen ni destino | — | RN-MOV-006, RN-EXI-005 |
 | **EV-MOV-004** | Tránsito interno prolongado detectado ⚠️ | Sistema | E-10 Movimiento | E-18 Alerta | Movimiento interno en tránsito supera el tiempo máximo | Alerta de tránsito prolongado | — | RN-MOV-006 |
 | **EV-MOV-005** | Transferencia creada | Coordinador | E-13 Transferencia | E-13 Transferencia, E-08 Unidad de Inventario | Necesidad de mover existencia entre zonas o bodegas | Transferencia Pendiente de despacho; reserva en origen; tarea al Auxiliar del origen | — | RN-EXI-003, RN-EXI-004 |
 | **EV-MOV-006** | Despacho de transferencia confirmado | Auxiliar (origen) | E-13 Transferencia | E-13 Transferencia, E-08 Unidad de Inventario | Escaneo de la mercancía despachada | Transferencia En tránsito; porción Reservado → En tránsito | KPI-15 | RN-EXI-005 |
@@ -316,7 +318,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | ID | Nombre | Actor | Entidad origen | Entidad afectada | Disparador | Resultado esperado | KPI | Reglas (SRS) |
 |---|---|---|---|---|---|---|---|---|
-| **EV-NOV-001** | Novedad reportada | Auxiliar (o rol operativo) | E-17 Novedad | E-17 Novedad | Hallazgo físico: dañada, sin identificador, en ubicación incorrecta o inexistente | Novedad Abierta dirigida al Coordinador de la zona, sin imputación al reportante | KPI-23 | RN-NOV-003 |
+| **EV-NOV-001** | Novedad reportada | Auxiliar (o rol operativo) · Sistema, al rechazar un registro sincronizado | E-17 Novedad | E-17 Novedad | Hallazgo físico: dañada, sin identificador, en ubicación incorrecta o inexistente; o registro rechazado al sincronizar que describe un hecho físico ya realizado (EV-TRZ-007) | Novedad Abierta dirigida al Coordinador de la zona, sin imputación al reportante | KPI-23 | RN-NOV-003, RN-INT-008 |
 | **EV-NOV-002** | Novedad vinculada a novedad abierta | Sistema | E-17 Novedad | E-17 Novedad | Reporte sobre una unidad que ya tiene novedad abierta | Se vincula; no se duplica | — | RN-NOV-003 |
 | **EV-NOV-003** | Acción de novedad determinada | Coordinador | E-17 Novedad | E-17 Novedad | Evaluación de la novedad | Acción: ajuste, reidentificación, reubicación o baja | — | — |
 | **EV-NOV-004** | Novedad resuelta y cerrada | Coordinador / Jefe | E-17 Novedad | E-17 Novedad | El movimiento de resolución se confirma | Novedad Cerrada resuelta, vinculada a su resolución | KPI-23 | RN-MAE-007 |
@@ -327,16 +329,19 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 - **EV-NOV-006**: Cobertura RF parcial (H-11, H-13 del SRS)
 - **EV-NOV-007**: Cobertura RF parcial (H-13 del SRS)
 
-## 2.14 TRZ · Trazabilidad y kardex (6)
+## 2.14 TRZ · Trazabilidad y kardex (7)
 
 | ID | Nombre | Actor | Entidad origen | Entidad afectada | Disparador | Resultado esperado | KPI | Reglas (SRS) |
 |---|---|---|---|---|---|---|---|---|
 | **EV-TRZ-001** | Movimiento confirmado en el kardex | Usuario / Sistema | E-10 Movimiento | E-08 Unidad de Inventario | Cualquier movimiento satisface sus reglas y se confirma | Línea inmutable con fecha, hora, tipo, cantidad, existencia resultante, ubicación, usuario, motivo y documento | KPI-05, KPI-11, KPI-17, KPI-24 | RN-INT-001, RN-INT-002, RN-INT-004 |
 | **EV-TRZ-002** | Movimiento anulado | Jefe / Administrador | E-10 Movimiento | E-10 Movimiento, E-08 Unidad de Inventario | Error detectado en un movimiento confirmado | Movimiento inverso con motivo y autorización; ambos visibles | KPI-08 | RN-INT-002 |
 | **EV-TRZ-003** | Registro retenido sin conectividad | Sistema | E-10 Movimiento | E-10 Movimiento | Pérdida de conectividad durante un registro | Registro Pendiente de sincronización; no confirma documentos | — | RN-INT-003 |
-| **EV-TRZ-004** | Registro sincronizado | Sistema | E-10 Movimiento | E-10 Movimiento | Conectividad restablecida | Registro validado y Confirmado con su fecha operativa original (HD-16) | — | RN-INT-003 |
+| **EV-TRZ-004** | Registro sincronizado | Sistema | E-10 Movimiento | E-10 Movimiento | Conectividad restablecida y el registro sigue cumpliendo las reglas frente al estado vigente | Registro validado de nuevo (RN-INT-008) y Confirmado con su fecha operativa original (HD-16) | — | RN-INT-003, RN-INT-008 |
 | **EV-TRZ-005** | Verificación de integridad ejecutada | Auditor | E-08 Unidad de Inventario | E-08 Unidad de Inventario | Solicitud de verificación por unidad, lote o global | Resultado exportable de la comparación existencia vs. suma de movimientos | KPI-09 | RN-AUD-005, RN-INT-004 |
+| **EV-TRZ-007** | Registro rechazado al sincronizar ⚠️ | Sistema | E-10 Movimiento | E-10 Movimiento, E-17 Novedad | Al sincronizar, el registro retenido ya no cumple alguna regla o invariante frente al estado vigente | Registro Rechazado en sincronización, sin efecto en la existencia; constancia del registro original, su autor, el motivo y el instante; si describe un hecho físico, abre una novedad (EV-NOV-001) | — | RN-INT-008 |
 | **EV-TRZ-006** | Discrepancia de integridad detectada | Sistema | E-08 Unidad de Inventario | E-08 Unidad de Inventario | Existencia ≠ suma de movimientos (unidad, lote o global) | Hallazgo crítico notificado al Administrador | KPI-09 | RN-INT-004 |
+
+- **EV-TRZ-007**: Nuevo en la v1.1 (DF5-05, HD-24). Ningún RF describe todavía el rechazo; se apoya en RF-ENT-005 y RNF-DSP-002
 
 ## 2.15 ALE · Alertas (7)
 
@@ -421,8 +426,8 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | | |
 |---|---|
-| **Completado** | 164 eventos (mínimo exigido: 70) con IDs permanentes en 20 dominios y los ocho atributos pedidos |
-| **Riesgos** | 23 eventos ⚠️ sin requisito completo que los implemente |
+| **Completado** | 165 eventos (mínimo exigido: 70) con IDs permanentes en 20 dominios y los ocho atributos pedidos |
+| **Riesgos** | 24 eventos ⚠️ sin requisito completo que los implemente |
 | **Dependencias** | DOMAIN_MODEL Caps. 3 y 8 · SRS Caps. 5–8 |
 | **Hallazgos** | HD-11, HD-17, HD-19 · H-10, H-11, H-12 del SRS |
 
@@ -442,17 +447,18 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | 4 | EV-ENT-003 | Recepción física iniciada | siempre |
 | 5 | EV-ENT-004 | Línea de recepción registrada | una vez por línea |
 | 6 | EV-TRZ-003 | Registro retenido sin conectividad | si se pierde la conectividad |
-| 7 | EV-TRZ-004 | Registro sincronizado | al restablecerse |
-| 8 | EV-ENT-005 | Recepción interrumpida | si se interrumpe |
-| 9 | EV-ENT-006 | Recepción continuada | si otro usuario la continúa |
-| 10 | EV-ENT-011 | Mercancía dañada registrada en recepción | si llega mercancía dañada → abre EV-NOV-001 |
-| 11 | EV-ENT-007 o EV-ENT-008 o EV-ENT-009 | Recibido conforme determinado / Faltante de recepción registrado / Sobrante de recepción registrado | según la comparación |
-| 12 | EV-ENT-010 | Sobrante autorizado | solo si hubo sobrante |
-| 13 | EV-ENT-014 | Autoconfirmación de entrada rechazada | si el receptor intenta confirmar |
-| 14 | EV-ENT-012 | Entrada confirmada | confirmación por una segunda persona |
-| 15 | EV-LOT-001 | Lote creado | siempre |
-| 16 | EV-TRZ-001 | Movimiento confirmado en el kardex | movimiento de entrada |
-| 17 | EV-TAR-002 | Tarea completada | tarea de recepción completada |
+| 7 | EV-TRZ-004 | Registro sincronizado | al restablecerse, si sigue siendo válido |
+| 8 | EV-TRZ-007 | Registro rechazado al sincronizar | si al sincronizar ya no es válido → EV-NOV-001 si describe un hecho físico |
+| 9 | EV-ENT-005 | Recepción interrumpida | si se interrumpe |
+| 10 | EV-ENT-006 | Recepción continuada | si otro usuario la continúa |
+| 11 | EV-ENT-011 | Mercancía dañada registrada en recepción | si llega mercancía dañada → abre EV-NOV-001 |
+| 12 | EV-ENT-007 o EV-ENT-008 o EV-ENT-009 | Recibido conforme determinado / Faltante de recepción registrado / Sobrante de recepción registrado | según la comparación |
+| 13 | EV-ENT-010 | Sobrante autorizado | solo si hubo sobrante |
+| 14 | EV-ENT-014 | Autoconfirmación de entrada rechazada | si el receptor intenta confirmar |
+| 15 | EV-ENT-012 | Entrada confirmada | confirmación por una segunda persona |
+| 16 | EV-LOT-001 | Lote creado | siempre |
+| 17 | EV-TRZ-001 | Movimiento confirmado en el kardex | movimiento de entrada |
+| 18 | EV-TAR-002 | Tarea completada | tarea de recepción completada |
 
 ## PN-02 · Registro inicial e identificación (CU-07)
 
@@ -469,11 +475,12 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | Orden | Evento(s) | Nombre | Cuándo |
 |:--:|---|---|---|
 | 1 | EV-TAR-001 | Tarea generada | tarea de ubicación con propuesta |
-| 2 | EV-INV-001 | Mercancía ubicada | escaneo de mercancía y ubicación |
-| 3 | EV-INV-002 | Desviación de ubicación registrada | si ubica en otro lugar |
-| 4 | EV-INV-009 | Ubicación sobreocupada | si se excede la capacidad |
-| 5 | EV-TRZ-001 | Movimiento confirmado en el kardex | siempre |
-| 6 | EV-TAR-002 | Tarea completada | siempre |
+| 2 | EV-MOV-003 | Movimiento interno interrumpido | si el traslado se interrumpe |
+| 3 | EV-INV-001 | Mercancía ubicada | movimiento interno de primera ubicación (DF5-03) |
+| 4 | EV-INV-002 | Desviación de ubicación registrada | si ubica en otro lugar |
+| 5 | EV-INV-009 | Ubicación sobreocupada | si se excede la capacidad |
+| 6 | EV-TRZ-001 | Movimiento confirmado en el kardex | siempre |
+| 7 | EV-TAR-002 | Tarea completada | siempre |
 
 ## PN-04 · Consulta de existencia y ubicación (CU-09)
 
@@ -488,8 +495,10 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | 1 | EV-MOV-002 | Movimiento interno rechazado | si alguna regla lo impide (fin) |
 | 2 | EV-MOV-003 | Movimiento interno interrumpido | si se interrumpe |
 | 3 | EV-MOV-004 | Tránsito interno prolongado detectado | si el tránsito se prolonga |
-| 4 | EV-MOV-001 | Movimiento interno confirmado | confirmación |
-| 5 | EV-TRZ-001 | Movimiento confirmado en el kardex | siempre |
+| 4 | EV-TRZ-003 | Registro retenido sin conectividad | si se pierde la conectividad |
+| 5 | EV-TRZ-004 o EV-TRZ-007 | Registro sincronizado / Registro rechazado al sincronizar | al sincronizar: confirmado o rechazado (→ EV-NOV-001) |
+| 6 | EV-MOV-001 | Movimiento interno confirmado | confirmación |
+| 7 | EV-TRZ-001 | Movimiento confirmado en el kardex | siempre |
 
 ## PN-06 · Transferencia entre zonas o bodegas (CU-11)
 
@@ -638,7 +647,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | **Completado** | Línea temporal de los 14 procesos del MVP |
 | **Riesgos** | PN-14 sin requisitos (DEC-05); PN-04 sin eventos por diseño (solo lectura) |
 | **Dependencias** | SPEC Cap. 3 · SRS Cap. 4 |
-| **Hallazgos** | HD-07 (orden entrada → ubicación) |
+| **Hallazgos** | HD-07 y HD-23 (orden entrada → primera ubicación, resueltos por DF5-02 y DF5-03) |
 
 ---
 
@@ -651,11 +660,11 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | Criticidad | Criterio | Eventos |
 |---|---|:--:|
 | **Crítica** | Afecta la integridad del inventario, la segregación de funciones o las reglas estructurales: aprobaciones y rechazos de ajustes y salidas, anulaciones, inmovilizaciones, cierres de conteo, cambios de configuración y de rol, hallazgos de integridad, intentos de violar reglas estructurales. | 27 |
-| **Alta** | Altera la existencia o un dato maestro, o registra acceso: movimientos confirmados, altas y desactivaciones, accesos, exportaciones, rechazos de control. | 63 |
+| **Alta** | Altera la existencia o un dato maestro, o registra acceso: movimientos confirmados, altas y desactivaciones, accesos, exportaciones, rechazos de control. | 64 |
 | **Media** | Avance de un flujo de trabajo: solicitudes, recepciones, tareas, alertas generadas y atendidas. | 56 |
 | **Baja** | Informativo o de apoyo: impresión, notificaciones, reportes programados, frecuencia de alertas. | 18 |
 
-**Destino del registro permanente:** Bitácora 82 · Historial 68 · Kardex 8 · Kardex + Bitácora 6
+**Destino del registro permanente:** Bitácora 83 · Historial 68 · Kardex 8 · Kardex + Bitácora 6
 
 ## 4.2 Criticidad Crítica
 
@@ -718,11 +727,11 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | EV-ENT-008 | Faltante de recepción registrado | Sistema | Historial | RN-ENT-004 |
 | EV-ENT-009 | Sobrante de recepción registrado | Sistema | Historial | RN-ENT-005 |
 | EV-ENT-011 | Mercancía dañada registrada en recepción | Auxiliar | Historial | RN-ENT-006 |
-| EV-ENT-012 | Entrada confirmada | Coordinador | Kardex + Bitácora | RN-ENT-007, RN-INT-002, RN-INT-004, RN-INT-003, RN-LOT-001 |
+| EV-ENT-012 | Entrada confirmada | Coordinador | Kardex + Bitácora | RN-ENT-007, RN-EXI-007, RN-INT-002, RN-INT-004, RN-INT-003, RN-LOT-001 |
 | EV-ENT-013 | Retorno registrado como entrada | Coordinador | Kardex | RN-SAL-007 |
 | EV-ENT-014 | Autoconfirmación de entrada rechazada | Sistema | Bitácora | RN-ENT-007 |
 | EV-LOT-001 | Lote creado | Sistema | Historial | RN-LOT-001, RN-LOT-002, RN-MAE-006 |
-| EV-INV-001 | Mercancía ubicada | Auxiliar | Kardex | RN-EXI-002, RN-MOV-002, RN-MOV-001 |
+| EV-INV-001 | Mercancía ubicada | Auxiliar | Kardex | RN-MOV-010, RN-MOV-004, RN-EXI-002, RN-MOV-002, RN-MOV-001 |
 | EV-MOV-001 | Movimiento interno confirmado | Auxiliar | Kardex | RN-MOV-004, RN-MOV-005, RN-INT-002, RN-EXI-003 |
 | EV-MOV-006 | Despacho de transferencia confirmado | Auxiliar (origen) | Kardex | RN-EXI-005 |
 | EV-MOV-007 | Transferencia completada | Auxiliar (destino) | Kardex | RN-MOV-007, RN-INT-002 |
@@ -745,6 +754,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | EV-CNT-017 | Conteo abortado | Jefe de Bodega | Bitácora | — |
 | EV-TRZ-001 | Movimiento confirmado en el kardex | Usuario / Sistema | Kardex | RN-INT-001, RN-INT-002, RN-INT-004 |
 | EV-TRZ-005 | Verificación de integridad ejecutada | Auditor | Bitácora | RN-AUD-005, RN-INT-004 |
+| EV-TRZ-007 | Registro rechazado al sincronizar | Sistema | Bitácora | RN-INT-008 |
 | EV-ALE-003 | Alerta descartada | Jefe / Coordinador | Bitácora | RN-ALE-004 |
 | EV-ALE-004 | Alerta escalada | Sistema | Bitácora | RN-ALE-002 |
 | EV-REP-001 | Datos exportados | Jefe / Administrador / Auditor / Coordinador | Bitácora | RN-AUD-003 |
@@ -802,13 +812,13 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | EV-CNT-009 | Segundo conteo requerido | Sistema | Historial | RN-CNT-003 |
 | EV-CNT-011 | Tarea de conteo reasignada | Coordinador | Historial | RN-CNT-003 |
 | EV-CNT-018 | Conteo vencido | Sistema | Historial | RN-CNT-005 |
-| EV-NOV-001 | Novedad reportada | Auxiliar (o rol operativo) | Historial | RN-NOV-003 |
+| EV-NOV-001 | Novedad reportada | Auxiliar (o rol operativo) · Sistema, al rechazar un registro sincronizado | Historial | RN-NOV-003, RN-INT-008 |
 | EV-NOV-003 | Acción de novedad determinada | Coordinador | Historial | — |
 | EV-NOV-004 | Novedad resuelta y cerrada | Coordinador / Jefe | Historial | RN-MAE-007 |
 | EV-NOV-005 | Novedad cerrada como improcedente | Coordinador / Jefe | Historial | RN-MAE-007 |
 | EV-NOV-006 | Novedad escalada por vencimiento | Sistema | Historial | RN-NOV-002 |
 | EV-TRZ-003 | Registro retenido sin conectividad | Sistema | Historial | RN-INT-003 |
-| EV-TRZ-004 | Registro sincronizado | Sistema | Historial | RN-INT-003 |
+| EV-TRZ-004 | Registro sincronizado | Sistema | Historial | RN-INT-003, RN-INT-008 |
 | EV-ALE-001 | Alerta generada | Sistema | Historial | RN-ALE-001, RN-ALE-005 |
 | EV-ALE-002 | Alerta atendida | Jefe / Coordinador | Historial | — |
 | EV-ALE-007 | Exactitud bajo el umbral detectada | Sistema | Historial | RN-ALE-001 |
@@ -855,7 +865,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | | |
 |---|---|
-| **Completado** | Clasificación de los 164 eventos por criticidad (Crítica 27, Alta 63, Media 56, Baja 18) y registro permanente |
+| **Completado** | Clasificación de los 165 eventos por criticidad (Crítica 27, Alta 64, Media 56, Baja 18) y registro permanente |
 | **Riesgos** | La continuidad de la bitácora debe poder demostrarse (RF5-07) |
 | **Dependencias** | SRS RNF-AUD-001…005 · RN-AUD-001 |
 | **Hallazgos** | — |
@@ -909,7 +919,8 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | EV-NOV-002 | Novedad vinculada a novedad abierta | RN-NOV-003 | — | — | Baja |
 | EV-NOV-006 | Novedad escalada por vencimiento | RN-NOV-002 | Plazo de resolución de novedad | Sí | Media |
 | EV-TRZ-003 | Registro retenido sin conectividad | RN-INT-003 | — | — | Media |
-| EV-TRZ-004 | Registro sincronizado | RN-INT-003 | — | — | Media |
+| EV-TRZ-004 | Registro sincronizado | RN-INT-003, RN-INT-008 | — | — | Media |
+| EV-TRZ-007 | Registro rechazado al sincronizar | RN-INT-008 | — | — | Alta |
 | EV-TRZ-006 | Discrepancia de integridad detectada | RN-INT-004 | — | — | Crítica |
 | EV-ALE-001 | Alerta generada | RN-ALE-001 | — | — | Media |
 | EV-ALE-004 | Alerta escalada | RN-ALE-002 | Plazo de atención por severidad | — | Alta |
@@ -944,7 +955,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | | |
 |---|---|
-| **Completado** | 60 eventos derivados, todos por regla o umbral explícitos, sin IA |
+| **Completado** | 61 eventos derivados, todos por regla o umbral explícitos, sin IA |
 | **Riesgos** | Umbrales sin calibrar hasta tener línea base; escalas de severidad sin definir (HD-15) |
 | **Dependencias** | DOMAIN_MODEL Cap. 6.2 (políticas) · SRS Cap. 8 |
 | **Hallazgos** | HD-14, HD-15 |
@@ -1086,6 +1097,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | EV-TRZ-003 | Registro retenido sin conectividad | HU-ENT-002 |
 | EV-TRZ-004 | Registro sincronizado | HU-ENT-002 |
 | EV-TRZ-005 | Verificación de integridad ejecutada | HU-KDX-003 |
+| EV-TRZ-007 | Registro rechazado al sincronizar | HU-ENT-002 |
 | EV-TRZ-006 | Discrepancia de integridad detectada | HU-KDX-003 |
 | EV-ALE-001 | Alerta generada | HU-ALE-001, HU-ALE-002 |
 | EV-ALE-002 | Alerta atendida | HU-ALE-003 |
@@ -1186,7 +1198,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | EV-LOT-002 | Lote inmovilizado | RF-LOT-005 |
 | EV-LOT-003 | Lote liberado | RF-LOT-005 |
 | EV-LOT-004 | Antigüedad de lote superada | RF-LOT-006 |
-| EV-INV-001 | Mercancía ubicada | RF-BOD-004, RF-BOD-005, RF-MOV-005 |
+| EV-INV-001 | Mercancía ubicada | RF-BOD-004, RF-BOD-005, RF-MOV-001, RF-MOV-002, RF-MOV-005 |
 | EV-INV-002 | Desviación de ubicación registrada | — ⚠️ |
 | EV-INV-003 | Existencia reservada | RF-SAL-005, RF-MOV-007 |
 | EV-INV-004 | Reserva liberada | RF-SAL-009, RF-MOV-011 |
@@ -1259,6 +1271,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | EV-TRZ-003 | Registro retenido sin conectividad | RF-ENT-005 |
 | EV-TRZ-004 | Registro sincronizado | RF-ENT-005 |
 | EV-TRZ-005 | Verificación de integridad ejecutada | RF-KDX-006 |
+| EV-TRZ-007 | Registro rechazado al sincronizar | RF-ENT-005 |
 | EV-TRZ-006 | Discrepancia de integridad detectada | RF-KDX-006, RF-AUD-007 |
 | EV-ALE-001 | Alerta generada | RF-ALE-001, RF-ALE-002, RF-ALE-003, RF-ALE-004 |
 | EV-ALE-002 | Alerta atendida | RF-ALE-005 |
@@ -1306,11 +1319,11 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | | |
 |---|---|
-| **Completado** | Matriz D (164 eventos ↔ 94 historias) y Matriz E (164 eventos ↔ 138 RF), con coberturas y exclusiones justificadas |
+| **Completado** | Matriz D (165 eventos ↔ 94 historias) y Matriz E (165 eventos ↔ 138 RF), con coberturas y exclusiones justificadas |
 | **Riesgos** | 15 eventos sin RF y 13 sin historia (RF5-12) |
 | **Dependencias** | SRS Caps. 5 y 6 |
 | **Hallazgos** | H-10, H-11 del SRS · HD-11, HD-19 |
 
 ---
 
-*Fin de EVENT_CATALOG v1.0.*
+*Fin de EVENT_CATALOG v1.1.*

@@ -3,8 +3,9 @@
 T(término, definición oficial, definición prohibida, sinónimos prohibidos, contexto, origen, relaciones, ejemplo, ul)"""
 
 TERMS = []
-def T(term, d, prohib, sin, ctx, origen, rel, ej="", ul=False):
-    TERMS.append(dict(term=term, d=d, prohib=prohib, sin=sin, ctx=ctx, origen=origen, rel=rel, ej=ej, ul=ul))
+def T(term, d, prohib, sin, ctx, origen, rel, ej="", ul=False, v11=False):
+    """v11=True: término agregado en la v1.1; recibe un GL-nnn a continuación de los de la v1.0, sin renumerar."""
+    TERMS.append(dict(term=term, d=d, prohib=prohib, sin=sin, ctx=ctx, origen=origen, rel=rel, ej=ej, ul=ul, v11=v11))
 
 # ------------------------------------------------------------------ Catálogo e identidad
 T("Prenda", "Artículo textil terminado o insumo textil que la empresa almacena. Es el objeto físico del que hablan las personas; el sistema no lo controla directamente sino a través de su Referencia y de sus unidades de inventario.",
@@ -43,7 +44,7 @@ T("Ubicación", "Posición física identificable dentro de una zona donde reside
   "No es una zona completa ni la dirección de la empresa.", "posición, casilla, celda, slot, hueco", "Ubicaciones", "SPEC · CD-14", "Zona; Capacidad de ubicación; Identificador QR; Unidad de inventario", "Z2-E03-N2 (zona 2, estante 3, nivel 2)", True)
 T("Capacidad de ubicación", "Cantidad máxima que admite una ubicación, expresada en la unidad configurada; se usa para proponer destinos y alertar sobreocupación.",
   "No es la existencia actual de la ubicación.", "cupo", "Ubicaciones", "SPEC · CD-15", "Ubicación; Ocupación; Sobreocupación", "200 unidades", True)
-T("Zona de recepción", "Zona donde permanece la mercancía entre su llegada y su ubicación definitiva; su existencia está en el inventario pero no está disponible. Toda bodega tiene al menos una.",
+T("Zona de recepción", "Zona donde permanece la mercancía entre su llegada y su ubicación definitiva; su existencia está en el inventario pero no está disponible. Toda bodega tiene al menos una, y toda zona de recepción tiene al menos una ubicación.",
   "No es un lugar fuera del inventario ni existencia disponible.", "muelle, andén (como sinónimos)", "Ubicaciones", "SPEC · CD-16", "Inventario en recepción; Entrada", "Zona Z0 · Recepción", True)
 T("Zona de cuarentena", "Zona donde reside mercancía inmovilizada: dañada, en verificación o pendiente de decisión. Su existencia no es disponible.",
   "No es una zona de baja ni implica que la mercancía salió del inventario.", "zona de rechazos", "Ubicaciones", "SPEC · CD-17", "Inmovilización; Novedad", "Zona ZQ · Cuarentena", True)
@@ -60,8 +61,8 @@ T("Criterio de asignación", "Regla configurable, con orden de aplicación, que 
 T("Desviación de ubicación", "Diferencia entre la ubicación propuesta y la confirmada; se registra como información operativa y no como falta imputable.", "No es un error del operario ni un indicador de desempeño individual `[PR-06]`.", "error de ubicación", "Ubicaciones", "SPEC · RN-022", "Propuesta de ubicación; KPI-10")
 
 # ------------------------------------------------------------------ Existencia
-T("Unidad de inventario", "La entidad que COLBASOFT controla: la combinación SKU + Lote + Ubicación. Nivel al que se registra existencia, se ejecutan movimientos y se lleva kardex.",
-  "No es «el inventario» completo, ni una prenda individual, ni un SKU.", "inventario (como entidad, HD-01), ítem, artículo", "Inventario y existencia", "SPEC · CD-07", "SKU; Lote; Ubicación; Existencia; Kardex", "CAM-001 · M · Azul · L-2026-0142 · Z2-E03-N2", True)
+T("Unidad de inventario", "La entidad que COLBASOFT controla: la combinación SKU + Lote + Ubicación. Nivel al que se registra existencia, se ejecutan movimientos y se lleva kardex. No tiene QR propio: se identifica con el QR de su SKU + Lote más su ubicación.",
+  "No es «el inventario» completo, ni una prenda individual, ni un SKU, ni lo que identifica un QR de mercancía (DF5-01).", "inventario (como entidad, HD-01), ítem, artículo", "Inventario y existencia", "SPEC · CD-07", "SKU; Lote; Ubicación; Existencia; Kardex", "CAM-001 · M · Azul · L-2026-0142 · Z2-E03-N2", True)
 T("Existencia", "Cantidad de una unidad de inventario presente en el sistema en un momento dado; siempre es la suma algebraica de sus movimientos confirmados, nunca un valor ingresado directamente.",
   "No es un valor que se escriba o corrija a mano.", "stock, saldo, disponible (como sustantivo genérico)", "Inventario y existencia", "SPEC · CD-18 · Monografía §7.1", "Kardex; Movimiento; Estado de inventario", "40 unidades", True)
 T("Inventario disponible", "Porción de la existencia que puede comprometerse para una salida o transferencia: existencia menos reservado, inmovilizado, en tránsito y en recepción. Es la cifra que el operario ve por defecto.",
@@ -72,7 +73,7 @@ T("Inventario inmovilizado", "Porción de la existencia que existe físicamente 
   "No es existencia dada de baja.", "bloqueado (como sustantivo), congelado", "Inventario y existencia", "SPEC · CD-22", "Inmovilización; Zona de cuarentena; Lote", "5 de 40", True)
 T("Inventario en tránsito", "Existencia que salió de una ubicación origen y aún no se confirmó en su destino; no está disponible en ninguna de las dos y tiene plazo máximo.",
   "No es existencia perdida ni ya recibida.", "en camino", "Inventario y existencia", "SPEC · CD-23", "Transferencia; Movimiento interno; Tiempo máximo en tránsito", "Despachado de Z1, sin recibir en Z3", True)
-T("Inventario en recepción", "Existencia ya incorporada al inventario en la zona de recepción, aún no ubicada ni disponible.", "No es disponible (HD-07).", "", "Inventario y existencia", "SPEC · CD-16, CD-44", "Zona de recepción; Estado de inventario")
+T("Inventario en recepción", "Existencia ya incorporada al inventario en la zona de recepción, aún no ubicada ni disponible; es donde queda toda entrada confirmada.", "No es disponible (DF5-02).", "", "Inventario y existencia", "SPEC · CD-16, CD-44", "Zona de recepción; Estado de inventario")
 T("Inventario ajustado", "Existencia cuyo valor fue modificado por un movimiento de ajuste; la marca es consultable y se deriva del kardex.", "No es un estado de la existencia ni un error en sí mismo.", "", "Movimientos", "SPEC · CD-24", "Ajuste; Kardex")
 T("Estado de inventario", "Condición de una porción de existencia que determina qué puede hacerse con ella: Disponible, Reservado, En tránsito, Inmovilizado o En recepción; mutuamente excluyentes para una misma cantidad.",
   "No es el estado de una referencia, de un lote ni de un documento.", "estatus de stock", "Inventario y existencia", "SPEC · CD-44", "Existencia; Inventario disponible", "Reservado", True)
@@ -85,14 +86,14 @@ T("Sobre stock", "Condición en que la existencia de un SKU supera su máximo co
 T("Existencia sin movimiento", "Existencia que lleva más del umbral de días sin ningún movimiento.", "No es existencia inmovilizada.", "", "Reportes y medición", "SPEC · KPI-17", "Kardex")
 
 # ------------------------------------------------------------------ Identificación
-T("Identificador QR", "Código único generado por el sistema, asociado a mercancía o a una ubicación; medio primario de interacción del operario. Es de un solo uso: nunca se repite ni se reutiliza. Estados: generado, activo, reemplazado, anulado.",
-  "No es el código de barras del proveedor ni un dato que el usuario digite.", "etiqueta (como sinónimo del código), código de barras", "Identificación", "SPEC · CD-08 · DC-08", "Código QR; Identificador secundario; Unidad de inventario", "Etiqueta impresa con QR y texto legible «CAM-001 · M · Azul · L-2026-0142»", True)
+T("Identificador QR", "Código único generado por el sistema, asociado a un SKU + Lote (QR de mercancía) o a una ubicación (QR de ubicación); medio primario de interacción del operario. El de mercancía no identifica ubicación, bodega ni cantidad, y no cambia al reubicar. Es de un solo uso: nunca se repite ni se reutiliza. Estados: generado, activo, reemplazado, anulado.",
+  "No es el código de barras del proveedor, ni un dato que el usuario digite, ni el identificador de una unidad de inventario (DF5-01).", "etiqueta (como sinónimo del código), código de barras", "Identificación", "SPEC · CD-08 · DC-08 · DF5-01", "Código QR; Identificador secundario; Lote; Unidad de inventario", "Etiqueta impresa con QR y texto legible «CAM-001 · M · Azul · L-2026-0142»", True)
 T("Código QR", "Valor codificado de un identificador QR, irrepetible en toda la vida del sistema.", "No es reutilizable tras anulación o reemplazo.", "", "Identificación", "Nuevo (Fase 4) · VO-07", "Identificador QR")
-T("Identificador secundario", "Código de barras u otro código externo asociado a mercancía; admitido para consulta, nunca para escritura, y asociado a lo sumo a una unidad.",
+T("Identificador secundario", "Código de barras u otro código externo asociado a mercancía; admitido para consulta, nunca para escritura, y asociado a lo sumo a un QR de mercancía (un SKU + Lote).",
   "No reemplaza al QR como identificador principal.", "", "Identificación", "SPEC · CD-09 · DC-08", "Identificador QR", "Código de barras del proveedor", True)
 T("Escaneo", "Lectura de un identificador con la cámara de la tablet que resuelve el elemento identificado.", "No es un evento del dominio: leer no cambia estado.", "digitación", "Identificación", "SPEC · M-06", "Identificador QR; Selección manual")
 T("Selección manual", "Identificación de mercancía o ubicación eligiéndola de una lista cuando el escaneo es imposible; queda registrada como tal.", "No es equivalente a un escaneo para efectos de KPI-07.", "", "Identificación", "SPEC · PN-03 E-05", "Escaneo; KPI-07")
-T("Reimpresión", "Emisión de un identificador nuevo para reemplazar uno deteriorado o ilegible, con motivo; el nuevo hereda la trazabilidad y el anterior queda reemplazado.", "No reutiliza el código anterior.", "reetiquetado", "Identificación", "SPEC · RN-018", "Identificador QR")
+T("Reimpresión", "Emisión de un identificador nuevo para reemplazar uno deteriorado o ilegible, con motivo; el nuevo hereda la trazabilidad y el anterior queda reemplazado. ⚠️ Su efecto sobre las demás copias impresas de un mismo QR de mercancía está pendiente (HD-25).", "No reutiliza el código anterior.", "reetiquetado", "Identificación", "SPEC · RN-018", "Identificador QR")
 T("Unidad de manejo agrupada", "Contenedor rotulado que agrupa mercancía sin rotulado individual. Fuera del MVP: su gestión está en el Horizonte 3 del backlog (HD-22).", "No es una entidad del modelo del MVP.", "", "Identificación", "SPEC · PN-02 E-03", "Identificador QR")
 
 # ------------------------------------------------------------------ Movimientos
@@ -100,7 +101,7 @@ T("Movimiento", "Hecho registrado que altera la existencia o la ubicación de un
   "No es cualquier acción del usuario ni un registro de bitácora.", "transacción, registro, apunte", "Movimientos", "SPEC · CD-28 · Monografía §8.2", "Kardex; Entrada; Salida; Ajuste; Anulación", "Movimiento interno de 5 unidades de Z2-E03-N2 a Z2-E04-N1", True)
 T("Entrada", "Movimiento que incrementa la existencia por incorporación de mercancía procedente del exterior de la bodega.", "No es una compra ni una recepción física sin confirmar.", "ingreso, remisión (como sinónimos)", "Movimientos", "SPEC · CD-29 · Monografía §8.2", "Documento de entrada; Confirmación de entrada", "Entrada de 120 unidades del lote L-2026-0142", True)
 T("Salida", "Movimiento que disminuye la existencia por retiro de mercancía hacia el exterior de la bodega, con motivo tipificado y autorización.", "No es una venta, un despacho comercial ni una factura `[DC-03]`.", "venta, despacho comercial", "Movimientos", "SPEC · CD-30 · Monografía §8.2", "Solicitud de salida; Motivo tipificado", "Salida de 30 unidades por consumo de producción", True)
-T("Movimiento interno", "Movimiento que cambia la ubicación de existencia dentro de la misma bodega sin alterar la existencia total.", "No es una transferencia entre ámbitos con responsables distintos.", "traslado, reubicación (como sinónimos del movimiento)", "Movimientos", "SPEC · CD-31", "Transferencia; Ubicación", "Z2-E03-N2 → Z2-E04-N1", True)
+T("Movimiento interno", "Movimiento que cambia la ubicación de existencia dentro de la misma bodega sin alterar la existencia total; incluye la primera ubicación de la mercancía en recepción.", "No es una transferencia entre ámbitos con responsables distintos.", "traslado, reubicación (como sinónimos del movimiento)", "Movimientos", "SPEC · CD-31", "Transferencia; Ubicación", "Z2-E03-N2 → Z2-E04-N1", True)
 T("Transferencia", "Movimiento compuesto que traslada existencia entre zonas o bodegas con responsables distintos, mediante despacho y recepción, atravesando el estado en tránsito.",
   "No es un movimiento interno simple.", "traslado entre bodegas", "Movimientos", "SPEC · CD-32", "Despacho; Recepción de transferencia; Inventario en tránsito", "De Zona Z1 a Zona Z3", True)
 T("Ajuste", "Movimiento que modifica la existencia sin contrapartida física para hacer coincidir el registro con la realidad; exige motivo tipificado y aprobación de un tercero y queda marcado para siempre. Es el movimiento de mayor riesgo.",
@@ -150,7 +151,7 @@ T("Discrepancia de integridad", "Diferencia entre la existencia y la suma de mov
 T("Fecha operativa", "Instante (fecha y hora) en que ocurrió un hecho, con su jornada; distinto del instante en que se sincronizó.", "No es la fecha de sincronización (HD-16).", "", "Transversal", "Nuevo (Fase 4) · VO-32", "Movimiento; Sincronización")
 T("Fecha de corte", "Instante de referencia de un conteo general o de una consulta histórica, declarado en todo resultado que lo use.", "—", "", "Transversal", "SPEC · PN-09, HU-075", "Conteo general; Existencia histórica")
 T("Retención local", "Conservación en el dispositivo de un registro hecho sin conectividad, hasta sincronizarlo.", "No confirma el registro.", "", "Trazabilidad", "SPEC · RN-054", "Sincronización")
-T("Sincronización", "Envío al sistema de los registros retenidos al restablecerse la conectividad; los confirma conservando su fecha operativa.", "No altera el orden ni el contenido del hecho.", "", "Trazabilidad", "SPEC · RN-054", "Retención local; Pendiente de sincronización")
+T("Sincronización", "Envío al sistema de los registros retenidos al restablecerse la conectividad; cada uno se valida de nuevo contra el estado vigente y se confirma, conservando su fecha operativa, o se rechaza.", "No altera el orden ni el contenido del hecho.", "", "Trazabilidad", "SPEC · RN-054", "Retención local; Pendiente de sincronización")
 T("Pendiente de sincronización", "Estado de un movimiento registrado sin conectividad; impide confirmar documentos y cerrar la jornada.", "No es un movimiento confirmado.", "", "Trazabilidad", "SPEC · RN-054", "Movimiento; Sincronización")
 
 # ------------------------------------------------------------------ Conteos
@@ -179,7 +180,7 @@ T("Conteo vencido", "Conteo no ejecutado o no cerrado dentro de su plazo; al exc
 # ------------------------------------------------------------------ Control
 T("Inmovilización", "Acto de impedir que una porción de existencia —o un lote completo— se mueva o salga sin autorización expresa.", "No es una baja ni una salida.", "bloqueo", "Inventario y existencia", "SPEC · RN-036", "Inventario inmovilizado; Liberación")
 T("Liberación", "Acto de devolver a sus estados normales la existencia de un lote inmovilizado; solo Jefe o Administrador, con motivo tipificado.", "—", "desbloqueo", "Trazabilidad", "SPEC · RN-073", "Inmovilización; Lote")
-T("Novedad", "Reporte de una anomalía física observada por un operario que el sistema no puede detectar por sí solo. Nunca se elimina: se cierra. No se imputa al reportante.",
+T("Novedad", "Reporte de una anomalía física observada por un operario que el sistema no puede detectar por sí solo; también la abre el Sistema al rechazar en la sincronización un registro que describe un hecho físico ya realizado. Nunca se elimina: se cierra. No se imputa al reportante.",
   "No es una alerta (las alertas las genera el sistema) ni una falta del operario.", "reclamo, incidente (como sinónimos)", "Novedades", "SPEC · CD-48", "Tipo de novedad; Ajuste; Mercancía sin registro", "«Bolsa rota en Z2-E03-N2, 3 unidades manchadas»", True)
 T("Tipo de novedad", "Clase de anomalía reportada: dañada, sin identificador, en ubicación incorrecta o inexistente (lista tipificada).", "—", "", "Novedades", "SPEC · PN-12", "Novedad")
 T("Mercancía sin registro", "Mercancía encontrada en la bodega que no existe en el sistema; no se cuenta ni se usa hasta ser identificada e incorporada por ajuste por sobrante aprobado.", "No es un sobrante de recepción.", "", "Novedades", "SPEC · RN-043", "Ajuste por sobrante; Novedad")
@@ -280,3 +281,9 @@ T("Acción", "Intención de un actor (solicitar, escanear, consultar, aprobar) q
 T("Registro", "Constancia persistente de un hecho: línea de kardex, registro de bitácora u observación.", "No es sinónimo de «movimiento» (SPEC §0.5).", "", "Modelado", "Nuevo (Fase 4)", "Kardex; Bitácora de auditoría")
 T("Hallazgo del dominio", "Inconsistencia o vacío detectado al modelar entre la monografía, el SPEC, el SRS o el Prompt, registrado sin corregirse en silencio (HD-nn).", "—", "", "Modelado", "Nuevo (Fase 4)", "Decisión constitucional")
 T("Decisión constitucional", "Determinación del Director, inmodificable dentro del proyecto (DC-01…DC-08).", "—", "", "Proyecto", "SPEC · §0.1", "MVP; Rol; Inteligente")
+
+# ------------------------------------------------------------------ v1.1: cierre del CP-04 (IDs a continuación de GL-203)
+T("Primera ubicación", "Movimiento interno que lleva existencia en recepción desde la ubicación de la zona de recepción hasta su ubicación destino, donde queda disponible; queda en el kardex como cualquier movimiento.",
+  "No es un cambio de estado sin movimiento, ni una asignación que se registre fuera del kardex.", "asignación de ubicación (como hecho sin movimiento)", "Movimientos", "DF5-03 · RN-MOV-010 · SPEC PN-03", "Movimiento interno; Inventario en recepción; Zona de recepción", "20 metros de L-2026-0142 de la ubicación de recepción R1-01 a Z2-E03-N2", v11=True)
+T("Rechazado en sincronización", "Estado final de un registro retenido sin conectividad que, al validarse de nuevo en la sincronización, ya no cumplía las reglas: no se aplicó y conserva su motivo; si describía un hecho físico, abrió una novedad.",
+  "No es un movimiento anulado (nunca se confirmó) ni un registro perdido.", "", "Trazabilidad", "DF5-05 · RN-INT-008", "Sincronización; Pendiente de sincronización; Novedad", "Traslado registrado sin conectividad cuya existencia se consumió antes de sincronizar", v11=True)

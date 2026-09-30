@@ -356,6 +356,7 @@
 "RN-EXI-004",
 "RN-EXI-005",
 "RN-EXI-006",
+"RN-EXI-007",
 "RN-IDE-001",
 "RN-IDE-002",
 "RN-IDE-003",
@@ -367,6 +368,7 @@
 "RN-INT-005",
 "RN-INT-006",
 "RN-INT-007",
+"RN-INT-008",
 "RN-LOT-001",
 "RN-LOT-002",
 "RN-LOT-003",
@@ -390,6 +392,7 @@
 "RN-MOV-007",
 "RN-MOV-008",
 "RN-MOV-009",
+"RN-MOV-010",
 "RN-NOV-001",
 "RN-NOV-002",
 "RN-NOV-003",
@@ -437,6 +440,11 @@
 "tipo": "Estructural",
 "texto": "**Toda cantidad se expresa en la unidad de medida de su referencia.** El sistema no realiza conversiones implícitas entre unidades de medida."
 },
+"RN-INT-008": {
+"legacy": "RN-083",
+"tipo": "Estructural",
+"texto": "**Un registro retenido sin conectividad no se aplica sin validarse de nuevo.** Al sincronizarse se valida contra el estado vigente y contra todas las reglas aplicables. Si las cumple, se confirma conservando la fecha y hora en que ocurrió el hecho; si no, **no se aplica**: se rechaza dejando constancia del registro original, de su autor, del motivo del rechazo y del instante. Cuando el registro rechazado describe un hecho físico ya realizado (mercancía recibida o trasladada), se abre una novedad para su resolución. Cada registro retenido se confirma o se rechaza una sola vez: la sincronización nunca produce existencia negativa, movimientos inválidos, estados imposibles, duplicados ni pérdida de trazabilidad."
+},
 "RN-EXI-001": {
 "legacy": "RN-009",
 "tipo": "Estructural",
@@ -466,6 +474,11 @@
 "legacy": "RN-036",
 "tipo": "Estructural",
 "texto": "Toda operación sobre existencia **inmovilizada** —ajuste, salida, transferencia o movimiento interno— requiere autorización expresa. El ajuste sobre mercancía inmovilizada requiere aprobación del **Administrador**, sin importar su monto."
+},
+"RN-EXI-007": {
+"legacy": "RN-081",
+"tipo": "Estructural",
+"texto": "**La existencia que ingresa por una entrada confirmada queda en recepción**, en una ubicación de una zona de recepción de la bodega: ya está en el inventario pero **no está disponible**, por lo que no se reserva, no sale ni se transfiere hasta ubicarse. Toda zona de recepción tiene al menos una ubicación. Se exceptúa la cantidad dañada, que ingresa inmovilizada en cuarentena (RN-008)."
 },
 "RN-MAE-001": {
 "legacy": "RN-002",
@@ -515,7 +528,7 @@
 "RN-IDE-001": {
 "legacy": "RN-015",
 "tipo": "Estructural",
-"texto": "**Toda unidad de inventario debe tener un identificador activo.** No existe existencia sin identificador."
+"texto": "**Toda unidad de inventario debe tener un identificador activo.** No existe existencia sin identificador. El identificador de mercancía es el QR de su **SKU + Lote**; la unidad de inventario se determina con ese QR más su ubicación, obtenida por escaneo del QR de ubicación o por selección registrada. Si el SKU + Lote está en más de una ubicación y no se indica cuál, la operación no se registra."
 },
 "RN-IDE-002": {
 "legacy": "RN-016",
@@ -525,7 +538,7 @@
 "RN-IDE-003": {
 "legacy": "RN-017",
 "tipo": "Estructural",
-"texto": "Un mismo identificador secundario de código de barras no puede asociarse a dos unidades de inventario distintas."
+"texto": "Un mismo identificador secundario de código de barras no puede asociarse a dos identificadores QR de mercancía distintos (es decir, a dos SKU + Lote distintos)."
 },
 "RN-IDE-004": {
 "legacy": "RN-018",
@@ -671,6 +684,11 @@
 "legacy": "RN-035",
 "tipo": "Estructural",
 "texto": "Una transferencia **pendiente de despacho** puede cancelarla el Coordinador, liberándose la reserva. Una transferencia **en tránsito** solo puede cancelarla el Jefe, y su cancelación genera un movimiento de retorno al origen. Toda cancelación exige motivo."
+},
+"RN-MOV-010": {
+"legacy": "RN-082",
+"tipo": "Estructural",
+"texto": "**La primera ubicación de la existencia en recepción es un movimiento interno** desde la ubicación de recepción hacia la ubicación destino, y queda en el kardex con qué, cuánto, origen, destino, quién, cuándo y el documento de entrada que la origina. Cumple las reglas del movimiento interno (RN-021, RN-026, RN-027): la existencia total no cambia y el descuento en origen y el incremento en destino son indivisibles. Al confirmarse, la cantidad movida queda **disponible** en el destino, salvo que el destino pertenezca a una zona de recepción, donde sigue en recepción."
 },
 "RN-AJU-001": {
 "legacy": "RN-023",
@@ -842,7 +860,7 @@
 "HU-QRC-002": "**COMO** Auxiliar de Bodega **QUIERO** escanear el código QR en lugar de escribir códigos **PARA** no equivocarme y terminar más rápido.",
 "HU-QRC-003": "**COMO** Administrador **QUIERO** generar códigos QR para las ubicaciones **PARA** que el Auxiliar confirme dónde deja la mercancía escaneando, sin escribir el código del estante.",
 "HU-QRC-004": "**COMO** Auxiliar de Bodega **QUIERO** solicitar la reimpresión de una etiqueta deteriorada **PARA** poder seguir trabajando sin perder la trazabilidad de esa mercancía.",
-"HU-QRC-005": "**COMO** Coordinador de Bodega **QUIERO** asociar el código de barras del proveedor a nuestra unidad de inventario **PARA** aprovechar la etiqueta que ya viene, sin dejar de usar el QR como identificador principal.",
+"HU-QRC-005": "**COMO** Coordinador de Bodega **QUIERO** asociar el código de barras del proveedor a nuestro identificador QR de SKU + Lote **PARA** aprovechar la etiqueta que ya viene, sin dejar de usar el QR como identificador principal.",
 "HU-ENT-001": "**COMO** Coordinador de Bodega **QUIERO** crear un documento de entrada con lo que espero recibir **PARA** poder verificar contra él lo que realmente llega.",
 "HU-ENT-002": "**COMO** Auxiliar de Bodega **QUIERO** registrar en la tablet lo que voy recibiendo, en el momento de recibirlo **PARA** no tener que anotarlo en un papel y pasarlo después.",
 "HU-ENT-003": "**COMO** Coordinador de Bodega **QUIERO** confirmar la entrada después de que el Auxiliar la recibió **PARA** que exista una verificación por una segunda persona antes de afectar el inventario.",
@@ -958,9 +976,9 @@
 "RF-BOD-006": "El sistema debe permitir desactivar ubicaciones y **rechazar la desactivación si tienen existencia**",
 "RF-BOD-007": "El sistema debe permitir asignar un Coordinador responsable por zona y dirigir a él las alertas de esa zona",
 "RF-BOD-008": "El sistema debe permitir configurar los criterios de asignación automática de ubicación y su orden de aplicación",
-"RF-QRC-001": "El sistema debe generar un identificador QR único por unidad de inventario",
+"RF-QRC-001": "El sistema debe generar un identificador QR único por SKU + Lote (no por ubicación)",
 "RF-QRC-002": "El sistema debe garantizar que **ningún identificador se repita jamás, ni tras su anulación**",
-"RF-QRC-003": "El sistema debe permitir el escaneo de identificadores desde tablet y resolverlos a su unidad de inventario",
+"RF-QRC-003": "El sistema debe permitir el escaneo de identificadores desde tablet y resolverlos a su SKU + Lote y, junto con la ubicación, a la unidad de inventario",
 "RF-QRC-004": "El sistema debe generar un identificador QR propio para cada ubicación, distinguible del de mercancía",
 "RF-QRC-005": "El sistema debe permitir la impresión individual y por lote de impresión, incluyendo información legible de respaldo",
 "RF-QRC-006": "El sistema debe permitir la reimpresión con motivo obligatorio, **heredando el nuevo identificador la trazabilidad del anterior**",

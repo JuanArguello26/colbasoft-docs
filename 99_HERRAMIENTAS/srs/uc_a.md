@@ -174,9 +174,9 @@
 | **Actor principal** | Coordinador de Bodega. |
 | **Actores secundarios** | Auxiliar de Bodega (recepción física) · Jefe de Bodega (excepciones: faltante y sobrante). |
 | **Precondiciones** | Llegada física de mercancía a la zona de recepción; las referencias existen y están activas (CU-03); existe la zona de recepción (CU-04). |
-| **Postcondiciones (éxito)** | La existencia disponible refleja la mercancía físicamente presente; existe un movimiento de entrada en el kardex, atribuido a personas identificadas, con fecha y documento de respaldo; se crea o asocia el lote. |
+| **Postcondiciones (éxito)** | La existencia **en recepción** refleja la mercancía físicamente recibida (pasa a disponible al ubicarse, CU-08; @RN081, DF5-02); existe un movimiento de entrada en el kardex, atribuido a personas identificadas, con fecha y documento de respaldo; se crea o asocia el lote. |
 | **Postcondiciones (fallo)** | El documento queda en su estado (pendiente, recepción parcial, recibido con novedad); no se modifica el inventario. |
-| **Trazabilidad** | HU: @HU030 @HU031 @HU032 @HU033 @HU034 @HU036 @HU037 @HU016 · RF: @RF048 @RF049 @RF050 @RF051 @RF052 @RF053 @RF054 @RF055 @RF056 @RF057 @RF058 @RF059 @RF060 · RN: @RN002b @RN003 @RN005 @RN006 @RN007 @RN008 @RN057b @RN054 @RN071 |
+| **Trazabilidad** | HU: @HU030 @HU031 @HU032 @HU033 @HU034 @HU036 @HU037 @HU016 · RF: @RF048 @RF049 @RF050 @RF051 @RF052 @RF053 @RF054 @RF055 @RF056 @RF057 @RF058 @RF059 @RF060 · RN: @RN002b @RN003 @RN005 @RN006 @RN007 @RN008 @RN057b @RN054 @RN071 @RN081 @RN083 |
 
 **Flujo principal**
 1. El Coordinador crea el documento de entrada (origen, fecha esperada y líneas con referencia, talla, color y cantidad esperada) o selecciona uno existente; el sistema no solicita precio ni datos de orden de compra.
@@ -186,7 +186,7 @@
 5. El sistema compara automáticamente cantidad recibida contra esperada, línea por línea.
 6. Si coinciden, marca el documento como **Recibido conforme**.
 7. El Coordinador —distinto de quien registró la recepción física— verifica y confirma la entrada.
-8. El sistema crea o asocia el lote, genera el movimiento de entrada en el kardex e incrementa la existencia.
+8. El sistema crea o asocia el lote, genera el movimiento de entrada en el kardex e incrementa la existencia **en recepción**, en una ubicación de la zona de recepción; todavía no está disponible (@RN081).
 9. El proceso continúa en CU-07 (identificación) y CU-08 (ubicación).
 
 **Flujos alternos**
@@ -201,7 +201,7 @@
 - **E3 · Referencia inexistente o inactiva:** el registro se bloquea; solo Coordinador o Jefe pueden crearla; el Auxiliar no.
 - **E4 · Documento posiblemente duplicado** (mismo origen, referencia y fecha): el sistema advierte y exige confirmación explícita.
 - **E5 · Quien registró la recepción intenta confirmarla:** se rechaza; la confirmación exige un segundo actor.
-- **E6 · Sin conectividad:** el registro se retiene localmente y se sincroniza al restablecerse; el documento no se confirma hasta sincronizar.
+- **E6 · Sin conectividad:** el registro se retiene localmente y se sincroniza al restablecerse; al sincronizar se valida de nuevo contra el estado vigente y, si ya no cumple las reglas, no se aplica: se rechaza con constancia y, si describe un hecho físico, se abre una novedad (@RN083, DF5-05); el documento no se confirma hasta sincronizar.
 - **E7 · Entrada confirmada que requiere corrección:** no se edita; se anula con movimiento inverso, motivo y autorización.
 
 ---
@@ -214,13 +214,13 @@
 | **Objetivo** | Dotar a la mercancía ingresada de un identificador QR único que permita su trazabilidad durante todo su ciclo de vida `[DC-08]`. |
 | **Actor principal** | Coordinador de Bodega. |
 | **Actores secundarios** | Auxiliar de Bodega (adhiere y verifica la etiqueta) · Administrador (QR de ubicaciones). |
-| **Precondiciones** | Entrada confirmada (CU-06); la unidad de inventario existe con referencia, talla, color y lote definidos. |
-| **Postcondiciones (éxito)** | Toda unidad de inventario en bodega es identificable mediante escaneo; ninguna existencia carece de identificador activo. |
-| **Postcondiciones (fallo)** | La unidad queda sin identificador activo y no puede operar hasta resolverse (novedad, CU-17). |
+| **Precondiciones** | Entrada confirmada (CU-06); el SKU + Lote existe con referencia, talla, color y lote definidos. |
+| **Postcondiciones (éxito)** | Toda unidad de inventario en bodega es identificable mediante escaneo —el QR de su SKU + Lote más el identificador de su ubicación—; ninguna existencia carece de identificador activo (DF5-01). |
+| **Postcondiciones (fallo)** | El SKU + Lote queda sin identificador activo y no puede operar hasta resolverse (novedad, CU-17). |
 | **Trazabilidad** | HU: @HU025 @HU026 @HU027 @HU028 @HU029 · RF: @RF040 @RF041 @RF042 @RF043 @RF044 @RF045 @RF046 @RF047 · RN: @RN015 @RN016 @RN017 @RN018 |
 
 **Flujo principal**
-1. El sistema genera un identificador QR único por unidad de inventario, asociado a referencia + talla + color + lote.
+1. El sistema genera un identificador QR único por **SKU + Lote** (referencia + talla + color + lote), que no incluye la ubicación: un mismo SKU + Lote puede estar en varias ubicaciones con el mismo QR (DF5-01).
 2. El Coordinador imprime el identificador (individual o por lote de impresión), con información legible de respaldo.
 3. El Auxiliar adhiere el identificador a la mercancía o a su contenedor.
 4. El Auxiliar escanea el identificador para confirmar su legibilidad.
@@ -236,7 +236,7 @@
 **Excepciones**
 - **E1 · Impresión ilegible:** se reimprime; el anterior queda Reemplazado.
 - **E2 · Identificador duplicado detectado:** el sistema rechaza la generación; ningún identificador se repite jamás, ni tras la anulación.
-- **E3 · Código de barras ya asociado a otra unidad:** se rechaza.
+- **E3 · Código de barras ya asociado al QR de otro SKU + Lote:** se rechaza.
 - **E4 · Se escanea un identificador anulado:** se informa y se rechaza la operación.
 - **E5 · Se escanea un identificador no reconocido:** se informa y se ofrece reportar una novedad.
 
@@ -253,22 +253,22 @@
 | **Precondiciones** | Mercancía identificada y lista para almacenar (CU-07); existe al menos una ubicación activa con capacidad disponible. |
 | **Postcondiciones (éxito)** | Toda existencia disponible tiene una ubicación conocida; consultar una referencia devuelve dónde está. |
 | **Postcondiciones (fallo)** | La mercancía permanece en la zona de recepción (existencia en recepción, no disponible). |
-| **Trazabilidad** | HU: @HU035 @HU024 @HU021 · RF: @RF035 @RF036 @RF039 @RF076 · RN: @RN019 @RN020 @RN021 @RN022 |
+| **Trazabilidad** | HU: @HU035 @HU024 @HU021 · RF: @RF035 @RF036 @RF039 @RF072 @RF073 @RF076 · RN: @RN019 @RN020 @RN021 @RN022 @RN026 @RN082 |
 
 **Flujo principal**
 1. El sistema propone una ubicación destino según los criterios configurados (zona por categoría, capacidad, agrupación por referencia).
 2. El Auxiliar traslada físicamente la mercancía a la ubicación propuesta.
 3. Escanea el identificador de la mercancía y después el de la ubicación.
 4. El sistema valida que la ubicación esté activa y tenga capacidad.
-5. El sistema registra la asignación y actualiza la existencia por ubicación.
+5. El sistema registra la primera ubicación como **movimiento interno** en el kardex, desde la ubicación de recepción hacia la destino (qué, cuánto, origen, destino, quién, cuándo y documento de entrada), y la cantidad pasa de en recepción a **disponible** en el destino; la existencia total no cambia (@RN082, DF5-03).
 6. El sistema confirma visualmente al Auxiliar que el registro quedó guardado.
 
 **Flujos alternos**
 - **A1 · Ubicación distinta a la propuesta:** el sistema lo permite, registra la desviación como información operativa (no como falta) y notifica al Coordinador.
-- **A2 · Mercancía repartida en varias ubicaciones:** se registran asignaciones parciales hasta completar la cantidad.
+- **A2 · Mercancía repartida en varias ubicaciones:** se registran asignaciones parciales —un movimiento interno por cada una— hasta completar la cantidad; el QR del SKU + Lote no cambia.
 - **A3 · Identificador de ubicación ilegible:** el Auxiliar la selecciona de una lista; el sistema registra que no hubo escaneo.
 
 **Excepciones**
 - **E1 · Ubicación propuesta llena:** el sistema propone una alternativa; el Auxiliar puede solicitar reasignación al Coordinador.
 - **E2 · Ubicación escaneada inactiva:** se rechaza y se solicita otra.
-- **E3 · Sin conectividad:** el registro se retiene localmente y se sincroniza al restablecerse.
+- **E3 · Sin conectividad:** el registro se retiene localmente y se sincroniza al restablecerse; al sincronizar se valida de nuevo contra el estado vigente y, si ya no cumple las reglas, no se aplica: se rechaza con constancia y, si describe un hecho físico, se abre una novedad (@RN083, DF5-05).
