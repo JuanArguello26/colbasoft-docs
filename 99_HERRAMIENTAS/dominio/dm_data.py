@@ -76,7 +76,7 @@ SUBDOMAINS = [
  dict(id="SD-15", nombre="Operación diaria (cierre de jornada)", tipo="Supporting",
       modulos="— (PN-14)", entidades=["E-26"],
       alcance="Consolidación de pendientes de la jornada y traspaso explícito al turno siguiente.",
-      justificacion="Mitiga riesgos operativos del SPEC (RG-03, RG-08). **Sin requisitos funcionales en el SRS** (hallazgo H-10, decisión DEC-05 pendiente): se modela para no perder el concepto, marcado como pendiente.",
+      justificacion="Mitiga riesgos operativos del SPEC (RG-03, RG-08). **Con requisitos funcionales desde la v1.3** (HU-TAR-004, HU-TAR-005, RF-TAR-006…008; hallazgo H-10 resuelto por DEC-05).",
       diferenciadores="—"),
 ]
 
@@ -309,7 +309,7 @@ ENTITIES = [
       rel=[("E-18", "gobierna el disparo de alertas"), ("E-14", "gobierna la clasificación de ajustes"), ("E-15", "gobierna la tolerancia de conteo")],
       rn=["RN-AUD-004", "RN-AJU-002", "RN-SAL-001", "RN-MOV-008", "RN-CNT-003"]),
  dict(id="E-26", nombre="Cierre de jornada", solicitado=None, cd="—", sd="SD-15", ag="AG-21",
-      desc="Consolidación de la actividad del día que deja la bodega en estado consistente y traspasa explícitamente los pendientes al turno siguiente (PN-14). ⚠️ **Sin HU ni RF en el SRS** (H-10, DEC-05).",
+      desc="Consolidación de la actividad del día que deja la bodega en estado consistente y traspasa explícitamente los pendientes al turno siguiente (PN-14). Con HU y RF desde la v1.3 (DEC-05).",
       resp="Hacer visibles los pendientes ocultos y registrar quién asumió su responsabilidad.",
       identidad="Bodega + jornada (fecha operativa).",
       info="Jornada · pendientes consolidados · pendientes traspasados · ejecutor · estado.",
@@ -398,7 +398,7 @@ AGGREGATES = [
  ("AG-19", "Motivo tipificado", "E-24", [], "Lo referencian muchas operaciones; su desactivación no debe alterar las operaciones históricas que lo usaron.", ["IN-21", "IN-22", "IN-48"], "—"),
  ("AG-20", "Configuración", "E-25", [], "Los parámetros se validan en conjunto (rangos, parejas mínimo–máximo) y ninguno puede alcanzar las reglas estructurales.", ["IN-65", "IN-67"], "—"),
  ("AG-22", "Pieza", "E-27", [], "La pieza tiene identidad, tipo y cantidad propias y es el nivel al que se selecciona, se corta y se cuenta (v1.2). Su cantidad cambia solo por movimientos confirmados y nunca puede quedar negativa ni superar lo que respalda el kardex. La coherencia entre la suma de las cantidades de sus piezas y la existencia de la unidad de inventario (AG-05) es una invariante entre agregados (RF5-15).", ["IN-73", "IN-74", "IN-75", "IN-76", "IN-77", "IN-78"], "E-04 Lote, E-07 Ubicación, E-08 Unidad de inventario (por identidad)"),
- ("AG-21", "Cierre de jornada", "E-26", [], "⚠️ Pendiente DEC-05. Consolidación de una bodega en una jornada; su cierre depende de que no queden registros sin sincronizar.", ["IN-07"], "E-05 bodega, pendientes (por identidad)"),
+ ("AG-21", "Cierre de jornada", "E-26", [], "Consolidación de una bodega en una jornada; su cierre depende de que no queden registros sin sincronizar.", ["IN-07"], "E-05 bodega, pendientes (por identidad)"),
 ]
 
 # ================================================================== INVARIANTES
@@ -504,8 +504,8 @@ LIFECYCLES = [
  ("E-17 Novedad", "**Abierta** → acción determinada por el Coordinador → **Cerrada resuelta** (vinculada al movimiento que la resuelve).", "**Escalada** al Jefe por vencimiento; **Cerrada improcedente** si se reportó por error. Nunca se elimina."),
  ("E-18 Alerta", "**Activa** → **Atendida** (acción registrada) o **Descartada** (con motivo).", "**Escalada** si es crítica y vence el plazo; **Cerrada sin atención** si la condición cesa antes de atenderse."),
  ("E-19 Usuario", "**Activo** (cambio de contraseña en primer acceso) → **Bloqueado** tras intentos fallidos → **Activo** al restablecerse → **Inactivo** al desactivarse → **Activo** al reactivarse.", "Sus movimientos conservan su identidad y el rol que tenía cuando ocurrieron."),
- ("E-22 Observación de auditoría", "**Abierta** al registrarse → **Cerrada** con respuesta.", "Quién responde no está definido en el SPEC (DEC-04)."),
- ("E-26 Cierre de jornada", "**Abierta** durante la jornada → **Cerrada** con pendientes traspasados.", "**Omitida** si no se ejecuta; bloqueada mientras haya registros sin sincronizar. ⚠️ DEC-05."),
+ ("E-22 Observación de auditoría", "**Abierta** al registrarse → **Cerrada** con respuesta.", "Responde y cierra el Administrador o el Jefe (DEC-04, v1.3)."),
+ ("E-26 Cierre de jornada", "**Abierta** durante la jornada → **Cerrada** con pendientes traspasados.", "**Omitida** si no se ejecuta; bloqueada mientras haya registros sin sincronizar."),
 ]
 
 # ================================================================== MÁQUINAS DE ESTADO (Cap. 8)
@@ -637,7 +637,7 @@ STATE_MACHINES = [
    ("Activa", "Cerrada", "EV-ACC-006", "Sistema", "Cambio de contraseña cierra las demás sesiones")], "SPEC M-01"),
  ("SM-18", "Observación de auditoría (E-22)", [("Abierta", "Registrada por el Auditor", "inicial"), ("Cerrada", "Con respuesta; nunca se elimina", "final")],
   [("—", "Abierta", "EV-AUD-001", "Auditor", "Registro separado (RN-AUD-002)"),
-   ("Abierta", "Cerrada", "EV-AUD-002", "Por definir (DEC-04)", "Respuesta registrada")], "SPEC RN-064"),
+   ("Abierta", "Cerrada", "EV-AUD-002", "Administrador / Jefe", "Respuesta registrada (DEC-04)")], "SPEC RN-064"),
  ("SM-19", "Tarea operativa (E-23)", [("Pendiente", "Asignada a un responsable", "inicial"), ("Completada", "Cerrada por el hecho asociado", "final"), ("Cancelada", "Su operación de origen se canceló", "final")],
   [("—", "Pendiente", "EV-TAR-001", "Sistema", "Responsable identificado"),
    ("Pendiente", "Pendiente", "EV-TAR-003", "Coordinador", "Reasignación; ambos responsables registrados"),
@@ -647,9 +647,9 @@ STATE_MACHINES = [
   [("—", "Activo", "EV-PAR-002", "Administrador", "—"),
    ("Activo", "Inactivo", "EV-PAR-003", "Administrador", "RN-MAE-007"),
    ("Inactivo", "Activo", "EV-PAR-005", "Administrador", "RN-MAE-009")], "SPEC HU-099"),
- ("SM-21", "Cierre de jornada (E-26) ⚠️", [("Abierta", "Jornada en curso", "inicial"), ("Cerrada", "Pendientes consolidados y traspasados", "final"), ("Omitida", "No se ejecutó el cierre", "final")],
+ ("SM-21", "Cierre de jornada (E-26)", [("Abierta", "Jornada en curso", "inicial"), ("Cerrada", "Pendientes consolidados y traspasados", "final"), ("Omitida", "No se ejecutó el cierre", "final")],
   [("Abierta", "Cerrada", "EV-JOR-003", "Jefe / Coordinador", "Sin registros pendientes de sincronización (RN-INT-003)"),
-   ("Abierta", "Omitida", "EV-JOR-005", "Sistema", "Fin de jornada sin cierre")], "SPEC PN-14 (sin RF: DEC-05)"),
+   ("Abierta", "Omitida", "EV-JOR-005", "Sistema", "Fin de jornada sin cierre")], "SPEC PN-14 (HU-TAR-004, HU-TAR-005; DEC-05)"),
 ]
 
 # ================================================================== HALLAZGOS DEL DOMINIO
@@ -688,16 +688,16 @@ DOMAIN_FINDINGS = [
   "Director — decidir"),
  ("HD-09", "«Valorización» sin dato de origen (H-07 / DEC-07 del SRS)",
   "El dominio no contiene costo ni precio (DC-03, RF-ENT-002, RF-SAL-002). El permiso «consultar valorización» no tiene objeto.",
-  "El modelo de dominio **no incluye** ningún atributo monetario. Si DEC-07 decide una política de costeo, se abrirá un subdominio nuevo.",
-  "DEC-07"),
+  "El modelo de dominio **no incluye** ningún atributo monetario. **Resuelto (DEC-07 a, v1.3):** el permiso «consultar valorización» se retira del MVP y queda como restricción preventiva; si más adelante se define una política de costeo (Horizonte 3), se abrirá un subdominio nuevo.",
+  "**Resuelto — DEC-07 (a), v1.3**"),
  ("HD-10", "Alerta «lote próximo a vencer inmovilización» sin fecha límite (H-18 / DEC-09)",
   "El lote solo tiene fecha de ingreso; ninguna regla define una «fecha límite».",
-  "Se modela solo la condición definida: antigüedad del lote sobre el umbral (RN-LOT-005 → EV-LOT-004). El tipo de alerta queda como en el SPEC, sin condición propia.",
-  "DEC-09"),
+  "**Resuelto (DEC-09 a, v1.3):** la alerta se redefine sobre el umbral de antigüedad del lote (RN-LOT-005 → EV-LOT-004); el lote no tiene «fecha límite».",
+  "**Resuelto — DEC-09 (a), v1.3**"),
  ("HD-11", "Cierre de jornada sin requisitos (H-10 / DEC-05)",
-  "PN-14 está en el MVP (backlog, elemento 39) pero no tiene HU ni RF.",
-  "Se modelan la entidad E-26, el agregado AG-21, la máquina SM-21 y los eventos EV-JOR-*, todos marcados ⚠️ pendientes.",
-  "DEC-05"),
+  "Hasta la v1.2, PN-14 estaba en el MVP (backlog, elemento 39) pero no tenía HU ni RF.",
+  "**Resuelto (DEC-05 a, v1.3):** PN-14 tiene HU-TAR-004, HU-TAR-005 y RF-TAR-006…008; la entidad E-26, el agregado AG-21, la máquina SM-21 y los eventos EV-JOR-* dejan de estar pendientes.",
+  "**Resuelto — DEC-05 (a), v1.3**"),
  ("HD-12", "El Sistema como actor no es un sexto rol",
   "RN-001 (RN-INT-001) atribuye acciones automáticas «al sistema como actor explícito». No debe confundirse con un rol (DC-04).",
   "VO-38 Actor = Usuario identificado o Sistema. El Sistema no tiene permisos ni ámbito.",
@@ -736,8 +736,8 @@ DOMAIN_FINDINGS = [
   "Informativo"),
  ("HD-21", "Estado de aprobación del SRS",
   "El Prompt #004 declara el SRS aprobado, pero el archivo sigue «Emitido para revisión del Director» y sus 9 decisiones (DEC-01…DEC-09) no tienen respuesta registrada.",
-  "El modelo se construye sobre el baseline del SRS sin asumir respuestas a las decisiones; donde una decisión afecta al dominio se marca ⚠️. **DF5-06** (revisada) registra la **validación técnica** del SPEC, el SRS y este modelo en su v1.1; la aprobación funcional y académica sigue pendiente de DEC-01…DEC-09 y HD-25.",
-  "Director — aprobación pendiente (DEC-01…DEC-09)"),
+  "El modelo se construye sobre el baseline del SRS sin asumir respuestas a las decisiones; donde una decisión afecta al dominio se marca ⚠️. **DF5-06** (revisada) registra la **validación técnica** del SPEC, el SRS y este modelo en su v1.1; la aprobación funcional y académica sigue pendiente solo del acta de DEC-08 y de HD-28…HD-30 (las nueve decisiones DEC ya tienen respuesta, v1.3).",
+  "Director — aprobación pendiente (acta de DEC-08)"),
  ("HD-22", "Unidades de manejo agrupadas",
   "PN-02 E-03 (MVP) permite rotular un contenedor como «unidad de manejo agrupada», pero el backlog sitúa la «gestión de unidades de manejo y contenedores» en el Horizonte 3.",
   "**Resuelto en la v1.2 (Q-11 y F-6):** el contenedor agrupado entra al MVP como una pieza de tipo «contenedor agrupado» (E-27, VO-43); no se modela como entidad aparte. La mezcla de lotes en un contenedor sigue pendiente (HD-28).",

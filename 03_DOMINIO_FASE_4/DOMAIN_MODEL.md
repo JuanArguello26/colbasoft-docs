@@ -8,11 +8,11 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | DOMAIN_MODEL |
-| **Versión** | 1.2 |
+| **Versión** | 1.3 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2) |
-| **Estado** | **Borrador v1.2** (30-sep-2026): incorpora la trazabilidad por pieza y resuelve HD-25. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: DEC-02…DEC-09 sin responder y acta de DEC-08 |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.2 → SRS_COLBASOFT v1.2 → **Modelo de Dominio v1.2** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 y v1.3) |
+| **Estado** | **Borrador v1.3** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2) y las respuestas a DEC-02…DEC-09. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.3 → SRS_COLBASOFT v1.3 → **Modelo de Dominio v1.3** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `EVENT_CATALOG.md` (eventos, matrices D y E) · `GLOSSARY.md` (glosario y auditoría interna) |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -23,6 +23,8 @@
 > **Versión 1.1.** Incorpora las decisiones del cierre del CP-04 (DF5-01, DF5-02, DF5-03, DF5-05 y DF5-06), registradas en `04_CP04_AUDITORIA/04_CP04_CIERRE.md`. El detalle de los cambios está en DOMAIN_MODEL §0.8. La v1.0 se conserva en el historial del repositorio (commit `79f823c`).
 
 > **Versión 1.2.** Incorpora las decisiones del Director del 30 de septiembre de 2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09 y Q-10), que agregan la **Pieza** al modelo y resuelven HD-25. El detalle está en DOMAIN_MODEL §0.9.
+
+> **Versión 1.3.** Incorpora las respuestas del Director a DEC-02…DEC-09. El detalle está en DOMAIN_MODEL §0.10.
 
 ## Índice
 
@@ -44,7 +46,7 @@
 
 # CAPÍTULO 0 — AUDITORÍA DE REANUDACIÓN
 
-> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes, el **0.8** registra los cambios de la v1.1 y el **0.9** los de la v1.2.
+> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes, el **0.8** registra los cambios de la v1.1, el **0.9** los de la v1.2 y el **0.10** los de la v1.3.
 
 ## 0.1 Estado del proyecto
 
@@ -105,14 +107,14 @@ El proyecto no conserva documentos de checkpoint independientes; el Prompt #004 
 | R-S02 | Mapeos `[SRS]` sin validar por el Director | 🟠 | Las matrices D y E se construyen sobre esos IDs |
 | R-S03 | Alcance grande para nivel Tecnólogo | 🟠 | 27 entidades y 168 eventos amplían la superficie |
 | R-S04 | Tensión DC-02 / Horizonte 2 (DEC-01) | 🟠 | Transferencias y conteo general se modelan completos |
-| R-S05 | Reglas y KPI sin requisito de captura; PN-14 sin requisitos | 🟠 | Eventos marcados «sin RF» (Cap. 2 del EVENT_CATALOG) |
+| R-S05 | Reglas y KPI sin requisito de captura; PN-14 sin requisitos | ✅ | Resuelto en la v1.3 (DEC-05, DEC-06) |
 | R-S06 | Dos cifras de reglas (68 y 82) | 🟡 | El dominio usa las 82 |
 | R-S07 | Valores numéricos de RNF sin calibrar | 🟡 | No afecta al dominio |
-| R-S08 | Ambigüedad «estructural / configurable» (DEC-04) | 🟠 | IN-67 adopta la interpretación del SRS |
+| R-S08 | Ambigüedad «estructural / configurable» (DEC-04) | ✅ | Resuelto en la v1.3: toda regla estructural es no configurable (IN-67) |
 | R-S09 | Gherkin no valida adopción | 🟠 | No afecta al dominio |
 | R-S10 | Cifras de fuentes no verificadas | 🟠 | El dominio no usa cifras de la literatura |
 
-**Decisiones del Director aún abiertas (SRS, Anexo C):** DEC-01 umbral aprobatorio · DEC-02 lista de alcance · DEC-03 cifra y renumeración de reglas · DEC-04 semántica estructural/configurable · DEC-05 cierre de jornada · DEC-06 brechas de trazabilidad · DEC-07 valorización · DEC-08 aprobación formal del SPEC · DEC-09 fecha límite de lote. Cada una que toca el dominio se marca ⚠️ donde aplica.
+**Decisiones del Director (SRS, Anexo C) — todas con respuesta en la v1.2 y la v1.3:** DEC-01 umbral aprobatorio · DEC-02 lista de alcance · DEC-03 cifra y renumeración de reglas · DEC-04 semántica estructural/configurable · DEC-05 cierre de jornada · DEC-06 brechas de trazabilidad · DEC-07 valorización · DEC-08 aprobación formal del SPEC · DEC-09 fecha límite de lote. Queda pendiente solo el acta firmada de DEC-08.
 
 **Riesgos críticos heredados del SPEC:** adopción (RG-01, RG-02, RG-13, RG-14, RG-16, RG-17, RG-23) y evidencia académica (RG-33…RG-36).
 
@@ -136,7 +138,7 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 
 ## 0.7 Método
 
-1. Se releyeron los cuatro documentos y se reutilizó la extracción estructurada del SRS (103 HU, 162 RF, 82 RN, 24 KPI en la v1.0; 110 HU, 171 RF, 91 RN en la v1.2).
+1. Se releyeron los cuatro documentos y se reutilizó la extracción estructurada del SRS (103 HU, 162 RF, 82 RN, 24 KPI en la v1.0; 114 HU, 184 RF, 91 RN en la v1.3).
 2. Entidades, objetos de valor, agregados, invariantes, estados, eventos y términos se escribieron como datos únicos, y de ellos se generaron los tres documentos y las cinco matrices. **Una definición aparece una sola vez**: el Cap. 1 (lenguaje ubicuo) y el GLOSSARY usan el mismo texto.
 3. Se verificó automáticamente que toda referencia a RN, HU, RF, KPI, evento, entidad e invariante exista (0 referencias rotas).
 
@@ -172,6 +174,24 @@ Al auditar DEC-01 el Director tomó decisiones que resuelven **HD-25** y **HD-22
 
 **Ningún ID se renumeró ni se reutilizó.** Los elementos nuevos continúan la numeración (E-27, VO-43, AG-22, IN-73…IN-78, EV-ENT-016, EV-SAL-012, EV-SAL-013, HD-28…HD-30, RF5-15, RF5-16 y los términos GL-206…GL-210). Las reglas del SRS pasan de 85 a 91; las seis nuevas (SPEC v1.2 §9.16) son invariantes. **Pendientes que la v1.2 deja abiertos** (no bloquean la Fase 5 por sí mismos): HD-28, HD-29 y HD-30.
 
+
+
+## 0.10 Control de cambios de la versión 1.3 (respuestas a DEC-02…DEC-09, 30 de septiembre de 2026)
+
+El Director respondió DEC-02…DEC-09, todas en la opción (a) recomendada por el SRS. El SPEC v1.3 y el SRS v1.3 las recogen antes; esta versión las incorpora editando los datos fuente y regenerando los tres documentos.
+
+| Decisión | Respuesta | Cambios en el modelo |
+|---|---|---|
+| **DEC-02** | 20 módulos, dashboard M-17 y exclusión de toda IA | Ninguno |
+| **DEC-03** | Numeración canónica `RN-<DOM>-nnn` | Ninguno: el modelo ya usaba esos IDs |
+| **DEC-04** | Toda regla estructural es no configurable; el Jefe lee parámetros; el Administrador o el Jefe cierran las observaciones de auditoría | E-22, SM-18 y **EV-AUD-002**: el actor «por definir» pasa a «Administrador / Jefe»; término «Regla estructural»; IN-67 deja de ser provisional |
+| **DEC-05** | Se crean HU y RF del cierre de jornada | E-26, AG-21, SM-21 y EV-JOR-001…005 dejan de estar marcados como pendientes y se vinculan a HU-TAR-004, HU-TAR-005 y RF-TAR-006…008; **HD-11 resuelto**; término «Cierre de jornada» |
+| **DEC-06** | Se aprueban todas las propuestas de cierre de brechas | Vínculos de eventos con los requisitos nuevos: EV-INV-002, EV-INV-005, EV-MOV-003, EV-MOV-004, EV-CNT-013, EV-NOV-006, EV-NOV-007, EV-ENT-003, EV-TRZ-001. Ninguna regla, entidad ni evento nuevos |
+| **DEC-07** | La valorización se retira del MVP | **HD-09 resuelto** |
+| **DEC-08** | Acta y tabla de equivalencia | Sin efecto en el modelo; **HD-21** queda pendiente solo del acta firmada |
+| **DEC-09** | Alerta sobre el umbral de antigüedad del lote | **HD-10 resuelto** |
+
+**Ningún ID se renumeró ni se reutilizó.** No se agregaron entidades, agregados, invariantes, eventos ni términos nuevos; se actualizaron vínculos y textos. Las cifras del SRS pasan a 114 HU y 184 RF.
 
 **ESTADO: CONTEXTO RECONSTRUIDO.**
 
@@ -469,7 +489,7 @@ Al auditar DEC-01 el Director tomó decisiones que resuelven **HD-25** y **HD-22
 
 **Alcance.** Consolidación de pendientes de la jornada y traspaso explícito al turno siguiente.
 
-**Por qué es Supporting.** Mitiga riesgos operativos del SPEC (RG-03, RG-08). **Sin requisitos funcionales en el SRS** (hallazgo H-10, decisión DEC-05 pendiente): se modela para no perder el concepto, marcado como pendiente.
+**Por qué es Supporting.** Mitiga riesgos operativos del SPEC (RG-03, RG-08). **Con requisitos funcionales desde la v1.3** (HU-TAR-004, HU-TAR-005, RF-TAR-006…008; hallazgo H-10 resuelto por DEC-05).
 
 ## 2.3 Lectura
 
@@ -958,7 +978,7 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 
 | Campo | Contenido |
 |---|---|
-| **Descripción** | Consolidación de la actividad del día que deja la bodega en estado consistente y traspasa explícitamente los pendientes al turno siguiente (PN-14). ⚠️ **Sin HU ni RF en el SRS** (H-10, DEC-05). |
+| **Descripción** | Consolidación de la actividad del día que deja la bodega en estado consistente y traspasa explícitamente los pendientes al turno siguiente (PN-14). Con HU y RF desde la v1.3 (DEC-05). |
 | **Responsabilidad** | Hacer visibles los pendientes ocultos y registrar quién asumió su responsabilidad. |
 | **Identidad** | Bodega + jornada (fecha operativa). |
 | **Información que la define** | Jornada · pendientes consolidados · pendientes traspasados · ejecutor · estado. |
@@ -1145,7 +1165,7 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 
 **AG-22 · Pieza.** La pieza tiene identidad, tipo y cantidad propias y es el nivel al que se selecciona, se corta y se cuenta (v1.2). Su cantidad cambia solo por movimientos confirmados y nunca puede quedar negativa ni superar lo que respalda el kardex. La coherencia entre la suma de las cantidades de sus piezas y la existencia de la unidad de inventario (AG-05) es una invariante entre agregados (RF5-15).
 
-**AG-21 · Cierre de jornada.** ⚠️ Pendiente DEC-05. Consolidación de una bodega en una jornada; su cierre depende de que no queden registros sin sincronizar.
+**AG-21 · Cierre de jornada.** Consolidación de una bodega en una jornada; su cierre depende de que no queden registros sin sincronizar.
 
 ## 5.3 Operaciones de negocio que involucran varios agregados
 
@@ -1299,7 +1319,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | | |
 |---|---|
 | **Completado** | 78 invariantes (mínimo exigido: 40), cada una vinculada a reglas del SRS; 14 políticas reactivas; 91/91 reglas cubiertas (82 + 3 de la v1.1 + 6 de la v1.2: IN-70…IN-78) |
-| **Riesgos** | IN-67 depende de DEC-04; IN-46 depende de HD-13; IN-23 actualizada por DF5-01 |
+| **Riesgos** | IN-67 confirmada por DEC-04; IN-46 depende de HD-13; IN-23 actualizada por DF5-01 |
 | **Dependencias** | SRS Cap. 8 |
 | **Hallazgos** | HD-04, HD-13 · distinción invariante/política (nueva en esta fase) |
 
@@ -1327,8 +1347,8 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | **E-17 Novedad** | **Abierta** → acción determinada por el Coordinador → **Cerrada resuelta** (vinculada al movimiento que la resuelve). | **Escalada** al Jefe por vencimiento; **Cerrada improcedente** si se reportó por error. Nunca se elimina. |
 | **E-18 Alerta** | **Activa** → **Atendida** (acción registrada) o **Descartada** (con motivo). | **Escalada** si es crítica y vence el plazo; **Cerrada sin atención** si la condición cesa antes de atenderse. |
 | **E-19 Usuario** | **Activo** (cambio de contraseña en primer acceso) → **Bloqueado** tras intentos fallidos → **Activo** al restablecerse → **Inactivo** al desactivarse → **Activo** al reactivarse. | Sus movimientos conservan su identidad y el rol que tenía cuando ocurrieron. |
-| **E-22 Observación de auditoría** | **Abierta** al registrarse → **Cerrada** con respuesta. | Quién responde no está definido en el SPEC (DEC-04). |
-| **E-26 Cierre de jornada** | **Abierta** durante la jornada → **Cerrada** con pendientes traspasados. | **Omitida** si no se ejecuta; bloqueada mientras haya registros sin sincronizar. ⚠️ DEC-05. |
+| **E-22 Observación de auditoría** | **Abierta** al registrarse → **Cerrada** con respuesta. | Responde y cierra el Administrador o el Jefe (DEC-04, v1.3). |
+| **E-26 Cierre de jornada** | **Abierta** durante la jornada → **Cerrada** con pendientes traspasados. | **Omitida** si no se ejecuta; bloqueada mientras haya registros sin sincronizar. |
 
 **Principios comunes a todos los ciclos:**
 
@@ -1378,7 +1398,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | SM-18 | Observación de auditoría (E-22) | 2 | 2 | SPEC RN-064 (SRS RN-AUD-002) |
 | SM-19 | Tarea operativa (E-23) | 3 | 4 | SPEC M-20; «Cancelada» nuevo |
 | SM-20 | Motivo tipificado (E-24) | 2 | 3 | SPEC HU-099 (SRS HU-PAR-002) |
-| SM-21 | Cierre de jornada (E-26) ⚠️ | 3 | 2 | SPEC PN-14 (sin RF: DEC-05) |
+| SM-21 | Cierre de jornada (E-26) | 3 | 2 | SPEC PN-14 (HU-TAR-004, HU-TAR-005; DEC-05) |
 | **Total** | 21 máquinas | **76** | **118** | |
 
 ## 8.2 SM-01 · Referencia (E-01)
@@ -1700,7 +1720,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | Desde | Hacia | Evento | Actor | Condición (guarda) |
 |---|---|---|---|---|
 | — | Abierta | EV-AUD-001 | Auditor | Registro separado (RN-AUD-002) |
-| Abierta | Cerrada | EV-AUD-002 | Por definir (DEC-04) | Respuesta registrada |
+| Abierta | Cerrada | EV-AUD-002 | Administrador / Jefe | Respuesta registrada (DEC-04) |
 
 ## 8.20 SM-19 · Tarea operativa (E-23)
 
@@ -1730,7 +1750,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | Activo | Inactivo | EV-PAR-003 | Administrador | RN-MAE-007 |
 | Inactivo | Activo | EV-PAR-005 | Administrador | RN-MAE-009 |
 
-## 8.22 SM-21 · Cierre de jornada (E-26) ⚠️
+## 8.22 SM-21 · Cierre de jornada (E-26)
 
 | Estado | Significado | Tipo |
 |---|---|:--:|
@@ -1899,9 +1919,9 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | | |
 |---|---|
 | **Completado** | Matrices A (27 entidades × 168 eventos), B (entidad ↔ regla) y C (entidad ↔ KPI, con vista inversa) |
-| **Riesgos** | Matriz C depende de datos que ningún RF exige capturar (KPI-05, 07, 10, 12, 17, 24; H-12 del SRS) |
+| **Riesgos** | Matriz C: los datos de origen de KPI-05, 07, 10, 12, 17 y 24 se capturan desde la v1.3 (DEC-06); KPI-24 requiere además verificación de campo |
 | **Dependencias** | Cap. 3, EVENT_CATALOG |
-| **Hallazgos** | H-12 del SRS (heredado) |
+| **Hallazgos** | H-12 del SRS (resuelto en la v1.3) |
 
 ---
 
@@ -1919,9 +1939,9 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | **HD-06** | **La zona de recepción y la exigencia de ubicación** | CD-16 describe la zona de recepción como zona de tránsito, pero la unidad de inventario exige una ubicación. El SPEC no dice que la zona de recepción tenga ubicaciones. | **Decisión DF5-02:** toda zona de recepción contiene al menos una ubicación; la mercancía recibida reside allí en estado «En recepción» (RN-EXI-007, IN-70). | **Resuelto — DF5-02** |
 | **HD-07** | **¿La entrada confirmada es disponible o en recepción?** | PN-01 paso 10 dice que al confirmar «se incrementa la existencia **disponible**», pero CD-16 dice que la existencia en zona de recepción «ya está en el inventario pero **aún no está disponible**», y CD-44 incluye el estado «En recepción». | **Decisión DF5-02:** la entrada confirmada ingresa **En recepción**; pasa a **Disponible** al ubicarse, mediante el movimiento interno de primera ubicación (EV-INV-001, DF5-03). Nueva regla RN-EXI-007 (IN-70); el SPEC v1.1 corrige PN-01 paso 10 y su resultado. | **Resuelto — DF5-02** |
 | **HD-08** | **Solicitante de un ajuste derivado de conteo** | Al cerrar un conteo, el Jefe «decide qué diferencias generan ajuste» (RN-042 → RN-CNT-004) y esos ajustes siguen PN-07, cuyo aprobador menor es… el Jefe. No se define quién figura como solicitante, y si es el Jefe, RN-023 (RN-AJU-001) lo obliga a escalar todo ajuste de conteo al Administrador. | Se modela el ajuste de conteo como Solicitud de ajuste con origen «conteo» y solicitante = el Jefe que cierra; por RN-AJU-001 escala al Administrador. Esto puede cargar al Administrador (riesgo RG-18). | Director — decidir |
-| **HD-09** | **«Valorización» sin dato de origen (H-07 / DEC-07 del SRS)** | El dominio no contiene costo ni precio (DC-03, RF-ENT-002, RF-SAL-002). El permiso «consultar valorización» no tiene objeto. | El modelo de dominio **no incluye** ningún atributo monetario. Si DEC-07 decide una política de costeo, se abrirá un subdominio nuevo. | DEC-07 |
-| **HD-10** | **Alerta «lote próximo a vencer inmovilización» sin fecha límite (H-18 / DEC-09)** | El lote solo tiene fecha de ingreso; ninguna regla define una «fecha límite». | Se modela solo la condición definida: antigüedad del lote sobre el umbral (RN-LOT-005 → EV-LOT-004). El tipo de alerta queda como en el SPEC, sin condición propia. | DEC-09 |
-| **HD-11** | **Cierre de jornada sin requisitos (H-10 / DEC-05)** | PN-14 está en el MVP (backlog, elemento 39) pero no tiene HU ni RF. | Se modelan la entidad E-26, el agregado AG-21, la máquina SM-21 y los eventos EV-JOR-*, todos marcados ⚠️ pendientes. | DEC-05 |
+| **HD-09** | **«Valorización» sin dato de origen (H-07 / DEC-07 del SRS)** | El dominio no contiene costo ni precio (DC-03, RF-ENT-002, RF-SAL-002). El permiso «consultar valorización» no tiene objeto. | El modelo de dominio **no incluye** ningún atributo monetario. **Resuelto (DEC-07 a, v1.3):** el permiso «consultar valorización» se retira del MVP y queda como restricción preventiva; si más adelante se define una política de costeo (Horizonte 3), se abrirá un subdominio nuevo. | **Resuelto — DEC-07 (a), v1.3** |
+| **HD-10** | **Alerta «lote próximo a vencer inmovilización» sin fecha límite (H-18 / DEC-09)** | El lote solo tiene fecha de ingreso; ninguna regla define una «fecha límite». | **Resuelto (DEC-09 a, v1.3):** la alerta se redefine sobre el umbral de antigüedad del lote (RN-LOT-005 → EV-LOT-004); el lote no tiene «fecha límite». | **Resuelto — DEC-09 (a), v1.3** |
+| **HD-11** | **Cierre de jornada sin requisitos (H-10 / DEC-05)** | Hasta la v1.2, PN-14 estaba en el MVP (backlog, elemento 39) pero no tenía HU ni RF. | **Resuelto (DEC-05 a, v1.3):** PN-14 tiene HU-TAR-004, HU-TAR-005 y RF-TAR-006…008; la entidad E-26, el agregado AG-21, la máquina SM-21 y los eventos EV-JOR-* dejan de estar pendientes. | **Resuelto — DEC-05 (a), v1.3** |
 | **HD-12** | **El Sistema como actor no es un sexto rol** | RN-001 (RN-INT-001) atribuye acciones automáticas «al sistema como actor explícito». No debe confundirse con un rol (DC-04). | VO-38 Actor = Usuario identificado o Sistema. El Sistema no tiene permisos ni ámbito. | Informativo |
 | **HD-13** | **Contradicción sobre la libertad del Auxiliar al ubicar** | La matriz §2.7 del SPEC dice que el Auxiliar «solo confirma la ubicación que el sistema le propone; no la elige libremente» (RN-020 → RN-MOV-001), mientras PN-03 E-02 y RN-022 (RN-MOV-003) dicen que puede ubicar en otro lugar y el sistema registra la desviación. | Se modela IN-46: la propuesta es sugerencia y la desviación se permite y registra (prevalece la regla de negocio sobre la nota de la matriz). | Director — confirmar |
 | **HD-14** | **El ejemplo «Stock mínimo alcanzado» usa un término prohibido y «Lote inconsistente» no está definido** | «Stock» está prohibido como sinónimo de existencia (SPEC §0.5). «Lote inconsistente» no aparece en el SPEC ni en el SRS. | Se usan «Existencia mínima alcanzada» (EV-INV-006) y «Discrepancia de integridad detectada» (EV-TRZ-006), que cubre la verificación por lote de RF-KDX-006. No se crea una regla nueva. | Informativo |
@@ -1931,7 +1951,7 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | **HD-18** | **Precisión de las cantidades** | Unidades de medida como metros o kilogramos requieren cantidades fraccionarias; el SPEC no fija la precisión. | VO-13 admite fracciones según la unidad de medida; la precisión se fija en Fase 5. | Fase 5 |
 | **HD-19** | **Estados y actores que el SPEC no nombra** | Para completar las máquinas de estado fue necesario nombrar: «Habilitado» (lote no inmovilizado), «Generado» (QR antes de verificarse), «Reversado» (documento de entrada anulado sin confirmar: función de M-07 sin RF), «Cancelada» (solicitud de salida y tarea operativa: el SPEC menciona la cancelación sin actor ni RF), y no se definen estados propios de Bodega, Zona ni SKU. | Se marcan como nombres nuevos del dominio (origen «Nuevo — Fase 4»), sin crear reglas nuevas. | Director — confirmar |
 | **HD-20** | **El cierre de tarea por «movimiento» no cubre las tareas de conteo** | RF-160 (RF-TAR-003) cierra la tarea «por la confirmación del movimiento asociado», pero registrar un conteo no es un movimiento. | Se generaliza a «hecho asociado confirmado» (IN-69): movimiento para tareas operativas, conteo confirmado para tareas de conteo. | Informativo |
-| **HD-21** | **Estado de aprobación del SRS** | El Prompt #004 declara el SRS aprobado, pero el archivo sigue «Emitido para revisión del Director» y sus 9 decisiones (DEC-01…DEC-09) no tienen respuesta registrada. | El modelo se construye sobre el baseline del SRS sin asumir respuestas a las decisiones; donde una decisión afecta al dominio se marca ⚠️. **DF5-06** (revisada) registra la **validación técnica** del SPEC, el SRS y este modelo en su v1.1; la aprobación funcional y académica sigue pendiente de DEC-01…DEC-09 y HD-25. | Director — aprobación pendiente (DEC-01…DEC-09) |
+| **HD-21** | **Estado de aprobación del SRS** | El Prompt #004 declara el SRS aprobado, pero el archivo sigue «Emitido para revisión del Director» y sus 9 decisiones (DEC-01…DEC-09) no tienen respuesta registrada. | El modelo se construye sobre el baseline del SRS sin asumir respuestas a las decisiones; donde una decisión afecta al dominio se marca ⚠️. **DF5-06** (revisada) registra la **validación técnica** del SPEC, el SRS y este modelo en su v1.1; la aprobación funcional y académica sigue pendiente solo del acta de DEC-08 y de HD-28…HD-30 (las nueve decisiones DEC ya tienen respuesta, v1.3). | Director — aprobación pendiente (acta de DEC-08) |
 | **HD-22** | **Unidades de manejo agrupadas** | PN-02 E-03 (MVP) permite rotular un contenedor como «unidad de manejo agrupada», pero el backlog sitúa la «gestión de unidades de manejo y contenedores» en el Horizonte 3. | **Resuelto en la v1.2 (Q-11 y F-6):** el contenedor agrupado entra al MVP como una pieza de tipo «contenedor agrupado» (E-27, VO-43); no se modela como entidad aparte. La mezcla de lotes en un contenedor sigue pendiente (HD-28). | **Resuelto — Q-11 · F-6 (v1.2)** |
 | **HD-23** | **La primera ubicación cambiaba la existencia de unidad sin movimiento (HA-02 de la auditoría del CP-04)** | Tras la entrada, la existencia está en la unidad (SKU, Lote, ubicación de recepción); al ubicarla (PN-03, HU-ENT-006) pasa a (SKU, Lote, ubicación destino), que es otra unidad (RN-INT-005). La v1.0 lo modelaba como cambio de estado de la misma unidad (SM-06, EV-INV-001) sin movimiento en el kardex, en contra de IN-03 (la existencia es la suma de sus movimientos) y dejando sin «dónde» el primer tramo de la trazabilidad (CD-21). | **Decisión DF5-03:** la primera ubicación es un **movimiento interno** (tipo existente en VO-21) desde la ubicación de recepción hacia la destino. Nueva regla RN-MOV-010 (IN-71). EV-INV-001 conserva su ID y su nombre y pasa a designar ese movimiento confirmado; SM-06 agrega la interrupción de la primera ubicación (En recepción → En tránsito). La operación se suma a las indivisibles del Cap. 5.3. | **Resuelto — DF5-03** |
 | **HD-24** | **Registros retenidos sin conectividad que al sincronizarse ya no cumplen una regla (HA-04 de la auditoría del CP-04)** | Con retención local (RN-INT-003) un registro puede ser válido cuando se hace y dejar de serlo al sincronizarse, porque otro usuario cambió la existencia. IN-08 prohíbe la existencia negativa sin excepción, y el hecho físico ya ocurrió. El SPEC v1.0 no decía qué pasa en ese caso (RF5-05). | **Decisión DF5-05:** al sincronizar, el registro se valida de nuevo contra el estado vigente; si cumple, se confirma con su fecha operativa original (EV-TRZ-004); si no, no se aplica y se rechaza con constancia (nuevo estado «Rechazado en sincronización» en SM-07 y nuevo evento EV-TRZ-007) y, si describe un hecho físico, abre una novedad (E-17). Nueva regla RN-INT-008 (IN-72). El orden del kardex con registros tardíos sigue en HD-16. | **Resuelto — DF5-05** |
@@ -1942,7 +1962,7 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | **HD-29** | **Cortes parciales: destino del remanente y movimiento parcial de una pieza** | F-3 permite cortes parciales de rollos y RN-SAL-008 los trata como salida que deja la pieza con su remanente. No está decidido qué ocurre si el remanente se mueve a otra ubicación (¿sigue siendo la misma pieza?, ¿se divide?) ni si una pieza puede moverse solo en parte entre ubicaciones (HU-MOV-001 criterio 2 habla de cantidad total o parcial; con pieza, la cantidad parcial solo tiene sentido como corte). | No se decide. El modelo solo admite el corte como salida (RN-SAL-008) y el movimiento interno de la pieza completa (RN-MOV-011); no define la división de una pieza en dos. | Director — decidir · **Información requerida:** Q-04 (frecuencia y forma de los cortes). Decidir antes del detalle de movimientos de la Fase 5 |
 | **HD-30** | **Alcance del control por pieza: ¿toda referencia se controla por piezas?** | F-1 define la pieza para referencias en metros, kilogramos y unidades, sin declarar excepciones; RN-LOT-006 exige registrar por piezas toda la mercancía recibida. Si una referencia llega suelta y sin pieza física distinguible, el modelo no dice cómo registrarla. | No se decide. El modelo aplica la regla a toda la mercancía (RN-LOT-006) y registra un paquete, bolsa o contenedor agrupado como una pieza con su cantidad de unidades. | Director — decidir · **Información requerida:** AS-IS (qué mercancía llega suelta). No bloquea la Fase 5 por sí mismo |
 
-**Resueltos (cierre del CP-04 y decisiones del 30-sep-2026, v1.2):** HD-04, HD-06, HD-07, HD-22, HD-23, HD-24, HD-25. **Bloqueantes para la Fase 5:** ninguno. **Requieren decisión del Director:** HD-01, HD-08, HD-09, HD-10, HD-11, HD-13, HD-15, HD-17, HD-19, HD-21, HD-26, HD-27, HD-28, HD-29, HD-30.
+**Resueltos (cierre del CP-04 y decisiones del 30-sep-2026, v1.2 y v1.3):** HD-04, HD-06, HD-07, HD-09, HD-10, HD-11, HD-22, HD-23, HD-24, HD-25. **Bloqueantes para la Fase 5:** ninguno. **Requieren decisión del Director:** HD-01, HD-08, HD-13, HD-15, HD-17, HD-19, HD-21, HD-26, HD-27, HD-28, HD-29, HD-30.
 
 
 ---
@@ -1958,4 +1978,4 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 
 ---
 
-*Fin de DOMAIN_MODEL v1.2. La monografía original permanece sin modificaciones.*
+*Fin de DOMAIN_MODEL v1.3. La monografía original permanece sin modificaciones.*

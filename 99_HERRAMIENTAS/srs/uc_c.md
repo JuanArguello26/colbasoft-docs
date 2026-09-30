@@ -9,7 +9,7 @@
 | **Precondiciones** | Usuario autenticado. |
 | **Postcondiciones (éxito)** | La anomalía llegó al sistema; su tratamiento quedó documentado y vinculado al movimiento que la resolvió; la novedad queda cerrada con constancia. |
 | **Postcondiciones (fallo)** | La novedad permanece abierta y escala al Jefe al vencer el plazo. |
-| **Trazabilidad** | HU: @HU067 @HU068 @HU069 @HU070 · RF: @RF106 @RF107 @RF108 @RF109 @RF110 @RF111 · RN: @RN043 @RN059 @RN060 @RN063 · KPI: KPI-23 |
+| **Trazabilidad** | HU: @HU067 @HU068 @HU069 @HU070 · RF: @RF106 @RF107 @RF108 @RF109 @RF110 @RF111 @RF174 @RF177 · RN: @RN043 @RN059 @RN060 @RN063 · KPI: KPI-23 |
 
 **Flujo principal**
 1. El Auxiliar abre el reporte de novedad desde su tablet en pocos pasos.
@@ -82,9 +82,9 @@
 | **Precondiciones** | Jornada con movimientos registrados. |
 | **Postcondiciones (éxito)** | Cada jornada cierra con un estado conocido, sin registros pendientes ocultos y con la responsabilidad de los pendientes explícitamente traspasada al turno siguiente; el cierre queda registrado con quién lo ejecutó. |
 | **Postcondiciones (fallo)** | El cierre no se registra; el sistema lo trata como omisión y alerta al Jefe al día siguiente. |
-| **Trazabilidad** | HU: **ninguna** · RF: **ninguno** (ver nota) · RN: @RN054 @RN028 · RNF: @RNF010 @RNF011 · RG: RG-03, RG-08 |
+| **Trazabilidad** | HU: @HU113 @HU114 · RF: @RF182 @RF183 @RF184 · RN: @RN054 @RN028 · RNF: @RNF010 @RNF011 · RG: RG-03, RG-08 |
 
-> **Nota de trazabilidad — hallazgo H-10.** El SPEC modela PN-14 (§3) y lo incluye en el backlog del MVP (elemento 39, §12.2), pero **no le asigna ninguna historia de usuario ni requisito funcional**; solo la regla @RN054 y el requisito @RNF011 lo afectan indirectamente. Este caso de uso se documenta desde el proceso del SPEC y queda marcado como **requisitos pendientes de definición** hasta que el Director decida (ver Anexo C, decisión DEC-05).
+> **Nota de trazabilidad — hallazgo H-10 (resuelto).** El SPEC v1.0 a v1.2 modelaba PN-14 (§3) y lo incluía en el backlog del MVP (elemento 39, §12.2) sin historia ni requisito. El Director resolvió DEC-05 (a) el 30-sep-2026: el SPEC v1.3 crea @HU113, @HU114 y @RF182 a @RF184, que este caso de uso recorre.
 
 **Flujo principal**
 1. El sistema consolida los movimientos de la jornada.
@@ -148,7 +148,7 @@
 | **Precondiciones** | Usuario autenticado; existen movimientos registrados. |
 | **Postcondiciones (éxito)** | El usuario obtiene la historia cronológica sin huecos; la consulta no modifica nada. |
 | **Postcondiciones (fallo)** | Se informa la ausencia de resultados o de permiso. |
-| **Trazabilidad** | HU: @HU077 @HU078 @HU079 @HU080 @HU081 @HU110 · RF: @RF120 @RF121 @RF122 @RF123 @RF124 @RF125 @RF126 @RF170 · RN: @RN012 @RN001 @RN065 @RN070 @RN085 · KPI: KPI-05 KPI-09 KPI-11 KPI-17 KPI-24 |
+| **Trazabilidad** | HU: @HU077 @HU078 @HU079 @HU080 @HU081 @HU110 · RF: @RF120 @RF121 @RF122 @RF123 @RF124 @RF125 @RF126 @RF170 @RF178 · RN: @RN012 @RN001 @RN065 @RN070 @RN085 · KPI: KPI-05 KPI-09 KPI-11 KPI-17 KPI-24 |
 
 **Flujo principal**
 1. El usuario elige la unidad de inventario, el lote o la ubicación.

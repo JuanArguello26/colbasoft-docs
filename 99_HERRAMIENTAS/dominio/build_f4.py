@@ -15,7 +15,7 @@ RN_TXT, KPI_N = S["RN_TXT"], S["KPI"]
 ENT = {e["id"]: e for e in ENTITIES}
 EVT = {e["id"]: e for e in EVENTS}
 SD = {s["id"]: s for s in SUBDOMAINS}
-FECHA = "28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2)"
+FECHA = "28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 y v1.3)"
 
 import sys as _sys
 _sys.path.insert(0, os.path.join(HERE, "..", "srs"))
@@ -62,11 +62,11 @@ def header(doc, sub, extra=""):
 | Campo | Dato |
 |---|---|
 | **Documento** | {doc} |
-| **Versión** | 1.2 |
+| **Versión** | 1.3 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
 | **Fecha** | {FECHA} |
-| **Estado** | **Borrador v1.2** (30-sep-2026): incorpora la trazabilidad por pieza y resuelve HD-25. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: DEC-02…DEC-09 sin responder y acta de DEC-08 |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.2 → SRS_COLBASOFT v1.2 → **Modelo de Dominio v1.2** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Estado** | **Borrador v1.3** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2) y las respuestas a DEC-02…DEC-09. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.3 → SRS_COLBASOFT v1.3 → **Modelo de Dominio v1.3** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | {extra} |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -77,6 +77,8 @@ def header(doc, sub, extra=""):
 > **Versión 1.1.** Incorpora las decisiones del cierre del CP-04 (DF5-01, DF5-02, DF5-03, DF5-05 y DF5-06), registradas en `04_CP04_AUDITORIA/04_CP04_CIERRE.md`. El detalle de los cambios está en DOMAIN_MODEL §0.8. La v1.0 se conserva en el historial del repositorio (commit `79f823c`).
 
 > **Versión 1.2.** Incorpora las decisiones del Director del 30 de septiembre de 2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09 y Q-10), que agregan la **Pieza** al modelo y resuelven HD-25. El detalle está en DOMAIN_MODEL §0.9.
+
+> **Versión 1.3.** Incorpora las respuestas del Director a DEC-02…DEC-09. El detalle está en DOMAIN_MODEL §0.10.
 """
 
 # ====================================================================================== DOMAIN_MODEL
@@ -86,7 +88,7 @@ def cap0():
 
 # CAPÍTULO 0 — AUDITORÍA DE REANUDACIÓN
 
-> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes, el **0.8** registra los cambios de la v1.1 y el **0.9** los de la v1.2.
+> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes, el **0.8** registra los cambios de la v1.1, el **0.9** los de la v1.2 y el **0.10** los de la v1.3.
 
 ## 0.1 Estado del proyecto
 
@@ -147,14 +149,14 @@ El proyecto no conserva documentos de checkpoint independientes; el Prompt #004 
 | R-S02 | Mapeos `[SRS]` sin validar por el Director | 🟠 | Las matrices D y E se construyen sobre esos IDs |
 | R-S03 | Alcance grande para nivel Tecnólogo | 🟠 | {ne} entidades y {nev} eventos amplían la superficie |
 | R-S04 | Tensión DC-02 / Horizonte 2 (DEC-01) | 🟠 | Transferencias y conteo general se modelan completos |
-| R-S05 | Reglas y KPI sin requisito de captura; PN-14 sin requisitos | 🟠 | Eventos marcados «sin RF» (Cap. 2 del EVENT_CATALOG) |
+| R-S05 | Reglas y KPI sin requisito de captura; PN-14 sin requisitos | ✅ | Resuelto en la v1.3 (DEC-05, DEC-06) |
 | R-S06 | Dos cifras de reglas (68 y 82) | 🟡 | El dominio usa las 82 |
 | R-S07 | Valores numéricos de RNF sin calibrar | 🟡 | No afecta al dominio |
-| R-S08 | Ambigüedad «estructural / configurable» (DEC-04) | 🟠 | IN-67 adopta la interpretación del SRS |
+| R-S08 | Ambigüedad «estructural / configurable» (DEC-04) | ✅ | Resuelto en la v1.3: toda regla estructural es no configurable (IN-67) |
 | R-S09 | Gherkin no valida adopción | 🟠 | No afecta al dominio |
 | R-S10 | Cifras de fuentes no verificadas | 🟠 | El dominio no usa cifras de la literatura |
 
-**Decisiones del Director aún abiertas (SRS, Anexo C):** DEC-01 umbral aprobatorio · DEC-02 lista de alcance · DEC-03 cifra y renumeración de reglas · DEC-04 semántica estructural/configurable · DEC-05 cierre de jornada · DEC-06 brechas de trazabilidad · DEC-07 valorización · DEC-08 aprobación formal del SPEC · DEC-09 fecha límite de lote. Cada una que toca el dominio se marca ⚠️ donde aplica.
+**Decisiones del Director (SRS, Anexo C) — todas con respuesta en la v1.2 y la v1.3:** DEC-01 umbral aprobatorio · DEC-02 lista de alcance · DEC-03 cifra y renumeración de reglas · DEC-04 semántica estructural/configurable · DEC-05 cierre de jornada · DEC-06 brechas de trazabilidad · DEC-07 valorización · DEC-08 aprobación formal del SPEC · DEC-09 fecha límite de lote. Queda pendiente solo el acta firmada de DEC-08.
 
 **Riesgos críticos heredados del SPEC:** adopción (RG-01, RG-02, RG-13, RG-14, RG-16, RG-17, RG-23) y evidencia académica (RG-33…RG-36).
 
@@ -178,7 +180,7 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 
 ## 0.7 Método
 
-1. Se releyeron los cuatro documentos y se reutilizó la extracción estructurada del SRS (103 HU, 162 RF, 82 RN, 24 KPI en la v1.0; 110 HU, 171 RF, 91 RN en la v1.2).
+1. Se releyeron los cuatro documentos y se reutilizó la extracción estructurada del SRS (103 HU, 162 RF, 82 RN, 24 KPI en la v1.0; 114 HU, 184 RF, 91 RN en la v1.3).
 2. Entidades, objetos de valor, agregados, invariantes, estados, eventos y términos se escribieron como datos únicos, y de ellos se generaron los tres documentos y las cinco matrices. **Una definición aparece una sola vez**: el Cap. 1 (lenguaje ubicuo) y el GLOSSARY usan el mismo texto.
 3. Se verificó automáticamente que toda referencia a RN, HU, RF, KPI, evento, entidad e invariante exista (0 referencias rotas).
 
@@ -214,6 +216,24 @@ Al auditar DEC-01 el Director tomó decisiones que resuelven **HD-25** y **HD-22
 
 **Ningún ID se renumeró ni se reutilizó.** Los elementos nuevos continúan la numeración (E-27, VO-43, AG-22, IN-73…IN-78, EV-ENT-016, EV-SAL-012, EV-SAL-013, HD-28…HD-30, RF5-15, RF5-16 y los términos GL-206…GL-210). Las reglas del SRS pasan de 85 a 91; las seis nuevas (SPEC v1.2 §9.16) son invariantes. **Pendientes que la v1.2 deja abiertos** (no bloquean la Fase 5 por sí mismos): HD-28, HD-29 y HD-30.
 
+
+
+## 0.10 Control de cambios de la versión 1.3 (respuestas a DEC-02…DEC-09, 30 de septiembre de 2026)
+
+El Director respondió DEC-02…DEC-09, todas en la opción (a) recomendada por el SRS. El SPEC v1.3 y el SRS v1.3 las recogen antes; esta versión las incorpora editando los datos fuente y regenerando los tres documentos.
+
+| Decisión | Respuesta | Cambios en el modelo |
+|---|---|---|
+| **DEC-02** | 20 módulos, dashboard M-17 y exclusión de toda IA | Ninguno |
+| **DEC-03** | Numeración canónica `RN-<DOM>-nnn` | Ninguno: el modelo ya usaba esos IDs |
+| **DEC-04** | Toda regla estructural es no configurable; el Jefe lee parámetros; el Administrador o el Jefe cierran las observaciones de auditoría | E-22, SM-18 y **EV-AUD-002**: el actor «por definir» pasa a «Administrador / Jefe»; término «Regla estructural»; IN-67 deja de ser provisional |
+| **DEC-05** | Se crean HU y RF del cierre de jornada | E-26, AG-21, SM-21 y EV-JOR-001…005 dejan de estar marcados como pendientes y se vinculan a HU-TAR-004, HU-TAR-005 y RF-TAR-006…008; **HD-11 resuelto**; término «Cierre de jornada» |
+| **DEC-06** | Se aprueban todas las propuestas de cierre de brechas | Vínculos de eventos con los requisitos nuevos: EV-INV-002, EV-INV-005, EV-MOV-003, EV-MOV-004, EV-CNT-013, EV-NOV-006, EV-NOV-007, EV-ENT-003, EV-TRZ-001. Ninguna regla, entidad ni evento nuevos |
+| **DEC-07** | La valorización se retira del MVP | **HD-09 resuelto** |
+| **DEC-08** | Acta y tabla de equivalencia | Sin efecto en el modelo; **HD-21** queda pendiente solo del acta firmada |
+| **DEC-09** | Alerta sobre el umbral de antigüedad del lote | **HD-10 resuelto** |
+
+**Ningún ID se renumeró ni se reutilizó.** No se agregaron entidades, agregados, invariantes, eventos ni términos nuevos; se actualizaron vínculos y textos. Las cifras del SRS pasan a 114 HU y 184 RF.
 
 **ESTADO: CONTEXTO RECONSTRUIDO.**
 """ + estado("Estado del proyecto · 5 checkpoints · 4 documentos · 8 decisiones constitucionales + 7 reglas innegociables · 10 riesgos del SRS · 9 decisiones abiertas",
@@ -437,7 +457,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
     allc = inv_rn | set(pol_rn)
     o.append(f"\n**Cobertura:** las {len(S['RN'])} reglas del SRS quedan cubiertas: {len(inv_rn)} como invariantes y {len(pol_rn)} como políticas ({len(allc)}/{len(S['RN'])}).\n")
     o.append(estado(f"{len(INVARIANTS)} invariantes (mínimo exigido: 40), cada una vinculada a reglas del SRS; {len(pol_rn)} políticas reactivas; {len(inv_rn | set(pol_rn))}/{len(S['RN'])} reglas cubiertas (82 + 3 de la v1.1 + 6 de la v1.2: IN-70…IN-78)",
-                    "IN-67 depende de DEC-04; IN-46 depende de HD-13; IN-23 actualizada por DF5-01", "SRS Cap. 8", "HD-04, HD-13 · distinción invariante/política (nueva en esta fase)", "6"))
+                    "IN-67 confirmada por DEC-04; IN-46 depende de HD-13; IN-23 actualizada por DF5-01", "SRS Cap. 8", "HD-04, HD-13 · distinción invariante/política (nueva en esta fase)", "6"))
     return "\n".join(o)
 
 def cap7():
@@ -529,8 +549,8 @@ def cap9():
         k = f"KPI-{i:02d}"
         o.append(f"| {k} | {KPI_N[k]} | {', '.join(kpi_ent.get(k, [])) or '—'} |")
     o.append(estado(f"Matrices A ({len(ENTITIES)} entidades × {len(EVENTS)} eventos), B (entidad ↔ regla) y C (entidad ↔ KPI, con vista inversa)",
-                    "Matriz C depende de datos que ningún RF exige capturar (KPI-05, 07, 10, 12, 17, 24; H-12 del SRS)",
-                    "Cap. 3, EVENT_CATALOG", "H-12 del SRS (heredado)", "9"))
+                    "Matriz C: los datos de origen de KPI-05, 07, 10, 12, 17 y 24 se capturan desde la v1.3 (DEC-06); KPI-24 requiere además verificación de campo",
+                    "Cap. 3, EVENT_CATALOG", "H-12 del SRS (resuelto en la v1.3)", "9"))
     return "\n".join(o)
 
 def cap10():
@@ -547,7 +567,7 @@ def cap10():
         o.append(f"| **{h[0]}** | **{h[1]}** | {h[2]} | {h[3]} | {h[4]} |")
     crit = [h[0] for h in DOMAIN_FINDINGS if "bloqueante" in h[4].lower() and "no bloquea" not in h[4].lower()]
     res = [h[0] for h in DOMAIN_FINDINGS if h[4].startswith("**Resuelto")]
-    o.append(f"\n**Resueltos (cierre del CP-04 y decisiones del 30-sep-2026, v1.2):** {', '.join(res)}. **Bloqueantes para la Fase 5:** {', '.join(crit) or 'ninguno'}. **Requieren decisión del Director:** {', '.join(h[0] for h in DOMAIN_FINDINGS if 'Director' in h[4] or h[4].startswith('DEC'))}.\n")
+    o.append(f"\n**Resueltos (cierre del CP-04 y decisiones del 30-sep-2026, v1.2 y v1.3):** {', '.join(res)}. **Bloqueantes para la Fase 5:** {', '.join(crit) or 'ninguno'}. **Requieren decisión del Director:** {', '.join(h[0] for h in DOMAIN_FINDINGS if 'Director' in h[4] or h[4].startswith('DEC'))}.\n")
     o.append(estado(f"{len(DOMAIN_FINDINGS)} hallazgos con evidencia, tratamiento y responsable", "HD-25 y HD-22 resueltos en la v1.2; HD-28, HD-29 y HD-30 pendientes, sin bloquear la arquitectura por sí mismos", "Todos los capítulos", "—", "10"))
     return "\n".join(o)
 
@@ -571,7 +591,7 @@ def domain_model():
 """
     return (header("DOMAIN_MODEL", "Modelo de Dominio de COLBASOFT", "`EVENT_CATALOG.md` (eventos, matrices D y E) · `GLOSSARY.md` (glosario y auditoría interna)")
             + idx + cap0() + cap1() + cap2() + cap3() + cap4() + cap5() + cap6() + cap7() + cap8() + cap9() + cap10()
-            + "\n---\n\n*Fin de DOMAIN_MODEL v1.2. La monografía original permanece sin modificaciones.*\n")
+            + "\n---\n\n*Fin de DOMAIN_MODEL v1.3. La monografía original permanece sin modificaciones.*\n")
 
 # ====================================================================================== EVENT_CATALOG
 def ev_cap1():
@@ -654,7 +674,7 @@ def ev_cap2():
     flagged = [e["id"] for e in EVENTS if e["nota"]]
     o.append(estado(f"{len(EVENTS)} eventos (mínimo exigido: 70) con IDs permanentes en 20 dominios y los ocho atributos pedidos",
                     f"{len(flagged)} eventos ⚠️ sin requisito completo que los implemente",
-                    "DOMAIN_MODEL Caps. 3 y 8 · SRS Caps. 5–8", "HD-11, HD-17, HD-19 · H-10, H-11, H-12 del SRS", "2"))
+                    "DOMAIN_MODEL Caps. 3 y 8 · SRS Caps. 5–8", "HD-17, HD-19 · H-10, H-11, H-12 del SRS (resueltos en la v1.3)", "2"))
     return "\n".join(o)
 
 def ev_cap3():
@@ -671,7 +691,7 @@ def ev_cap3():
             ids_ = re.findall(r"EV-[A-Z]{3}-\d{3}", evs)
             names = " / ".join(EVT[x]["nombre"] for x in ids_) if ids_ else "—"
             o.append(f"| {k} | {evs.replace(chr(124), chr(111))} | {names} | {note or 'siempre'} |")
-    o.append(estado("Línea temporal de los 14 procesos del MVP", "PN-14 sin requisitos (DEC-05); PN-04 sin eventos por diseño (solo lectura)", "SPEC Cap. 3 · SRS Cap. 4", "HD-07 y HD-23 (orden entrada → primera ubicación, resueltos por DF5-02 y DF5-03)", "3"))
+    o.append(estado("Línea temporal de los 14 procesos del MVP", "PN-04 sin eventos por diseño (solo lectura); PN-14 con requisitos desde la v1.3 (DEC-05)", "SPEC Cap. 3 · SRS Cap. 4", "HD-07 y HD-23 (orden entrada → primera ubicación, resueltos por DF5-02 y DF5-03)", "3"))
     return "\n".join(o)
 
 def ev_cap4():
@@ -766,7 +786,7 @@ def ev_cap6():
     o.append(f"""
 **Cobertura de historias:** {len(hu_cov)}/{len(S['HU'])} historias tienen al menos un evento. Las {len(hu_no)} restantes son **historias de consulta** —leer no produce eventos (RN-INT-006)—: {', '.join(hu_no)}.
 
-**Eventos sin historia ({len(ev_no_hu)}):** {', '.join(ev_no_hu)}. Provienen de procesos del SPEC sin historia propia (H-10, H-11 del SRS; HD-11, HD-19).
+**Eventos sin historia ({len(ev_no_hu)}):** {', '.join(ev_no_hu)}. Provienen de procesos del SPEC sin historia propia (HD-19; H-10 y H-11 del SRS, resueltos en la v1.3).
 
 ## Matriz E — Evento ↔ Requisito funcional
 
@@ -780,10 +800,10 @@ def ev_cap6():
     o.append(f"""
 **Cobertura de requisitos:** {len(rf_cov)}/{len(S['RF'])} RF se relacionan con al menos un evento. Los {len(rf_no)} restantes son de **consulta, restricción transversal o presentación**, que no producen hechos nuevos: {', '.join(rf_no)}.
 
-**Eventos sin RF ({len(ev_no_rf)}):** {', '.join(ev_no_rf)}. Son la traducción al dominio de las brechas del SRS: reglas sin RF (H-11), cierre de jornada (H-10) y funciones de módulo sin requisito (HD-19). Implementarlos exige que el Director apruebe las propuestas del Anexo C del SRS (DEC-05, DEC-06).
+**Eventos sin RF ({len(ev_no_rf)}):** {', '.join(ev_no_rf)}. Son la traducción al dominio de las brechas del SRS que siguen abiertas: funciones de módulo sin requisito (HD-19). Las de reglas sin RF (H-11) y cierre de jornada (H-10) se cerraron en la v1.3 (DEC-05, DEC-06).
 """)
     o.append(estado(f"Matriz D ({len(EVENTS)} eventos ↔ {len(hu_cov)} historias) y Matriz E ({len(EVENTS)} eventos ↔ {len(rf_cov)} RF), con coberturas y exclusiones justificadas",
-                    f"{len(ev_no_rf)} eventos sin RF y {len(ev_no_hu)} sin historia (RF5-12)", "SRS Caps. 5 y 6", "H-10, H-11 del SRS · HD-11, HD-19", "6"))
+                    f"{len(ev_no_rf)} eventos sin RF y {len(ev_no_hu)} sin historia (RF5-12)", "SRS Caps. 5 y 6", "HD-19 · H-10 y H-11 del SRS (resueltos en la v1.3)", "6"))
     return "\n".join(o)
 
 def event_catalog():
@@ -801,7 +821,7 @@ def event_catalog():
 """
     return (header("EVENT_CATALOG", "Catálogo de Eventos del Dominio de COLBASOFT", "`DOMAIN_MODEL.md` · `GLOSSARY.md`")
             + idx + ev_cap1() + ev_cap2() + ev_cap3() + ev_cap4() + ev_cap5() + ev_cap6()
-            + "\n---\n\n*Fin de EVENT_CATALOG v1.2.*\n")
+            + "\n---\n\n*Fin de EVENT_CATALOG v1.3.*\n")
 
 # ====================================================================================== GLOSSARY
 def sortkey(t):
@@ -815,7 +835,7 @@ RISKS_F5 = [
  ("RF5-05", "Registros sin conectividad que al sincronizarse ya no cumplen una regla — la regla ya está definida (DF5-05, RN-INT-008, IN-72); falta garantizarla técnicamente", "HD-16 · HD-24 · RN-INT-003 · RN-INT-008", "🟠", "Sin la revalidación, la sincronización podría dejar existencia negativa o duplicados"),
  ("RF5-06", "Capacidad y ocupación con unidades de medida heterogéneas", "HD-17", "🟠", "KPI-18 y la alerta de sobreocupación no son calculables"),
  ("RF5-07", "Inmutabilidad y continuidad demostrables de kardex y bitácora", "IN-02, IN-63 · RNF-AUD-002", "🟠", "El jurado y el Auditor deben poder comprobarlas"),
- ("RF5-08", "Decisiones del Director abiertas que cambian el modelo", "DEC-01, DEC-04, DEC-05, DEC-07, DEC-09 · HD-21", "🟠", "Entidades y eventos ⚠️ pueden cambiar o desaparecer"),
+ ("RF5-08", "Aprobación formal pendiente: el acta de DEC-08 no está firmada; las nueve decisiones DEC ya tienen respuesta (v1.3)", "DEC-08 · HD-21", "🟡", "El documento puede cambiar si la aprobación formal introduce correcciones"),
  ("RF5-09", "Escalas no definidas de severidad y prioridad", "HD-15", "🟡", "Ordenamiento de alertas y tareas indefinido"),
  ("RF5-10", "Ubicación de la existencia en tránsito (HD-05); la zona de recepción y el estado inicial quedaron resueltos por DF5-02", "HD-05", "🟡", "Cómo se representa la porción en tránsito respecto de su unidad origen"),
  ("RF5-11", "Carga del Administrador por ajustes derivados de conteo", "HD-08 · RG-18", "🟡", "Cuello de botella de aprobaciones"),
@@ -882,7 +902,7 @@ def glossary():
     o.append(estado(f"{len(inv)} sinónimos prohibidos con su término oficial", "—", "Cap. 2", "—", "3"))
     # auditoría interna
     o.append(internal_audit(len(terms), len(inv)))
-    o.append("\n---\n\n*Fin de GLOSSARY v1.2. La monografía original permanece sin modificaciones.*\n")
+    o.append("\n---\n\n*Fin de GLOSSARY v1.3. La monografía original permanece sin modificaciones.*\n")
     return "\n".join(o)
 
 def internal_audit(nterms, nsyn):
@@ -929,8 +949,8 @@ def internal_audit(nterms, nsyn):
 | V-4 | Toda invariante citada por un agregado existe | ✅ |
 | V-5 | Las {len(S["RN"])} reglas del SRS (82 + 3 de la v1.1 + 6 de la v1.2) quedan cubiertas como invariante o política | ✅ {len(inv_rn)} + {len(pol)} = {len(inv_rn | set(pol))}/{len(S["RN"])} |
 | V-6 | Los 24 KPI aparecen en al menos un evento | ✅ {kpi_cov}/24 |
-| V-7 | Historias con evento | 🟡 {hu_cov}/110 (el resto son de consulta) |
-| V-8 | RF con evento | 🟡 {rf_cov}/171 (el resto son de consulta, restricción o presentación) |
+| V-7 | Historias con evento | 🟡 {hu_cov}/114 (el resto son de consulta) |
+| V-8 | RF con evento | 🟡 {rf_cov}/184 (el resto son de consulta, restricción o presentación) |
 | V-9 | Toda invariante cita al menos una regla del SRS | ✅ {len(INVARIANTS)}/{len(INVARIANTS)} |
 | V-10 | Las definiciones del lenguaje ubicuo y del glosario son idénticas | ✅ (misma fuente) |
 | V-11 | Ninguna relación del glosario apunta a un término inexistente | ✅ |
@@ -944,7 +964,7 @@ def internal_audit(nterms, nsyn):
 |---|---|---|:--:|---|
 {rows}
 
-**Estado frente a la Fase 5 (v1.2).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-28, HD-29 y HD-30** quedan pendientes, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real y DEC-01…DEC-09 siguen abiertas, sin bloquear la arquitectura (ver `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
+**Estado frente a la Fase 5 (v1.3).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-28, HD-29 y HD-30** quedan pendientes, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real sin bloquear la arquitectura. Las nueve decisiones DEC tienen respuesta (DEC-01 en la v1.2; DEC-02…DEC-09 en la v1.3); queda pendiente el acta firmada de DEC-08 (ver `05_V13_DECISIONES/`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
 
 ---
 
@@ -954,7 +974,7 @@ def internal_audit(nterms, nsyn):
 |---|---|
 | **Completado** | DOMAIN_MODEL (11 capítulos), EVENT_CATALOG (6 capítulos), GLOSSARY (3 capítulos + auditoría interna) |
 | **Riesgos** | {len(RISKS_F5)} riesgos para la Fase 5 ({sum(1 for r in RISKS_F5 if r[3] == "🔴")} críticos abiertos; RF5-01 resuelto) · R-S01 heredado |
-| **Dependencias** | Decisiones del Director DEC-01…DEC-09 y hallazgos pendientes (DOMAIN_MODEL Cap. 10) |
+| **Dependencias** | Acta de DEC-08 y hallazgos pendientes (DOMAIN_MODEL Cap. 10) |
 | **Hallazgos** | {len(DOMAIN_FINDINGS)} hallazgos del dominio (DOMAIN_MODEL Cap. 10) |
 """
 

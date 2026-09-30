@@ -147,7 +147,7 @@
 | **Precondiciones** | Administrador autenticado. |
 | **Postcondiciones (éxito)** | Parámetros o motivos guardados; el cambio aplica a evaluaciones futuras y queda en bitácora con valor anterior y nuevo. |
 | **Postcondiciones (fallo)** | Ningún parámetro cambia; el intento de eludir una regla estructural se rechaza y se registra. |
-| **Trazabilidad** | HU: @HU098 @HU099 @HU100 · RF: @RF152 @RF153 @RF154 @RF155 @RF156 @RF157 · RN: @RN079 @RN061 @RN063 @RN029 @RN024 @RN030 @RN041 @RN034 |
+| **Trazabilidad** | HU: @HU098 @HU099 @HU100 · RF: @RF152 @RF153 @RF154 @RF155 @RF156 @RF157 @RF181 · RN: @RN079 @RN061 @RN063 @RN029 @RN024 @RN030 @RN041 @RN034 |
 
 **Flujo principal**
 1. El Administrador abre Parámetros y Configuración.
@@ -176,7 +176,7 @@
 | **Precondiciones** | Llegada física de mercancía a la zona de recepción; las referencias existen y están activas (CU-03); existe la zona de recepción (CU-04). |
 | **Postcondiciones (éxito)** | La existencia **en recepción** refleja la mercancía físicamente recibida (pasa a disponible al ubicarse, CU-08; @RN081, DF5-02); existe un movimiento de entrada en el kardex, atribuido a personas identificadas, con fecha y documento de respaldo; se crea o asocia el lote. |
 | **Postcondiciones (fallo)** | El documento queda en su estado (pendiente, recepción parcial, recibido con novedad); no se modifica el inventario. |
-| **Trazabilidad** | HU: @HU030 @HU031 @HU032 @HU033 @HU034 @HU036 @HU037 @HU016 @HU104 @HU105 · RF: @RF048 @RF049 @RF050 @RF051 @RF052 @RF053 @RF054 @RF055 @RF056 @RF057 @RF058 @RF059 @RF060 @RF163 @RF164 @RF165 · RN: @RN002b @RN003 @RN005 @RN006 @RN007 @RN008 @RN057b @RN054 @RN071 @RN081 @RN083 @RN084 @RN085 |
+| **Trazabilidad** | HU: @HU030 @HU031 @HU032 @HU033 @HU034 @HU036 @HU037 @HU016 @HU104 @HU105 · RF: @RF048 @RF049 @RF050 @RF051 @RF052 @RF053 @RF054 @RF055 @RF056 @RF057 @RF058 @RF059 @RF060 @RF163 @RF164 @RF165 @RF180 · RN: @RN002b @RN003 @RN005 @RN006 @RN007 @RN008 @RN057b @RN054 @RN071 @RN081 @RN083 @RN084 @RN085 |
 
 **Flujo principal**
 1. El Coordinador crea el documento de entrada (origen, fecha esperada y líneas con referencia, talla, color y cantidad esperada) o selecciona uno existente; el sistema no solicita precio ni datos de orden de compra.
@@ -217,7 +217,7 @@
 | **Precondiciones** | Entrada confirmada (CU-06); el SKU + Lote existe con referencia, talla, color y lote definidos. |
 | **Postcondiciones (éxito)** | Toda unidad de inventario en bodega es identificable mediante escaneo —el QR de su SKU + Lote más el identificador de su ubicación—; ninguna existencia carece de identificador activo (DF5-01). |
 | **Postcondiciones (fallo)** | El SKU + Lote queda sin identificador activo y no puede operar hasta resolverse (novedad, CU-17). |
-| **Trazabilidad** | HU: @HU025 @HU026 @HU027 @HU028 @HU029 · RF: @RF040 @RF041 @RF042 @RF043 @RF044 @RF045 @RF046 @RF047 · RN: @RN015 @RN016 @RN017 @RN018 |
+| **Trazabilidad** | HU: @HU025 @HU026 @HU027 @HU028 @HU029 · RF: @RF040 @RF041 @RF042 @RF043 @RF044 @RF045 @RF046 @RF047 @RF179 · RN: @RN015 @RN016 @RN017 @RN018 |
 
 **Flujo principal**
 1. El sistema genera un identificador QR único por **SKU + Lote** (referencia + talla + color + lote), que no incluye la ubicación: un mismo SKU + Lote puede estar en varias ubicaciones con el mismo QR (DF5-01).
@@ -253,7 +253,7 @@
 | **Precondiciones** | Mercancía identificada y lista para almacenar (CU-07); existe al menos una ubicación activa con capacidad disponible. |
 | **Postcondiciones (éxito)** | Toda existencia disponible tiene una ubicación conocida; consultar una referencia devuelve dónde está. |
 | **Postcondiciones (fallo)** | La mercancía permanece en la zona de recepción (existencia en recepción, no disponible). |
-| **Trazabilidad** | HU: @HU035 @HU024 @HU021 @HU106 · RF: @RF035 @RF036 @RF039 @RF072 @RF073 @RF076 @RF166 · RN: @RN019 @RN020 @RN021 @RN022 @RN026 @RN082 @RN087 |
+| **Trazabilidad** | HU: @HU035 @HU024 @HU021 @HU106 · RF: @RF035 @RF036 @RF039 @RF072 @RF073 @RF076 @RF166 @RF172 · RN: @RN019 @RN020 @RN021 @RN022 @RN026 @RN082 @RN087 |
 
 **Flujo principal**
 1. El sistema propone una ubicación destino según los criterios configurados (zona por categoría, capacidad, agrupación por referencia).

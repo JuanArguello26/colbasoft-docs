@@ -1637,6 +1637,33 @@
    ]
   },
   {
+   "id": "HU-111",
+   "prio": "P1",
+   "actor": "Jefe",
+   "tags": "`[RN-028]` `[DEC-06]`",
+   "mod": "M-09",
+   "story": "**COMO** Jefe de Bodega **QUIERO** que un movimiento interno interrumpido quede en tránsito y se me avise si tarda demasiado **PARA** no perder el rastro de la mercancía que quedó a medio camino.",
+   "crit_raw": "*Criterios:* (1) Un movimiento interno que se inicia y no se cierra queda en estado en tránsito `[RN-028]`. (2) La existencia en tránsito no está disponible ni en el origen ni en el destino. (3) Si el tiempo en tránsito supera el máximo configurado, el sistema genera una alerta al Jefe. (4) Los movimientos en tránsito se listan en el cierre de la jornada `[PN-14]`.",
+   "crit": [
+    [
+     1,
+     "Un movimiento interno que se inicia y no se cierra queda en estado en tránsito `[RN-028]`."
+    ],
+    [
+     2,
+     "La existencia en tránsito no está disponible ni en el origen ni en el destino."
+    ],
+    [
+     3,
+     "Si el tiempo en tránsito supera el máximo configurado, el sistema genera una alerta al Jefe."
+    ],
+    [
+     4,
+     "Los movimientos en tránsito se listan en el cierre de la jornada `[PN-14]`."
+    ]
+   ]
+  },
+  {
    "id": "HU-052",
    "prio": "P0",
    "actor": "Coordinador",
@@ -2109,6 +2136,33 @@
     [
      5,
      "El sistema compara lo contado con la existencia congelada y clasifica cada línea como conforme, sobrante o faltante `[RN-039]`."
+    ]
+   ]
+  },
+  {
+   "id": "HU-112",
+   "prio": "P1",
+   "actor": "Jefe",
+   "tags": "`[RN-047]` `[DEC-06]`",
+   "mod": "M-11",
+   "story": "**COMO** Jefe de Bodega **QUIERO** que el sistema avise al Administrador y al Auditor cuando la diferencia global de un conteo general sea crítica **PARA** que un conteo con un problema grave no se cierre sin que nadie lo sepa.",
+   "crit_raw": "*Criterios:* (1) El umbral crítico de diferencia global es un parámetro configurable `[RF-152]`. (2) Si la diferencia global del conteo general lo supera, el sistema notifica al Administrador y al Auditor. (3) El cierre del conteo general queda condicionado a esa notificación `[RN-047]`. (4) La notificación queda en la bitácora.",
+   "crit": [
+    [
+     1,
+     "El umbral crítico de diferencia global es un parámetro configurable `[RF-152]`."
+    ],
+    [
+     2,
+     "Si la diferencia global del conteo general lo supera, el sistema notifica al Administrador y al Auditor."
+    ],
+    [
+     3,
+     "El cierre del conteo general queda condicionado a esa notificación `[RN-047]`."
+    ],
+    [
+     4,
+     "La notificación queda en la bitácora."
     ]
    ]
   },
@@ -2722,7 +2776,7 @@
    "tags": "`[MON §8.2]`",
    "mod": "M-16",
    "story": "**COMO** Jefe de Bodega **QUIERO** generar el reporte de existencia por referencia, lote y ubicación **PARA** revisar el estado del inventario y compartirlo.",
-   "crit_raw": "*Criterios:* (1) Filtro por referencia, categoría, lote, ubicación y estado. (2) Muestra existencia total y su desglose por estado. (3) Declara fecha, hora y usuario de generación. (4) Es exportable en formato tabular. (5) `[PR-04]` La valorización solo aparece para roles autorizados.",
+   "crit_raw": "*Criterios:* (1) Filtro por referencia, categoría, lote, ubicación y estado. (2) Muestra existencia total y su desglose por estado. (3) Declara fecha, hora y usuario de generación. (4) Es exportable en formato tabular. (5) `[PR-04]` `[DEC-07]` Ningún reporte muestra costo ni valorización: el MVP no captura costos.",
    "crit": [
     [
      1,
@@ -2742,7 +2796,7 @@
     ],
     [
      5,
-     "`[PR-04]` La valorización solo aparece para roles autorizados."
+     "`[PR-04]` `[DEC-07]` Ningún reporte muestra costo ni valorización: el MVP no captura costos."
     ]
    ]
   },
@@ -2989,7 +3043,7 @@
    "tags": "`[RN-064]`",
    "mod": "M-18",
    "story": "**COMO** Auditor **QUIERO** dejar registradas mis observaciones **PARA** que quede constancia de mis hallazgos sin alterar el inventario.",
-   "crit_raw": "*Criterios:* (1) La observación se asocia a un movimiento, unidad, período o usuario. (2) `[RN-064]` **La observación se almacena en un registro separado y no altera el estado del inventario.** (3) Es consultable por el Administrador y el Jefe. (4) No se elimina; se cierra con respuesta.",
+   "crit_raw": "*Criterios:* (1) La observación se asocia a un movimiento, unidad, período o usuario. (2) `[RN-064]` **La observación se almacena en un registro separado y no altera el estado del inventario.** (3) Es consultable por el Administrador y el Jefe. (4) No se elimina; el Administrador o el Jefe la cierra con su respuesta `[DEC-04]`.",
    "crit": [
     [
      1,
@@ -3005,7 +3059,7 @@
     ],
     [
      4,
-     "No se elimina; se cierra con respuesta."
+     "No se elimina; el Administrador o el Jefe la cierra con su respuesta `[DEC-04]`."
     ]
    ]
   },
@@ -3199,6 +3253,64 @@
     [
      4,
      "La reasignación no puede violar la regla del segundo conteo `[RN-041]`."
+    ]
+   ]
+  },
+  {
+   "id": "HU-113",
+   "prio": "P1",
+   "actor": "Coordinador / Jefe",
+   "tags": "`[PN-14]` `[DEC-05]`",
+   "mod": "M-20",
+   "story": "**COMO** Coordinador de Bodega **QUIERO** ver al cierre de la jornada qué quedó pendiente y traspasarlo explícitamente al turno siguiente **PARA** que nada quede oculto ni sin responsable.",
+   "crit_raw": "*Criterios:* (1) El sistema consolida los movimientos de la jornada. (2) Lista las recepciones sin confirmar, los movimientos en tránsito, las tareas de conteo abiertas, los ajustes sin resolver, las novedades sin atender y las alertas activas. (3) Lo que no se resuelve en el turno se traspasa explícitamente al turno siguiente. (4) El cierre queda registrado con quién lo ejecutó `[PR-05]`. (5) El Jefe ve el resumen de la jornada.",
+   "crit": [
+    [
+     1,
+     "El sistema consolida los movimientos de la jornada."
+    ],
+    [
+     2,
+     "Lista las recepciones sin confirmar, los movimientos en tránsito, las tareas de conteo abiertas, los ajustes sin resolver, las novedades sin atender y las alertas activas."
+    ],
+    [
+     3,
+     "Lo que no se resuelve en el turno se traspasa explícitamente al turno siguiente."
+    ],
+    [
+     4,
+     "El cierre queda registrado con quién lo ejecutó `[PR-05]`."
+    ],
+    [
+     5,
+     "El Jefe ve el resumen de la jornada."
+    ]
+   ]
+  },
+  {
+   "id": "HU-114",
+   "prio": "P1",
+   "actor": "Jefe",
+   "tags": "`[PN-14]` `[RN-054]` `[DEC-05]`",
+   "mod": "M-20",
+   "story": "**COMO** Jefe de Bodega **QUIERO** que el sistema no deje cerrar la jornada con registros sin sincronizar y me avise si no se cerró **PARA** que el cierre refleje siempre lo que realmente pasó.",
+   "crit_raw": "*Criterios:* (1) El sistema impide el cierre mientras haya registros sin sincronizar `[RN-054]`. (2) Un cierre no ejecutado se registra como omisión. (3) El Jefe recibe una alerta al día siguiente por el cierre omitido. (4) Una diferencia significativa en el consolidado genera una alerta antes de permitir el cierre.",
+   "crit": [
+    [
+     1,
+     "El sistema impide el cierre mientras haya registros sin sincronizar `[RN-054]`."
+    ],
+    [
+     2,
+     "Un cierre no ejecutado se registra como omisión."
+    ],
+    [
+     3,
+     "El Jefe recibe una alerta al día siguiente por el cierre omitido."
+    ],
+    [
+     4,
+     "Una diferencia significativa en el consolidado genera una alerta antes de permitir el cierre."
     ]
    ]
   }
@@ -3556,6 +3668,15 @@
    "mod": "M-05"
   },
   {
+   "id": "RF-172",
+   "text": "El sistema debe registrar como información operativa la desviación entre la ubicación propuesta y la confirmada y notificar al Coordinador, sin imputarla al Auxiliar",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "RF-072",
+   "origin": "`[RN-022]` `[DEC-06]`",
+   "mod": "M-05"
+  },
+  {
    "id": "RF-040",
    "text": "El sistema debe generar un identificador QR único por SKU + Lote (no por ubicación)",
    "prio": "P0",
@@ -3625,6 +3746,15 @@
    "actor": "Coordinador",
    "dep": "RF-040",
    "origin": "`[DC-08]` `[RN-017]`",
+   "mod": "M-06"
+  },
+  {
+   "id": "RF-179",
+   "text": "El sistema debe registrar en cada movimiento si la identificación se hizo por escaneo o por selección manual",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "RF-042, RF-120",
+   "origin": "`[KPI-07]` `[DEC-06]`",
    "mod": "M-06"
   },
   {
@@ -3772,6 +3902,15 @@
    "mod": "M-07"
   },
   {
+   "id": "RF-180",
+   "text": "El sistema debe registrar el instante de llegada de la mercancía al documento de entrada",
+   "prio": "P1",
+   "actor": "Auxiliar",
+   "dep": "RF-048",
+   "origin": "`[KPI-12]` `[DEC-06]`",
+   "mod": "M-07"
+  },
+  {
    "id": "RF-061",
    "text": "El sistema debe permitir solicitar salidas indicando referencias, lotes, cantidades y motivo tipificado obligatorio",
    "prio": "P0",
@@ -3889,6 +4028,15 @@
    "mod": "M-08"
   },
   {
+   "id": "RF-176",
+   "text": "El sistema debe liberar automáticamente la reserva no ejecutada dentro del plazo configurado y alertar al solicitante",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "RF-065, M-19",
+   "origin": "`[RN-051]` `[DEC-06]`",
+   "mod": "M-08"
+  },
+  {
    "id": "RF-072",
    "text": "El sistema debe permitir registrar movimientos internos mediante escaneo de mercancía y ubicación destino",
    "prio": "P0",
@@ -3994,6 +4142,15 @@
    "actor": "Auxiliar",
    "dep": "RF-072, RF-163",
    "origin": "`[F-4]` `[RN-087*]`",
+   "mod": "M-09"
+  },
+  {
+   "id": "RF-173",
+   "text": "El sistema debe mantener en tránsito un movimiento interno interrumpido y generar alerta al superar el tiempo máximo configurado",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "RF-072, M-15",
+   "origin": "`[RN-028]` `[DEC-06]`",
    "mod": "M-09"
   },
   {
@@ -4213,6 +4370,15 @@
    "mod": "M-11"
   },
   {
+   "id": "RF-175",
+   "text": "El sistema debe notificar al Administrador y al Auditor y condicionar el cierre de un conteo general cuando la diferencia global supere el umbral crítico configurado",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "RF-103, M-19",
+   "origin": "`[RN-047]` `[DEC-06]`",
+   "mod": "M-11"
+  },
+  {
    "id": "RF-106",
    "text": "El sistema debe permitir al Auxiliar reportar novedades desde tablet, con tipo tipificado, ubicación y descripción",
    "prio": "P1",
@@ -4264,6 +4430,24 @@
    "actor": "—",
    "dep": "RN-063",
    "origin": "`[RN-063]`",
+   "mod": "M-12"
+  },
+  {
+   "id": "RF-174",
+   "text": "El sistema debe impedir contar o usar mercancía sin registro hasta su identificación y permitir su incorporación solo mediante ajuste por sobrante con motivo tipificado y aprobación del Jefe",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "RF-083",
+   "origin": "`[RN-043]` `[DEC-06]`",
+   "mod": "M-12"
+  },
+  {
+   "id": "RF-177",
+   "text": "El sistema debe escalar al Jefe y alertar las novedades no resueltas dentro del plazo configurado",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "RF-106, M-19",
+   "origin": "`[RN-059]` `[DEC-06]`",
    "mod": "M-12"
   },
   {
@@ -4417,6 +4601,15 @@
    "actor": "—",
    "dep": "RF-120, RF-163",
    "origin": "`[Q-11]` `[RN-085*]`",
+   "mod": "M-14"
+  },
+  {
+   "id": "RF-178",
+   "text": "El sistema debe registrar el instante de inicio y el de confirmación de cada movimiento",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "RF-120",
+   "origin": "`[KPI-05]` `[DEC-06]`",
    "mod": "M-14"
   },
   {
@@ -4646,11 +4839,11 @@
   },
   {
    "id": "RF-152",
-   "text": "El sistema debe permitir configurar umbrales de ajuste, tolerancia de conteo, tiempo en tránsito, plazos y umbral de autorización del Coordinador",
+   "text": "El sistema debe permitir al Administrador configurar umbrales de ajuste, tolerancia de conteo, tiempo en tránsito, plazos, umbral de autorización del Coordinador, umbral crítico de diferencia global del conteo general y días sin movimiento, y al Jefe consultarlos sin modificarlos",
    "prio": "P0",
    "actor": "Administrador",
    "dep": "—",
-   "origin": "`[CD-46]`",
+   "origin": "`[CD-46]` `[DEC-04]` `[DEC-06]`",
    "mod": "M-19"
   },
   {
@@ -4699,6 +4892,15 @@
    "mod": "M-19"
   },
   {
+   "id": "RF-181",
+   "text": "El sistema debe permitir registrar el volumen de movimientos de referencia estimado en campo para calcular la adopción",
+   "prio": "P2",
+   "actor": "Administrador",
+   "dep": "RF-152",
+   "origin": "`[KPI-24]` `[DEC-06]`",
+   "mod": "M-19"
+  },
+  {
    "id": "RF-158",
    "text": "El sistema debe generar tareas al asignar trabajo de recepción, ubicación, conteo, preparación de salida y transferencia",
    "prio": "P1",
@@ -4741,6 +4943,33 @@
    "actor": "—",
    "dep": "PR-04, `[DC-05]`",
    "origin": "`[DC-05]` `[PR-04]`",
+   "mod": "M-20"
+  },
+  {
+   "id": "RF-182",
+   "text": "El sistema debe consolidar al cierre de la jornada los movimientos y los pendientes: recepciones sin confirmar, movimientos en tránsito, tareas de conteo abiertas, ajustes sin resolver, novedades sin atender y alertas activas",
+   "prio": "P1",
+   "actor": "Coordinador",
+   "dep": "M-13, M-15",
+   "origin": "`[PN-14]` `[DEC-05]`",
+   "mod": "M-20"
+  },
+  {
+   "id": "RF-183",
+   "text": "El sistema debe permitir traspasar explícitamente los pendientes al turno siguiente y registrar el cierre con quién lo ejecutó",
+   "prio": "P1",
+   "actor": "Jefe / Coord.",
+   "dep": "RF-182",
+   "origin": "`[PN-14]` `[DEC-05]`",
+   "mod": "M-20"
+  },
+  {
+   "id": "RF-184",
+   "text": "El sistema debe impedir el cierre con registros sin sincronizar, registrar como omisión el cierre no ejecutado y alertar ante una diferencia significativa",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "RF-182",
+   "origin": "`[RN-054]` `[DEC-05]`",
    "mod": "M-20"
   }
  ],
@@ -5977,72 +6206,72 @@
   {
    "id": "PN-01",
    "name": "Recepción de mercancía",
-   "line": 731
+   "line": 753
   },
   {
    "id": "PN-02",
    "name": "Registro inicial e identificación",
-   "line": 770
+   "line": 792
   },
   {
    "id": "PN-03",
    "name": "Ubicación física de mercancía",
-   "line": 802
+   "line": 824
   },
   {
    "id": "PN-04",
    "name": "Consulta de existencia y ubicación",
-   "line": 836
+   "line": 858
   },
   {
    "id": "PN-05",
    "name": "Movimiento interno (reubicación)",
-   "line": 865
+   "line": 887
   },
   {
    "id": "PN-06",
    "name": "Transferencia entre zonas o bodegas",
-   "line": 900
+   "line": 922
   },
   {
    "id": "PN-07",
    "name": "Ajuste de inventario",
-   "line": 937
+   "line": 959
   },
   {
    "id": "PN-08",
    "name": "Conteo cíclico",
-   "line": 979
+   "line": 1001
   },
   {
    "id": "PN-09",
    "name": "Conteo general",
-   "line": 1022
+   "line": 1044
   },
   {
    "id": "PN-10",
    "name": "Salida de mercancía",
-   "line": 1062
+   "line": 1084
   },
   {
    "id": "PN-11",
    "name": "Gestión de alerta operativa",
-   "line": 1102
+   "line": 1124
   },
   {
    "id": "PN-12",
    "name": "Reporte de novedad de mercancía",
-   "line": 1150
+   "line": 1172
   },
   {
    "id": "PN-13",
    "name": "Auditoría de inventario",
-   "line": 1187
+   "line": 1209
   },
   {
    "id": "PN-14",
    "name": "Cierre operativo de jornada",
-   "line": 1223
+   "line": 1245
   }
  ],
  "cd": [

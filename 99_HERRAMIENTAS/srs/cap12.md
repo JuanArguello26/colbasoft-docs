@@ -17,8 +17,8 @@ El SPEC ubica 19 HU y 19 RF en el Horizonte 2 (v1.1) y, a la vez, mantiene en el
 
 | Umbral | Contenido | HU | RF |
 |---|---|:--:|:--:|
-| **MVP-Núcleo (H1) — umbral aprobatorio `[DEC-01]`** | Todo lo que el backlog del SPEC declara Horizonte 1, incluida la trazabilidad por pieza (elemento 40, v1.2): 84 HU y 143 RF de la v1.1 más 7 HU y 9 RF de la v1.2 | **91** | **152** |
-| **MVP-Completo (H1 + H2)** | Todo el alcance DC-02, incluidos los 19 HU / 19 RF del Horizonte 2 (transferencias, conteo general, inmovilización de lotes, escalamientos, carga masiva, existencia histórica, reportes programados, exportación analítica, dashboard del Coordinador, código de barras secundario, criterios de asignación, lotes por antigüedad, reasignación de tareas, alerta de ajustes recurrentes) | **110** | **171** |
+| **MVP-Núcleo (H1) — umbral aprobatorio `[DEC-01]`** | Todo lo que el backlog del SPEC declara Horizonte 1, incluidas la trazabilidad por pieza (elemento 40, v1.2) y el cierre de brechas y de jornada (elemento 41, v1.3): 84 HU y 143 RF de la v1.1, más 7 HU y 9 RF de la v1.2, más 3 HU y 12 RF de la v1.3 | **94** | **164** |
+| **MVP-Completo (H1 + H2)** | Todo el alcance DC-02, incluidos los 20 HU / 20 RF del Horizonte 2 (transferencias, conteo general, inmovilización de lotes, escalamientos, carga masiva, existencia histórica, reportes programados, exportación analítica, dashboard del Coordinador, código de barras secundario, criterios de asignación, lotes por antigüedad, reasignación de tareas, alerta de ajustes recurrentes) | **114** | **184** |
 
 **Regla de aceptación:** el MVP se acepta con el **MVP-Núcleo** `[DEC-01]`. Lo que el MVP-Completo añade (Horizonte 2: transferencias, conteo general y demás) **no es criterio de aprobación**; queda como entrega posterior.
 
@@ -27,10 +27,10 @@ Distribución de las HU y RF por prioridad y horizonte `[SRS]`:
 | MoSCoW | HU total | de ellas H1 | de ellas H2 | RF total | de ellos H1 | de ellos H2 |
 |---|:--:|:--:|:--:|:--:|:--:|:--:|
 | **Must** (P0) | 40 | 38 | 2 | 82 | 81 | 1 |
-| **Should** (P1) | 55 | 45 | 10 | 71 | 58 | 13 |
-| **Could** (P2) | 15 | 8 | 7 | 18 | 13 | 5 |
+| **Should** (P1) | 59 | 48 | 11 | 83 | 69 | 14 |
+| **Could** (P2) | 15 | 8 | 7 | 19 | 14 | 5 |
 | **Won't** (P3) | 0 | 0 | 0 | 0 | 0 | 0 |
-| **Total** | **110** | **91** | **19** | **171** | **152** | **19** |
+| **Total** | **114** | **94** | **20** | **184** | **164** | **20** |
 
 ## 12.3 Criterios de aceptación por dimensión
 
@@ -38,7 +38,7 @@ Distribución de las HU y RF por prioridad y horizonte `[SRS]`:
 
 | ID | Criterio | Evidencia de verificación |
 |---|---|---|
-| **CA-01** | **Todas las HU *Must* del umbral elegido están aceptadas:** todos sus escenarios Gherkin se ejecutan y pasan | Informe de ejecución de escenarios por HU (498 escenarios en total; los del umbral elegido son obligatorios) |
+| **CA-01** | **Todas las HU *Must* del umbral elegido están aceptadas:** todos sus escenarios Gherkin se ejecutan y pasan | Informe de ejecución de escenarios por HU (515 escenarios en total; los del umbral elegido son obligatorios) |
 | **CA-02** | **Todos los RF *Must* del umbral elegido están verificados** por prueba o inspección | Matriz RF → prueba (Cap. 9 §9.4) |
 | **CA-03** | **Las HU y RF *Should* del umbral elegido están aceptadas**, o su exclusión fue aprobada por escrito por el Director con su riesgo | Acta de decisión |
 | **CA-04** | Los 24 casos de uso del Cap. 4 pueden recorrerse de extremo a extremo con datos de la empresa piloto (CU-19 solo si DEC-05 lo incorpora) | Registro de recorrido por caso de uso |

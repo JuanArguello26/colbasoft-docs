@@ -197,7 +197,7 @@ T("Escalamiento", "Traslado automático de una alerta, solicitud o novedad al ro
 T("Plazo", "Duración máxima configurable de un estado (tránsito, reserva, aprobación, novedad, conteo, atención de alerta, inactividad).", "—", "", "Configuración", "SPEC · M-19", "Escalamiento; Parámetro de configuración")
 T("Regla de negocio", "Enunciado explícito que el sistema evalúa para impedir estados inválidos, disparar alertas o ejecutar acciones sin intervención humana. Es el corazón de la «inteligencia» del producto.",
   "No es un modelo predictivo ni lógica oculta.", "algoritmo inteligente", "Alertas y reglas", "SPEC · Cap. 9 · SRS Cap. 8", "Regla estructural; Regla configurable; Invariante", "RN-EXI-001: ninguna operación deja existencia negativa", True)
-T("Regla estructural", "Regla inviolable y no parametrizable; ningún rol puede eludirla, incluido el Administrador.", "No se configura (HD, DEC-04).", "", "Alertas y reglas", "SPEC · §9.1", "Regla de negocio; Invariante")
+T("Regla estructural", "Regla inviolable y no parametrizable; ningún rol puede eludirla, incluido el Administrador.", "No se configura (DEC-04: toda regla estructural es no configurable).", "", "Alertas y reglas", "SPEC · §9.1", "Regla de negocio; Invariante")
 T("Regla configurable", "Regla cuyo umbral se ajusta en la configuración pero cuya lógica no puede desactivarse.", "No es desactivable.", "", "Alertas y reglas", "SPEC · §9", "Regla de negocio; Umbral")
 T("Inteligente", "En COLBASOFT significa exactamente automatización basada en reglas y analítica operativa por indicadores.", "No significa aprendizaje automático, predicción, visión por computador, procesamiento de lenguaje natural ni IA generativa `[DC-07]`.", "inteligencia artificial, IA", "Proyecto", "SPEC · §1.6 · DC-07", "Regla de negocio; KPI; Alerta")
 
@@ -240,7 +240,7 @@ T("Notificación", "Aviso dentro del sistema web al usuario que debe actuar o co
 T("Prioridad de tarea", "Orden en que el panel presenta las tareas; su escala no está definida (HD-15).", "No es la severidad de una alerta.", "", "Tareas y notificaciones", "SPEC · HU-092", "Panel de tareas")
 T("Jornada", "Período operativo diario de la bodega al que pertenecen los hechos y que termina con el cierre de jornada.", "—", "", "Operación diaria", "SPEC · PN-14", "Cierre de jornada; Turno")
 T("Turno", "Fracción de la jornada asignada a un equipo; los pendientes se traspasan explícitamente al siguiente.", "—", "", "Operación diaria", "SPEC · PN-14", "Jornada")
-T("Cierre de jornada", "Consolidación de la actividad del día que deja la bodega en estado consistente y traspasa los pendientes al turno siguiente. ⚠️ Sin requisitos funcionales en el SRS (DEC-05).", "No puede ejecutarse con registros sin sincronizar.", "", "Operación diaria", "SPEC · PN-14", "Jornada; Pendiente de sincronización")
+T("Cierre de jornada", "Consolidación de la actividad del día que deja la bodega en estado consistente y traspasa los pendientes al turno siguiente.", "No puede ejecutarse con registros sin sincronizar.", "", "Operación diaria", "SPEC · PN-14", "Jornada; Pendiente de sincronización")
 
 # ------------------------------------------------------------------ Configuración
 T("Parámetro de configuración", "Valor configurable por el Administrador, dentro de un rango admisible, que gobierna umbrales, plazos y políticas; su cambio queda en bitácora y no es retroactivo.", "No alcanza las reglas estructurales.", "", "Configuración", "SPEC · M-19", "Umbral; Plazo; Regla configurable")

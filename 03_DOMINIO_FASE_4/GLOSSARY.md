@@ -8,11 +8,11 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | GLOSSARY |
-| **Versión** | 1.2 |
+| **Versión** | 1.3 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2) |
-| **Estado** | **Borrador v1.2** (30-sep-2026): incorpora la trazabilidad por pieza y resuelve HD-25. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: DEC-02…DEC-09 sin responder y acta de DEC-08 |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.2 → SRS_COLBASOFT v1.2 → **Modelo de Dominio v1.2** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 y v1.3) |
+| **Estado** | **Borrador v1.3** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2) y las respuestas a DEC-02…DEC-09. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.3 → SRS_COLBASOFT v1.3 → **Modelo de Dominio v1.3** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `DOMAIN_MODEL.md` · `EVENT_CATALOG.md` |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -23,6 +23,8 @@
 > **Versión 1.1.** Incorpora las decisiones del cierre del CP-04 (DF5-01, DF5-02, DF5-03, DF5-05 y DF5-06), registradas en `04_CP04_AUDITORIA/04_CP04_CIERRE.md`. El detalle de los cambios está en DOMAIN_MODEL §0.8. La v1.0 se conserva en el historial del repositorio (commit `79f823c`).
 
 > **Versión 1.2.** Incorpora las decisiones del Director del 30 de septiembre de 2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09 y Q-10), que agregan la **Pieza** al modelo y resuelven HD-25. El detalle está en DOMAIN_MODEL §0.9.
+
+> **Versión 1.3.** Incorpora las respuestas del Director a DEC-02…DEC-09. El detalle está en DOMAIN_MODEL §0.10.
 
 
 > **Reconstrucción de contexto.** Ver DOMAIN_MODEL, Cap. 0 (ESTADO: CONTEXTO RECONSTRUIDO).
@@ -412,7 +414,7 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Consolidación de la actividad del día que deja la bodega en estado consistente y traspasa los pendientes al turno siguiente. ⚠️ Sin requisitos funcionales en el SRS (DEC-05). |
+| **Definición oficial** | Consolidación de la actividad del día que deja la bodega en estado consistente y traspasa los pendientes al turno siguiente. |
 | **Definición prohibida** | No puede ejecutarse con registros sin sincronizar. |
 | **Sinónimos prohibidos** | — |
 | **Contexto** | Operación diaria |
@@ -1786,7 +1788,7 @@
 | Campo | Contenido |
 |---|---|
 | **Definición oficial** | Regla inviolable y no parametrizable; ningún rol puede eludirla, incluido el Administrador. |
-| **Definición prohibida** | No se configura (HD, DEC-04). |
+| **Definición prohibida** | No se configura (DEC-04: toda regla estructural es no configurable). |
 | **Sinónimos prohibidos** | — |
 | **Contexto** | Alertas y reglas |
 | **Documento origen** | SPEC · §9.1 |
@@ -2630,8 +2632,8 @@
 | V-4 | Toda invariante citada por un agregado existe | ✅ |
 | V-5 | Las 91 reglas del SRS (82 + 3 de la v1.1 + 6 de la v1.2) quedan cubiertas como invariante o política | ✅ 77 + 14 = 91/91 |
 | V-6 | Los 24 KPI aparecen en al menos un evento | ✅ 24/24 |
-| V-7 | Historias con evento | 🟡 101/110 (el resto son de consulta) |
-| V-8 | RF con evento | 🟡 146/171 (el resto son de consulta, restricción o presentación) |
+| V-7 | Historias con evento | 🟡 105/114 (el resto son de consulta) |
+| V-8 | RF con evento | 🟡 157/184 (el resto son de consulta, restricción o presentación) |
 | V-9 | Toda invariante cita al menos una regla del SRS | ✅ 78/78 |
 | V-10 | Las definiciones del lenguaje ubicuo y del glosario son idénticas | ✅ (misma fuente) |
 | V-11 | Ninguna relación del glosario apunta a un término inexistente | ✅ |
@@ -2650,7 +2652,7 @@
 | **RF5-05** | Registros sin conectividad que al sincronizarse ya no cumplen una regla — la regla ya está definida (DF5-05, RN-INT-008, IN-72); falta garantizarla técnicamente | HD-16 · HD-24 · RN-INT-003 · RN-INT-008 | 🟠 | Sin la revalidación, la sincronización podría dejar existencia negativa o duplicados |
 | **RF5-06** | Capacidad y ocupación con unidades de medida heterogéneas | HD-17 | 🟠 | KPI-18 y la alerta de sobreocupación no son calculables |
 | **RF5-07** | Inmutabilidad y continuidad demostrables de kardex y bitácora | IN-02, IN-63 · RNF-AUD-002 | 🟠 | El jurado y el Auditor deben poder comprobarlas |
-| **RF5-08** | Decisiones del Director abiertas que cambian el modelo | DEC-01, DEC-04, DEC-05, DEC-07, DEC-09 · HD-21 | 🟠 | Entidades y eventos ⚠️ pueden cambiar o desaparecer |
+| **RF5-08** | Aprobación formal pendiente: el acta de DEC-08 no está firmada; las nueve decisiones DEC ya tienen respuesta (v1.3) | DEC-08 · HD-21 | 🟡 | El documento puede cambiar si la aprobación formal introduce correcciones |
 | **RF5-09** | Escalas no definidas de severidad y prioridad | HD-15 | 🟡 | Ordenamiento de alertas y tareas indefinido |
 | **RF5-10** | Ubicación de la existencia en tránsito (HD-05); la zona de recepción y el estado inicial quedaron resueltos por DF5-02 | HD-05 | 🟡 | Cómo se representa la porción en tránsito respecto de su unidad origen |
 | **RF5-11** | Carga del Administrador por ajustes derivados de conteo | HD-08 · RG-18 | 🟡 | Cuello de botella de aprobaciones |
@@ -2660,7 +2662,7 @@
 | **RF5-15** | Coherencia entre la suma de las cantidades de las piezas y la existencia de la unidad de inventario (AG-22 ↔ AG-05): una operación sobre una pieza afecta a dos agregados | IN-74 · RN-LOT-007 · RN-MOV-011 | 🟠 | Existencia de la unidad de inventario distinta de la suma de sus piezas |
 | **RF5-16** | Reserva y selección de piezas: la autorización reserva cantidad sobre la unidad de inventario (RN-EXI-003), pero las piezas se seleccionan recién al tomarlas (RN-SAL-009); dos preparaciones pueden apuntar a la misma pieza | RN-SAL-009 · RN-EXI-003 · RN-EXI-004 | 🟠 | Doble compromiso de una misma pieza en preparaciones distintas |
 
-**Estado frente a la Fase 5 (v1.2).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-28, HD-29 y HD-30** quedan pendientes, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real y DEC-01…DEC-09 siguen abiertas, sin bloquear la arquitectura (ver `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
+**Estado frente a la Fase 5 (v1.3).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-28, HD-29 y HD-30** quedan pendientes, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real sin bloquear la arquitectura. Las nueve decisiones DEC tienen respuesta (DEC-01 en la v1.2; DEC-02…DEC-09 en la v1.3); queda pendiente el acta firmada de DEC-08 (ver `05_V13_DECISIONES/`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
 
 ---
 
@@ -2670,10 +2672,10 @@
 |---|---|
 | **Completado** | DOMAIN_MODEL (11 capítulos), EVENT_CATALOG (6 capítulos), GLOSSARY (3 capítulos + auditoría interna) |
 | **Riesgos** | 16 riesgos para la Fase 5 (2 críticos abiertos; RF5-01 resuelto) · R-S01 heredado |
-| **Dependencias** | Decisiones del Director DEC-01…DEC-09 y hallazgos pendientes (DOMAIN_MODEL Cap. 10) |
+| **Dependencias** | Acta de DEC-08 y hallazgos pendientes (DOMAIN_MODEL Cap. 10) |
 | **Hallazgos** | 30 hallazgos del dominio (DOMAIN_MODEL Cap. 10) |
 
 
 ---
 
-*Fin de GLOSSARY v1.2. La monografía original permanece sin modificaciones.*
+*Fin de GLOSSARY v1.3. La monografía original permanece sin modificaciones.*

@@ -2,7 +2,7 @@ import re, json, sys
 import pathlib as _pl
 ROOT = _pl.Path(__file__).resolve().parents[2]
 HERE_DIR = _pl.Path(__file__).resolve().parent
-SPEC = str(ROOT / "01_SPEC_FASE_2" / "COLBASOFT_SPEC_v1.2.md")
+SPEC = str(ROOT / "01_SPEC_FASE_2" / "COLBASOFT_SPEC_v1.3.md")
 L = open(SPEC, encoding="utf8").read().split("\n")
 
 def find(prefix, start=0):

@@ -43,7 +43,7 @@
 | **Precondiciones** | La unidad de inventario existe y tiene ubicación actual registrada. |
 | **Postcondiciones (éxito)** | La ubicación registrada corresponde a la física real; la existencia total permanece invariante; el movimiento queda en el kardex. |
 | **Postcondiciones (fallo)** | Ninguna existencia cambia de ubicación; el rechazo se explica. |
-| **Trazabilidad** | HU: @HU045 @HU046 @HU106 · RF: @RF072 @RF073 @RF074 @RF075 @RF076 @RF077 @RF166 · RN: @RN026 @RN025 @RN027 @RN021 @RN036 @RN028 @RN054 @RN015 @RN083 @RN087 |
+| **Trazabilidad** | HU: @HU045 @HU046 @HU106 @HU111 · RF: @RF072 @RF073 @RF074 @RF075 @RF076 @RF077 @RF166 @RF173 · RN: @RN026 @RN025 @RN027 @RN021 @RN036 @RN028 @RN054 @RN015 @RN083 @RN087 |
 
 **Flujo principal**
 1. El Auxiliar escanea el identificador de la mercancía, que identifica su SKU + Lote.
@@ -185,7 +185,7 @@
 | **Precondiciones** | Autorización del Jefe; la operación de bodega es suspendible durante la ventana de conteo. |
 | **Postcondiciones (éxito)** | Fotografía verificada del inventario completo con todas las diferencias identificadas, ajustadas y trazables; el registro de movimientos se desbloquea; KPI-01 y KPI-02 actualizados. |
 | **Postcondiciones (fallo)** | Conteo abortado: se libera la existencia congelada y los conteos parciales se conservan como evidencia, sin generar ajustes. |
-| **Trazabilidad** | HU: @HU063 @HU064 @HU062 @HU065 · RF: @RF103 @RF104 @RF095 @RF096 @RF098 @RF100 @RF101 @RF102 @RF105 · RN: @RN045 @RN046 @RN047 @RN039 @RN040 @RN041 @RN042 · KPI: KPI-02 KPI-03 |
+| **Trazabilidad** | HU: @HU063 @HU064 @HU062 @HU065 @HU112 · RF: @RF103 @RF104 @RF095 @RF096 @RF098 @RF100 @RF101 @RF102 @RF105 @RF175 · RN: @RN045 @RN046 @RN047 @RN039 @RN040 @RN041 @RN042 · KPI: KPI-02 KPI-03 |
 
 **Flujo principal**
 1. El Jefe programa el conteo general con fecha y hora de corte.
@@ -221,7 +221,7 @@
 | **Precondiciones** | Existencia disponible suficiente; autorización vigente. |
 | **Postcondiciones (éxito)** | La existencia refleja la salida; el kardex documenta qué salió, cuánto, por qué, quién lo autorizó y quién lo ejecutó. |
 | **Postcondiciones (fallo)** | La reserva se libera; la existencia vuelve a disponible; no se registra la salida. |
-| **Trazabilidad** | HU: @HU038 @HU039 @HU040 @HU041 @HU042 @HU043 @HU044 @HU107 @HU108 · RF: @RF061 @RF062 @RF063 @RF064 @RF065 @RF066 @RF067 @RF068 @RF069 @RF070 @RF071 @RF167 @RF168 · RN: @RN048 @RN025 @RN031 @RN030 @RN049 @RN050 @RN009 @RN036 @RN051 @RN052 @RN053 @RN086 @RN088 · KPI: KPI-11 KPI-13 KPI-16 |
+| **Trazabilidad** | HU: @HU038 @HU039 @HU040 @HU041 @HU042 @HU043 @HU044 @HU107 @HU108 · RF: @RF061 @RF062 @RF063 @RF064 @RF065 @RF066 @RF067 @RF068 @RF069 @RF070 @RF071 @RF167 @RF168 @RF176 · RN: @RN048 @RN025 @RN031 @RN030 @RN049 @RN050 @RN009 @RN036 @RN051 @RN052 @RN053 @RN086 @RN088 · KPI: KPI-11 KPI-13 KPI-16 |
 
 > **Frontera de alcance `[DC-03]`.** El sistema registra la salida física del inventario. No gestiona el pedido de venta, la factura, el documento de despacho comercial ni la orden de producción que la originan; recibe un motivo tipificado y actúa sobre el inventario, nada más.
 

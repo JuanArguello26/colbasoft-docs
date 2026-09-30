@@ -1,4 +1,4 @@
-# SRS_COLBASOFT v1.2
+# SRS_COLBASOFT v1.3
 ## Especificación de Requisitos de Software (Software Requirements Specification)
 
 **COLBASOFT — Plataforma inteligente para la automatización y trazabilidad de inventarios en PYMES del sector textil del Eje Cafetero**
@@ -8,21 +8,38 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | SRS_COLBASOFT |
-| **Versión** | 1.2 |
+| **Versión** | 1.3 |
 | **Fase** | Fase 3 del proyecto — Especificación de Requisitos de Software (SRS) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2) |
-| **Estado** | **Borrador v1.2** (30-sep-2026): incorpora DEC-01 = A con la capa de trazabilidad por pieza. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: DEC-02…DEC-09 sin responder y acta de DEC-08 |
-| **Versión anterior** | `SRS_COLBASOFT_v1.1.md` (29-sep-2026) y `SRS_COLBASOFT_v1.0.md` (28-sep-2026), conservadas sin cambios |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 y v1.3) |
+| **Estado** | **Borrador v1.3** (30-sep-2026): registra las respuestas a DEC-01…DEC-09. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29, HD-30, H-19 y H-20 |
+| **Versión anterior** | `SRS_COLBASOFT_v1.2.md` (30-sep-2026), `SRS_COLBASOFT_v1.1.md` (29-sep-2026) y `SRS_COLBASOFT_v1.0.md` (28-sep-2026), conservadas sin cambios |
 | **Norma de referencia** | ISO/IEC/IEEE 29148 (Ingeniería de requisitos), adaptada al proyecto y en español |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.2 → **SRS v1.2** |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.3 → **SRS v1.3** |
 | **Fuente de verdad** | `MONOGRAFÍA  COLBASOFT.docx` (íntegra, sin modificación) |
-| **Documentos antecesores** | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (Fase 0) · `COLBASOFT_SPEC_v1.2.md` (Fase 2, revisado tras la auditoría de DEC-01) |
+| **Documentos antecesores** | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (Fase 0) · `COLBASOFT_SPEC_v1.3.md` (Fase 2, con las respuestas a DEC-02…DEC-09) |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
 | **Alcance de este documento** | Requisitos funcionales, no funcionales, reglas de negocio, casos de uso, historias normalizadas, trazabilidad y criterios de aceptación |
 | **Fuera de alcance de este documento** | Código · Base de datos · Arquitectura técnica · ERD/UML · Endpoints/APIs · Frameworks · Tecnologías |
 
-> **Naturaleza del documento.** Este SRS **no crea requisitos nuevos**: normaliza, reorganiza y hace trazable el contenido del COLBASOFT_SPEC v1.2. Aporta identificadores permanentes, prioridad MoSCoW, criterios en Gherkin, casos de uso completos, matrices de trazabilidad y criterios de aceptación del MVP. Todo elemento que este documento deriva (y que el SPEC no traía) se marca con la etiqueta `[SRS]` y se somete a validación del Director. Las brechas que se detectan **se registran como hallazgos y decisiones pendientes; no se resuelven inventando funcionalidad** (Regla Innegociable 3).
+> **Naturaleza del documento.** Este SRS **no crea requisitos nuevos**: normaliza, reorganiza y hace trazable el contenido del COLBASOFT_SPEC v1.3. Aporta identificadores permanentes, prioridad MoSCoW, criterios en Gherkin, casos de uso completos, matrices de trazabilidad y criterios de aceptación del MVP. Todo elemento que este documento deriva (y que el SPEC no traía) se marca con la etiqueta `[SRS]` y se somete a validación del Director. Las brechas que se detectan **se registran como hallazgos y decisiones pendientes; no se resuelven inventando funcionalidad** (Regla Innegociable 3).
+
+## Control de cambios de la versión 1.3
+
+> La v1.3 se regenera desde las mismas fuentes, tras incorporar al SPEC v1.3 las respuestas del Director a **DEC-02…DEC-09** (30 de septiembre de 2026). La v1.2 se conserva sin cambios en `SRS_COLBASOFT_v1.2.md`. Las historias y requisitos nuevos **no los crea este SRS**: vienen del SPEC v1.3 (son las propuestas PROP-RN, PROP-KPI y PROP-CIE del Anexo C, ahora aprobadas).
+
+| Decisión | Efecto en este SRS |
+|---|---|
+| **DEC-02** (a) — 20 módulos, dashboard M-17 y exclusión de toda IA | Sin cambios de contenido. Hallazgo H-17 resuelto |
+| **DEC-03** (a) — numeración canónica `RN-<DOM>-nnn` y fe de erratas del SPEC | Se adopta formalmente la numeración del Anexo A.4. El SPEC v1.3 §9.17 emite la fe de erratas. Hallazgos H-01 y H-09 resueltos |
+| **DEC-04** (a) — toda regla estructural es no configurable; el Jefe lee los parámetros; el Administrador o el Jefe cierran las observaciones de auditoría | RF-PAR-001 (el Jefe consulta los parámetros), HU-AUD-003 (criterio 4) y su escenario Gherkin. Hallazgo H-06 resuelto |
+| **DEC-05** (a) — se crean HU y RF del cierre de jornada (PN-14) | HU-TAR-004, HU-TAR-005; RF-TAR-006, RF-TAR-007, RF-TAR-008; CU-19 con requisitos. Hallazgo H-10 resuelto |
+| **DEC-06** (a) — se aprueban todas las propuestas de cierre de brechas | RF-BOD-009, RF-MOV-013, RF-NOV-007, RF-CNT-015, RF-SAL-014, RF-NOV-008, RF-KDX-009, RF-QRC-009, RF-ENT-017, RF-PAR-007; HU-MOV-009 y HU-CNT-011; RF-PAR-001 con dos parámetros nuevos. Las 91 reglas tienen requisito (antes, 85 de 91). Hallazgos H-11, H-12 y H-13 resueltos |
+| **DEC-07** (a) — se retira la valorización del MVP | HU-REP-001 (criterio 5) y su escenario Gherkin; RF-INV-005 y RF-DSH-003 se conservan como restricción preventiva. Hallazgo H-07 resuelto |
+| **DEC-08** (a) — acta y tabla de equivalencia de fases | Solo un **borrador** (`05_V13_DECISIONES/`). H-15 y H-16 siguen abiertos hasta que el acta se firme |
+| **DEC-09** (a) — alerta de lote sobre el umbral de antigüedad | Se redefine la condición de la alerta (RN-ALE, PN-11). Hallazgo H-18 resuelto |
+
+Cifras de la v1.3: historias **114** (antes 110), requisitos funcionales **171 → 184**, escenarios Gherkin **498 → 515**. No cambian las 91 reglas, los 47 RNF, los 24 casos de uso, los 24 KPI ni los conceptos de dominio (49). El Núcleo pasa a 94 HU y 152 → 164 RF; el Completo, a 114 HU y 184 RF. Los números del Cap. 0 que siguen describen la reconstrucción de contexto de la v1.0 y se conservan como registro histórico.
 
 ## Control de cambios de la versión 1.2
 
@@ -64,8 +81,8 @@ No cambia ninguna cifra de historias (103), requisitos funcionales (162), requis
 | **2** | Visión General del Sistema | Perspectiva funcional · funciones · usuarios · restricciones · supuestos |
 | **3** | Actores | Los cinco roles y el Sistema · matriz de permisos funcional |
 | **4** | Casos de Uso | 24 casos de uso completos |
-| **5** | Historias de Usuario Normalizadas | 110 historias · ID estable · MoSCoW · dependencias · Gherkin |
-| **6** | Requisitos Funcionales Normalizados | 171 RF con ID permanente |
+| **5** | Historias de Usuario Normalizadas | 114 historias · ID estable · MoSCoW · dependencias · Gherkin |
+| **6** | Requisitos Funcionales Normalizados | 184 RF con ID permanente |
 | **7** | Requisitos No Funcionales | 47 RNF por categoría con ID permanente |
 | **8** | Reglas de Negocio | 82 reglas por dominio con ID permanente |
 | **9** | Matriz de Trazabilidad | KPI · objetivo → concepto → historia → RF → regla → KPI |

@@ -10,18 +10,20 @@
 | ID | Decisión requerida | Hallazgos | Opciones | Recomendación del SRS | Efecto de no decidir |
 |---|---|---|---|---|---|
 | **DEC-01** | **Umbral de entrega aprobatorio.** ¿El MVP aprobatorio es el Núcleo (H1) o el Completo (H1+H2)? ¿Transferencias y conteo general entran al MVP? | H-08 · S-15 | (a) Núcleo: 84 HU / 143 RF; transferencias y conteo general pasan a v1.1. (b) Completo: 103 HU / 162 RF. (c) Núcleo + transferencias + conteo general | Mantener **alcance = Completo** (respeta DC-02 y el Prompt #003), con **entrega secuenciada H1 → H2** y **umbral mínimo aprobatorio = Núcleo** | **RESUELTA el 30-sep-2026: opción (a) Núcleo, con 1 bodega piloto y la capa de trazabilidad por pieza (v1.2).** El Cap. 12 fija el Núcleo como umbral aprobatorio |
-| **DEC-02** | **Lista de alcance del MVP.** Confirmar que «usuarios» y «auditoría» son los módulos M-02 y M-18 y que el **dashboard operativo (M-17)** permanece en el MVP; y que la exclusión es **toda** IA (DC-07) y no solo la generativa | H-17 | (a) Mantener los 20 módulos y la redacción de DC-07. (b) Restringir el MVP a la lista del Prompt #003 (retira M-17: 3 HU, 4 RF) | (a) | Se mantiene el SPEC por defecto |
-| **DEC-03** | **Reglas de negocio: cifra y renumeración.** El SPEC declara 68; las tablas contienen 82 (60 estructurales + 22 configurables). Confirmar las 82, retirar los marcadores vacíos `RN-069*` y `RN-026b*` y adoptar como canónica la numeración `RN-<DOM>-nnn` | H-01 · H-09 · pendiente #11 | (a) Aceptar el SRS como renumeración canónica y emitir una fe de erratas del SPEC. (b) Mantener la numeración del SPEC | (a) | Persisten dos cifras en circulación (68 y 82) |
-| **DEC-04** | **Semántica «estructural» vs «configurable».** Confirmar que toda regla estructural es no configurable (no solo las 10 de §9.1); definir si el Jefe puede **leer** parámetros y **quién** responde y cierra las observaciones de auditoría (@RN064) | H-06 · Cap. 10 nota 4 | (a) Toda estructural no configurable; Jefe lee parámetros; el Administrador o el Jefe responden. (b) Otra | (a) | Riesgo de que se implementen como configurables reglas que protegen la integridad (R-S08) |
-| **DEC-05** | **Cierre operativo de jornada (PN-14).** ¿Se crean HU y RF? | H-10 | (a) Crear HU/RF (ver propuestas PROP-CIE). (b) Mover PN-14 a v1.1. (c) Excluirlo del MVP | (a), porque el backlog lo declara MVP (elemento 39) y RG-03 y RG-08 dependen de él | CU-19 queda sin requisitos y sin criterio de aceptación |
-| **DEC-06** | **Cierre de brechas de trazabilidad.** Aprobar o descartar las propuestas PROP-RN (reglas sin RF) y PROP-KPI (KPI sin dato de origen) | H-11 · H-12 · H-13 | (a) Aprobar todas. (b) Aprobar solo las de KPI-01/05/08. (c) Descartar | (a); como mínimo (b), porque KPI-05 es uno de los tres indicadores del compromiso | El sistema no implementará reglas ni capturará datos que hoy nadie exige |
-| **DEC-07** | **«Valorización».** Definir si el permiso «consultar valorización» se retira del MVP o si se define una política de costeo | H-07 · Horizonte 3 | (a) Retirar del MVP (queda como restricción preventiva). (b) Definir política de costeo (roza DC-03) | (a) | Permiso sin dato de origen (RF-INV-005, RF-DSH-003, HU-REP-001 crit. 5) |
-| **DEC-08** | **Aprobación formal del SPEC v1.0 y numeración de fases.** Confirmar por escrito la aprobación del SPEC (el archivo dice «Emitido para revisión») y la equivalencia entre las fases del proyecto y las del roadmap | H-15 · H-16 | (a) Acta de aprobación + tabla de equivalencia de fases. (b) Otra | (a) | Ambigüedad sobre qué versión rige |
-| **DEC-09** | **Alerta «lote próximo a vencer inmovilización».** El SPEC la enuncia con «fecha límite» de lote, dato que no existe en CD-06 ni en ningún RF | H-18 | (a) Redefinirla sobre el umbral de antigüedad (@RN074). (b) Agregar «fecha límite» al lote (funcionalidad nueva `[NUEVO]`) | (a) | Alerta sin condición de disparo definida |
+| **DEC-02** | **Lista de alcance del MVP.** Confirmar que «usuarios» y «auditoría» son los módulos M-02 y M-18 y que el **dashboard operativo (M-17)** permanece en el MVP; y que la exclusión es **toda** IA (DC-07) y no solo la generativa | H-17 | (a) Mantener los 20 módulos y la redacción de DC-07. (b) Restringir el MVP a la lista del Prompt #003 (retira M-17: 3 HU, 4 RF) | (a) | **RESUELTA el 30-sep-2026: opción (a).** Se mantienen los 20 módulos y la exclusión de toda IA |
+| **DEC-03** | **Reglas de negocio: cifra y renumeración.** El SPEC declara 68; las tablas contienen 82 (60 estructurales + 22 configurables). Confirmar las 82, retirar los marcadores vacíos `RN-069*` y `RN-026b*` y adoptar como canónica la numeración `RN-<DOM>-nnn` | H-01 · H-09 · pendiente #11 | (a) Aceptar el SRS como renumeración canónica y emitir una fe de erratas del SPEC. (b) Mantener la numeración del SPEC | (a) | **RESUELTA el 30-sep-2026: opción (a).** Fe de erratas en el SPEC v1.3 §9.17 |
+| **DEC-04** | **Semántica «estructural» vs «configurable».** Confirmar que toda regla estructural es no configurable (no solo las 10 de §9.1); definir si el Jefe puede **leer** parámetros y **quién** responde y cierra las observaciones de auditoría (@RN064) | H-06 · Cap. 10 nota 4 | (a) Toda estructural no configurable; Jefe lee parámetros; el Administrador o el Jefe responden. (b) Otra | (a) | **RESUELTA el 30-sep-2026: opción (a).** Toda regla estructural es no configurable |
+| **DEC-05** | **Cierre operativo de jornada (PN-14).** ¿Se crean HU y RF? | H-10 | (a) Crear HU/RF (ver propuestas PROP-CIE). (b) Mover PN-14 a v1.1. (c) Excluirlo del MVP | (a), porque el backlog lo declara MVP (elemento 39) y RG-03 y RG-08 dependen de él | **RESUELTA el 30-sep-2026: opción (a).** HU-TAR-004, HU-TAR-005 y RF-TAR-006…008 |
+| **DEC-06** | **Cierre de brechas de trazabilidad.** Aprobar o descartar las propuestas PROP-RN (reglas sin RF) y PROP-KPI (KPI sin dato de origen) | H-11 · H-12 · H-13 | (a) Aprobar todas. (b) Aprobar solo las de KPI-01/05/08. (c) Descartar | (a); como mínimo (b), porque KPI-05 es uno de los tres indicadores del compromiso | **RESUELTA el 30-sep-2026: opción (a).** Se aprueban todas las propuestas (C.2) |
+| **DEC-07** | **«Valorización».** Definir si el permiso «consultar valorización» se retira del MVP o si se define una política de costeo | H-07 · Horizonte 3 | (a) Retirar del MVP (queda como restricción preventiva). (b) Definir política de costeo (roza DC-03) | (a) | **RESUELTA el 30-sep-2026: opción (a).** La valorización se retira del MVP |
+| **DEC-08** | **Aprobación formal del SPEC v1.0 y numeración de fases.** Confirmar por escrito la aprobación del SPEC (el archivo dice «Emitido para revisión») y la equivalencia entre las fases del proyecto y las del roadmap | H-15 · H-16 | (a) Acta de aprobación + tabla de equivalencia de fases. (b) Otra | (a) | **Respondida el 30-sep-2026: opción (a); acta pendiente de firma** (borrador en `05_V13_DECISIONES/`) |
+| **DEC-09** | **Alerta «lote próximo a vencer inmovilización».** El SPEC la enuncia con «fecha límite» de lote, dato que no existe en CD-06 ni en ningún RF | H-18 | (a) Redefinirla sobre el umbral de antigüedad (@RN074). (b) Agregar «fecha límite» al lote (funcionalidad nueva `[NUEVO]`) | (a) | **RESUELTA el 30-sep-2026: opción (a).** Umbral de antigüedad del lote |
 
 Además siguen abiertas las **preguntas heredadas** del §0.5 (A-03, A-04, A-05, V-01, V-03, V-06, I-03, I-04, I-05, I-09, S-15).
 
-## C.2 Propuestas de cierre de brechas (NO incorporadas al baseline)
+## C.2 Propuestas de cierre de brechas (**APROBADAS por el Director el 30-sep-2026 e incorporadas al baseline en la v1.3**: DEC-05 y DEC-06)
+
+> Correspondencia con los requisitos de la v1.3: PROP-RN-01 → RF-BOD-009 · PROP-RN-02 → RF-MOV-013 (HU-MOV-009) · PROP-RN-03 → RF-NOV-007 · PROP-RN-04 → RF-CNT-015 (HU-CNT-011; Horizonte 2) · PROP-RN-05 → RF-SAL-014 · PROP-RN-06 → RF-NOV-008 · PROP-KPI-01 → RF-KDX-009 · PROP-KPI-02 → RF-QRC-009 · PROP-KPI-03 → RF-BOD-009 · PROP-KPI-04 → RF-ENT-017 · PROP-KPI-05 → RF-PAR-001 (parámetro «días sin movimiento») · PROP-KPI-06 → RF-PAR-007 · PROP-CIE-01…03 → RF-TAR-006…008 (HU-TAR-004, HU-TAR-005).
 
 ### C.2.1 Reglas de negocio sin requisito funcional que las implemente (H-11)
 
@@ -85,16 +87,16 @@ Los hallazgos H-01…H-20 se describen con su evidencia en el §0.5-b. Su estado
 
 | Hallazgo | Estado | Resuelto por |
 |---|---|---|
-| H-01, H-09 | Abierto | DEC-03 |
+| H-01, H-09 | **Resuelto en la v1.3** | DEC-03 (a) |
 | H-02, H-03, H-04, H-05, H-14 | **Tratado en el SRS** (se usa el contenido de las tablas; sin impacto funcional) | — |
-| H-06 | Abierto | DEC-04 |
-| H-07 | Abierto | DEC-07 |
+| H-06 | **Resuelto en la v1.3** | DEC-04 (a) |
+| H-07 | **Resuelto en la v1.3** | DEC-07 (a) |
 | H-08 | **Resuelto en la v1.2** | DEC-01 = A |
-| H-10 | Abierto | DEC-05 |
-| H-11, H-12, H-13 | Abierto | DEC-06 |
-| H-15, H-16 | Abierto | DEC-08 |
-| H-17 | Abierto | DEC-02 |
-| H-18 | Abierto | DEC-09 |
+| H-10 | **Resuelto en la v1.3** | DEC-05 (a) |
+| H-11, H-12, H-13 | **Resuelto en la v1.3** | DEC-06 (a) |
+| H-15, H-16 | Abierto: acta en borrador, sin firmar | DEC-08 (a) |
+| H-17 | **Resuelto en la v1.3** | DEC-02 (a) |
+| H-18 | **Resuelto en la v1.3** | DEC-09 (a) |
 | H-19, H-20 | Abierto (nuevos en la v1.2) | Director: aceptar por escrito como limitación o acotar, junto con DEC-01 = A |
 
 ## C.9 Decisiones del cierre del CP-04 (versión 1.1)
@@ -128,13 +130,30 @@ Los hallazgos H-01…H-20 se describen con su evidencia en el §0.5-b. Su estado
 
 **Decisiones que quedan pendientes** (no se inventan): **HD-28** (contenedor con mezcla de lotes; diferencia entre «paquete o bolsa» y «contenedor agrupado»; motivos por los que un identificador se reemplaza ahora que la reimpresión no lo reemplaza), **HD-29** (qué ocurre con el remanente de un corte parcial si se mueve a otra ubicación; movimiento parcial de una pieza) y **HD-30** (si toda referencia se controla por piezas).
 
+## C.11 Respuestas del Director a DEC-02…DEC-09 (versión 1.3)
+
+> Dadas el 30 de septiembre de 2026, todas en la opción (a) recomendada por el SRS. Con DEC-01 (C.10), las nueve decisiones tienen respuesta; la aprobación formal sigue pendiente del acta de DEC-08.
+
+| ID | Respuesta | Efecto en este SRS |
+|---|---|---|
+| **DEC-02** | (a) 20 módulos, dashboard M-17 y exclusión de toda IA | Ninguno en cifras |
+| **DEC-03** | (a) Numeración canónica `RN-<DOM>-nnn` y fe de erratas del SPEC | SPEC v1.3 §9.17 |
+| **DEC-04** | (a) Toda regla estructural no configurable; el Jefe lee parámetros; el Administrador o el Jefe cierran las observaciones de auditoría | RF-PAR-001, HU-AUD-003 |
+| **DEC-05** | (a) Se crean HU y RF del cierre de jornada | HU-TAR-004, HU-TAR-005, RF-TAR-006…008 |
+| **DEC-06** | (a) Se aprueban todas las propuestas de cierre de brechas | 10 RF nuevos y 2 HU (véase C.2), más 2 parámetros en RF-PAR-001 |
+| **DEC-07** | (a) La valorización se retira del MVP | HU-REP-001 (criterio 5); RF-INV-005 y RF-DSH-003 como restricción preventiva |
+| **DEC-08** | (a) Acta de aprobación y tabla de equivalencia de fases | Borrador sin firma en `05_V13_DECISIONES/`; H-15 y H-16 siguen abiertos |
+| **DEC-09** | (a) La alerta se redefine sobre el umbral de antigüedad | PN-11; RN-LOT-005 |
+
+**Pendientes que siguen abiertos:** el acta firmada de DEC-08; H-19 y H-20; HD-28, HD-29 y HD-30 del modelo de dominio; la verificación de campo de KPI-24 (Fase 3 del roadmap).
+
 ---
 
 **ESTADO DEL ANEXO C**
 
 | | |
 |---|---|
-| **Completado** | 9 decisiones · 5 decisiones del cierre del CP-04 (C.9) · decisiones del 30-sep-2026 (C.10) · 6 + 6 + 3 propuestas de cierre de brechas · 10 riesgos de fase · riesgos críticos heredados |
-| **Pendiente** | Respuesta del Director a DEC-02…DEC-09 · HD-28, HD-29 y HD-30 |
+| **Completado** | 9 decisiones, todas con respuesta (C.10 y C.11) · 5 decisiones del cierre del CP-04 (C.9) · 6 + 6 + 3 propuestas de cierre de brechas · 10 riesgos de fase · riesgos críticos heredados |
+| **Pendiente** | Acta firmada de DEC-08 · H-19, H-20 · HD-28, HD-29 y HD-30 |
 | **Riesgos encontrados** | R-S01 (crítico) y los 9 restantes |
 | **Dependencias** | Cap. 12 depende de DEC-01 y DEC-05 |

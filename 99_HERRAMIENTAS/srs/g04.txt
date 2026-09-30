@@ -113,10 +113,10 @@ Escenario: C4 - Es exportable en formato tabular
   Dado un reporte generado
   Cuando el usuario solicita exportarlo
   Entonces el sistema lo entrega en formato tabular
-Escenario: C5 - La valorización solo aparece para roles autorizados
-  Dado un reporte con valorización disponible
-  Cuando lo genera un rol no autorizado
-  Entonces no incluye la valorización
+Escenario: C5 - Ningún reporte muestra costo ni valorización
+  Dado un reporte generado por cualquier rol
+  Cuando se revisa su contenido
+  Entonces no muestra costo ni valorización porque el MVP no captura costos
 
 === HU-088 | Generar el reporte de movimientos de un período
 Escenario: C1 - Filtro por período, tipo, usuario, referencia y motivo
@@ -296,10 +296,10 @@ Escenario: C3 - Es consultable por el Administrador y el Jefe
   Dado una observación registrada
   Cuando el Administrador o el Jefe la consultan
   Entonces pueden verla
-Escenario: C4 - No se elimina, se cierra con respuesta
+Escenario: C4 - No se elimina; el Administrador o el Jefe la cierra con su respuesta
   Dado una observación registrada
-  Cuando se atiende
-  Entonces se cierra con una respuesta y no se elimina
+  Cuando el Administrador o el Jefe la atiende
+  Entonces la cierra con su respuesta y no se elimina
 
 === HU-097 | Detectar si alguien aprobó su propia solicitud
 Escenario: C1 - El sistema reporta cualquier caso donde solicitante y aprobador coincidan
