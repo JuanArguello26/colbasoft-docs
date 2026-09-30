@@ -1,0 +1,585 @@
+=== HU-001 | Iniciar sesión con credencial individual
+Escenario: C1 - El acceso exige identificador y contraseña individuales
+  Dado un usuario activo con identificador y contraseña propios
+  Cuando intenta acceder al sistema sin presentar ambos datos
+  Entonces el sistema no abre sesión y solicita las dos credenciales
+Escenario: C2 - No existen cuentas genéricas ni compartidas
+  Dado el Administrador que crea o edita una cuenta
+  Cuando intenta registrar una cuenta genérica o compartida por varias personas
+  Entonces el sistema no ofrece esa posibilidad y cada cuenta queda asociada a una sola persona identificada
+Escenario: C3 - El acceso exitoso abre sesión y queda en bitácora
+  Dado un usuario activo con credenciales válidas
+  Cuando inicia sesión
+  Entonces el sistema abre la sesión a su nombre
+  Y registra el acceso en la bitácora con fecha, hora y origen
+Escenario: C4 - El acceso fallido no revela cuál dato fue incorrecto
+  Dado un intento de acceso con usuario o contraseña incorrectos
+  Cuando el sistema rechaza el acceso
+  Entonces el mensaje es el mismo sin indicar si el error fue del usuario o de la contraseña
+Escenario: C5 - Cinco intentos fallidos consecutivos bloquean la cuenta
+  Dado una cuenta activa con cuatro intentos fallidos consecutivos
+  Cuando ocurre el quinto intento fallido consecutivo
+  Entonces el sistema bloquea la cuenta
+  Y notifica al Administrador
+
+=== HU-002 | Mantener la sesión abierta durante la jornada en tablet
+Escenario: C1 - La sesión permanece activa mientras hay actividad
+  Dado un Auxiliar con sesión abierta en la tablet
+  Cuando registra movimientos de forma continua
+  Entonces la sesión permanece activa sin pedirle autenticarse de nuevo
+Escenario: C2 - Cierre por inactividad según tiempo configurado
+  Dado un tiempo de inactividad configurado en Parámetros y Configuración
+  Cuando el usuario no registra actividad durante ese tiempo
+  Entonces el sistema cierra la sesión
+Escenario: C3 - Aviso previo al cierre
+  Dado una sesión próxima a cumplir el tiempo de inactividad
+  Cuando falta poco para el cierre
+  Entonces el sistema avisa al usuario antes de cerrarla
+Escenario: C4 - Al reanudar no se pierde el registro en curso
+  Dado un registro en curso aún no confirmado
+  Cuando el usuario reanuda su trabajo tras un aviso o reconexión
+  Entonces el sistema conserva el registro en curso sin pérdida de datos
+Escenario: C5 - El cierre por inactividad queda en bitácora
+  Dado una sesión cerrada por inactividad
+  Cuando el cierre se produce
+  Entonces el evento queda registrado en la bitácora
+
+=== HU-003 | Cambiar la contraseña propia
+Escenario: C1 - El cambio exige la contraseña actual
+  Dado un usuario autenticado
+  Cuando solicita cambiar su contraseña sin ingresar la actual
+  Entonces el sistema rechaza el cambio
+Escenario: C2 - La nueva contraseña cumple la política mínima
+  Dado una política mínima de contraseña configurada
+  Cuando el usuario propone una contraseña que no la cumple
+  Entonces el sistema rechaza el cambio e indica qué requisito falta
+Escenario: C3 - La nueva contraseña no puede coincidir con la anterior
+  Dado un usuario que ingresa correctamente su contraseña actual
+  Cuando propone como nueva la misma contraseña actual
+  Entonces el sistema rechaza el cambio
+Escenario: C4 - El cambio cierra las demás sesiones activas
+  Dado un usuario con otras sesiones activas en distintos dispositivos
+  Cuando el cambio de contraseña se completa
+  Entonces el sistema cierra las demás sesiones activas de ese usuario
+Escenario: C5 - El evento queda en bitácora sin valores de contraseña
+  Dado un cambio de contraseña completado
+  Cuando el sistema registra el evento
+  Entonces la bitácora guarda el evento con usuario, fecha y hora
+  Y no registra ningún valor de contraseña
+
+=== HU-004 | Restablecer el acceso de un usuario bloqueado
+Escenario: C1 - El Administrador desbloquea y fuerza el cambio de contraseña
+  Dado una cuenta bloqueada por intentos fallidos
+  Cuando el Administrador restablece el acceso
+  Entonces la cuenta queda desbloqueada
+  Y el usuario debe cambiar su contraseña en el siguiente acceso
+Escenario: C2 - El sistema nunca muestra la contraseña anterior
+  Dado un restablecimiento de acceso en curso
+  Cuando el Administrador consulta cualquier pantalla del proceso
+  Entonces el sistema no muestra ni permite recuperar la contraseña anterior
+Escenario: C3 - El restablecimiento queda en bitácora con su ejecutor
+  Dado un restablecimiento completado
+  Cuando el sistema registra el evento
+  Entonces la bitácora indica quién lo ejecutó, sobre qué cuenta y cuándo
+Escenario: C4 - El usuario afectado es notificado
+  Dado una cuenta restablecida por el Administrador
+  Cuando el restablecimiento se completa
+  Entonces el usuario afectado recibe una notificación
+
+=== HU-005 | Crear usuarios con uno de los cinco roles oficiales
+Escenario: C1 - El formulario ofrece exclusivamente los cinco roles oficiales
+  Dado el Administrador creando un usuario
+  Cuando despliega la lista de roles
+  Entonces solo aparecen Administrador, Jefe de Bodega, Coordinador de Bodega, Auxiliar de Bodega y Auditor
+Escenario: C2 - No existe la opción de crear un rol nuevo
+  Dado el Administrador en el módulo de usuarios y roles
+  Cuando busca una función para crear un rol adicional
+  Entonces el sistema no ofrece esa función
+Escenario: C3 - Un usuario tiene exactamente un rol activo
+  Dado un usuario en creación o edición
+  Cuando el Administrador intenta asignarle más de un rol activo
+  Entonces el sistema solo admite un rol activo por usuario
+Escenario: C4 - La creación queda en bitácora
+  Dado un usuario creado
+  Cuando se completa el alta
+  Entonces el evento queda en la bitácora con quién lo creó y el rol asignado
+Escenario: C5 - El usuario nuevo cambia su contraseña en el primer acceso
+  Dado un usuario recién creado
+  Cuando accede por primera vez
+  Entonces el sistema le exige cambiar su contraseña antes de continuar
+
+=== HU-006 | Desactivar usuarios sin perder su rastro
+Escenario: C1 - La desactivación cierra el acceso de inmediato
+  Dado un usuario activo con sesión abierta
+  Cuando el Administrador lo desactiva
+  Entonces el acceso del usuario se cierra de inmediato
+Escenario: C2 - Los movimientos históricos se conservan íntegros con su nombre
+  Dado un usuario con movimientos registrados
+  Cuando el Administrador lo desactiva
+  Entonces los movimientos históricos del usuario se conservan íntegros
+  Y siguen mostrando su nombre
+Escenario: C3 - No existe la opción de eliminar un usuario
+  Dado el Administrador en la gestión de usuarios
+  Cuando busca una función para eliminar a un usuario
+  Entonces el sistema solo ofrece desactivar
+Escenario: C4 - Un usuario desactivado puede reactivarse
+  Dado un usuario desactivado
+  Cuando el Administrador lo reactiva
+  Entonces el usuario recupera su acceso con su rol
+Escenario: C5 - El evento queda en bitácora
+  Dado una desactivación o reactivación
+  Cuando se completa
+  Entonces el evento queda en la bitácora
+
+=== HU-007 | Cambiar el rol de un usuario
+Escenario: C1 - El cambio surte efecto en la siguiente sesión
+  Dado un usuario con sesión abierta cuyo rol cambia
+  Cuando el usuario inicia su siguiente sesión
+  Entonces opera con el nuevo rol
+Escenario: C2 - Los movimientos anteriores conservan el rol vigente en su momento
+  Dado un usuario con movimientos anteriores al cambio de rol
+  Cuando se consultan esos movimientos
+  Entonces cada movimiento muestra el rol que el usuario tenía cuando ocurrió
+Escenario: C3 - El cambio queda en bitácora con rol anterior y nuevo
+  Dado un cambio de rol completado
+  Cuando el sistema registra el evento
+  Entonces la bitácora guarda el rol anterior y el rol nuevo
+Escenario: C4 - No se deja la bodega sin Jefe activo
+  Dado una bodega con un único Jefe de Bodega activo
+  Cuando el Administrador intenta cambiarle el rol
+  Entonces el sistema rechaza el cambio para no dejar la bodega sin Jefe
+
+=== HU-008 | Asignar bodega y zona a cada usuario
+Escenario: C1 - Un Coordinador puede tener una o más zonas
+  Dado un usuario con rol Coordinador
+  Cuando el Administrador le asigna una o varias zonas
+  Entonces el sistema registra todas las zonas asignadas
+Escenario: C2 - El Auxiliar opera dentro de las zonas de su Coordinador
+  Dado un Auxiliar asociado a un Coordinador
+  Cuando consulta o recibe tareas
+  Entonces solo opera dentro de las zonas de su Coordinador
+Escenario: C3 - Jefe, Administrador y Auditor sin restricción de ámbito de consulta
+  Dado un usuario con rol Jefe, Administrador o Auditor
+  Cuando consulta información de cualquier zona
+  Entonces el sistema no restringe su ámbito de consulta
+Escenario: C4 - Consultas y tareas se filtran por ámbito
+  Dado un usuario con ámbito de bodega y zona asignado
+  Cuando consulta información o revisa sus tareas
+  Entonces el sistema filtra automáticamente los resultados por su ámbito
+
+=== HU-009 | Impedir quedarse sin administradores
+Escenario: C1 - Se rechaza desactivar al último Administrador activo
+  Dado un único Administrador activo
+  Cuando se intenta desactivarlo
+  Entonces el sistema rechaza la desactivación
+Escenario: C2 - Se rechaza cambiar el rol al último Administrador activo
+  Dado un único Administrador activo
+  Cuando se intenta cambiarle el rol
+  Entonces el sistema rechaza el cambio
+Escenario: C3 - El mensaje explica el motivo del rechazo
+  Dado un rechazo por ser el último Administrador activo
+  Cuando el sistema informa el resultado
+  Entonces el mensaje explica claramente el motivo del rechazo
+
+=== HU-010 | Crear una referencia con tallas y colores
+Escenario: C1 - La referencia tiene código único
+  Dado el Jefe de Bodega creando una referencia con un código no utilizado
+  Cuando guarda la referencia
+  Entonces la referencia queda creada con ese código único
+Escenario: C2 - Se asignan valores de talla y de color
+  Dado una referencia en creación
+  Cuando el Jefe le asigna uno o más valores de talla y de color
+  Entonces la referencia queda asociada a esos conjuntos de tallas y colores
+Escenario: C3 - El sistema genera los SKU de la combinación
+  Dado una referencia con tallas y colores asignados
+  Cuando se guarda
+  Entonces el sistema genera automáticamente los SKU de cada combinación referencia, talla y color
+Escenario: C4 - La referencia queda activa al crearse
+  Dado una referencia recién guardada
+  Cuando se consulta su estado
+  Entonces figura como activa
+Escenario: C5 - Un código existente se rechaza
+  Dado una referencia ya existente con cierto código
+  Cuando se intenta crear otra con el mismo código
+  Entonces el sistema rechaza la creación e informa que el código ya existe
+
+=== HU-011 | Definir la unidad de medida de cada referencia
+Escenario: C1 - La unidad se selecciona de una lista configurada
+  Dado una referencia en creación o edición
+  Cuando el Jefe elige su unidad de medida
+  Entonces solo puede seleccionarla de la lista configurada
+Escenario: C2 - La unidad no cambia si hay movimientos
+  Dado una referencia con movimientos registrados
+  Cuando se intenta cambiar su unidad de medida
+  Entonces el sistema rechaza el cambio
+Escenario: C3 - Toda cantidad se expresa en la unidad de la referencia
+  Dado una referencia con su unidad definida
+  Cuando se registra cualquier cantidad de esa referencia
+  Entonces la cantidad se expresa en esa unidad de medida
+Escenario: C4 - El rechazo del cambio explica el motivo
+  Dado un intento de cambio de unidad con movimientos existentes
+  Cuando el sistema lo rechaza
+  Entonces explica que existen movimientos que lo impiden
+
+=== HU-012 | Desactivar una referencia descontinuada
+Escenario: C1 - No existe la opción de eliminar una referencia
+  Dado el Jefe en la gestión del catálogo
+  Cuando busca una función para eliminar una referencia
+  Entonces el sistema solo ofrece desactivarla
+Escenario: C2 - No se desactiva con existencia distinta de cero
+  Dado una referencia con existencia distinta de cero
+  Cuando se intenta desactivar
+  Entonces el sistema rechaza la desactivación
+Escenario: C3 - La referencia desactivada no aparece en operaciones nuevas
+  Dado una referencia desactivada
+  Cuando se crea un documento o un movimiento
+  Entonces la referencia no aparece entre las opciones
+Escenario: C4 - El kardex de la referencia desactivada sigue consultable
+  Dado una referencia desactivada con historial
+  Cuando se consulta su kardex
+  Entonces el kardex se muestra completo
+Escenario: C5 - La referencia puede reactivarse
+  Dado una referencia desactivada
+  Cuando el Jefe la reactiva
+  Entonces vuelve a estar disponible para operaciones nuevas
+
+=== HU-013 | Definir existencia mínima y máxima por SKU
+Escenario: C1 - Los umbrales se definen por SKU
+  Dado un SKU existente
+  Cuando el Jefe define su existencia mínima y máxima
+  Entonces los umbrales quedan asociados a ese SKU
+Escenario: C2 - El mínimo no puede superar al máximo
+  Dado un SKU con umbrales en edición
+  Cuando el mínimo ingresado es mayor que el máximo
+  Entonces el sistema rechaza los valores
+Escenario: C3 - Al cruzar un umbral se genera la alerta correspondiente
+  Dado un SKU con umbrales configurados
+  Cuando su existencia cruza el mínimo o el máximo
+  Entonces el sistema genera la alerta correspondiente en Alertas y Reglas
+Escenario: C4 - Un SKU sin umbrales aparece como pendiente de configurar
+  Dado un SKU sin umbrales configurados
+  Cuando se revisa el listado de pendientes
+  Entonces el SKU aparece como pendiente de configurar
+  Y no genera alertas de mínimo ni de máximo
+
+=== HU-014 | Cargar el catálogo inicial de forma masiva
+Escenario: C1 - El sistema acepta un archivo tabular con estructura definida
+  Dado el Administrador con un archivo tabular con la estructura definida
+  Cuando lo carga en el sistema
+  Entonces el sistema acepta el archivo para su procesamiento
+Escenario: C2 - Se valida antes de cargar y se reportan errores por línea
+  Dado un archivo con líneas válidas e inválidas
+  Cuando el sistema lo valida antes de cargar
+  Entonces reporta los errores indicando la línea de cada uno
+Escenario: C3 - Carga total de lo válido o ninguna, según la opción elegida
+  Dado un archivo con errores y la opción de carga elegida por el Administrador
+  Cuando confirma la carga
+  Entonces el sistema carga todo lo válido y reporta lo rechazado, o no carga nada, según la opción elegida
+Escenario: C4 - La carga queda en bitácora con el número de registros
+  Dado una carga masiva completada
+  Cuando el sistema registra el evento
+  Entonces la bitácora guarda el número de registros procesados
+
+=== HU-015 | Organizar las referencias por categoría
+Escenario: C1 - Una referencia pertenece a una sola categoría
+  Dado una referencia en creación o edición
+  Cuando se le asigna una categoría
+  Entonces solo puede pertenecer a una categoría
+Escenario: C2 - La categoría puede asociarse a una zona preferente
+  Dado una categoría existente
+  Cuando el Administrador la asocia a una zona preferente
+  Entonces la asignación automática de ubicación puede usar esa zona
+Escenario: C3 - Los reportes agrupan por categoría
+  Dado un reporte con datos de varias categorías
+  Cuando se solicita agruparlo por categoría
+  Entonces el reporte presenta los datos agrupados por categoría
+Escenario: C4 - Una categoría en uso no se elimina, se desactiva
+  Dado una categoría con referencias asociadas
+  Cuando el Administrador intenta eliminarla
+  Entonces el sistema solo permite desactivarla
+
+=== HU-016 | Asociar toda mercancía a un lote
+Escenario: C1 - Al confirmar una entrada se crea o selecciona un lote
+  Dado una entrada que se confirma
+  Cuando el Coordinador completa la confirmación
+  Entonces el sistema crea un lote nuevo o asocia uno existente
+Escenario: C2 - El lote registra origen y fecha de ingreso
+  Dado un lote asociado a una entrada
+  Cuando se consulta el lote
+  Entonces muestra su origen y su fecha de ingreso
+Escenario: C3 - El código de lote es único dentro de su SKU
+  Dado un SKU con un lote de cierto código
+  Cuando se intenta crear otro lote del mismo SKU con el mismo código
+  Entonces el sistema lo rechaza
+Escenario: C4 - Ninguna existencia queda sin lote
+  Dado cualquier ingreso de mercancía al inventario
+  Cuando se confirma
+  Entonces la existencia queda asociada a un lote
+Escenario: C5 - El lote aparece en toda consulta y en el kardex
+  Dado una unidad de inventario con lote
+  Cuando se consulta su existencia o su kardex
+  Entonces el lote se muestra en el resultado
+
+=== HU-017 | Consultar la distribución de un lote
+Escenario: C1 - La consulta devuelve todas las ubicaciones con existencia del lote
+  Dado un lote con existencia repartida en varias ubicaciones
+  Cuando el Jefe consulta el lote
+  Entonces el sistema lista cada ubicación con su cantidad
+Escenario: C2 - Muestra el total del lote y su estado
+  Dado un lote consultado
+  Cuando se presenta el resultado
+  Entonces muestra el total del lote y su estado
+Escenario: C3 - Permite abrir el kardex completo del lote
+  Dado un lote consultado
+  Cuando el Jefe elige ver su kardex
+  Entonces el sistema abre el kardex completo del lote
+Escenario: C4 - Permite inmovilizar el lote desde la consulta
+  Dado un lote consultado por el Jefe
+  Cuando elige inmovilizarlo desde la consulta
+  Entonces el sistema inicia la inmovilización del lote
+
+=== HU-018 | Inmovilizar un lote completo
+Escenario: C1 - La inmovilización afecta toda la existencia del lote en todas sus ubicaciones
+  Dado un lote con existencia en varias ubicaciones
+  Cuando el Jefe lo inmoviliza
+  Entonces toda su existencia queda inmovilizada en todas sus ubicaciones
+Escenario: C2 - La existencia inmovilizada deja de contar como disponible
+  Dado un lote inmovilizado
+  Cuando se consulta el disponible
+  Entonces la existencia inmovilizada no cuenta como disponible
+Escenario: C3 - Salidas, transferencias y movimientos se rechazan
+  Dado un lote inmovilizado
+  Cuando se intenta una salida, transferencia o movimiento sobre su existencia
+  Entonces el sistema rechaza la operación
+Escenario: C4 - La inmovilización requiere motivo tipificado
+  Dado el Jefe inmovilizando un lote
+  Cuando intenta confirmar sin seleccionar un motivo tipificado
+  Entonces el sistema no permite la inmovilización
+Escenario: C5 - Solo Jefe o Administrador pueden liberar el lote
+  Dado un lote inmovilizado
+  Cuando un usuario con otro rol intenta liberarlo
+  Entonces el sistema lo impide
+  Y solo el Jefe o el Administrador pueden liberarlo
+Escenario: C6 - La inmovilización y la liberación quedan en bitácora
+  Dado una inmovilización o liberación de lote
+  Cuando se completa
+  Entonces el evento queda en la bitácora
+
+=== HU-019 | Listar los lotes por antigüedad
+Escenario: C1 - El listado se ordena por fecha de ingreso
+  Dado varios lotes con distintas fechas de ingreso
+  Cuando el Jefe abre el listado
+  Entonces los lotes se ordenan por fecha de ingreso
+Escenario: C2 - Muestra los días en bodega
+  Dado un lote listado
+  Cuando se presenta el listado
+  Entonces cada lote muestra sus días en bodega
+Escenario: C3 - Permite filtrar por referencia y categoría
+  Dado el listado de lotes por antigüedad
+  Cuando el Jefe filtra por referencia o categoría
+  Entonces el sistema muestra solo los lotes que cumplen el filtro
+Escenario: C4 - Se destacan los lotes por encima del umbral de antigüedad
+  Dado un umbral de antigüedad configurado
+  Cuando un lote lo supera
+  Entonces el listado lo destaca
+
+=== HU-020 | Definir zonas y ubicaciones de la bodega
+Escenario: C1 - Se crean zonas con tipo asignado
+  Dado el Administrador definiendo la estructura de una bodega
+  Cuando crea una zona y le asigna un tipo
+  Entonces la zona queda creada dentro de la bodega con su tipo
+Escenario: C2 - Se crean ubicaciones dentro de una zona
+  Dado una zona existente
+  Cuando el Administrador crea una ubicación
+  Entonces la ubicación queda asociada a esa zona
+Escenario: C3 - El código de ubicación es único en la bodega
+  Dado una ubicación con cierto código en una bodega
+  Cuando se intenta crear otra con el mismo código en esa bodega
+  Entonces el sistema lo rechaza
+Escenario: C4 - Debe existir al menos una zona de recepción por bodega
+  Dado una bodega sin zona de recepción
+  Cuando se intenta dejar la estructura de la bodega como completa para operar
+  Entonces el sistema exige al menos una zona de recepción
+Escenario: C5 - Cada ubicación creada obtiene su identificador QR
+  Dado una ubicación recién creada
+  Cuando se guarda
+  Entonces el sistema le asigna su identificador QR
+
+=== HU-021 | Definir la capacidad de cada ubicación
+Escenario: C1 - La capacidad se expresa en una unidad configurada
+  Dado una ubicación en configuración
+  Cuando el Administrador define su capacidad
+  Entonces la capacidad se expresa en una unidad configurada
+Escenario: C2 - No se propone una ubicación sin capacidad suficiente
+  Dado una ubicación cuya capacidad libre es insuficiente
+  Cuando el sistema propone una ubicación destino
+  Entonces no propone esa ubicación
+Escenario: C3 - La sobreocupación genera alerta
+  Dado una ubicación con capacidad definida
+  Cuando su ocupación supera la capacidad
+  Entonces el sistema genera una alerta de sobreocupación
+Escenario: C4 - Sin capacidad definida se trata como ilimitada y se lista como pendiente
+  Dado una ubicación sin capacidad definida
+  Cuando el sistema evalúa su capacidad
+  Entonces la trata como de capacidad ilimitada
+  Y la incluye en el listado de pendientes de configurar
+
+=== HU-022 | Desactivar una ubicación fuera de servicio
+Escenario: C1 - No existe la opción de eliminar una ubicación
+  Dado el Administrador en la gestión de ubicaciones
+  Cuando busca una función para eliminar una ubicación
+  Entonces el sistema solo ofrece desactivarla
+Escenario: C2 - No se desactiva una ubicación con existencia
+  Dado una ubicación con existencia
+  Cuando se intenta desactivar
+  Entonces el sistema rechaza la desactivación
+Escenario: C3 - Una ubicación desactivada no se propone ni se acepta como destino
+  Dado una ubicación desactivada
+  Cuando se propone o se escanea como destino
+  Entonces el sistema no la propone ni la acepta
+Escenario: C4 - El historial de la ubicación desactivada sigue consultable
+  Dado una ubicación desactivada con historial
+  Cuando se consulta su historial
+  Entonces el historial se muestra completo
+Escenario: C5 - La ubicación puede reactivarse
+  Dado una ubicación desactivada
+  Cuando el Administrador la reactiva
+  Entonces vuelve a estar disponible como destino
+
+=== HU-023 | Asignar un Coordinador responsable a cada zona
+Escenario: C1 - Una zona tiene un Coordinador responsable
+  Dado una zona sin responsable
+  Cuando el Administrador le asigna un Coordinador
+  Entonces la zona queda con ese Coordinador como responsable
+Escenario: C2 - Las alertas de la zona se dirigen al Coordinador
+  Dado una zona con Coordinador responsable
+  Cuando se genera una alerta de esa zona
+  Entonces la alerta se dirige a ese Coordinador
+Escenario: C3 - El dashboard del Coordinador se filtra a sus zonas
+  Dado un Coordinador con zonas asignadas
+  Cuando abre su dashboard
+  Entonces solo ve información de sus zonas
+Escenario: C4 - Una zona sin responsable escala al Jefe
+  Dado una zona sin Coordinador responsable
+  Cuando se genera una alerta de esa zona
+  Entonces la alerta escala al Jefe de Bodega
+
+=== HU-024 | Configurar la propuesta automática de ubicación
+Escenario: C1 - Se configuran criterios de asignación
+  Dado el Administrador configurando la asignación de ubicación
+  Cuando define criterios como zona por categoría, agrupación por referencia o mayor capacidad libre
+  Entonces el sistema guarda los criterios configurados
+Escenario: C2 - Los criterios se aplican en el orden configurado
+  Dado varios criterios configurados en cierto orden
+  Cuando el sistema propone una ubicación
+  Entonces aplica los criterios siguiendo ese orden
+Escenario: C3 - Si ningún criterio aplica se propone la zona de recepción
+  Dado una mercancía para la que ningún criterio produce una ubicación
+  Cuando el sistema propone destino
+  Entonces propone la zona de recepción
+Escenario: C4 - La propuesta es una sugerencia que el Coordinador puede reasignar
+  Dado una ubicación propuesta por el sistema
+  Cuando el Coordinador decide otra ubicación
+  Entonces el sistema permite reasignarla porque la propuesta no es una imposición
+
+=== HU-025 | Generar e imprimir códigos QR para la mercancía
+Escenario: C1 - Un identificador único por SKU + Lote
+  Dado un SKU + Lote sin identificador
+  Cuando el Coordinador genera su código QR
+  Entonces el sistema le asigna un identificador único, que no depende de la ubicación
+Escenario: C2 - Impresión individual y por lote de impresión
+  Dado varios identificadores generados
+  Cuando el Coordinador imprime
+  Entonces puede imprimir un identificador individual o un lote de impresión
+Escenario: C3 - El identificador impreso incluye información legible de respaldo
+  Dado un identificador QR impreso
+  Cuando se lee la etiqueta
+  Entonces incluye referencia, talla, color y lote de forma legible
+Escenario: C4 - El identificador queda activo
+  Dado un identificador recién generado
+  Cuando se consulta su estado
+  Entonces figura como activo
+Escenario: C5 - Ningún identificador se repite jamás, ni tras su anulación
+  Dado un identificador anulado o reemplazado
+  Cuando el sistema genera nuevos identificadores
+  Entonces ninguno reutiliza un identificador ya emitido
+
+=== HU-026 | Escanear el código QR en lugar de escribir códigos
+Escenario: C1 - El escaneo se hace desde la tablet
+  Dado un Auxiliar con la tablet en su punto de trabajo
+  Cuando escanea una etiqueta con la cámara de la tablet
+  Entonces el sistema recibe el código escaneado
+Escenario: C2 - El sistema resuelve el identificador y muestra el SKU + Lote
+  Dado un identificador reconocido
+  Cuando se escanea
+  Entonces el sistema muestra el SKU + Lote y las ubicaciones donde tiene existencia
+Escenario: C3 - Identificador no reconocido ofrece reportar novedad
+  Dado un identificador que no existe en el sistema
+  Cuando se escanea
+  Entonces el sistema lo informa y ofrece reportar una novedad
+Escenario: C4 - Identificador anulado se rechaza
+  Dado un identificador en estado anulado
+  Cuando se escanea
+  Entonces el sistema lo informa y rechaza la operación
+Escenario: C5 - El tiempo de respuesta cumple el requisito de rendimiento
+  Dado un escaneo de un identificador válido
+  Cuando el sistema lo resuelve
+  Entonces la respuesta se presenta dentro del tiempo definido para la resolución de identificadores
+
+=== HU-027 | Generar códigos QR para las ubicaciones
+Escenario: C1 - Cada ubicación tiene su identificador QR propio
+  Dado una ubicación creada
+  Cuando se consulta su identificador
+  Entonces tiene un identificador QR propio
+Escenario: C2 - Se puede imprimir por zona completa
+  Dado una zona con varias ubicaciones
+  Cuando el Administrador solicita la impresión de la zona
+  Entonces el sistema imprime los identificadores de todas sus ubicaciones
+Escenario: C3 - El escaneo de una ubicación la selecciona como origen o destino
+  Dado una operación que solicita una ubicación
+  Cuando el usuario escanea el identificador de una ubicación
+  Entonces el sistema la selecciona como origen o destino según el contexto
+Escenario: C4 - El identificador de ubicación es distinguible del de mercancía
+  Dado un identificador de ubicación y uno de mercancía
+  Cuando se escanean
+  Entonces el sistema los distingue como tipos de identificador diferentes
+
+=== HU-028 | Reimprimir una etiqueta deteriorada
+Escenario: C1 - La reimpresión exige motivo
+  Dado una etiqueta deteriorada
+  Cuando se solicita la reimpresión sin indicar motivo
+  Entonces el sistema no permite la reimpresión
+Escenario: C2 - La reimpresión produce otra copia del mismo QR sin crear una nueva identidad
+  Dado una reimpresión con motivo registrado
+  Cuando se imprime la etiqueta de nuevo
+  Entonces el identificador es el mismo y no se crea una nueva identidad
+Escenario: C3 - Reimprimir no marca el identificador como reemplazado
+  Dado una reimpresión completada
+  Cuando se consulta el identificador
+  Entonces sigue activo y no figura como reemplazado
+Escenario: C4 - El historial de reimpresiones del SKU + Lote es consultable
+  Dado un SKU + Lote con reimpresiones
+  Cuando se consulta su historial de reimpresiones
+  Entonces se muestran todas las reimpresiones con su motivo
+Escenario: C5 - La reimpresión queda en bitácora
+  Dado una reimpresión completada
+  Cuando el sistema registra el evento
+  Entonces la reimpresión queda en la bitácora con su motivo
+
+=== HU-029 | Asociar el código de barras del proveedor como identificador secundario
+Escenario: C1 - El código de barras se asocia como identificador secundario
+  Dado un identificador QR de SKU + Lote y un código de barras del proveedor
+  Cuando el Coordinador los asocia
+  Entonces el código de barras queda como identificador secundario de ese SKU + Lote
+Escenario: C2 - Su lectura permite consultar el SKU + Lote
+  Dado un código de barras asociado a un SKU + Lote
+  Cuando se lee en el sistema
+  Entonces el sistema muestra el SKU + Lote para consulta
+Escenario: C3 - No permite por sí solo operaciones de escritura
+  Dado una operación de escritura iniciada solo con el código de barras
+  Cuando el usuario intenta confirmarla
+  Entonces el sistema la rechaza porque la escritura exige el identificador QR
+Escenario: C4 - Un código de barras no se asocia a dos identificadores QR
+  Dado un código de barras asociado al identificador QR de un SKU + Lote
+  Cuando se intenta asociarlo al identificador QR de otro SKU + Lote
+  Entonces el sistema lo rechaza

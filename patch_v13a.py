@@ -1,0 +1,42 @@
+from patch_srs_lib import patch
+
+# ------------------------------------------------ build_srs.py
+patch("build_srs.py", [
+ ('OUT = os.path.join(OUT_DIR, "SRS_COLBASOFT_v1.2.md")', 'OUT = os.path.join(OUT_DIR, "SRS_COLBASOFT_v1.3.md")'),
+ ("Reorganización de las **110 historias** del SPEC (Cap. 6)", "Reorganización de las **114 historias** del SPEC (Cap. 6)"),
+ ("(498 criterios → 498 escenarios)", "(515 criterios → 515 escenarios)"),
+ ("HU-001–HU-110 |", "HU-001–HU-114 |"),
+ ("| **Completado** | 110 historias con ID `HU-<DOM>-nnn`, MoSCoW, horizonte, dependencias, RF/RN/KPI relacionados y 498 escenarios Gherkin",
+  "| **Completado** | 114 historias con ID `HU-<DOM>-nnn`, MoSCoW, horizonte, dependencias, RF/RN/KPI relacionados y 515 escenarios Gherkin"),
+ ("Reorganización de los **171 RF** del SPEC", "Reorganización de los **184 RF** del SPEC"),
+ ("RF-001–RF-171 |", "RF-001–RF-184 |"),
+ ("| **Completado** | 171 RF con ID", "| **Completado** | 184 RF con ID"),
+ ("Una fila por cada uno de los 171 RF.", "Una fila por cada uno de los 184 RF."),
+ ("matriz de 171 RF · cobertura de 91 reglas", "matriz de 184 RF · cobertura de 91 reglas"),
+ ("## A.1 Historias de usuario (110)", "## A.1 Historias de usuario (114)"),
+ ("## A.2 Requisitos funcionales (171)", "## A.2 Requisitos funcionales (184)"),
+ ("| **Historias de usuario** | 110 | 110 |", "| **Historias de usuario** | 114 | 114 |"),
+ ("| **Requisitos funcionales** | 171 | 171 |", "| **Requisitos funcionales** | 184 | 184 |"),
+ ("Todas las HU del SPEC (110) están en el SRS con ID permanente | ✅ {len(HU_NEW)}/110", "Todas las HU del SPEC (114) están en el SRS con ID permanente | ✅ {len(HU_NEW)}/114"),
+ ("Todos los RF del SPEC (171) están en el SRS | ✅ {len(RF_NEW)}/171", "Todos los RF del SPEC (184) están en el SRS | ✅ {len(RF_NEW)}/184"),
+ ("Toda HU tiene al menos un RF | ✅ {sum(1 for h in HU if HU_RF.get(h))}/110", "Toda HU tiene al menos un RF | ✅ {sum(1 for h in HU if HU_RF.get(h))}/114"),
+ ("Todo RF tiene al menos una HU | ✅ {sum(1 for r in RF if RF_HU.get(r))}/171", "Todo RF tiene al menos una HU | ✅ {sum(1 for r in RF if RF_HU.get(r))}/184"),
+ ("| Rangos HU-001…096 y RF-001…138 (§0.4) | HU-001…110 y RF-001…171 |", "| Rangos HU-001…096 y RF-001…138 (§0.4) | HU-001…114 y RF-001…184 (corregido en la v1.3) |"),
+ # PN-14 con HU y RF
+ ('"PN-13": [94,95,96,97,77,78,79], "PN-14": []}', '"PN-13": [94,95,96,97,77,78,79], "PN-14": [113,114]}'),
+ ('mods = "PN-14 sin módulo asignado" if pid == "PN-14" else ", ".join(sorted({HU[h]["mod"] for h in hs}))', 'mods = ", ".join(sorted({HU[h]["mod"] for h in hs}))'),
+ ('o.append(f"| Proceso sin HU ni RF | PN-14 Cierre operativo de jornada | H-10 |")', 'o.append("| Proceso sin HU ni RF | ninguno (PN-14 se cerró en la v1.3 con HU-TAR-004, HU-TAR-005 y RF-TAR-006…RF-TAR-008, DEC-05) | H-10 (resuelto) |")'),
+ ("""o.append(f"| Reglas sin RF | {', '.join(RN_NEW[k] for k in sorted(rn_wo_rf, key=lambda k: RN_NEW[k]))} | H-11 |")""", """o.append(f"| Reglas sin RF | {', '.join(RN_NEW[k] for k in sorted(rn_wo_rf, key=lambda k: RN_NEW[k])) or 'ninguna (cerradas en la v1.3, DEC-06)'} | H-11 |")"""),
+ ("""o.append(f"| Reglas sin HU | {', '.join(RN_NEW[k] for k in sorted(hu_wo_hu, key=lambda k: RN_NEW[k]))} | H-11 |")""", """o.append(f"| Reglas sin HU | {', '.join(RN_NEW[k] for k in sorted(hu_wo_hu, key=lambda k: RN_NEW[k])) or 'ninguna (cerradas en la v1.3, DEC-06)'} | H-11 |")"""),
+ ('o.append("| KPI cuyo dato de origen no se exige capturar | KPI-05, KPI-07, KPI-10, KPI-12, KPI-17, KPI-24 | H-12 |")', 'o.append("| KPI cuyo dato de origen no se exige capturar | ninguno (KPI-05, KPI-07, KPI-10, KPI-12, KPI-17 y KPI-24 se cerraron en la v1.3, DEC-06; KPI-24 requiere además verificación de campo) | H-12 (resuelto) |")'),
+ ('o.append("| HU con cobertura RF parcial | HU-NOV-003, HU-NOV-004 | H-13 |")', 'o.append("| HU con cobertura RF parcial | ninguna (HU-NOV-003 y HU-NOV-004 se cerraron con RF-NOV-008 y RF-NOV-007, DEC-06) | H-13 (resuelto) |")'),
+ ("La cadena está completa para 171 de 171 RF y 110 de 110 HU. Las brechas se concentran en el **detalle de captura** (reglas y KPI cuyo comportamiento está en los procesos del SPEC pero no llegó a un RF) y en **un proceso** (PN-14). No se resuelven aquí: se elevan al Director (Anexo C).",
+  "La cadena está completa para 184 de 184 RF y 114 de 114 HU. Las brechas que tenía la v1.2 (reglas sin RF, KPI sin dato de origen y PN-14 sin requisitos) se cerraron en la v1.3 por las decisiones DEC-05 y DEC-06 (Anexo C)."),
+ ("| **Pendiente** | Validación por el Director de los eslabones `[SRS]` (R-S02) · cierre de brechas (DEC-05, DEC-06) |", "| **Pendiente** | Validación por el Director de los eslabones `[SRS]` (R-S02) · brechas cerradas en la v1.3 (DEC-05, DEC-06) |"),
+ ("| **Riesgos encontrados** | H-10, H-11, H-12, H-13 · RG-42", "| **Riesgos encontrados** | H-10, H-11, H-12, H-13 (resueltos en la v1.3) · RG-42"),
+ ("| V-10 | Toda regla está cubierta por algún RF | 🟡 {sum(1 for k in RNR if rn_rf.get(k))}/{len(RNR)}", "| V-10 | Toda regla está cubierta por algún RF | {'✅' if all(rn_rf.get(k) for k in RNR) else '🟡'} {sum(1 for k in RNR if rn_rf.get(k))}/{len(RNR)}"),
+ ("| V-11 | Toda regla está cubierta por alguna HU | 🟡 {sum(1 for k in RNR if rn_hu.get(k))}/{len(RNR)}", "| V-11 | Toda regla está cubierta por alguna HU | {'✅' if all(rn_hu.get(k) for k in RNR) else '🟡'} {sum(1 for k in RNR if rn_hu.get(k))}/{len(RNR)}"),
+ ("| V-14 | Todo proceso PN tiene al menos una HU y un RF | 🟡 13/14 (PN-14 sin ellos, H-10) |", "| V-14 | Todo proceso PN tiene al menos una HU y un RF | ✅ 14/14 (PN-14 con HU-TAR-004, HU-TAR-005 y RF-TAR-006…008 desde la v1.3) |"),
+ ("14 (14 con caso de uso; 13 con requisitos, PN-14 sin ellos)", "14 (14 con caso de uso y con requisitos)"),
+])
+print("build_srs ok")

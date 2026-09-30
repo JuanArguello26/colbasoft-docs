@@ -1,0 +1,445 @@
+=== HU-030 | Crear el documento de entrada con lo esperado
+Escenario: C1 - El documento registra origen, fecha esperada y líneas esperadas
+  Dado el Coordinador creando un documento de entrada
+  Cuando registra origen, fecha esperada y líneas con referencia, talla, color y cantidad esperada
+  Entonces el documento queda guardado con esos datos
+Escenario: C2 - No solicita precio ni datos de orden de compra
+  Dado el formulario del documento de entrada
+  Cuando el Coordinador lo completa
+  Entonces el sistema no solicita precio, condiciones comerciales ni datos de orden de compra
+Escenario: C3 - El documento queda pendiente de recepción
+  Dado un documento de entrada recién creado
+  Cuando se consulta su estado
+  Entonces figura como pendiente de recepción
+Escenario: C4 - Se advierte de posible duplicado
+  Dado un documento existente con el mismo origen, referencia y fecha
+  Cuando el Coordinador crea otro documento con esos mismos datos
+  Entonces el sistema advierte de un posible duplicado y exige confirmación explícita
+
+=== HU-031 | Registrar en tablet lo que se recibe, en el momento
+Escenario: C1 - El registro se hace desde la tablet en la zona de recepción
+  Dado un Auxiliar en la zona de recepción con su tablet
+  Cuando abre el documento de entrada
+  Entonces puede registrar la recepción desde la tablet
+Escenario: C2 - Se registra la cantidad recibida por línea
+  Dado un documento con líneas esperadas
+  Cuando el Auxiliar cuenta y registra lo recibido
+  Entonces la cantidad recibida queda registrada por cada línea
+Escenario: C3 - Confirmación visible de cada registro guardado
+  Dado una cantidad registrada por el Auxiliar
+  Cuando el sistema la guarda
+  Entonces muestra una confirmación visible de que el registro quedó guardado
+Escenario: C4 - La recepción puede interrumpirse y continuarse por otro usuario
+  Dado una recepción interrumpida al fin del turno
+  Cuando otro usuario la continúa
+  Entonces la recepción continúa y quedan registrados ambos usuarios
+Escenario: C5 - Sin conectividad el registro se retiene y sincroniza después
+  Dado una pérdida de conectividad durante la recepción
+  Cuando el Auxiliar sigue registrando
+  Entonces el sistema retiene el registro localmente
+  Y lo sincroniza al restablecerse la conexión
+
+=== HU-032 | Confirmar la entrada por una segunda persona
+Escenario: C1 - Quien registró la recepción física no puede confirmarla
+  Dado una recepción registrada por un usuario
+  Cuando ese mismo usuario intenta confirmar la entrada
+  Entonces el sistema lo impide y exige un segundo actor
+Escenario: C2 - Al confirmar se genera el movimiento de entrada en el kardex
+  Dado una recepción lista para confirmar
+  Cuando el Coordinador confirma la entrada
+  Entonces el sistema genera el movimiento de entrada en el kardex
+Escenario: C3 - La existencia se incrementa
+  Dado una entrada confirmada
+  Cuando se consulta la existencia
+  Entonces la existencia refleja el incremento de la mercancía recibida
+Escenario: C4 - Se crea o asocia el lote
+  Dado una entrada confirmada
+  Cuando se consulta la mercancía recibida
+  Entonces está asociada a un lote creado o existente
+Escenario: C5 - Una entrada confirmada no puede editarse
+  Dado una entrada confirmada
+  Cuando se intenta editarla
+  Entonces el sistema no lo permite y solo admite corregirla con un movimiento inverso
+
+=== HU-033 | Ver la diferencia entre lo esperado y lo recibido
+Escenario: C1 - El sistema compara línea por línea
+  Dado un documento con cantidades esperadas y recibidas
+  Cuando se registra la recepción
+  Entonces el sistema compara cada línea esperada contra la recibida
+Escenario: C2 - Faltante de recepción notifica al Jefe
+  Dado una línea con cantidad recibida menor que la esperada
+  Cuando se compara
+  Entonces el sistema marca faltante de recepción
+  Y notifica al Jefe
+Escenario: C3 - Sobrante exige autorización del Jefe antes de confirmar
+  Dado una línea con cantidad recibida mayor que la esperada
+  Cuando se compara
+  Entonces el sistema marca sobrante
+  Y exige la autorización del Jefe antes de confirmar la entrada
+Escenario: C4 - Coincidencia queda como recibido conforme
+  Dado una línea con cantidad recibida igual a la esperada
+  Cuando se compara
+  Entonces el sistema la marca como recibido conforme
+Escenario: C5 - La diferencia queda registrada en el documento
+  Dado una comparación con diferencias
+  Cuando el sistema finaliza la comparación
+  Entonces las diferencias quedan registradas en el documento
+
+=== HU-034 | Registrar mercancía dañada en la recepción
+Escenario: C1 - Cantidad conforme y cantidad dañada por separado
+  Dado una recepción con parte de la mercancía dañada
+  Cuando el Auxiliar registra la recepción
+  Entonces puede indicar por separado la cantidad conforme y la cantidad dañada
+Escenario: C2 - La mercancía dañada no ingresa como disponible
+  Dado una cantidad registrada como dañada
+  Cuando se confirma la entrada
+  Entonces esa cantidad no ingresa como disponible
+Escenario: C3 - Se abre automáticamente una novedad
+  Dado una cantidad registrada como dañada
+  Cuando se guarda el registro
+  Entonces el sistema abre automáticamente una novedad
+Escenario: C4 - Si ingresa, lo hace a cuarentena como inmovilizada
+  Dado mercancía dañada que ingresa al inventario
+  Cuando se ubica
+  Entonces ingresa a la zona de cuarentena en estado inmovilizado
+Escenario: C5 - El Jefe es notificado
+  Dado una novedad por mercancía dañada
+  Cuando se abre
+  Entonces el Jefe recibe una notificación
+
+=== HU-035 | Recibir del sistema la ubicación donde dejar la mercancía
+Escenario: C1 - El sistema propone ubicación según los criterios configurados
+  Dado una mercancía por ubicar y criterios de asignación configurados
+  Cuando el sistema calcula el destino
+  Entonces propone una ubicación aplicando esos criterios
+Escenario: C2 - El Auxiliar confirma escaneando mercancía y luego ubicación
+  Dado una ubicación propuesta
+  Cuando el Auxiliar escanea la mercancía y después la ubicación
+  Entonces el sistema registra la ubicación confirmada
+Escenario: C3 - Una ubicación distinta se permite y registra la desviación
+  Dado una ubicación distinta a la propuesta
+  Cuando el Auxiliar la usa como destino
+  Entonces el sistema lo permite, registra la desviación y avisa al Coordinador
+Escenario: C4 - Se valida que la ubicación esté activa y con capacidad
+  Dado una ubicación escaneada como destino
+  Cuando el sistema la valida
+  Entonces acepta el destino solo si la ubicación está activa y tiene capacidad
+Escenario: C5 - Confirmación visual del registro
+  Dado una ubicación confirmada
+  Cuando el sistema guarda el registro
+  Entonces confirma visualmente al Auxiliar que quedó guardado
+
+=== HU-036 | Impedir recibir una referencia inexistente en el catálogo
+Escenario: C1 - El documento solo admite referencias activas del catálogo
+  Dado un documento de entrada en creación
+  Cuando se agrega una línea
+  Entonces solo se admiten referencias activas del catálogo
+Escenario: C2 - Referencia inexistente: se informa y se ofrece crearla
+  Dado una referencia que no existe en el catálogo
+  Cuando el usuario intenta agregarla
+  Entonces el sistema informa que no existe
+  Y ofrece crearla si el usuario tiene permiso
+Escenario: C3 - El Auxiliar no puede crear referencias
+  Dado un usuario con rol Auxiliar
+  Cuando se topa con una referencia inexistente
+  Entonces el sistema no le permite crearla
+Escenario: C4 - La entrada no avanza hasta resolverlo
+  Dado un documento con una referencia inexistente
+  Cuando se intenta avanzar la entrada
+  Entonces la entrada no avanza hasta resolver la referencia
+
+=== HU-037 | Consultar el historial de entradas
+Escenario: C1 - Filtro por período, origen, estado y referencia
+  Dado varias entradas registradas
+  Cuando el usuario aplica filtros por período, origen, estado o referencia
+  Entonces el sistema muestra solo las entradas que cumplen el filtro
+Escenario: C2 - Muestra esperado, recibido y diferencia
+  Dado una entrada consultada
+  Cuando se presenta su detalle
+  Entonces muestra la cantidad esperada, la recibida y la diferencia
+Escenario: C3 - Permite abrir el detalle y el movimiento de kardex asociado
+  Dado una entrada consultada
+  Cuando el usuario abre su detalle
+  Entonces puede acceder al movimiento de kardex asociado
+Escenario: C4 - El historial es exportable
+  Dado un historial de entradas filtrado
+  Cuando el usuario solicita exportarlo
+  Entonces el sistema entrega la exportación
+
+=== HU-038 | Registrar una salida indicando su motivo
+Escenario: C1 - La salida exige motivo tipificado de una lista cerrada
+  Dado una solicitud de salida
+  Cuando se intenta registrar sin motivo tipificado
+  Entonces el sistema no la acepta
+Escenario: C2 - No se solicita cliente, precio, factura ni documento comercial
+  Dado el formulario de salida
+  Cuando se completa
+  Entonces el sistema no solicita cliente, precio, factura ni documento comercial
+Escenario: C3 - Se indican referencias, tallas, colores, lotes y cantidades
+  Dado una salida en registro
+  Cuando el usuario detalla lo que sale
+  Entonces puede indicar referencias, tallas, colores, lotes y cantidades
+Escenario: C4 - El sistema verifica disponibilidad antes de aceptar
+  Dado una salida solicitada
+  Cuando el sistema evalúa la solicitud
+  Entonces verifica que exista existencia disponible antes de aceptarla
+
+=== HU-039 | Reservar la existencia al autorizar la salida
+Escenario: C1 - Al autorizar, la cantidad pasa a reservada
+  Dado una salida solicitada
+  Cuando el Jefe la autoriza
+  Entonces la cantidad comprometida pasa a reservada
+Escenario: C2 - La existencia reservada no cuenta como disponible
+  Dado existencia reservada para una salida
+  Cuando se consulta el disponible
+  Entonces la existencia reservada no cuenta como disponible
+Escenario: C3 - Otra operación sobre la misma existencia se rechaza
+  Dado existencia reservada para una salida
+  Cuando otra operación intenta comprometer esa misma existencia
+  Entonces el sistema rechaza la operación
+Escenario: C4 - La reserva se libera al ejecutar, cancelar o vencer
+  Dado una reserva vigente
+  Cuando la salida se ejecuta, se cancela o vence su plazo
+  Entonces la reserva se libera
+
+=== HU-040 | Recibir la ubicación de toma y validar el escaneo al preparar
+Escenario: C1 - El sistema indica ubicación y cantidad por línea
+  Dado una salida autorizada con política de toma configurada
+  Cuando el Auxiliar abre la tarea de preparación
+  Entonces el sistema indica ubicación y cantidad para cada línea
+Escenario: C2 - El Auxiliar escanea cada unidad al tomarla
+  Dado una línea por preparar
+  Cuando el Auxiliar toma la mercancía
+  Entonces escanea cada unidad para registrarla
+Escenario: C3 - Un escaneo que no corresponde se rechaza explicando la discrepancia
+  Dado una unidad escaneada que no corresponde a lo solicitado
+  Cuando el sistema la valida
+  Entonces rechaza el escaneo
+  Y explica la discrepancia
+Escenario: C4 - El progreso de preparación es visible
+  Dado una preparación en curso
+  Cuando el Auxiliar escanea unidades
+  Entonces el progreso de la preparación es visible
+Escenario: C5 - Confirma al completar
+  Dado una preparación con todas las líneas completas
+  Cuando el Auxiliar la confirma
+  Entonces el sistema registra la salida
+
+=== HU-041 | Impedir sacar más de lo que hay
+Escenario: C1 - Ninguna salida deja la existencia por debajo de cero
+  Dado una salida que dejaría la existencia por debajo de cero
+  Cuando se intenta registrar
+  Entonces el sistema la rechaza sin excepción ni autorización posible
+Escenario: C2 - Si lo disponible es insuficiente se informa cuánto hay
+  Dado una solicitud mayor que la existencia disponible
+  Cuando el sistema la rechaza
+  Entonces informa cuánta existencia disponible hay
+Escenario: C3 - Ofrece salida parcial previa autorización
+  Dado una solicitud rechazada por insuficiencia
+  Cuando el sistema ofrece alternativas
+  Entonces permite registrar una salida parcial por la cantidad disponible, previa autorización
+Escenario: C4 - El rechazo queda registrado
+  Dado una salida rechazada por existencia insuficiente
+  Cuando se completa el rechazo
+  Entonces el rechazo queda registrado
+
+=== HU-042 | Exigir aprobación del Jefe para toda baja por daño
+Escenario: C1 - La baja por daño siempre requiere aprobación del Jefe
+  Dado una salida con motivo de baja por daño de cualquier cantidad
+  Cuando se solicita
+  Entonces requiere la aprobación del Jefe
+Escenario: C2 - Exige observación y evidencia
+  Dado una solicitud de baja por daño
+  Cuando se intenta enviar sin observación o evidencia
+  Entonces el sistema no la acepta
+Escenario: C3 - Genera un movimiento de salida marcado como baja
+  Dado una baja aprobada
+  Cuando se ejecuta
+  Entonces el sistema genera un movimiento de salida marcado como baja
+Escenario: C4 - Alimenta el reporte de mermas y el indicador de merma
+  Dado una baja registrada
+  Cuando se calculan los indicadores
+  Entonces la baja alimenta el reporte de mermas y la tasa de merma
+
+=== HU-043 | Registrar el retorno de mercancía que había salido
+Escenario: C1 - El retorno se registra como entrada nueva
+  Dado mercancía que retorna tras una salida
+  Cuando el Coordinador la registra
+  Entonces el sistema la registra como una entrada nueva y no como reversión
+Escenario: C2 - La entrada de retorno referencia la salida original
+  Dado una entrada de retorno
+  Cuando se consulta
+  Entonces referencia la salida original
+Escenario: C3 - El kardex muestra ambos movimientos
+  Dado una salida y su retorno posterior
+  Cuando se consulta el kardex
+  Entonces muestra ambos movimientos
+Escenario: C4 - La mercancía retornada puede requerir inspección antes de quedar disponible
+  Dado mercancía retornada
+  Cuando el proceso de recepción la evalúa
+  Entonces puede requerir inspección antes de quedar disponible
+
+=== HU-044 | Autorizar salidas pequeñas sin depender del Jefe
+Escenario: C1 - El Administrador configura el umbral de autorización del Coordinador
+  Dado el Administrador en Parámetros y Configuración
+  Cuando define el umbral de autorización del Coordinador
+  Entonces el umbral queda configurado
+Escenario: C2 - Por debajo del umbral, el Coordinador autoriza
+  Dado una salida por debajo del umbral configurado
+  Cuando el Coordinador la revisa
+  Entonces puede autorizarla
+Escenario: C3 - Por encima del umbral, se enruta al Jefe
+  Dado una salida por encima del umbral configurado
+  Cuando se solicita
+  Entonces el sistema la enruta al Jefe
+Escenario: C4 - El umbral es consultable por el Coordinador
+  Dado un Coordinador
+  Cuando consulta su umbral de autorización
+  Entonces el sistema le muestra el valor vigente
+Escenario: C5 - Toda autorización queda atribuida a quien la otorgó
+  Dado una salida autorizada
+  Cuando se consulta su registro
+  Entonces la autorización figura atribuida a quien la otorgó
+
+=== HU-045 | Registrar que se movió mercancía de un estante a otro
+Escenario: C1 - Se escanea la mercancía y luego la ubicación destino
+  Dado un Auxiliar con mercancía identificada
+  Cuando escanea la mercancía y después la ubicación destino
+  Entonces el sistema registra el movimiento interno
+Escenario: C2 - Se puede mover cantidad total o parcial
+  Dado una unidad con cierta existencia en origen
+  Cuando el Auxiliar indica una cantidad total o parcial
+  Entonces el sistema mueve solo esa cantidad
+Escenario: C3 - La existencia total no cambia
+  Dado un movimiento interno registrado
+  Cuando se consulta la existencia total de la unidad
+  Entonces es igual a la de antes del movimiento y solo cambió su distribución
+Escenario: C4 - El movimiento queda en el kardex
+  Dado un movimiento interno confirmado
+  Cuando se consulta el kardex
+  Entonces el movimiento aparece registrado
+Escenario: C5 - El sistema confirma visualmente
+  Dado un movimiento interno guardado
+  Cuando finaliza el registro
+  Entonces el sistema confirma visualmente que quedó guardado
+
+=== HU-046 | Impedir movimientos imposibles
+Escenario: C1 - Se rechaza mover más de lo existente en origen
+  Dado un movimiento con cantidad mayor a la existente en la ubicación de origen
+  Cuando se intenta registrar
+  Entonces el sistema lo rechaza
+Escenario: C2 - Se rechaza destino igual a origen
+  Dado un movimiento cuyo destino coincide con el origen
+  Cuando se intenta registrar
+  Entonces el sistema lo rechaza
+Escenario: C3 - Se rechaza destino inactivo o sin capacidad
+  Dado una ubicación destino inactiva o sin capacidad
+  Cuando se intenta registrar el movimiento
+  Entonces el sistema lo rechaza
+Escenario: C4 - Se rechaza mover existencia inmovilizada
+  Dado existencia inmovilizada
+  Cuando se intenta moverla sin la autorización correspondiente
+  Entonces el sistema lo rechaza
+Escenario: C5 - Cada rechazo explica el motivo en lenguaje comprensible
+  Dado cualquier movimiento rechazado
+  Cuando el sistema informa el resultado
+  Entonces explica el motivo en lenguaje comprensible para un usuario sin formación técnica
+
+=== HU-047 | Crear una transferencia entre zonas o bodegas
+Escenario: C1 - Se indican origen, destino, referencias y cantidades
+  Dado el Coordinador creando una transferencia
+  Cuando indica origen, destino, referencias y cantidades
+  Entonces la transferencia queda registrada con esos datos
+Escenario: C2 - Al crearse, la existencia se reserva en origen
+  Dado una transferencia creada
+  Cuando se consulta la existencia del origen
+  Entonces la cantidad transferida figura como reservada
+Escenario: C3 - Queda en estado pendiente de despacho
+  Dado una transferencia recién creada
+  Cuando se consulta su estado
+  Entonces figura como pendiente de despacho
+Escenario: C4 - Genera tarea para el Auxiliar del origen
+  Dado una transferencia pendiente de despacho
+  Cuando se crea
+  Entonces el sistema genera una tarea para el Auxiliar del origen
+
+=== HU-048 | Confirmar despacho y recepción de una transferencia escaneando
+Escenario: C1 - El Auxiliar del origen confirma el despacho escaneando
+  Dado una transferencia pendiente de despacho
+  Cuando el Auxiliar del origen escanea la mercancía y confirma el despacho
+  Entonces el despacho queda confirmado
+Escenario: C2 - La transferencia pasa a en tránsito
+  Dado un despacho confirmado
+  Cuando se consulta el estado de la transferencia
+  Entonces figura como en tránsito
+Escenario: C3 - La existencia en tránsito no está disponible en origen ni en destino
+  Dado una transferencia en tránsito
+  Cuando se consulta el disponible del origen y del destino
+  Entonces la existencia en tránsito no figura disponible en ninguno
+Escenario: C4 - El Auxiliar del destino confirma la recepción escaneando
+  Dado una transferencia en tránsito
+  Cuando el Auxiliar del destino escanea la mercancía y confirma la recepción
+  Entonces la recepción queda confirmada
+Escenario: C5 - Ambos responsables quedan registrados
+  Dado una transferencia con despacho y recepción confirmados
+  Cuando se consulta su registro
+  Entonces figuran el responsable del despacho y el de la recepción
+
+=== HU-049 | Ser avisado si lo recibido no coincide con lo despachado
+Escenario: C1 - El sistema compara despachado contra recibido
+  Dado una transferencia con recepción registrada
+  Cuando el sistema procesa la recepción
+  Entonces compara lo despachado contra lo recibido
+Escenario: C2 - Si lo recibido es menor, registra diferencia y abre novedad
+  Dado una recepción con cantidad menor a la despachada
+  Cuando se compara
+  Entonces el sistema registra la diferencia y abre una novedad
+Escenario: C3 - Si lo recibido es mayor, rechaza la recepción y escala al Jefe
+  Dado una recepción con cantidad mayor a la despachada
+  Cuando se compara
+  Entonces el sistema rechaza la recepción y escala al Jefe
+Escenario: C4 - La transferencia no se completa hasta que el Jefe resuelva
+  Dado una transferencia con diferencia
+  Cuando el Jefe aún no ha resuelto
+  Entonces la transferencia no pasa a completada
+Escenario: C5 - La resolución queda documentada
+  Dado una diferencia resuelta por el Jefe
+  Cuando se consulta la transferencia
+  Entonces la resolución queda documentada
+
+=== HU-050 | Alertar una transferencia con demasiado tiempo en tránsito
+Escenario: C1 - El tiempo máximo en tránsito es configurable
+  Dado el Administrador en Parámetros y Configuración
+  Cuando define el tiempo máximo en tránsito
+  Entonces el sistema lo aplica a las transferencias
+Escenario: C2 - Al superarlo se genera alerta dirigida al Jefe
+  Dado una transferencia que supera el tiempo máximo en tránsito
+  Cuando el sistema evalúa la condición
+  Entonces genera una alerta dirigida al Jefe
+Escenario: C3 - La alerta identifica transferencia, contenido y responsable de despacho
+  Dado una alerta de tránsito prolongado
+  Cuando el Jefe la abre
+  Entonces identifica la transferencia, su contenido y su responsable de despacho
+Escenario: C4 - La alerta se cierra al completarse o cancelarse la transferencia
+  Dado una alerta de tránsito prolongado vigente
+  Cuando la transferencia se completa o se cancela
+  Entonces la alerta se cierra
+
+=== HU-051 | Cancelar una transferencia
+Escenario: C1 - Antes del despacho el Coordinador cancela y se libera la reserva
+  Dado una transferencia pendiente de despacho
+  Cuando el Coordinador la cancela
+  Entonces la reserva se libera
+Escenario: C2 - En tránsito solo el Jefe cancela y se genera un retorno al origen
+  Dado una transferencia en tránsito
+  Cuando el Jefe la cancela
+  Entonces se genera un movimiento de retorno al origen
+  Y ningún otro rol puede cancelarla
+Escenario: C3 - La cancelación exige motivo
+  Dado una cancelación de transferencia
+  Cuando se intenta confirmar sin motivo
+  Entonces el sistema no la permite
+Escenario: C4 - La cancelación queda en bitácora
+  Dado una transferencia cancelada
+  Cuando se completa la cancelación
+  Entonces el evento queda en la bitácora

@@ -1,0 +1,432 @@
+=== HU-082 | Ser avisado antes de quedarse sin material
+Escenario: C1 - La alerta se dispara al bajar del mínimo configurado
+  Dado un SKU con existencia mínima configurada
+  Cuando su existencia disponible baja de ese mínimo
+  Entonces el sistema dispara la alerta de ruptura inminente
+Escenario: C2 - La alerta identifica referencia, existencia actual y umbral
+  Dado una alerta de ruptura inminente
+  Cuando el destinatario la abre
+  Entonces identifica la referencia, la existencia actual y el umbral
+Escenario: C3 - Se dirige al Jefe y al Coordinador de la zona
+  Dado una alerta de ruptura inminente
+  Cuando el sistema la genera
+  Entonces la dirige al Jefe y al Coordinador de la zona
+Escenario: C4 - La detección es por regla y umbral, no por predicción
+  Dado la evaluación de la condición de ruptura
+  Cuando el sistema decide generar la alerta
+  Entonces lo hace únicamente por regla explícita y umbral configurado
+Escenario: C5 - Se cierra automáticamente al recuperarse la existencia
+  Dado una alerta de ruptura vigente
+  Cuando la existencia disponible se recupera sobre el mínimo
+  Entonces la alerta se cierra automáticamente
+
+=== HU-083 | Ser avisado cuando hay demasiado de algo
+Escenario: C1 - La alerta se dispara al superar el máximo configurado
+  Dado un SKU con existencia máxima configurada
+  Cuando su existencia supera ese máximo
+  Entonces el sistema dispara la alerta de sobre stock
+Escenario: C2 - Muestra existencia, umbral y días sin movimiento de salida
+  Dado una alerta de sobre stock
+  Cuando el destinatario la abre
+  Entonces muestra la existencia, el umbral y los días sin movimiento de salida
+Escenario: C3 - Se dirige al Jefe
+  Dado una alerta de sobre stock
+  Cuando el sistema la genera
+  Entonces la dirige al Jefe
+Escenario: C4 - Alimenta el reporte de rotación
+  Dado alertas de sobre stock generadas
+  Cuando se calculan los indicadores
+  Entonces alimentan el reporte de rotación por referencia
+
+=== HU-084 | Registrar qué se hizo con cada alerta
+Escenario: C1 - Cada alerta se atiende con una acción o se descarta
+  Dado una alerta activa
+  Cuando el Jefe la gestiona
+  Entonces puede atenderla con una acción o descartarla
+Escenario: C2 - El descarte exige motivo
+  Dado una alerta que se intenta descartar
+  Cuando se confirma el descarte sin motivo
+  Entonces el sistema no permite cerrarla
+Escenario: C3 - Queda registrado quién la atendió y cuándo
+  Dado una alerta atendida o descartada
+  Cuando se consulta su registro
+  Entonces figura quién la atendió, cuándo y qué hizo
+Escenario: C4 - El historial de alertas es consultable y exportable
+  Dado alertas cerradas
+  Cuando el usuario consulta o exporta el historial
+  Entonces el sistema lo muestra y lo exporta
+
+=== HU-085 | Escalar automáticamente las alertas críticas sin atender
+Escenario: C1 - El plazo de atención por severidad es configurable
+  Dado el Administrador en Parámetros y Configuración
+  Cuando define el plazo de atención por severidad
+  Entonces el plazo queda configurado
+Escenario: C2 - Al vencer, la alerta escala al rol superior
+  Dado una alerta crítica sin atender que supera su plazo
+  Cuando el sistema evalúa el plazo
+  Entonces la alerta escala al rol superior
+Escenario: C3 - El escalamiento genera una notificación adicional
+  Dado una alerta escalada
+  Cuando se completa el escalamiento
+  Entonces se genera una notificación adicional
+Escenario: C4 - El escalamiento queda en bitácora
+  Dado una alerta escalada
+  Cuando el sistema registra el evento
+  Entonces queda en la bitácora
+Escenario: C5 - La alerta original conserva su historial
+  Dado una alerta escalada
+  Cuando se consulta su historial
+  Entonces conserva todo su historial previo
+
+=== HU-086 | Evitar la saturación de alertas repetidas
+Escenario: C1 - Una condición vigente genera una sola alerta activa
+  Dado una condición de alerta que se mantiene vigente
+  Cuando el sistema la reevalúa en cada ciclo
+  Entonces mantiene una sola alerta activa y no genera una por evaluación
+Escenario: C2 - Las alertas se agrupan por tipo y severidad
+  Dado varias alertas activas
+  Cuando se presentan al usuario
+  Entonces se agrupan por tipo y severidad
+Escenario: C3 - Se ordenan por severidad y antigüedad
+  Dado varias alertas activas
+  Cuando se presentan al usuario
+  Entonces se ordenan por severidad y antigüedad
+Escenario: C4 - Se reporta al Administrador la frecuencia anómala de disparo
+  Dado tipos de alerta con frecuencia de disparo anómala
+  Cuando el sistema los detecta
+  Entonces los reporta al Administrador para recalibrar umbrales
+
+=== HU-087 | Generar el reporte de existencia por referencia, lote y ubicación
+Escenario: C1 - Filtro por referencia, categoría, lote, ubicación y estado
+  Dado el reporte de existencia
+  Cuando el usuario aplica filtros
+  Entonces el reporte muestra solo lo que cumple los filtros
+Escenario: C2 - Muestra existencia total y su desglose por estado
+  Dado un reporte de existencia generado
+  Cuando se presenta
+  Entonces muestra la existencia total y su desglose por estado
+Escenario: C3 - Declara fecha, hora y usuario de generación
+  Dado un reporte generado
+  Cuando se presenta o exporta
+  Entonces declara la fecha, la hora y el usuario que lo generó
+Escenario: C4 - Es exportable en formato tabular
+  Dado un reporte generado
+  Cuando el usuario solicita exportarlo
+  Entonces el sistema lo entrega en formato tabular
+Escenario: C5 - La valorización solo aparece para roles autorizados
+  Dado un reporte con valorización disponible
+  Cuando lo genera un rol no autorizado
+  Entonces no incluye la valorización
+
+=== HU-088 | Generar el reporte de movimientos de un período
+Escenario: C1 - Filtro por período, tipo, usuario, referencia y motivo
+  Dado el reporte de movimientos
+  Cuando el Auditor aplica filtros
+  Entonces el reporte muestra solo los movimientos que los cumplen
+Escenario: C2 - Muestra cada movimiento con todos sus atributos
+  Dado un reporte de movimientos generado
+  Cuando se presenta
+  Entonces cada movimiento aparece con todos sus atributos
+Escenario: C3 - Totaliza por tipo
+  Dado un reporte de movimientos generado
+  Cuando se presenta
+  Entonces totaliza los movimientos por tipo
+Escenario: C4 - Es exportable
+  Dado un reporte de movimientos generado
+  Cuando el usuario solicita exportarlo
+  Entonces el sistema lo entrega
+Escenario: C5 - La exportación queda en bitácora
+  Dado una exportación del reporte
+  Cuando se completa
+  Entonces queda registrada en la bitácora
+
+=== HU-089 | Alimentar la herramienta analítica externa con los datos del sistema
+Escenario: C1 - El sistema expone los datos de forma estructurada y consistente
+  Dado la exportación analítica habilitada
+  Cuando la herramienta externa consume los datos
+  Entonces el sistema los expone de forma estructurada y consistente
+Escenario: C2 - El sistema no diseña los tableros analíticos
+  Dado el alcance del sistema
+  Cuando se revisan sus funciones de reportes
+  Entonces solo garantiza la disponibilidad de los datos y no incluye el diseño de tableros analíticos
+Escenario: C3 - La habilitación de la exportación es exclusiva del Administrador
+  Dado un usuario con rol distinto de Administrador
+  Cuando intenta habilitar la exportación analítica
+  Entonces el sistema no se lo permite
+Escenario: C4 - Toda extracción queda en bitácora
+  Dado una extracción de datos
+  Cuando se completa
+  Entonces queda en la bitácora con usuario, alcance y fecha
+Escenario: C5 - Los datos exportados respetan las restricciones de visibilidad por rol
+  Dado datos restringidos según el rol
+  Cuando se exportan
+  Entonces respetan las mismas restricciones de visibilidad por rol
+
+=== HU-090 | Programar la generación periódica de reportes
+Escenario: C1 - Se programa reporte, periodicidad y destinatarios
+  Dado el Jefe programando un reporte
+  Cuando define el reporte, la periodicidad y los destinatarios
+  Entonces la programación queda guardada
+Escenario: C2 - El sistema lo genera y lo pone a disposición del destinatario
+  Dado un reporte programado que llega a su fecha
+  Cuando el sistema lo ejecuta
+  Entonces lo genera y lo pone a disposición de los destinatarios
+Escenario: C3 - La generación programada queda registrada
+  Dado una generación programada ejecutada
+  Cuando se consulta el registro
+  Entonces la generación figura registrada
+Escenario: C4 - La programación puede desactivarse
+  Dado una programación existente
+  Cuando el Jefe la desactiva
+  Entonces el sistema deja de generar ese reporte
+
+=== HU-091 | Ver de un vistazo el estado de la bodega
+Escenario: C1 - Muestra existencia total y desglose por estado
+  Dado el Jefe abriendo el dashboard operativo
+  Cuando se presenta
+  Entonces muestra la existencia total y su desglose por estado
+Escenario: C2 - Muestra alertas activas por severidad
+  Dado alertas activas
+  Cuando se presenta el dashboard
+  Entonces las muestra por severidad
+Escenario: C3 - Muestra pendientes de operación
+  Dado recepciones sin confirmar, tránsitos, ajustes por aprobar, conteos abiertos y novedades sin resolver
+  Cuando se presenta el dashboard
+  Entonces los muestra como pendientes
+Escenario: C4 - Muestra la exactitud vigente
+  Dado un indicador de exactitud del inventario calculado
+  Cuando se presenta el dashboard
+  Entonces muestra la exactitud vigente
+Escenario: C5 - Cada elemento navega a su detalle
+  Dado un elemento del dashboard
+  Cuando el Jefe lo selecciona
+  Entonces el sistema navega a su detalle
+
+=== HU-092 | Ver mis tareas del turno en orden
+Escenario: C1 - El Auxiliar ve su panel de tareas y no el dashboard operativo
+  Dado un Auxiliar autenticado
+  Cuando entra al sistema
+  Entonces ve su panel de tareas y no el dashboard operativo
+Escenario: C2 - Las tareas se ordenan por prioridad
+  Dado varias tareas asignadas
+  Cuando se presenta el panel
+  Entonces se ordenan por prioridad
+Escenario: C3 - Cada tarea indica qué, dónde y cuánto
+  Dado una tarea del panel
+  Cuando se presenta
+  Entonces indica qué hacer, dónde y cuánto
+Escenario: C4 - La tarea se cierra al confirmarse el movimiento, no por declaración
+  Dado una tarea pendiente
+  Cuando se confirma el movimiento asociado
+  Entonces la tarea se cierra
+  Y no puede cerrarse por declaración del usuario
+Escenario: C5 - El panel no muestra indicadores de desempeño individual
+  Dado el panel de tareas de un Auxiliar
+  Cuando se presenta
+  Entonces no muestra indicadores de desempeño individual
+
+=== HU-093 | Ver el estado de mi zona
+Escenario: C1 - El dashboard del Coordinador se restringe a sus zonas
+  Dado un Coordinador con zonas asignadas
+  Cuando abre su dashboard
+  Entonces solo ve información de sus zonas
+Escenario: C2 - Muestra tareas del equipo, alertas de la zona y ocupación
+  Dado el dashboard de un Coordinador
+  Cuando se presenta
+  Entonces muestra las tareas de su equipo, las alertas de su zona y la ocupación de sus ubicaciones
+Escenario: C3 - No muestra valorización
+  Dado el dashboard de un Coordinador
+  Cuando se presenta
+  Entonces no muestra valorización
+Escenario: C4 - Permite reasignar tareas
+  Dado el dashboard de un Coordinador
+  Cuando decide reasignar una tarea de su equipo
+  Entonces el sistema le permite hacerlo desde ahí
+
+=== HU-094 | Consultar el registro de todo lo que pasó en el sistema
+Escenario: C1 - La bitácora registra accesos, configuración, roles, aprobaciones, rechazos, anulaciones y exportaciones
+  Dado la bitácora de auditoría
+  Cuando ocurren esos tipos de evento
+  Entonces todos quedan registrados
+Escenario: C2 - Filtro por usuario, fecha, tipo de evento y módulo
+  Dado la bitácora consultada
+  Cuando el usuario aplica filtros
+  Entonces el sistema muestra solo los eventos que los cumplen
+Escenario: C3 - La bitácora no es editable ni borrable por ningún rol
+  Dado un evento registrado en la bitácora
+  Cuando cualquier usuario, incluido el Administrador, busca editarlo o borrarlo
+  Entonces el sistema no ofrece esas funciones
+Escenario: C4 - Toda discontinuidad detectada es hallazgo crítico
+  Dado una discontinuidad en la bitácora
+  Cuando el sistema la detecta
+  Entonces la reporta como hallazgo crítico
+Escenario: C5 - La bitácora es exportable
+  Dado una consulta de bitácora
+  Cuando el usuario solicita exportarla
+  Entonces el sistema entrega la exportación
+
+=== HU-095 | Consultar todo sin poder modificar nada
+Escenario: C1 - El Auditor tiene lectura completa sobre todo el sistema
+  Dado un usuario con rol Auditor
+  Cuando consulta cualquier información del sistema
+  Entonces tiene acceso de lectura completo
+Escenario: C2 - El Auditor no puede escribir sobre el inventario, ni por configuración
+  Dado un usuario con rol Auditor
+  Cuando intenta cualquier operación de escritura sobre el inventario
+  Entonces el sistema la rechaza aun si existiera configuración que lo permitiera
+Escenario: C3 - Las funciones de escritura no se le presentan
+  Dado la interfaz de un Auditor
+  Cuando se presenta
+  Entonces no muestra funciones de escritura
+Escenario: C4 - Todo intento de escritura se rechaza y se registra
+  Dado un intento de escritura de un Auditor
+  Cuando el sistema lo procesa
+  Entonces lo rechaza y lo registra
+
+=== HU-096 | Dejar registradas las observaciones de auditoría
+Escenario: C1 - La observación se asocia a un movimiento, unidad, período o usuario
+  Dado el Auditor registrando una observación
+  Cuando elige a qué se refiere
+  Entonces puede asociarla a un movimiento, una unidad, un período o un usuario
+Escenario: C2 - Se almacena en un registro separado y no altera el inventario
+  Dado una observación registrada
+  Cuando se guarda
+  Entonces queda en un registro separado y no altera el estado del inventario
+Escenario: C3 - Es consultable por el Administrador y el Jefe
+  Dado una observación registrada
+  Cuando el Administrador o el Jefe la consultan
+  Entonces pueden verla
+Escenario: C4 - No se elimina, se cierra con respuesta
+  Dado una observación registrada
+  Cuando se atiende
+  Entonces se cierra con una respuesta y no se elimina
+
+=== HU-097 | Detectar si alguien aprobó su propia solicitud
+Escenario: C1 - El sistema reporta cualquier caso donde solicitante y aprobador coincidan
+  Dado solicitudes con solicitante y aprobador
+  Cuando el Auditor ejecuta el reporte
+  Entonces el sistema reporta cualquier caso en que coincidan
+Escenario: C2 - Si aparece algún caso es un hallazgo crítico
+  Dado un caso detectado de coincidencia entre solicitante y aprobador
+  Cuando se reporta
+  Entonces se clasifica como hallazgo crítico
+Escenario: C3 - El reporte cubre ajustes, salidas y conteos
+  Dado el reporte de aprobaciones propias
+  Cuando se ejecuta
+  Entonces cubre ajustes, salidas y conteos
+Escenario: C4 - El reporte es exportable
+  Dado el reporte generado
+  Cuando el usuario solicita exportarlo
+  Entonces el sistema entrega la exportación
+
+=== HU-098 | Configurar los umbrales del sistema
+Escenario: C1 - Se configuran umbrales y plazos principales
+  Dado el Administrador en Parámetros y Configuración
+  Cuando configura el umbral de ajuste menor y mayor, la tolerancia de conteo, el tiempo máximo en tránsito, los plazos de vencimiento y el umbral de autorización del Coordinador
+  Entonces el sistema guarda cada valor
+Escenario: C2 - El sistema valida rangos admisibles
+  Dado un valor de configuración fuera del rango admisible
+  Cuando el Administrador intenta guardarlo
+  Entonces el sistema lo rechaza
+Escenario: C3 - Todo cambio queda en bitácora con valor anterior y nuevo
+  Dado un cambio de configuración guardado
+  Cuando el sistema registra el evento
+  Entonces la bitácora guarda el valor anterior y el valor nuevo
+Escenario: C4 - El cambio aplica a evaluaciones futuras, no retroactivamente
+  Dado un cambio de configuración guardado
+  Cuando el sistema evalúa situaciones posteriores
+  Entonces aplica el nuevo valor solo hacia adelante y no de forma retroactiva
+
+=== HU-099 | Mantener la lista de motivos tipificados
+Escenario: C1 - Se administran motivos por tipo de operación
+  Dado el Administrador en el catálogo de motivos
+  Cuando crea o edita motivos
+  Entonces los organiza por tipo de operación
+Escenario: C2 - Se indica si el motivo exige evidencia adjunta
+  Dado un motivo en configuración
+  Cuando el Administrador define si exige evidencia
+  Entonces el sistema guarda ese requisito
+Escenario: C3 - Un motivo en uso no se elimina, se desactiva
+  Dado un motivo utilizado en operaciones
+  Cuando el Administrador intenta eliminarlo
+  Entonces el sistema solo permite desactivarlo
+Escenario: C4 - Un motivo desactivado no aparece en operaciones nuevas pero sí en el histórico
+  Dado un motivo desactivado
+  Cuando se crean operaciones nuevas y se consulta el histórico
+  Entonces no aparece en las operaciones nuevas y sí en el histórico
+Escenario: C5 - El texto libre nunca sustituye al motivo tipificado
+  Dado una operación que exige motivo tipificado
+  Cuando el usuario ingresa solo texto libre
+  Entonces el sistema no lo acepta como sustituto del motivo
+
+=== HU-100 | Impedir configurar algo que rompa los controles del sistema
+Escenario: C1 - Las reglas estructurales no aparecen como parametrizables
+  Dado el Administrador en Parámetros y Configuración
+  Cuando revisa lo configurable
+  Entonces las reglas estructurales marcadas como no configurables no aparecen como parametrizables
+Escenario: C2 - Entre ellas: existencia negativa, kardex, aprobación propia y escritura del Auditor
+  Dado las reglas estructurales no configurables
+  Cuando el Administrador busca modificar la prohibición de existencia negativa, la inmutabilidad del kardex, la prohibición de aprobar la propia solicitud o la restricción de escritura del Auditor
+  Entonces el sistema no las ofrece como configurables
+Escenario: C3 - El intento de eludirlas se rechaza y se registra
+  Dado un intento de eludir una regla estructural
+  Cuando el sistema lo procesa
+  Entonces lo rechaza y lo registra
+
+=== HU-101 | Recibir las tareas en la tablet
+Escenario: C1 - Las tareas asignadas aparecen en el panel del Auxiliar
+  Dado una tarea asignada a un Auxiliar
+  Cuando abre su panel
+  Entonces la tarea aparece en él
+Escenario: C2 - Cada tarea indica tipo, referencia, cantidad y ubicación
+  Dado una tarea en el panel
+  Cuando se presenta
+  Entonces indica tipo, referencia, cantidad y ubicación
+Escenario: C3 - Las notificaciones viven dentro del sistema web, sin aplicación móvil nativa
+  Dado el envío de una notificación
+  Cuando el usuario la recibe
+  Entonces la recibe dentro del sistema web sin requerir una aplicación móvil nativa
+Escenario: C4 - La tarea se cierra al confirmarse el movimiento asociado
+  Dado una tarea pendiente
+  Cuando se confirma el movimiento asociado
+  Entonces la tarea se cierra
+Escenario: C5 - Las tareas no vistas se destacan
+  Dado tareas que el usuario aún no ha visto
+  Cuando se presenta el panel
+  Entonces las destaca
+
+=== HU-102 | Recibir las solicitudes que requieren mi aprobación
+Escenario: C1 - Las solicitudes pendientes aparecen en el panel del Jefe
+  Dado solicitudes de ajuste y de salida pendientes
+  Cuando el Jefe abre su panel
+  Entonces aparecen en él
+Escenario: C2 - Se ordenan por antigüedad y monto
+  Dado varias solicitudes pendientes
+  Cuando se presenta el panel
+  Entonces se ordenan por antigüedad y monto
+Escenario: C3 - El solicitante es notificado del resultado
+  Dado una solicitud resuelta
+  Cuando el Jefe la aprueba o rechaza
+  Entonces el solicitante recibe la notificación del resultado
+Escenario: C4 - Las solicitudes sin resolver escalan por plazo
+  Dado una solicitud sin resolver que supera el plazo configurado
+  Cuando el sistema evalúa el plazo
+  Entonces la solicitud escala automáticamente
+
+=== HU-103 | Reasignar tareas entre auxiliares
+Escenario: C1 - La reasignación se hace desde el panel del Coordinador
+  Dado el Coordinador en su panel
+  Cuando decide reasignar una tarea
+  Entonces puede hacerlo desde ese panel
+Escenario: C2 - Ambos responsables quedan registrados
+  Dado una tarea reasignada
+  Cuando se consulta su historial
+  Entonces quedan registrados ambos responsables
+Escenario: C3 - El nuevo responsable es notificado
+  Dado una tarea reasignada
+  Cuando se completa la reasignación
+  Entonces el nuevo responsable recibe una notificación
+Escenario: C4 - La reasignación no puede violar la regla del segundo conteo
+  Dado una tarea de segundo conteo
+  Cuando se intenta reasignar a quien hizo el primer conteo
+  Entonces el sistema lo impide
