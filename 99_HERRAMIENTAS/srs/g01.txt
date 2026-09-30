@@ -549,18 +549,18 @@ Escenario: C1 - La reimpresión exige motivo
   Dado una etiqueta deteriorada
   Cuando se solicita la reimpresión sin indicar motivo
   Entonces el sistema no permite la reimpresión
-Escenario: C2 - El identificador nuevo hereda la trazabilidad del anterior
+Escenario: C2 - La reimpresión produce otra copia del mismo QR sin crear una nueva identidad
   Dado una reimpresión con motivo registrado
-  Cuando se emite el identificador nuevo
-  Entonces hereda toda la trazabilidad del identificador anterior
-Escenario: C3 - El anterior queda como reemplazado, no eliminado
+  Cuando se imprime la etiqueta de nuevo
+  Entonces el identificador es el mismo y no se crea una nueva identidad
+Escenario: C3 - Reimprimir no marca el identificador como reemplazado
   Dado una reimpresión completada
-  Cuando se consulta el identificador anterior
-  Entonces figura como reemplazado y no ha sido eliminado
-Escenario: C4 - El historial de identificadores del SKU + Lote es consultable
-  Dado un SKU + Lote con identificadores reemplazados
-  Cuando se consulta su historial de identificadores
-  Entonces se muestran todos los identificadores que ha tenido
+  Cuando se consulta el identificador
+  Entonces sigue activo y no figura como reemplazado
+Escenario: C4 - El historial de reimpresiones del SKU + Lote es consultable
+  Dado un SKU + Lote con reimpresiones
+  Cuando se consulta su historial de reimpresiones
+  Entonces se muestran todas las reimpresiones con su motivo
 Escenario: C5 - La reimpresión queda en bitácora
   Dado una reimpresión completada
   Cuando el sistema registra el evento

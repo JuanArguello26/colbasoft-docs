@@ -788,7 +788,7 @@
    "tags": "`[RN-018]`",
    "mod": "M-06",
    "story": "**COMO** Auxiliar de Bodega **QUIERO** solicitar la reimpresión de una etiqueta deteriorada **PARA** poder seguir trabajando sin perder la trazabilidad de esa mercancía.",
-   "crit_raw": "*Criterios:* (1) La reimpresión exige motivo. (2) **El identificador nuevo hereda toda la trazabilidad del anterior** `[RN-018]`. (3) El anterior queda marcado como reemplazado, no eliminado. (4) El historial de identificadores del SKU + Lote es consultable. (5) La reimpresión queda en la bitácora.",
+   "crit_raw": "*Criterios:* (1) La reimpresión exige motivo. (2) **La reimpresión produce otra copia del mismo QR: el identificador no cambia y no se crea una nueva identidad** `[RN-018]` `[Q-09]`. (3) Reimprimir no marca el identificador como reemplazado. (4) El historial de reimpresiones del SKU + Lote es consultable. (5) La reimpresión queda en la bitácora.",
    "crit": [
     [
      1,
@@ -796,15 +796,15 @@
     ],
     [
      2,
-     "**El identificador nuevo hereda toda la trazabilidad del anterior** `[RN-018]`."
+     "**La reimpresión produce otra copia del mismo QR: el identificador no cambia y no se crea una nueva identidad** `[RN-018]` `[Q-09]`."
     ],
     [
      3,
-     "El anterior queda marcado como reemplazado, no eliminado."
+     "Reimprimir no marca el identificador como reemplazado."
     ],
     [
      4,
-     "El historial de identificadores del SKU + Lote es consultable."
+     "El historial de reimpresiones del SKU + Lote es consultable."
     ],
     [
      5,
@@ -1076,6 +1076,64 @@
    ]
   },
   {
+   "id": "HU-104",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "tags": "`[Q-11]` `[F-1]` `[F-2]`",
+   "mod": "M-07",
+   "story": "**COMO** Auxiliar de Bodega **QUIERO** registrar cada rollo, paquete o bolsa que recibo con su cantidad **PARA** saber después cuál pieza es cuál y cuánto trae cada una sin tener que medirla otra vez.",
+   "crit_raw": "*Criterios:* (1) Cada pieza se registra con su tipo —rollo para referencias en metros o kilogramos; paquete o bolsa para referencias en unidades— y con su cantidad propia `[F-1]` `[F-2]`. (2) Cada pieza pertenece a un solo SKU + Lote `[RN-084*]`. (3) La cantidad recibida de la línea es la suma de las cantidades de sus piezas y se compara contra la esperada `[RN-085*]` `[RN-005]`. (4) La pieza conserva su identidad en el sistema desde la recepción; el QR de mercancía sigue identificando solo el SKU + Lote `[DF5-01]`. (5) El sistema confirma visualmente cada pieza registrada.",
+   "crit": [
+    [
+     1,
+     "Cada pieza se registra con su tipo —rollo para referencias en metros o kilogramos; paquete o bolsa para referencias en unidades— y con su cantidad propia `[F-1]` `[F-2]`."
+    ],
+    [
+     2,
+     "Cada pieza pertenece a un solo SKU + Lote `[RN-084*]`."
+    ],
+    [
+     3,
+     "La cantidad recibida de la línea es la suma de las cantidades de sus piezas y se compara contra la esperada `[RN-085*]` `[RN-005]`."
+    ],
+    [
+     4,
+     "La pieza conserva su identidad en el sistema desde la recepción; el QR de mercancía sigue identificando solo el SKU + Lote `[DF5-01]`."
+    ],
+    [
+     5,
+     "El sistema confirma visualmente cada pieza registrada."
+    ]
+   ]
+  },
+  {
+   "id": "HU-105",
+   "prio": "P1",
+   "actor": "Auxiliar",
+   "tags": "`[F-6]`",
+   "mod": "M-07",
+   "story": "**COMO** Auxiliar de Bodega **QUIERO** registrar como una sola pieza el contenedor o la bolsa agrupada en que llega mercancía sin rotulado individual **PARA** poder ubicarla, moverla y contarla sin rotular cada prenda.",
+   "crit_raw": "*Criterios:* (1) El contenedor o bolsa agrupada se registra como una pieza de tipo contenedor agrupado, con su cantidad de unidades `[F-6]`. (2) El contenedor pertenece a un solo SKU + Lote; registrar un contenedor con mezcla de lotes o de SKU no se admite hasta que el Director lo decida `[DECISIÓN PENDIENTE — HD-28]`. (3) Se ubica, mueve, cuenta y sale como cualquier otra pieza. (4) Lleva la etiqueta QR del SKU + Lote `[PN-02 E-03]`.",
+   "crit": [
+    [
+     1,
+     "El contenedor o bolsa agrupada se registra como una pieza de tipo contenedor agrupado, con su cantidad de unidades `[F-6]`."
+    ],
+    [
+     2,
+     "El contenedor pertenece a un solo SKU + Lote; registrar un contenedor con mezcla de lotes o de SKU no se admite hasta que el Director lo decida `[DECISIÓN PENDIENTE — HD-28]`."
+    ],
+    [
+     3,
+     "Se ubica, mueve, cuenta y sale como cualquier otra pieza."
+    ],
+    [
+     4,
+     "Lleva la etiqueta QR del SKU + Lote `[PN-02 E-03]`."
+    ]
+   ]
+  },
+  {
    "id": "HU-038",
    "prio": "P0",
    "actor": "Jefe / Coordinador",
@@ -1269,6 +1327,72 @@
     [
      5,
      "Toda autorización queda atribuida a quien la otorgó."
+    ]
+   ]
+  },
+  {
+   "id": "HU-107",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "tags": "`[Q-10]` `[RN-088*]`",
+   "mod": "M-08",
+   "story": "**COMO** Auxiliar de Bodega **QUIERO** que, al preparar una salida, el escaneo me confirme que tomo lo correcto y cuente las piezas que tomo **PARA** no dejar la salida incompleta ni contar dos veces lo mismo.",
+   "crit_raw": "*Criterios:* (1) El escaneo verifica que lo tomado corresponde a lo solicitado `[RN-050]` y cuenta las piezas tomadas `[Q-10]`. (2) Después de escanear, el Auxiliar selecciona la pieza; cada pieza se cuenta una sola vez y seleccionar de nuevo la misma no suma `[RN-088*]`. (3) El progreso muestra las piezas y la cantidad tomadas frente a lo solicitado. (4) La preparación no se confirma completa mientras falten piezas o cantidad, salvo salida parcial autorizada `[RN-025]`. (5) Cada pieza tomada queda en el kardex.",
+   "crit": [
+    [
+     1,
+     "El escaneo verifica que lo tomado corresponde a lo solicitado `[RN-050]` y cuenta las piezas tomadas `[Q-10]`."
+    ],
+    [
+     2,
+     "Después de escanear, el Auxiliar selecciona la pieza; cada pieza se cuenta una sola vez y seleccionar de nuevo la misma no suma `[RN-088*]`."
+    ],
+    [
+     3,
+     "El progreso muestra las piezas y la cantidad tomadas frente a lo solicitado."
+    ],
+    [
+     4,
+     "La preparación no se confirma completa mientras falten piezas o cantidad, salvo salida parcial autorizada `[RN-025]`."
+    ],
+    [
+     5,
+     "Cada pieza tomada queda en el kardex."
+    ]
+   ]
+  },
+  {
+   "id": "HU-108",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "tags": "`[F-3]` `[RN-086*]`",
+   "mod": "M-08",
+   "story": "**COMO** Auxiliar de Bodega **QUIERO** registrar que corté solo una parte de un rollo **PARA** que el resto siga en el inventario con la cantidad correcta.",
+   "crit_raw": "*Criterios:* (1) Se selecciona la pieza y se indica la cantidad cortada `[F-3]`. (2) La cantidad cortada no puede superar la cantidad de la pieza `[RN-009]` `[RN-086*]`. (3) El sistema descuenta lo cortado de la pieza, que conserva su identidad con el remanente `[RN-086*]`. (4) El corte se registra como una salida, con motivo tipificado, autorización y atribución personal `[RN-048]`. (5) El kardex registra qué pieza, cuánto, quién, cuándo y por qué. (6) La cantidad restante de la pieza queda visible de inmediato.",
+   "crit": [
+    [
+     1,
+     "Se selecciona la pieza y se indica la cantidad cortada `[F-3]`."
+    ],
+    [
+     2,
+     "La cantidad cortada no puede superar la cantidad de la pieza `[RN-009]` `[RN-086*]`."
+    ],
+    [
+     3,
+     "El sistema descuenta lo cortado de la pieza, que conserva su identidad con el remanente `[RN-086*]`."
+    ],
+    [
+     4,
+     "El corte se registra como una salida, con motivo tipificado, autorización y atribución personal `[RN-048]`."
+    ],
+    [
+     5,
+     "El kardex registra qué pieza, cuánto, quién, cuándo y por qué."
+    ],
+    [
+     6,
+     "La cantidad restante de la pieza queda visible de inmediato."
     ]
    ]
   },
@@ -1474,6 +1598,41 @@
     [
      4,
      "Queda en la bitácora."
+    ]
+   ]
+  },
+  {
+   "id": "HU-106",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "tags": "`[F-4]` `[RN-087*]`",
+   "mod": "M-09",
+   "story": "**COMO** Auxiliar de Bodega **QUIERO** elegir en pantalla la pieza que estoy ubicando o moviendo, después de escanear **PARA** que el sistema sepa exactamente qué pieza cambió de lugar aunque haya varias del mismo lote en el mismo estante.",
+   "crit_raw": "*Criterios:* (1) Tras escanear el QR del SKU + Lote, el sistema muestra las piezas de ese lote y el Auxiliar selecciona la que mueve `[F-4]`. (2) Con varias piezas del mismo lote en la ubicación de origen, la ubicación actúa como filtro de verificación: solo se ofrecen las piezas que el sistema registra allí. (3) No se confirma un movimiento sin pieza seleccionada `[RN-087*]`. (4) Aplica al movimiento interno y a la primera ubicación desde recepción `[RN-082*]`. (5) El movimiento queda en el kardex con la pieza. (6) La existencia total no cambia `[RN-026]`.",
+   "crit": [
+    [
+     1,
+     "Tras escanear el QR del SKU + Lote, el sistema muestra las piezas de ese lote y el Auxiliar selecciona la que mueve `[F-4]`."
+    ],
+    [
+     2,
+     "Con varias piezas del mismo lote en la ubicación de origen, la ubicación actúa como filtro de verificación: solo se ofrecen las piezas que el sistema registra allí."
+    ],
+    [
+     3,
+     "No se confirma un movimiento sin pieza seleccionada `[RN-087*]`."
+    ],
+    [
+     4,
+     "Aplica al movimiento interno y a la primera ubicación desde recepción `[RN-082*]`."
+    ],
+    [
+     5,
+     "El movimiento queda en el kardex con la pieza."
+    ],
+    [
+     6,
+     "La existencia total no cambia `[RN-026]`."
     ]
    ]
   },
@@ -1923,6 +2082,37 @@
    ]
   },
   {
+   "id": "HU-109",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "tags": "`[F-5]` `[RN-089*]`",
+   "mod": "M-11",
+   "story": "**COMO** Auxiliar de Bodega **QUIERO** contar a mano cada pieza de una ubicación y registrar su cantidad **PARA** que el conteo verifique la realidad pieza por pieza.",
+   "crit_raw": "*Criterios:* (1) El conteo se hace manualmente, pieza por pieza `[F-5]`. (2) El Auxiliar registra la cantidad de cada pieza contada. (3) `[RN-040]` **La cantidad esperada no se muestra antes ni después de registrar.** (4) La cantidad contada de la unidad de inventario es la suma de sus piezas `[RN-089*]`. (5) El sistema compara lo contado con la existencia congelada y clasifica cada línea como conforme, sobrante o faltante `[RN-039]`.",
+   "crit": [
+    [
+     1,
+     "El conteo se hace manualmente, pieza por pieza `[F-5]`."
+    ],
+    [
+     2,
+     "El Auxiliar registra la cantidad de cada pieza contada."
+    ],
+    [
+     3,
+     "`[RN-040]` **La cantidad esperada no se muestra antes ni después de registrar.**"
+    ],
+    [
+     4,
+     "La cantidad contada de la unidad de inventario es la suma de sus piezas `[RN-089*]`."
+    ],
+    [
+     5,
+     "El sistema compara lo contado con la existencia congelada y clasifica cada línea como conforme, sobrante o faltante `[RN-039]`."
+    ]
+   ]
+  },
+  {
    "id": "HU-067",
    "prio": "P1",
    "actor": "Auxiliar",
@@ -2348,6 +2538,37 @@
     [
      4,
      "`[PR-06]` No se le presentan indicadores de error personal."
+    ]
+   ]
+  },
+  {
+   "id": "HU-110",
+   "prio": "P0",
+   "actor": "Jefe / Auditor",
+   "tags": "`[Q-11]` `[CD-21]`",
+   "mod": "M-14",
+   "story": "**COMO** Jefe de Bodega **QUIERO** consultar dónde está y qué ha pasado con cada pieza de un lote **PARA** rastrear un rollo o un paquete concreto y no solo el lote completo.",
+   "crit_raw": "*Criterios:* (1) La consulta de un lote muestra sus piezas con tipo, cantidad actual, ubicación y estado `[Q-11]`. (2) El kardex de una pieza muestra todos sus movimientos en orden cronológico. (3) `[CD-21]` **Permite responder las seis preguntas de trazabilidad: qué, cuánto, dónde, quién, cuándo y por qué.** (4) La trazabilidad por pieza no requiere un QR propio `[DF5-01]`. (5) Responde dentro del tiempo de RNF-012.",
+   "crit": [
+    [
+     1,
+     "La consulta de un lote muestra sus piezas con tipo, cantidad actual, ubicación y estado `[Q-11]`."
+    ],
+    [
+     2,
+     "El kardex de una pieza muestra todos sus movimientos en orden cronológico."
+    ],
+    [
+     3,
+     "`[CD-21]` **Permite responder las seis preguntas de trazabilidad: qué, cuánto, dónde, quién, cuándo y por qué.**"
+    ],
+    [
+     4,
+     "La trazabilidad por pieza no requiere un QR propio `[DF5-01]`."
+    ],
+    [
+     5,
+     "Responde dentro del tiempo de RNF-012."
     ]
    ]
   },
@@ -3381,11 +3602,11 @@
   },
   {
    "id": "RF-045",
-   "text": "El sistema debe permitir la reimpresión con motivo obligatorio, **heredando el nuevo identificador la trazabilidad del anterior**",
+   "text": "El sistema debe permitir la reimpresión con motivo obligatorio, **conservando el mismo QR y sin crear una nueva identidad**",
    "prio": "P1",
    "actor": "Coord. / Aux.",
    "dep": "M-14",
-   "origin": "`[RN-018]`",
+   "origin": "`[RN-018]` `[Q-09]`",
    "mod": "M-06"
   },
   {
@@ -3524,6 +3745,33 @@
    "mod": "M-07"
   },
   {
+   "id": "RF-163",
+   "text": "El sistema debe permitir registrar cada pieza recibida —rollo, paquete o bolsa— con su tipo y su cantidad propia, dentro de una línea de entrada",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "dep": "RF-052, CD-49",
+   "origin": "`[Q-11]` `[F-1]` `[F-2]`",
+   "mod": "M-07"
+  },
+  {
+   "id": "RF-164",
+   "text": "El sistema debe derivar la cantidad recibida de cada línea como la suma de las cantidades de sus piezas y compararla contra la esperada",
+   "prio": "P0",
+   "actor": "—",
+   "dep": "RF-163, RF-054",
+   "origin": "`[RN-085*]`",
+   "mod": "M-07"
+  },
+  {
+   "id": "RF-165",
+   "text": "El sistema debe permitir registrar un contenedor o bolsa agrupada como una pieza con su cantidad de unidades, perteneciente a un solo SKU + Lote",
+   "prio": "P1",
+   "actor": "Auxiliar",
+   "dep": "RF-163",
+   "origin": "`[F-6]`",
+   "mod": "M-07"
+  },
+  {
    "id": "RF-061",
    "text": "El sistema debe permitir solicitar salidas indicando referencias, lotes, cantidades y motivo tipificado obligatorio",
    "prio": "P0",
@@ -3623,6 +3871,24 @@
    "mod": "M-08"
   },
   {
+   "id": "RF-167",
+   "text": "El sistema debe, en la preparación de una salida, verificar lo escaneado y **contar cada pieza seleccionada una sola vez**",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "dep": "RF-068, RF-163",
+   "origin": "`[Q-10]` `[RN-088*]`",
+   "mod": "M-08"
+  },
+  {
+   "id": "RF-168",
+   "text": "El sistema debe permitir registrar el corte parcial de una pieza, descontando la cantidad cortada y **conservando la pieza con su remanente**, sin superar la cantidad de la pieza",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "dep": "RF-167, RF-069",
+   "origin": "`[F-3]` `[RN-086*]`",
+   "mod": "M-08"
+  },
+  {
    "id": "RF-072",
    "text": "El sistema debe permitir registrar movimientos internos mediante escaneo de mercancía y ubicación destino",
    "prio": "P0",
@@ -3719,6 +3985,15 @@
    "actor": "Jefe",
    "dep": "M-15, M-19",
    "origin": "`[RN-034]` `[RN-035]`",
+   "mod": "M-09"
+  },
+  {
+   "id": "RF-166",
+   "text": "El sistema debe **exigir la selección de la pieza** en todo movimiento interno y en la primera ubicación, usando la ubicación como filtro de verificación cuando haya varias piezas del mismo lote",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "dep": "RF-072, RF-163",
+   "origin": "`[F-4]` `[RN-087*]`",
    "mod": "M-09"
   },
   {
@@ -3929,6 +4204,15 @@
    "mod": "M-11"
   },
   {
+   "id": "RF-169",
+   "text": "El sistema debe permitir contar manualmente pieza por pieza, registrando la cantidad de cada pieza **sin mostrar la esperada**",
+   "prio": "P0",
+   "actor": "Auxiliar",
+   "dep": "RF-098, RF-163",
+   "origin": "`[F-5]` `[RN-089*]`",
+   "mod": "M-11"
+  },
+  {
    "id": "RF-106",
    "text": "El sistema debe permitir al Auxiliar reportar novedades desde tablet, con tipo tipificado, ubicación y descripción",
    "prio": "P1",
@@ -4055,6 +4339,15 @@
    "mod": "M-13"
   },
   {
+   "id": "RF-171",
+   "text": "El sistema debe permitir consultar las piezas de un lote con su tipo, cantidad actual, ubicación y estado",
+   "prio": "P0",
+   "actor": "Todos",
+   "dep": "RF-112, RF-163",
+   "origin": "`[Q-11]`",
+   "mod": "M-13"
+  },
+  {
    "id": "RF-120",
    "text": "El sistema debe registrar todo movimiento con fecha, hora, tipo, cantidad, existencia resultante, ubicación, usuario, motivo y documento",
    "prio": "P0",
@@ -4115,6 +4408,15 @@
    "actor": "—",
    "dep": "§2.7",
    "origin": "`[PR-04]`",
+   "mod": "M-14"
+  },
+  {
+   "id": "RF-170",
+   "text": "El sistema debe registrar en el kardex la pieza afectada por cada movimiento que la toque",
+   "prio": "P0",
+   "actor": "—",
+   "dep": "RF-120, RF-163",
+   "origin": "`[Q-11]` `[RN-085*]`",
    "mod": "M-14"
   },
   {
@@ -5245,9 +5547,9 @@
   },
   {
    "id": "RN-018",
-   "text": "La reimpresión de un identificador exige motivo. **El identificador nuevo hereda íntegramente la trazabilidad del anterior**, que queda marcado como reemplazado y consultable en el historial.",
+   "text": "La reimpresión de un identificador exige motivo. **La reimpresión conserva el mismo QR: produce otra copia del mismo identificador y no crea una nueva identidad**, por lo que el identificador no cambia de estado ni pierde su trazabilidad. La reimpresión queda consultable en el historial del SKU + Lote. Los motivos por los que un identificador se reemplaza o se anula son DECISIÓN PENDIENTE (HD-28)",
    "tipo": "Estructural",
-   "origin": "`[DC-08]` `[MON §7.1]`",
+   "origin": "`[DC-08]` `[MON §7.1]` `[Q-09]`",
    "sec": "Reglas de recepción y salida"
   },
   {
@@ -5382,6 +5684,48 @@
    "tipo": "Estructural",
    "origin": "`[DF5-05]` `[RN-054]`",
    "sec": "Reglas incorporadas en la versión 1.1 (cierre del CP-04)"
+  },
+  {
+   "id": "RN-084*",
+   "text": "**Toda mercancía recibida se registra por piezas.** Cada pieza pertenece a un solo SKU + Lote, tiene un tipo —rollo, paquete o bolsa, o contenedor agrupado— y una **cantidad propia registrada en la recepción**. El QR no identifica la pieza: la pieza tiene identidad interna en el sistema y el QR sigue identificando SKU + Lote",
+   "tipo": "Estructural",
+   "origin": "`[Q-11]` `[F-1]` `[F-2]` `[F-6]` `[CD-49]`",
+   "sec": "Reglas incorporadas en la versión 1.2 (decisiones del 30 de septiembre de 2026)"
+  },
+  {
+   "id": "RN-085*",
+   "text": "**La existencia de una unidad de inventario es la suma de las cantidades de sus piezas en esa ubicación.** La cantidad de una pieza solo cambia por un movimiento del kardex (entrada, salida, movimiento interno, ajuste); la cantidad recibida de una línea de entrada es la suma de las cantidades de sus piezas",
+   "tipo": "Estructural",
+   "origin": "`[Q-11]` `[F-2]` `[RN-065]` `[RN-066]`",
+   "sec": "Reglas incorporadas en la versión 1.2 (decisiones del 30 de septiembre de 2026)"
+  },
+  {
+   "id": "RN-086*",
+   "text": "**Un corte parcial descuenta de la pieza solo la cantidad cortada** y deja la pieza con su remanente, con la misma identidad. La cantidad cortada no puede superar la cantidad de la pieza (RN-009). El corte es una salida y cumple las reglas de salida",
+   "tipo": "Estructural",
+   "origin": "`[F-3]` `[RN-009]` `[RN-048]`",
+   "sec": "Reglas incorporadas en la versión 1.2 (decisiones del 30 de septiembre de 2026)"
+  },
+  {
+   "id": "RN-087*",
+   "text": "**Toda operación que mueve, toma o cuenta mercancía identifica la pieza afectada.** Después de escanear el QR del SKU + Lote el operario selecciona la pieza; si hay varias del mismo lote en la ubicación, la ubicación (escaneada o seleccionada) filtra y verifica qué piezas se ofrecen. No se confirma la operación sin pieza seleccionada",
+   "tipo": "Estructural",
+   "origin": "`[F-4]` `[RN-015]`",
+   "sec": "Reglas incorporadas en la versión 1.2 (decisiones del 30 de septiembre de 2026)"
+  },
+  {
+   "id": "RN-088*",
+   "text": "**En la preparación de una salida el escaneo verifica y cuenta.** Cada pieza tomada se cuenta una sola vez: seleccionar de nuevo la misma pieza no suma. La preparación no se confirma completa mientras falten piezas o cantidad solicitada, salvo salida parcial autorizada",
+   "tipo": "Estructural",
+   "origin": "`[Q-10]` `[RN-050]` `[RN-025]`",
+   "sec": "Reglas incorporadas en la versión 1.2 (decisiones del 30 de septiembre de 2026)"
+  },
+  {
+   "id": "RN-089*",
+   "text": "**El conteo se hace manualmente, pieza por pieza.** El contador registra la cantidad de cada pieza sin ver la cantidad esperada (RN-040); la cantidad contada de la unidad de inventario es la suma de sus piezas",
+   "tipo": "Estructural",
+   "origin": "`[F-5]` `[RN-040]`",
+   "sec": "Reglas incorporadas en la versión 1.2 (decisiones del 30 de septiembre de 2026)"
   }
  ],
  "kpi": [
@@ -5633,72 +5977,72 @@
   {
    "id": "PN-01",
    "name": "Recepción de mercancía",
-   "line": 690
+   "line": 731
   },
   {
    "id": "PN-02",
    "name": "Registro inicial e identificación",
-   "line": 729
+   "line": 770
   },
   {
    "id": "PN-03",
    "name": "Ubicación física de mercancía",
-   "line": 761
+   "line": 802
   },
   {
    "id": "PN-04",
    "name": "Consulta de existencia y ubicación",
-   "line": 795
+   "line": 836
   },
   {
    "id": "PN-05",
    "name": "Movimiento interno (reubicación)",
-   "line": 824
+   "line": 865
   },
   {
    "id": "PN-06",
    "name": "Transferencia entre zonas o bodegas",
-   "line": 859
+   "line": 900
   },
   {
    "id": "PN-07",
    "name": "Ajuste de inventario",
-   "line": 896
+   "line": 937
   },
   {
    "id": "PN-08",
    "name": "Conteo cíclico",
-   "line": 938
+   "line": 979
   },
   {
    "id": "PN-09",
    "name": "Conteo general",
-   "line": 981
+   "line": 1022
   },
   {
    "id": "PN-10",
    "name": "Salida de mercancía",
-   "line": 1021
+   "line": 1062
   },
   {
    "id": "PN-11",
    "name": "Gestión de alerta operativa",
-   "line": 1061
+   "line": 1102
   },
   {
    "id": "PN-12",
    "name": "Reporte de novedad de mercancía",
-   "line": 1109
+   "line": 1150
   },
   {
    "id": "PN-13",
    "name": "Auditoría de inventario",
-   "line": 1146
+   "line": 1187
   },
   {
    "id": "PN-14",
    "name": "Cierre operativo de jornada",
-   "line": 1182
+   "line": 1223
   }
  ],
  "cd": [
@@ -5893,6 +6237,10 @@
   {
    "id": "CD-48",
    "name": "Novedad"
+  },
+  {
+   "id": "CD-49",
+   "name": "Pieza"
   }
  ],
  "rg": [
@@ -6143,7 +6491,7 @@
    "prob": "Alta",
    "imp": "Medio",
    "sev": "🟠",
-   "mit": "Reimpresión con herencia de trazabilidad `[RN-018]` · información legible de respaldo impresa `[RF-044]` · selección manual como alternativa con registro de que no hubo escaneo `[PN-03 E-05]`",
+   "mit": "Reimpresión que conserva el mismo QR `[RN-018]` `[Q-09]` · información legible de respaldo impresa `[RF-044]` · selección manual como alternativa con registro de que no hubo escaneo `[PN-03 E-05]`",
    "origin": "`[DC-08]`"
   },
   {
@@ -6269,7 +6617,7 @@
   {
    "id": "RG-38",
    "title": "El alcance del MVP resulta desproporcionado",
-   "rest": "para un proyecto de nivel Tecnólogo.",
+   "rest": "para un proyecto de nivel Ingeniería (corregido en la v1.2; la v1.1 decía «Tecnólogo»).",
    "prob": "Media",
    "imp": "Alto",
    "sev": "🟠",

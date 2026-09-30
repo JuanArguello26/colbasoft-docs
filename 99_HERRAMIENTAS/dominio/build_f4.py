@@ -15,7 +15,7 @@ RN_TXT, KPI_N = S["RN_TXT"], S["KPI"]
 ENT = {e["id"]: e for e in ENTITIES}
 EVT = {e["id"]: e for e in EVENTS}
 SD = {s["id"]: s for s in SUBDOMAINS}
-FECHA = "28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1)"
+FECHA = "28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2)"
 
 import sys as _sys
 _sys.path.insert(0, os.path.join(HERE, "..", "srs"))
@@ -62,11 +62,11 @@ def header(doc, sub, extra=""):
 | Campo | Dato |
 |---|---|
 | **Documento** | {doc} |
-| **Versión** | 1.1 |
+| **Versión** | 1.2 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
 | **Fecha** | {FECHA} |
-| **Estado** | **Validado técnicamente** (cierre del CP-04, 29-sep-2026). **Aprobación funcional y académica pendiente**: HD-25 y DEC-01…DEC-09 sin responder (`04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`) |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.1 → SRS_COLBASOFT v1.1 → **Modelo de Dominio v1.1** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Estado** | **Borrador v1.2** (30-sep-2026): incorpora la trazabilidad por pieza y resuelve HD-25. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: DEC-02…DEC-09 sin responder y acta de DEC-08 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.2 → SRS_COLBASOFT v1.2 → **Modelo de Dominio v1.2** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | {extra} |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -75,6 +75,8 @@ def header(doc, sub, extra=""):
 > **Naturaleza.** Este documento es **derivado**: no modifica la monografía, la auditoría, el SPEC ni el SRS. Modela el negocio que esos documentos describen. Toda diferencia entre ellos o frente al Prompt Maestro #004 se registra como **Hallazgo del Dominio (HD-nn)**; no se corrige en silencio.
 
 > **Versión 1.1.** Incorpora las decisiones del cierre del CP-04 (DF5-01, DF5-02, DF5-03, DF5-05 y DF5-06), registradas en `04_CP04_AUDITORIA/04_CP04_CIERRE.md`. El detalle de los cambios está en DOMAIN_MODEL §0.8. La v1.0 se conserva en el historial del repositorio (commit `79f823c`).
+
+> **Versión 1.2.** Incorpora las decisiones del Director del 30 de septiembre de 2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09 y Q-10), que agregan la **Pieza** al modelo y resuelven HD-25. El detalle está en DOMAIN_MODEL §0.9.
 """
 
 # ====================================================================================== DOMAIN_MODEL
@@ -84,7 +86,7 @@ def cap0():
 
 # CAPÍTULO 0 — AUDITORÍA DE REANUDACIÓN
 
-> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes y el **0.8** registra los cambios de la v1.1.
+> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes, el **0.8** registra los cambios de la v1.1 y el **0.9** los de la v1.2.
 
 ## 0.1 Estado del proyecto
 
@@ -161,9 +163,9 @@ El proyecto no conserva documentos de checkpoint independientes; el Prompt #004 
 | Prefijo | Elemento | Rango en esta versión |
 |---|---|---|
 | `SD-nn` | Subdominio | SD-01…SD-15 |
-| `E-nn` | Entidad | E-01…E-26 |
-| `VO-nn` | Objeto de valor | VO-01…VO-42 |
-| `AG-nn` | Agregado | AG-01…AG-21 |
+| `E-nn` | Entidad | E-01…E-27 |
+| `VO-nn` | Objeto de valor | VO-01…VO-43 |
+| `AG-nn` | Agregado | AG-01…AG-22 |
 | `IN-nn` | Invariante | IN-01…IN-{nin} |
 | `PO-nn` | Política del dominio (regla reactiva) | PO-01…PO-14 |
 | `SM-nn` | Máquina de estados | SM-01…SM-21 |
@@ -176,7 +178,7 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 
 ## 0.7 Método
 
-1. Se releyeron los cuatro documentos y se reutilizó la extracción estructurada del SRS (103 HU, 162 RF, 82 RN, 24 KPI).
+1. Se releyeron los cuatro documentos y se reutilizó la extracción estructurada del SRS (103 HU, 162 RF, 82 RN, 24 KPI en la v1.0; 110 HU, 171 RF, 91 RN en la v1.2).
 2. Entidades, objetos de valor, agregados, invariantes, estados, eventos y términos se escribieron como datos únicos, y de ellos se generaron los tres documentos y las cinco matrices. **Una definición aparece una sola vez**: el Cap. 1 (lenguaje ubicuo) y el GLOSSARY usan el mismo texto.
 3. Se verificó automáticamente que toda referencia a RN, HU, RF, KPI, evento, entidad e invariante exista (0 referencias rotas).
 
@@ -193,6 +195,25 @@ La auditoría del CP-04 (`04_CP04_AUDITORIA/04_CP04_AUDITORIA.md`) encontró que
 | **DF5-06** (revisada) | Validación técnica del SPEC, el SRS y este modelo en su v1.1; la aprobación funcional y académica queda pendiente de HD-25 y DEC-01…DEC-09 | Portadas; HD-21; HD-25 |
 
 **Ningún ID se renumeró ni se reutilizó.** Los elementos nuevos continúan la numeración (IN-70…IN-72, EV-TRZ-007, HD-23…HD-27, RF5-14 y los términos GL-204 y GL-205). Las reglas del SRS pasan de 82 a 85; las tres nuevas quedan separadas de las 82 originales (SPEC v1.1 §9.15).
+
+## 0.9 Control de cambios de la versión 1.2 (decisiones del 30 de septiembre de 2026)
+
+Al auditar DEC-01 el Director tomó decisiones que resuelven **HD-25** y **HD-22** y agregan la trazabilidad por pieza al MVP. Esta versión las incorpora editando los datos fuente y regenerando los tres documentos; el SPEC v1.2 y el SRS v1.2 las recogen antes (`COLBASOFT_SPEC_v1.2.md`, `SRS_COLBASOFT_v1.2.md`).
+
+| Decisión | Contenido | Cambios en el modelo |
+|---|---|---|
+| **DEC-01 = A** | Umbral aprobatorio: Núcleo, con 1 bodega piloto | Transferencias (E-13, AG-10) y conteo general quedan fuera del umbral aprobatorio, pero **siguen modelados**: el modelo no descarta nada del Horizonte 2 |
+| **Q-11 · F-1 · F-2** | La trazabilidad por pieza o rollo está dentro del MVP; pieza = rollo o paquete/bolsa, con cantidad propia registrada al recibir | Entidad nueva **E-27 Pieza**; agregado **AG-22**; objeto de valor **VO-43**; reglas RN-LOT-006 y RN-LOT-007 → **IN-73** e **IN-74**; evento **EV-ENT-016**; subdominio SD-01; término «Pieza» y «Rollo», «Paquete o bolsa»; HD-25 resuelto |
+| **F-3** | Cortes parciales | RN-SAL-008 → **IN-75**; eventos **EV-SAL-013**; término «Corte parcial»; nuevo HD-29 |
+| **F-4** | Selección de la pieza tras el escaneo; la ubicación filtra | RN-MOV-011 → **IN-76**; EV-MOV-001, EV-INV-001 |
+| **Q-10** | El escaneo de salida verifica y cuenta | RN-SAL-009 → **IN-77**; evento **EV-SAL-012** |
+| **F-5** | Conteo manual pieza por pieza | RN-CNT-009 → **IN-78**; EV-CNT-007 |
+| **F-6** | Contenedores y bolsas agrupadas | Tipo «contenedor agrupado» de VO-43; término «Contenedor agrupado»; «Unidad de manejo agrupada» se redefine; HD-22 resuelto; nuevo HD-28 |
+| **Q-09** | La reimpresión conserva el mismo QR | RN-IDE-004 → **IN-26**; SM-05 (la reimpresión no cambia de estado; el estado «Reemplazado» queda sin disparador: HD-28); **EV-QRC-004** pasa a «Identificador QR reimpreso» (conserva su ID); término «Reimpresión» |
+| Nivel | Ingeniería | Sin efecto en el modelo |
+
+**Ningún ID se renumeró ni se reutilizó.** Los elementos nuevos continúan la numeración (E-27, VO-43, AG-22, IN-73…IN-78, EV-ENT-016, EV-SAL-012, EV-SAL-013, HD-28…HD-30, RF5-15, RF5-16 y los términos GL-206…GL-210). Las reglas del SRS pasan de 85 a 91; las seis nuevas (SPEC v1.2 §9.16) son invariantes. **Pendientes que la v1.2 deja abiertos** (no bloquean la Fase 5 por sí mismos): HD-28, HD-29 y HD-30.
+
 
 **ESTADO: CONTEXTO RECONSTRUIDO.**
 """ + estado("Estado del proyecto · 5 checkpoints · 4 documentos · 8 decisiones constitucionales + 7 reglas innegociables · 10 riesgos del SRS · 9 decisiones abiertas",
@@ -314,8 +335,8 @@ def cap3():
         o.append(f"| **Subdominio / agregado** | {e['sd']} {SD[e['sd']]['nombre']} · {e['ag']} |")
         o.append(f"| **Concepto de origen** | {e['cd']} |\n")
     o.append(estado(f"{len(ENTITIES)} entidades con descripción, responsabilidad, identidad, estado, ciclo de vida, relaciones, reglas y eventos",
-                    "Bodega, Zona y SKU sin estados propios definidos en el SPEC (HD-19); copias impresas de un mismo QR de mercancía (HD-25)",
-                    "Cap. 4 (identidades como objetos de valor), Cap. 5 (agregados), EVENT_CATALOG", "HD-01, HD-04 (resuelto, DF5-01), HD-05, HD-06 (resuelto, DF5-02), HD-11, HD-19, HD-23, HD-25", "3"))
+                    "Bodega, Zona y SKU sin estados propios definidos en el SPEC (HD-19); identidad física de la pieza (HD-28)",
+                    "Cap. 4 (identidades como objetos de valor), Cap. 5 (agregados), EVENT_CATALOG", "HD-01, HD-04 (resuelto, DF5-01), HD-05, HD-06 (resuelto, DF5-02), HD-11, HD-19, HD-23, HD-25 (resuelto, v1.2), HD-28", "3"))
     return "\n".join(o)
 
 def cap4():
@@ -363,9 +384,11 @@ Algunas operaciones del negocio afectan a más de un agregado. El dominio declar
 
 | Operación | Agregados involucrados | Coherencia exigida por el negocio | Regla |
 |---|---|---|---|
-| Confirmar una entrada | AG-08 → AG-04, AG-06, AG-05, AG-07 | Lote, movimiento de entrada y existencia en recepción nacen juntos o no nace ninguno | RN-ENT-007, RN-LOT-001, RN-INT-004, RN-EXI-007 |
+| Confirmar una entrada | AG-08 → AG-04, AG-06, AG-05, AG-07, AG-22 | Lote, movimiento de entrada, existencia en recepción y piezas (v1.2) nacen juntos o no nace ninguno | RN-ENT-007, RN-LOT-001, RN-INT-004, RN-EXI-007, RN-LOT-006 |
 | Primera ubicación (v1.1) | AG-06 → AG-05 (unidad de recepción) y AG-05 (unidad destino) | El descuento en la unidad de recepción y el incremento disponible en la unidad destino son indivisibles; la existencia total no cambia | RN-MOV-010, RN-MOV-004 |
 | Movimiento interno | AG-06 → AG-05 (origen) y AG-05 (destino) | La existencia total no cambia: el descuento y el incremento son indivisibles | RN-MOV-004 |
+| Mover una pieza (v1.2) | AG-22 → AG-06, AG-05 (origen y destino) | La pieza cambia de ubicación con un movimiento; la suma de sus piezas sigue igualando la existencia de cada unidad de inventario | RN-LOT-007, RN-MOV-011 |
+| Corte parcial de una pieza (v1.2) | AG-22 → AG-09, AG-06, AG-05 | La cantidad de la pieza, el movimiento de salida y la existencia de la unidad cambian juntos o ninguno | RN-SAL-008, RN-LOT-007 |
 | Transferencia | AG-10 → AG-05 (origen y destino), AG-06 | Reserva, tránsito y recepción mantienen la partición por estado | RN-EXI-004, RN-EXI-005, RN-MOV-007 |
 | Autorizar una salida | AG-09 → AG-05 | Nadie más compromete la misma existencia | RN-EXI-003, RN-EXI-004 |
 | Aprobar un ajuste | AG-11 → AG-06, AG-05 | El movimiento de ajuste solo existe si la solicitud está aprobada; nunca deja existencia negativa | RN-AJU-001, RN-EXI-001 |
@@ -375,9 +398,9 @@ Algunas operaciones del negocio afectan a más de un agregado. El dominio declar
 | Sincronizar un registro retenido (v1.1) | AG-06 → AG-05 (y AG-13 si se rechaza) | Se confirma o se rechaza una sola vez, contra el estado vigente; si se rechaza y describe un hecho físico, la novedad nace con el rechazo | RN-INT-008 |
 | Cualquier evento auditable | Todos → AG-16 | Todo hecho auditable deja su registro en la bitácora | RN-AUD-001 |
 """)
-    o.append(estado(f"{len(AGGREGATES)} agregados con raíz, entidades internas, invariantes protegidas, referencias por identidad y justificación; 11 operaciones que involucran varios agregados",
-                    "Operaciones indivisibles sobre dos unidades (RF5-02) y concurrencia sobre la disponibilidad (RF5-03)",
-                    "Cap. 3, Cap. 6", "HD-04 resuelto por DF5-01: la identidad de AG-05 no cambia; AG-07 identifica SKU + Lote", "5"))
+    o.append(estado(f"{len(AGGREGATES)} agregados con raíz, entidades internas, invariantes protegidas, referencias por identidad y justificación; 13 operaciones que involucran varios agregados",
+                    "Operaciones indivisibles sobre dos unidades (RF5-02), concurrencia sobre la disponibilidad (RF5-03) y coherencia pieza–unidad de inventario (RF5-15)",
+                    "Cap. 3, Cap. 6", "HD-04 resuelto por DF5-01: la identidad de AG-05 no cambia; AG-07 identifica SKU + Lote; AG-22 agrega la pieza (v1.2)", "5"))
     return "\n".join(o)
 
 def cap6():
@@ -413,7 +436,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
         o.append(f"| **PO-{k:02d}** | {rn} | {txt} | {ids(pol_ev[rn])} |")
     allc = inv_rn | set(pol_rn)
     o.append(f"\n**Cobertura:** las {len(S['RN'])} reglas del SRS quedan cubiertas: {len(inv_rn)} como invariantes y {len(pol_rn)} como políticas ({len(allc)}/{len(S['RN'])}).\n")
-    o.append(estado(f"{len(INVARIANTS)} invariantes (mínimo exigido: 40), cada una vinculada a reglas del SRS; {len(pol_rn)} políticas reactivas; {len(inv_rn | set(pol_rn))}/{len(S['RN'])} reglas cubiertas (82 + 3 de la v1.1: IN-70…IN-72)",
+    o.append(estado(f"{len(INVARIANTS)} invariantes (mínimo exigido: 40), cada una vinculada a reglas del SRS; {len(pol_rn)} políticas reactivas; {len(inv_rn | set(pol_rn))}/{len(S['RN'])} reglas cubiertas (82 + 3 de la v1.1 + 6 de la v1.2: IN-70…IN-78)",
                     "IN-67 depende de DEC-04; IN-46 depende de HD-13; IN-23 actualizada por DF5-01", "SRS Cap. 8", "HD-04, HD-13 · distinción invariante/política (nueva en esta fase)", "6"))
     return "\n".join(o)
 
@@ -524,8 +547,8 @@ def cap10():
         o.append(f"| **{h[0]}** | **{h[1]}** | {h[2]} | {h[3]} | {h[4]} |")
     crit = [h[0] for h in DOMAIN_FINDINGS if "bloqueante" in h[4].lower() and "no bloquea" not in h[4].lower()]
     res = [h[0] for h in DOMAIN_FINDINGS if h[4].startswith("**Resuelto")]
-    o.append(f"\n**Resueltos en el cierre del CP-04:** {', '.join(res)}. **Bloqueantes para la Fase 5:** {', '.join(crit) or 'ninguno'}. **Requieren decisión del Director:** {', '.join(h[0] for h in DOMAIN_FINDINGS if 'Director' in h[4] or h[4].startswith('DEC'))}.\n")
-    o.append(estado(f"{len(DOMAIN_FINDINGS)} hallazgos con evidencia, tratamiento y responsable", "HD-25 debe decidirse antes de la Fase 5 (04_CP04_DECISIONES_PENDIENTES); los demás pendientes no bloquean la arquitectura", "Todos los capítulos", "—", "10"))
+    o.append(f"\n**Resueltos (cierre del CP-04 y decisiones del 30-sep-2026, v1.2):** {', '.join(res)}. **Bloqueantes para la Fase 5:** {', '.join(crit) or 'ninguno'}. **Requieren decisión del Director:** {', '.join(h[0] for h in DOMAIN_FINDINGS if 'Director' in h[4] or h[4].startswith('DEC'))}.\n")
+    o.append(estado(f"{len(DOMAIN_FINDINGS)} hallazgos con evidencia, tratamiento y responsable", "HD-25 y HD-22 resueltos en la v1.2; HD-28, HD-29 y HD-30 pendientes, sin bloquear la arquitectura por sí mismos", "Todos los capítulos", "—", "10"))
     return "\n".join(o)
 
 def domain_model():
@@ -548,7 +571,7 @@ def domain_model():
 """
     return (header("DOMAIN_MODEL", "Modelo de Dominio de COLBASOFT", "`EVENT_CATALOG.md` (eventos, matrices D y E) · `GLOSSARY.md` (glosario y auditoría interna)")
             + idx + cap0() + cap1() + cap2() + cap3() + cap4() + cap5() + cap6() + cap7() + cap8() + cap9() + cap10()
-            + "\n---\n\n*Fin de DOMAIN_MODEL v1.1. La monografía original permanece sin modificaciones.*\n")
+            + "\n---\n\n*Fin de DOMAIN_MODEL v1.2. La monografía original permanece sin modificaciones.*\n")
 
 # ====================================================================================== EVENT_CATALOG
 def ev_cap1():
@@ -778,7 +801,7 @@ def event_catalog():
 """
     return (header("EVENT_CATALOG", "Catálogo de Eventos del Dominio de COLBASOFT", "`DOMAIN_MODEL.md` · `GLOSSARY.md`")
             + idx + ev_cap1() + ev_cap2() + ev_cap3() + ev_cap4() + ev_cap5() + ev_cap6()
-            + "\n---\n\n*Fin de EVENT_CATALOG v1.1.*\n")
+            + "\n---\n\n*Fin de EVENT_CATALOG v1.2.*\n")
 
 # ====================================================================================== GLOSSARY
 def sortkey(t):
@@ -798,13 +821,15 @@ RISKS_F5 = [
  ("RF5-11", "Carga del Administrador por ajustes derivados de conteo", "HD-08 · RG-18", "🟡", "Cuello de botella de aprobaciones"),
  ("RF5-12", "Eventos sin requisito que los implemente", "EVENT_CATALOG Cap. 6", "🟠", "Comportamientos del dominio sin criterio de aceptación"),
  ("RF5-13", "Crecimiento ilimitado de kardex, bitácora e historiales (sin purga)", "RNF-AUD-004 · RNF-ESC-004", "🟡", "Volumen a tres años sin estimación"),
- ("RF5-14", "Qué identifica físicamente cada etiqueta de mercancía: copias de un QR de lote, etiqueta física única o paquete (HD-25)", "HD-25 · RN-IDE-004 · RN-SAL-004", "🔴", "Sin decidirlo no se sabe si un escaneo equivale a una cantidad, cómo se reimprime sin invalidar otras etiquetas ni si cambia la identidad de la mercancía"),
+ ("RF5-14", "Qué identifica físicamente cada etiqueta de mercancía (HD-25): resuelto en la v1.2 (la pieza tiene identidad interna; el QR sigue siendo SKU + Lote; la reimpresión conserva el QR). Queda cómo se distingue físicamente una pieza de otra del mismo lote (HD-28)", "HD-25 · HD-28 · RN-IDE-004 · RN-MOV-011", "🟡", "Sin distinguir físicamente las piezas del mismo lote la selección en pantalla depende por completo del operario"),
+ ("RF5-15", "Coherencia entre la suma de las cantidades de las piezas y la existencia de la unidad de inventario (AG-22 ↔ AG-05): una operación sobre una pieza afecta a dos agregados", "IN-74 · RN-LOT-007 · RN-MOV-011", "🟠", "Existencia de la unidad de inventario distinta de la suma de sus piezas"),
+ ("RF5-16", "Reserva y selección de piezas: la autorización reserva cantidad sobre la unidad de inventario (RN-EXI-003), pero las piezas se seleccionan recién al tomarlas (RN-SAL-009); dos preparaciones pueden apuntar a la misma pieza", "RN-SAL-009 · RN-EXI-003 · RN-EXI-004", "🟠", "Doble compromiso de una misma pieza en preparaciones distintas"),
 ]
 
 def gl_ids():
-    """IDs estables: los términos de la v1.0 conservan su GL-nnn (orden alfabético original); los agregados después (v11) continúan la numeración."""
-    base = sorted((x for x in TERMS if not x.get("v11")), key=sortkey)
-    nuevos = [x for x in TERMS if x.get("v11")]
+    """IDs estables: los términos de la v1.0 conservan su GL-nnn (orden alfabético original); los agregados después (v11, v12) continúan la numeración."""
+    base = sorted((x for x in TERMS if not x.get("v11") and not x.get("v12")), key=sortkey)
+    nuevos = [x for x in TERMS if x.get("v11")] + [x for x in TERMS if x.get("v12")]
     return {x["term"]: f"GL-{i:03d}" for i, x in enumerate(base + nuevos, 1)}
 
 def glossary():
@@ -844,7 +869,7 @@ def glossary():
         o.append(f"| **Documento origen** | {pair(t['origen'])} |")
         o.append(f"| **Relaciones** | {rels or '—'} |\n")
     o.append("> ★ = término central del lenguaje ubicuo (DOMAIN_MODEL Cap. 1).\n")
-    o.append(estado(f"{len(terms)} términos con los cinco campos exigidos más sinónimos prohibidos", "—", "DOMAIN_MODEL · EVENT_CATALOG", "HD-01, HD-14, HD-22", "2"))
+    o.append(estado(f"{len(terms)} términos con los cinco campos exigidos más sinónimos prohibidos", "—", "DOMAIN_MODEL · EVENT_CATALOG", "HD-01, HD-14, HD-22 (resuelto, v1.2), HD-28", "2"))
     # índice inverso
     inv = []
     for t in terms:
@@ -857,7 +882,7 @@ def glossary():
     o.append(estado(f"{len(inv)} sinónimos prohibidos con su término oficial", "—", "Cap. 2", "—", "3"))
     # auditoría interna
     o.append(internal_audit(len(terms), len(inv)))
-    o.append("\n---\n\n*Fin de GLOSSARY v1.1. La monografía original permanece sin modificaciones.*\n")
+    o.append("\n---\n\n*Fin de GLOSSARY v1.2. La monografía original permanece sin modificaciones.*\n")
     return "\n".join(o)
 
 def internal_audit(nterms, nsyn):
@@ -902,10 +927,10 @@ def internal_audit(nterms, nsyn):
 | V-2 | Toda entidad citada por un evento, relación o agregado existe | ✅ |
 | V-3 | Todo evento citado en estados y líneas temporales existe | ✅ |
 | V-4 | Toda invariante citada por un agregado existe | ✅ |
-| V-5 | Las {len(S["RN"])} reglas del SRS (82 + 3 de la v1.1) quedan cubiertas como invariante o política | ✅ {len(inv_rn)} + {len(pol)} = {len(inv_rn | set(pol))}/{len(S["RN"])} |
+| V-5 | Las {len(S["RN"])} reglas del SRS (82 + 3 de la v1.1 + 6 de la v1.2) quedan cubiertas como invariante o política | ✅ {len(inv_rn)} + {len(pol)} = {len(inv_rn | set(pol))}/{len(S["RN"])} |
 | V-6 | Los 24 KPI aparecen en al menos un evento | ✅ {kpi_cov}/24 |
-| V-7 | Historias con evento | 🟡 {hu_cov}/103 (el resto son de consulta) |
-| V-8 | RF con evento | 🟡 {rf_cov}/162 (el resto son de consulta, restricción o presentación) |
+| V-7 | Historias con evento | 🟡 {hu_cov}/110 (el resto son de consulta) |
+| V-8 | RF con evento | 🟡 {rf_cov}/171 (el resto son de consulta, restricción o presentación) |
 | V-9 | Toda invariante cita al menos una regla del SRS | ✅ {len(INVARIANTS)}/{len(INVARIANTS)} |
 | V-10 | Las definiciones del lenguaje ubicuo y del glosario son idénticas | ✅ (misma fuente) |
 | V-11 | Ninguna relación del glosario apunta a un término inexistente | ✅ |
@@ -919,7 +944,7 @@ def internal_audit(nterms, nsyn):
 |---|---|---|:--:|---|
 {rows}
 
-**Estado frente a la Fase 5 (v1.1).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05). **HD-25** (qué identifica físicamente cada etiqueta) requiere una decisión antes de la Fase 5. HD-17, HD-26 y HD-27 requieren información de la operación real y DEC-01…DEC-09 siguen abiertas, sin bloquear la arquitectura (ver `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
+**Estado frente a la Fase 5 (v1.2).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-28, HD-29 y HD-30** quedan pendientes, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real y DEC-01…DEC-09 siguen abiertas, sin bloquear la arquitectura (ver `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
 
 ---
 

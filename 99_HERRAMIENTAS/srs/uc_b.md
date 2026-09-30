@@ -9,7 +9,7 @@
 | **Precondiciones** | Usuario autenticado. |
 | **Postcondiciones (éxito)** | El usuario obtiene existencia desglosada por talla, color, lote, ubicación y estado; el estado del inventario no se modifica. |
 | **Postcondiciones (fallo)** | Se informa la ausencia de resultados o de permiso; nada se modifica. |
-| **Trazabilidad** | HU: @HU071 @HU072 @HU073 @HU074 @HU075 @HU076 · RF: @RF112 @RF113 @RF114 @RF115 @RF116 @RF117 @RF118 @RF119 · RN: @RN065 @RN067 @RN025 @RN031 @RN032 @RN036 @RN066 |
+| **Trazabilidad** | HU: @HU071 @HU072 @HU073 @HU074 @HU075 @HU076 @HU110 · RF: @RF112 @RF113 @RF114 @RF115 @RF116 @RF117 @RF118 @RF119 @RF171 · RN: @RN065 @RN067 @RN025 @RN031 @RN032 @RN036 @RN066 @RN084 |
 
 **Flujo principal**
 1. El usuario indica qué busca: por referencia, por identificador escaneado, por ubicación, por lote o por texto parcial.
@@ -43,12 +43,12 @@
 | **Precondiciones** | La unidad de inventario existe y tiene ubicación actual registrada. |
 | **Postcondiciones (éxito)** | La ubicación registrada corresponde a la física real; la existencia total permanece invariante; el movimiento queda en el kardex. |
 | **Postcondiciones (fallo)** | Ninguna existencia cambia de ubicación; el rechazo se explica. |
-| **Trazabilidad** | HU: @HU045 @HU046 · RF: @RF072 @RF073 @RF074 @RF075 @RF076 @RF077 · RN: @RN026 @RN025 @RN027 @RN021 @RN036 @RN028 @RN054 @RN015 @RN083 |
+| **Trazabilidad** | HU: @HU045 @HU046 @HU106 · RF: @RF072 @RF073 @RF074 @RF075 @RF076 @RF077 @RF166 · RN: @RN026 @RN025 @RN027 @RN021 @RN036 @RN028 @RN054 @RN015 @RN083 @RN087 |
 
 **Flujo principal**
 1. El Auxiliar escanea el identificador de la mercancía, que identifica su SKU + Lote.
 2. El sistema muestra las ubicaciones donde ese SKU + Lote tiene existencia; si hay más de una, el Auxiliar indica la de origen escaneando su identificador o seleccionándola, y la selección queda registrada (@RN015, DF5-01).
-3. El Auxiliar indica la cantidad a mover (total o parcial).
+3. El Auxiliar selecciona la pieza que mueve; con varias piezas del mismo lote en la ubicación de origen, la ubicación filtra y verifica qué piezas se ofrecen (@RN087). El movimiento parcial de una pieza entre ubicaciones es DECISIÓN PENDIENTE (HD-29).
 4. El Auxiliar traslada físicamente la mercancía y escanea el identificador de la ubicación destino.
 5. El sistema valida la ubicación destino.
 6. El sistema registra el movimiento interno en el kardex, descuenta de la ubicación origen y suma a la destino.
@@ -148,13 +148,13 @@
 | **Precondiciones** | Existen ubicaciones o referencias con existencia registrada. |
 | **Postcondiciones (éxito)** | Se conoce la exactitud del ámbito contado; la operación no se interrumpió; las diferencias quedaron identificadas con responsable y motivo. |
 | **Postcondiciones (fallo)** | Conteo vencido o abortado: la existencia congelada se libera y no se generan ajustes. |
-| **Trazabilidad** | HU: @HU058 @HU059 @HU060 @HU061 @HU062 @HU065 @HU066 · RF: @RF093 @RF094 @RF095 @RF096 @RF097 @RF098 @RF099 @RF100 @RF101 @RF102 @RF105 · RN: @RN039 @RN040 @RN041 @RN042 @RN043 @RN044 @RN029 · KPI: KPI-01 KPI-03 KPI-04 KPI-06 |
+| **Trazabilidad** | HU: @HU058 @HU059 @HU060 @HU061 @HU062 @HU065 @HU066 @HU109 · RF: @RF093 @RF094 @RF095 @RF096 @RF097 @RF098 @RF099 @RF100 @RF101 @RF102 @RF105 @RF169 · RN: @RN039 @RN040 @RN041 @RN042 @RN043 @RN044 @RN029 @RN089 · KPI: KPI-01 KPI-03 KPI-04 KPI-06 |
 
 **Flujo principal**
 1. El Coordinador programa el conteo definiendo su ámbito (ubicaciones, referencias o categorías).
 2. El sistema genera las tareas de conteo, las asigna a auxiliares y congela la existencia teórica del ámbito.
-3. El Auxiliar recibe sus tareas en la tablet, escanea la ubicación y cuenta físicamente.
-4. El Auxiliar registra la cantidad contada; el sistema no le muestra la cantidad esperada, ni antes ni después.
+3. El Auxiliar recibe sus tareas en la tablet, escanea la ubicación y cuenta físicamente, a mano, pieza por pieza (@RN089).
+4. El Auxiliar registra la cantidad de cada pieza contada, y la cantidad contada de la unidad de inventario es la suma de sus piezas; el sistema no le muestra la cantidad esperada, ni antes ni después.
 5. El sistema compara lo contado contra la existencia congelada y clasifica cada línea: conforme, sobrante o faltante.
 6. Si hay diferencias sobre la tolerancia, el sistema exige un segundo conteo por un contador distinto.
 7. El Coordinador revisa las diferencias confirmadas.
@@ -221,7 +221,7 @@
 | **Precondiciones** | Existencia disponible suficiente; autorización vigente. |
 | **Postcondiciones (éxito)** | La existencia refleja la salida; el kardex documenta qué salió, cuánto, por qué, quién lo autorizó y quién lo ejecutó. |
 | **Postcondiciones (fallo)** | La reserva se libera; la existencia vuelve a disponible; no se registra la salida. |
-| **Trazabilidad** | HU: @HU038 @HU039 @HU040 @HU041 @HU042 @HU043 @HU044 · RF: @RF061 @RF062 @RF063 @RF064 @RF065 @RF066 @RF067 @RF068 @RF069 @RF070 @RF071 · RN: @RN048 @RN025 @RN031 @RN030 @RN049 @RN050 @RN009 @RN036 @RN051 @RN052 @RN053 · KPI: KPI-11 KPI-13 KPI-16 |
+| **Trazabilidad** | HU: @HU038 @HU039 @HU040 @HU041 @HU042 @HU043 @HU044 @HU107 @HU108 · RF: @RF061 @RF062 @RF063 @RF064 @RF065 @RF066 @RF067 @RF068 @RF069 @RF070 @RF071 @RF167 @RF168 · RN: @RN048 @RN025 @RN031 @RN030 @RN049 @RN050 @RN009 @RN036 @RN051 @RN052 @RN053 @RN086 @RN088 · KPI: KPI-11 KPI-13 KPI-16 |
 
 > **Frontera de alcance `[DC-03]`.** El sistema registra la salida física del inventario. No gestiona el pedido de venta, la factura, el documento de despacho comercial ni la orden de producción que la originan; recibe un motivo tipificado y actúa sobre el inventario, nada más.
 
@@ -230,7 +230,7 @@
 2. El sistema verifica la existencia disponible.
 3. El Jefe autoriza la salida, o el Coordinador si está dentro de su umbral; el sistema reserva la existencia.
 4. El sistema genera la tarea de preparación y la asigna a un Auxiliar, indicando las ubicaciones de toma según la política configurada.
-5. El Auxiliar escanea cada unidad al tomarla; el sistema valida que lo escaneado corresponda a lo solicitado.
+5. El Auxiliar escanea lo que toma y selecciona la pieza tomada; si corta parte de un rollo, registra la cantidad cortada (@RN086, @RN087); el sistema valida que lo escaneado corresponda a lo solicitado y cuenta cada pieza tomada una sola vez (@RN050, @RN088).
 6. El Auxiliar confirma la preparación completa.
 7. El sistema registra el movimiento de salida en el kardex, descuenta la existencia y libera la reserva.
 

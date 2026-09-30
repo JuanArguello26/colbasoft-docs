@@ -128,7 +128,7 @@ Los valores numéricos de los RNF (p. ej. tiempos de respuesta) son **objetivos 
 
 ## 1.5 Definiciones, acrónimos y abreviaturas
 
-Los 48 conceptos de dominio están definidos operativamente en el **Capítulo 4 del SPEC** (CD-01…CD-48) y **no se redefinen aquí** (una definición duplicada podría divergir). La tabla siguiente recoge únicamente los conceptos que el SRS usa con más frecuencia y remite a su definición canónica.
+Los 49 conceptos de dominio están definidos operativamente en el **Capítulo 4 del SPEC** (CD-01…CD-49) y **no se redefinen aquí** (una definición duplicada podría divergir). La tabla siguiente recoge únicamente los conceptos que el SRS usa con más frecuencia y remite a su definición canónica.
 
 | Término | Definición resumida | Canónica |
 |---|---|---|
@@ -142,6 +142,7 @@ Los 48 conceptos de dominio están definidos operativamente en el **Capítulo 4 
 | **Motivo tipificado** | Causa seleccionada de una lista cerrada; el texto libre nunca lo sustituye | CD-36 |
 | **Bitácora de auditoría** | Registro inmutable de toda acción relevante del sistema (distinto del kardex) | CD-47 |
 | **Novedad** | Reporte de una anomalía física observada por un operario; nunca se elimina, se cierra | CD-48 |
+| **Pieza** | Unidad física individual de mercancía dentro de un lote (rollo, paquete o bolsa, contenedor agrupado), con cantidad propia registrada en la recepción; el QR no la identifica | CD-49 |
 
 | Sigla | Significado | Sigla | Significado |
 |---|---|---|---|
@@ -161,7 +162,7 @@ Los 48 conceptos de dominio están definidos operativamente en el **Capítulo 4 
 |---|---|---|
 | 1 | `MONOGRAFÍA  COLBASOFT.docx` — Argüello, J. E.; Osorio, B. A.; Guerrero, B. J. (27 nov. 2025). *Automatización del proceso logístico en la gestión de inventarios para PYMES del sector textil del Eje Cafetero.* CIAF | Fuente de verdad (inmutable) |
 | 2 | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (1 sep. 2026) | Vacíos, riesgos académicos, roadmap, preguntas al Director |
-| 3 | `COLBASOFT_SPEC_v1.1.md` (5 sep. 2026; v1.1 del 29 sep. 2026) | Fuente principal del SRS |
+| 3 | `COLBASOFT_SPEC_v1.2.md` (5 sep. 2026; v1.1 del 29 sep. 2026; v1.2 del 30 sep. 2026) | Fuente principal del SRS |
 | 4 | ISO/IEC/IEEE 29148 — *Systems and software engineering — Life cycle processes — Requirements engineering* | Estructura de referencia, adaptada |
 
 **Correspondencia con la estructura de la norma (adaptada):**

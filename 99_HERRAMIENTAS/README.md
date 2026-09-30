@@ -9,17 +9,18 @@ Requisito: Python 3.10 o superior, sin librerías externas. En Windows, ejecutar
 | Carpeta / archivo | Contenido |
 |---|---|
 | `spec/build_spec_v11.py` | Genera `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.1.md` aplicando a la v1.0 (que no se toca) los reemplazos del cierre del CP-04; cada reemplazo debe aparecer una sola vez o el script falla |
-| `srs/parse_spec.py` | Lee `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.1.md` y extrae a `spec.json` las 103 HU, 162 RF, 47 RNF, reglas, 24 KPI, 14 PN, 48 CD y 42 RG |
+| `spec/build_spec_v12.py` | Genera `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.2.md` aplicando a la v1.1 (que no se toca) los reemplazos e inserciones de las decisiones del 30-sep-2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09, Q-10): 7 HU, 9 RF, 6 reglas y 1 concepto nuevos |
+| `srs/parse_spec.py` | Lee `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.2.md` y extrae a `spec.json` las 110 HU, 171 RF, 47 RNF, reglas, 24 KPI, 14 PN, 49 CD y 42 RG |
 | `srs/spec.json` | Extracción estructurada del SPEC (salida de `parse_spec.py`) |
 | `srs/ids.py` | Asignación de IDs permanentes del SRS (`HU-<DOM>-nnn`, `RF-<DOM>-nnn`, `RNF-<CAT>-nnn`, `RN-<DOM>-nnn`) y equivalencias con los IDs del SPEC |
 | `srs/trace.py` | Mapeos derivados en el SRS: HU↔RF, RF↔RN, KPI↔RF, RF↔concepto, objetivo por módulo, horizonte H1/H2, dependencias entre historias |
-| `srs/g01.txt`…`g04.txt` | Escenarios Gherkin de las 103 historias (un escenario por criterio de aceptación del SPEC) |
+| `srs/g01.txt`…`g05.txt` | Escenarios Gherkin de las 110 historias (un escenario por criterio de aceptación del SPEC; `g05.txt` trae las de la v1.2) |
 | `srs/cap*.md`, `uc_*.md`, `annex_c.md` | Capítulos del SRS redactados a mano, con marcadores `@HU030`, `@RF052`, `@RN009`… que el generador convierte a IDs permanentes |
-| `srs/build_srs.py` | Ensambla `SRS_COLBASOFT_v1.1.md` y genera los capítulos 5–9 y los anexos A y B |
+| `srs/build_srs.py` | Ensambla `SRS_COLBASOFT_v1.2.md` y genera los capítulos 5–9 y los anexos A y B |
 | `dominio/export_ids.py` | Genera `srs_ids.json` (catálogo de IDs del SRS) a partir de `../srs` |
 | `dominio/dm_data.py` | Subdominios, entidades, objetos de valor, agregados, invariantes, ciclos de vida, máquinas de estado y hallazgos del dominio |
-| `dominio/ev_data.py` | Los 165 eventos y las líneas temporales de los 14 procesos |
-| `dominio/gl_data.py` | Los 205 términos del glosario (fuente única también del lenguaje ubicuo). Los agregados después de la v1.0 llevan `v11=True` y continúan la numeración GL-nnn sin renumerar los anteriores |
+| `dominio/ev_data.py` | Los 168 eventos y las líneas temporales de los 14 procesos |
+| `dominio/gl_data.py` | Los 210 términos del glosario (fuente única también del lenguaje ubicuo). Los agregados después de la v1.0 llevan `v11=True` o `v12=True` y continúan la numeración GL-nnn sin renumerar los anteriores |
 | `dominio/build_f4.py` | Genera `DOMAIN_MODEL.md`, `EVENT_CATALOG.md` y `GLOSSARY.md` |
 | `dominio/xref.py` | Verificador: referencias rotas en SRS v1.1, dominio, CLAUDE.md y `04_CP04_AUDITORIA/`; IDs del SPEC sin emparejar; tablas descuadradas |
 
@@ -30,6 +31,7 @@ Cada generador acepta una carpeta de salida opcional. **Sin ese argumento sobres
 ```bash
 cd 99_HERRAMIENTAS/spec
 python build_spec_v11.py /tmp/prueba   # o sin argumento: 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.1.md
+python build_spec_v12.py /tmp/prueba   # lee la v1.1; sin argumento: 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.2.md
 ```
 
 ```bash
@@ -52,6 +54,8 @@ python xref.py                     # verificar siempre al final
 El 28 de septiembre de 2026 la cadena completa (extracción del SPEC → SRS → modelo de dominio) regeneró **byte a byte** los documentos v1.0, y `xref.py` terminó sin errores.
 
 El 29 de septiembre de 2026, tras el cierre del CP-04, la cadena SPEC v1.1 → SRS v1.1 → modelo de dominio v1.1 se generó dos veces y dio archivos idénticos entre sí y con los oficiales; `xref.py` terminó sin errores (`04_CP04_AUDITORIA/04_CP04_CIERRE.md`, §15).
+
+El 30 de septiembre de 2026 la cadena SPEC v1.2 → SRS v1.2 → modelo de dominio v1.2 se generó dos veces (carpeta temporal) con archivos idénticos entre sí y `xref.py` terminó sin errores. Esa verificación es de un borrador: la v1.2 aún no está aprobada.
 
 ## Reglas al modificar
 

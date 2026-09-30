@@ -8,11 +8,11 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | GLOSSARY |
-| **Versión** | 1.1 |
+| **Versión** | 1.2 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) |
-| **Estado** | **Validado técnicamente** (cierre del CP-04, 29-sep-2026). **Aprobación funcional y académica pendiente**: HD-25 y DEC-01…DEC-09 sin responder (`04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`) |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.1 → SRS_COLBASOFT v1.1 → **Modelo de Dominio v1.1** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2) |
+| **Estado** | **Borrador v1.2** (30-sep-2026): incorpora la trazabilidad por pieza y resuelve HD-25. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: DEC-02…DEC-09 sin responder y acta de DEC-08 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.2 → SRS_COLBASOFT v1.2 → **Modelo de Dominio v1.2** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `DOMAIN_MODEL.md` · `EVENT_CATALOG.md` |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -22,22 +22,24 @@
 
 > **Versión 1.1.** Incorpora las decisiones del cierre del CP-04 (DF5-01, DF5-02, DF5-03, DF5-05 y DF5-06), registradas en `04_CP04_AUDITORIA/04_CP04_CIERRE.md`. El detalle de los cambios está en DOMAIN_MODEL §0.8. La v1.0 se conserva en el historial del repositorio (commit `79f823c`).
 
+> **Versión 1.2.** Incorpora las decisiones del Director del 30 de septiembre de 2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09 y Q-10), que agregan la **Pieza** al modelo y resuelven HD-25. El detalle está en DOMAIN_MODEL §0.9.
+
 
 > **Reconstrucción de contexto.** Ver DOMAIN_MODEL, Cap. 0 (ESTADO: CONTEXTO RECONSTRUIDO).
 
 # CAPÍTULO 1 — USO DEL GLOSARIO
 
 1. **Única definición permitida.** Este glosario es la única fuente de definiciones de COLBASOFT. Ningún documento posterior (arquitectura, modelo de datos, interfaz, pruebas, manuales) puede redefinir un término: lo cita.
-2. **Mismo texto que el lenguaje ubicuo.** Los 54 términos centrales tienen en DOMAIN_MODEL Cap. 1 exactamente la misma definición.
+2. **Mismo texto que el lenguaje ubicuo.** Los 55 términos centrales tienen en DOMAIN_MODEL Cap. 1 exactamente la misma definición.
 3. **Sinónimos prohibidos.** No se usan ni como aclaración. El índice inverso (Cap. 3) remite de cada término prohibido al oficial.
 4. **Definición prohibida.** Es la interpretación errónea que el término **no** debe recibir.
 5. **Cambios.** Un término se agrega o se reformula solo con aprobación del Director; su ID `GL-nnn` no se reutiliza.
 
 **Campos de cada entrada:** definición oficial · definición prohibida · sinónimos prohibidos · contexto (subdominio o ámbito) · documento de origen · relaciones.
 
-**Distribución por contexto:** Movimientos 30 · Conteos y exactitud 19 · Trazabilidad 17 · Modelado 16 · Alertas y reglas 15 · Ubicaciones 15 · Transversal 12 · Proyecto 12 · Inventario y existencia 11 · Usuarios y acceso 10 · Catálogo textil 10 · Reportes y medición 8 · Identificación 7 · Auditoría 6 · Configuración 5 · Tareas y notificaciones 5 · Novedades 4 · Operación diaria 3
+**Distribución por contexto:** Movimientos 30 · Conteos y exactitud 19 · Trazabilidad 17 · Modelado 16 · Alertas y reglas 15 · Ubicaciones 15 · Inventario y existencia 15 · Transversal 12 · Proyecto 12 · Usuarios y acceso 10 · Catálogo textil 10 · Reportes y medición 8 · Identificación 7 · Auditoría 6 · Configuración 5 · Tareas y notificaciones 5 · Novedades 4 · Operación diaria 3 · Salidas 1
 
-**Total de términos: 205.**
+**Total de términos: 210.**
 
 
 ---
@@ -516,6 +518,17 @@
 | **Documento origen** | SPEC · RN-040 (SRS RN-CNT-002) |
 | **Relaciones** | Tarea de conteo (GL-176); Segundo conteo (GL-159) |
 
+### GL-209 · Contenedor agrupado
+
+| Campo | Contenido |
+|---|---|
+| **Definición oficial** | Contenedor rotulado que agrupa mercancía sin rotulado individual y se registra como una sola pieza con su cantidad de unidades; pertenece a un solo SKU + Lote (la mezcla de lotes está pendiente, HD-28). |
+| **Definición prohibida** | No es una entidad aparte del modelo: es un tipo de pieza. |
+| **Sinónimos prohibidos** | — |
+| **Contexto** | Inventario y existencia |
+| **Documento origen** | Decisión F-6 · SPEC PN-02 E-03 · SPEC v1.2 · CD-49 |
+| **Relaciones** | Pieza (GL-206); Paquete o bolsa (GL-208); Identificador QR (GL-088) |
+
 ### GL-042 · Conteo ★
 
 | Campo | Contenido |
@@ -592,6 +605,17 @@
 | **Contexto** | Usuarios y acceso |
 | **Documento origen** | SPEC · ROL-03 |
 | **Relaciones** | Rol (GL-155); Zona (GL-199) |
+
+### GL-210 · Corte parcial
+
+| Campo | Contenido |
+|---|---|
+| **Definición oficial** | Salida de una parte de una pieza —por ejemplo, metros cortados de un rollo—: descuenta la cantidad cortada y deja la pieza con su remanente y su identidad. Cumple las reglas de toda salida. |
+| **Definición prohibida** | No es un movimiento interno ni una división de la pieza en dos (HD-29). |
+| **Sinónimos prohibidos** | — |
+| **Contexto** | Salidas |
+| **Documento origen** | Decisión F-3 · RN-SAL-008 · SPEC v1.2 |
+| **Relaciones** | Pieza (GL-206); Rollo (GL-207); Salida (GL-157); Movimiento (GL-112) |
 
 ### GL-049 · Criterio de asignación
 
@@ -1457,6 +1481,17 @@
 | **Documento origen** | SPEC · HU-092 (SRS HU-DSH-002) |
 | **Relaciones** | Tarea operativa (GL-177); Auxiliar de Bodega (GL-021) |
 
+### GL-208 · Paquete o bolsa
+
+| Campo | Contenido |
+|---|---|
+| **Definición oficial** | Tipo de pieza propio de las referencias que se cuentan en unidades; tiene cantidad propia de unidades. |
+| **Definición prohibida** | No es un contenedor agrupado ni una unidad de inventario. |
+| **Sinónimos prohibidos** | — |
+| **Contexto** | Inventario y existencia |
+| **Documento origen** | Decisión F-1 · SPEC v1.2 · CD-49 |
+| **Relaciones** | Pieza (GL-206); Contenedor agrupado (GL-209); Unidad de medida (GL-195) |
+
 ### GL-124 · Parámetro de configuración
 
 | Campo | Contenido |
@@ -1478,6 +1513,17 @@
 | **Contexto** | Trazabilidad |
 | **Documento origen** | SPEC · RN-054 (SRS RN-INT-003) |
 | **Relaciones** | Movimiento (GL-112); Sincronización (GL-163) |
+
+### GL-206 · Pieza ★
+
+| Campo | Contenido |
+|---|---|
+| **Definición oficial** | Unidad física individual de mercancía dentro de un lote —rollo, paquete o bolsa, o contenedor agrupado— con cantidad propia registrada en la recepción e identidad interna en el sistema. Pertenece a un solo SKU + Lote y a una sola ubicación; el QR no la identifica: el operario la selecciona tras el escaneo. |
+| **Definición prohibida** | No es la unidad de inventario (que es SKU + Lote + Ubicación y agrupa piezas) ni tiene un QR propio. |
+| **Sinónimos prohibidos** | — |
+| **Contexto** | Inventario y existencia |
+| **Documento origen** | Decisiones Q-11, F-1, F-2, F-4, F-6 · SPEC v1.2 · CD-49 |
+| **Relaciones** | Unidad de inventario (GL-193); Lote (GL-107); Rollo (GL-207); Paquete o bolsa (GL-208); Contenedor agrupado (GL-209); Corte parcial (GL-210) |
 
 ### GL-126 · Plazo
 
@@ -1750,8 +1796,8 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Emisión de un identificador nuevo para reemplazar uno deteriorado o ilegible, con motivo; el nuevo hereda la trazabilidad y el anterior queda reemplazado. ⚠️ Su efecto sobre las demás copias impresas de un mismo QR de mercancía está pendiente (HD-25). |
-| **Definición prohibida** | No reutiliza el código anterior. |
+| **Definición oficial** | Impresión de otra copia del mismo QR por deterioro o ilegibilidad, con motivo. Conserva el mismo identificador: no crea una nueva identidad ni cambia su estado, por lo que las demás copias del QR siguen válidas. |
+| **Definición prohibida** | No emite un código nuevo ni deja reemplazado el anterior (Q-09). |
 | **Sinónimos prohibidos** | reetiquetado |
 | **Contexto** | Identificación |
 | **Documento origen** | SPEC · RN-018 (SRS RN-IDE-004) |
@@ -1833,6 +1879,17 @@
 | **Contexto** | Usuarios y acceso |
 | **Documento origen** | SPEC · DC-04 |
 | **Relaciones** | Usuario (GL-196); Segregación de funciones (GL-158) |
+
+### GL-207 · Rollo
+
+| Campo | Contenido |
+|---|---|
+| **Definición oficial** | Tipo de pieza propio de las referencias que se cuentan en metros o kilogramos; tiene cantidad propia y admite cortes parciales. |
+| **Definición prohibida** | No es un lote ni una referencia. |
+| **Sinónimos prohibidos** | — |
+| **Contexto** | Inventario y existencia |
+| **Documento origen** | Decisiones F-1, F-3 · SPEC v1.2 · CD-49 |
+| **Relaciones** | Pieza (GL-206); Corte parcial (GL-210); Unidad de medida (GL-195) |
 
 ### GL-156 · Ruptura de stock
 
@@ -2265,12 +2322,12 @@
 
 | Campo | Contenido |
 |---|---|
-| **Definición oficial** | Contenedor rotulado que agrupa mercancía sin rotulado individual. Fuera del MVP: su gestión está en el Horizonte 3 del backlog (HD-22). |
-| **Definición prohibida** | No es una entidad del modelo del MVP. |
+| **Definición oficial** | Término de la v1.0 para el contenedor rotulado que agrupa mercancía sin rotulado individual. Desde la v1.2 se modela como una pieza de tipo contenedor agrupado (HD-22 resuelto, F-6); su gestión avanzada sigue en el Horizonte 3. |
+| **Definición prohibida** | No es una entidad aparte del modelo del MVP. |
 | **Sinónimos prohibidos** | — |
 | **Contexto** | Identificación |
-| **Documento origen** | SPEC · PN-02 E-03 |
-| **Relaciones** | Identificador QR (GL-088) |
+| **Documento origen** | SPEC · PN-02 E-03 · Decisión F-6 (v1.2) |
+| **Relaciones** | Identificador QR (GL-088); Pieza (GL-206); Contenedor agrupado (GL-209) |
 
 ### GL-195 · Unidad de medida ★
 
@@ -2386,10 +2443,10 @@
 
 | | |
 |---|---|
-| **Completado** | 205 términos con los cinco campos exigidos más sinónimos prohibidos |
+| **Completado** | 210 términos con los cinco campos exigidos más sinónimos prohibidos |
 | **Riesgos** | — |
 | **Dependencias** | DOMAIN_MODEL · EVENT_CATALOG |
-| **Hallazgos** | HD-01, HD-14, HD-22 |
+| **Hallazgos** | HD-01, HD-14, HD-22 (resuelto, v1.2), HD-28 |
 
 
 ---
@@ -2552,14 +2609,14 @@
 | Elemento | Total | Mínimo exigido | Cumple |
 |---|:--:|:--:|:--:|
 | Subdominios | 15 (Core 5 · Supporting 7 · Generic 3) | 9 | ✅ |
-| **Entidades** | **26** | 13 | ✅ |
-| **Objetos de valor** | **42** | — (7 ejemplos) | ✅ |
-| **Agregados** | **21** | — | ✅ |
-| **Invariantes** | **72** (+ 14 políticas reactivas) | 40 | ✅ |
-| **Estados oficiales** | **76** en 21 máquinas (117 transiciones) | — | ✅ |
-| **Eventos** | **165** (61 derivados) | 70 | ✅ |
-| **Términos del glosario** | **205** (54 centrales; 130 sinónimos prohibidos indexados) | 120 | ✅ |
-| Hallazgos del dominio | 27 | — | — |
+| **Entidades** | **27** | 13 | ✅ |
+| **Objetos de valor** | **43** | — (7 ejemplos) | ✅ |
+| **Agregados** | **22** | — | ✅ |
+| **Invariantes** | **78** (+ 14 políticas reactivas) | 40 | ✅ |
+| **Estados oficiales** | **76** en 21 máquinas (118 transiciones) | — | ✅ |
+| **Eventos** | **168** (61 derivados) | 70 | ✅ |
+| **Términos del glosario** | **210** (55 centrales; 130 sinónimos prohibidos indexados) | 120 | ✅ |
+| Hallazgos del dominio | 30 | — | — |
 | Líneas temporales | 14 procesos | 14 | ✅ |
 | Matrices | A, B, C (DOMAIN_MODEL Cap. 9) · D, E (EVENT_CATALOG Cap. 6) | 5 | ✅ |
 
@@ -2571,11 +2628,11 @@
 | V-2 | Toda entidad citada por un evento, relación o agregado existe | ✅ |
 | V-3 | Todo evento citado en estados y líneas temporales existe | ✅ |
 | V-4 | Toda invariante citada por un agregado existe | ✅ |
-| V-5 | Las 85 reglas del SRS (82 + 3 de la v1.1) quedan cubiertas como invariante o política | ✅ 71 + 14 = 85/85 |
+| V-5 | Las 91 reglas del SRS (82 + 3 de la v1.1 + 6 de la v1.2) quedan cubiertas como invariante o política | ✅ 77 + 14 = 91/91 |
 | V-6 | Los 24 KPI aparecen en al menos un evento | ✅ 24/24 |
-| V-7 | Historias con evento | 🟡 94/103 (el resto son de consulta) |
-| V-8 | RF con evento | 🟡 138/162 (el resto son de consulta, restricción o presentación) |
-| V-9 | Toda invariante cita al menos una regla del SRS | ✅ 72/72 |
+| V-7 | Historias con evento | 🟡 101/110 (el resto son de consulta) |
+| V-8 | RF con evento | 🟡 146/171 (el resto son de consulta, restricción o presentación) |
+| V-9 | Toda invariante cita al menos una regla del SRS | ✅ 78/78 |
 | V-10 | Las definiciones del lenguaje ubicuo y del glosario son idénticas | ✅ (misma fuente) |
 | V-11 | Ninguna relación del glosario apunta a un término inexistente | ✅ |
 | V-12 | Ningún término nombra a la empresa de estudio (DC-01) ni introduce IA (DC-07) | ✅ |
@@ -2599,9 +2656,11 @@
 | **RF5-11** | Carga del Administrador por ajustes derivados de conteo | HD-08 · RG-18 | 🟡 | Cuello de botella de aprobaciones |
 | **RF5-12** | Eventos sin requisito que los implemente | EVENT_CATALOG Cap. 6 | 🟠 | Comportamientos del dominio sin criterio de aceptación |
 | **RF5-13** | Crecimiento ilimitado de kardex, bitácora e historiales (sin purga) | RNF-AUD-004 · RNF-ESC-004 | 🟡 | Volumen a tres años sin estimación |
-| **RF5-14** | Qué identifica físicamente cada etiqueta de mercancía: copias de un QR de lote, etiqueta física única o paquete (HD-25) | HD-25 · RN-IDE-004 · RN-SAL-004 | 🔴 | Sin decidirlo no se sabe si un escaneo equivale a una cantidad, cómo se reimprime sin invalidar otras etiquetas ni si cambia la identidad de la mercancía |
+| **RF5-14** | Qué identifica físicamente cada etiqueta de mercancía (HD-25): resuelto en la v1.2 (la pieza tiene identidad interna; el QR sigue siendo SKU + Lote; la reimpresión conserva el QR). Queda cómo se distingue físicamente una pieza de otra del mismo lote (HD-28) | HD-25 · HD-28 · RN-IDE-004 · RN-MOV-011 | 🟡 | Sin distinguir físicamente las piezas del mismo lote la selección en pantalla depende por completo del operario |
+| **RF5-15** | Coherencia entre la suma de las cantidades de las piezas y la existencia de la unidad de inventario (AG-22 ↔ AG-05): una operación sobre una pieza afecta a dos agregados | IN-74 · RN-LOT-007 · RN-MOV-011 | 🟠 | Existencia de la unidad de inventario distinta de la suma de sus piezas |
+| **RF5-16** | Reserva y selección de piezas: la autorización reserva cantidad sobre la unidad de inventario (RN-EXI-003), pero las piezas se seleccionan recién al tomarlas (RN-SAL-009); dos preparaciones pueden apuntar a la misma pieza | RN-SAL-009 · RN-EXI-003 · RN-EXI-004 | 🟠 | Doble compromiso de una misma pieza en preparaciones distintas |
 
-**Estado frente a la Fase 5 (v1.1).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05). **HD-25** (qué identifica físicamente cada etiqueta) requiere una decisión antes de la Fase 5. HD-17, HD-26 y HD-27 requieren información de la operación real y DEC-01…DEC-09 siguen abiertas, sin bloquear la arquitectura (ver `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
+**Estado frente a la Fase 5 (v1.2).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-28, HD-29 y HD-30** quedan pendientes, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real y DEC-01…DEC-09 siguen abiertas, sin bloquear la arquitectura (ver `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
 
 ---
 
@@ -2610,11 +2669,11 @@
 | | |
 |---|---|
 | **Completado** | DOMAIN_MODEL (11 capítulos), EVENT_CATALOG (6 capítulos), GLOSSARY (3 capítulos + auditoría interna) |
-| **Riesgos** | 14 riesgos para la Fase 5 (3 críticos abiertos; RF5-01 resuelto) · R-S01 heredado |
+| **Riesgos** | 16 riesgos para la Fase 5 (2 críticos abiertos; RF5-01 resuelto) · R-S01 heredado |
 | **Dependencias** | Decisiones del Director DEC-01…DEC-09 y hallazgos pendientes (DOMAIN_MODEL Cap. 10) |
-| **Hallazgos** | 27 hallazgos del dominio (DOMAIN_MODEL Cap. 10) |
+| **Hallazgos** | 30 hallazgos del dominio (DOMAIN_MODEL Cap. 10) |
 
 
 ---
 
-*Fin de GLOSSARY v1.1. La monografía original permanece sin modificaciones.*
+*Fin de GLOSSARY v1.2. La monografía original permanece sin modificaciones.*

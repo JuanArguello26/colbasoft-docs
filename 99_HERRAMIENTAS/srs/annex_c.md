@@ -9,7 +9,7 @@
 
 | ID | Decisión requerida | Hallazgos | Opciones | Recomendación del SRS | Efecto de no decidir |
 |---|---|---|---|---|---|
-| **DEC-01** | **Umbral de entrega aprobatorio.** ¿El MVP aprobatorio es el Núcleo (H1) o el Completo (H1+H2)? ¿Transferencias y conteo general entran al MVP? | H-08 · S-15 | (a) Núcleo: 84 HU / 143 RF; transferencias y conteo general pasan a v1.1. (b) Completo: 103 HU / 162 RF. (c) Núcleo + transferencias + conteo general | Mantener **alcance = Completo** (respeta DC-02 y el Prompt #003), con **entrega secuenciada H1 → H2** y **umbral mínimo aprobatorio = Núcleo** | El Cap. 12 conserva dos umbrales y no puede fijar el criterio de cierre |
+| **DEC-01** | **Umbral de entrega aprobatorio.** ¿El MVP aprobatorio es el Núcleo (H1) o el Completo (H1+H2)? ¿Transferencias y conteo general entran al MVP? | H-08 · S-15 | (a) Núcleo: 84 HU / 143 RF; transferencias y conteo general pasan a v1.1. (b) Completo: 103 HU / 162 RF. (c) Núcleo + transferencias + conteo general | Mantener **alcance = Completo** (respeta DC-02 y el Prompt #003), con **entrega secuenciada H1 → H2** y **umbral mínimo aprobatorio = Núcleo** | **RESUELTA el 30-sep-2026: opción (a) Núcleo, con 1 bodega piloto y la capa de trazabilidad por pieza (v1.2).** El Cap. 12 fija el Núcleo como umbral aprobatorio |
 | **DEC-02** | **Lista de alcance del MVP.** Confirmar que «usuarios» y «auditoría» son los módulos M-02 y M-18 y que el **dashboard operativo (M-17)** permanece en el MVP; y que la exclusión es **toda** IA (DC-07) y no solo la generativa | H-17 | (a) Mantener los 20 módulos y la redacción de DC-07. (b) Restringir el MVP a la lista del Prompt #003 (retira M-17: 3 HU, 4 RF) | (a) | Se mantiene el SPEC por defecto |
 | **DEC-03** | **Reglas de negocio: cifra y renumeración.** El SPEC declara 68; las tablas contienen 82 (60 estructurales + 22 configurables). Confirmar las 82, retirar los marcadores vacíos `RN-069*` y `RN-026b*` y adoptar como canónica la numeración `RN-<DOM>-nnn` | H-01 · H-09 · pendiente #11 | (a) Aceptar el SRS como renumeración canónica y emitir una fe de erratas del SPEC. (b) Mantener la numeración del SPEC | (a) | Persisten dos cifras en circulación (68 y 82) |
 | **DEC-04** | **Semántica «estructural» vs «configurable».** Confirmar que toda regla estructural es no configurable (no solo las 10 de §9.1); definir si el Jefe puede **leer** parámetros y **quién** responde y cierra las observaciones de auditoría (@RN064) | H-06 · Cap. 10 nota 4 | (a) Toda estructural no configurable; Jefe lee parámetros; el Administrador o el Jefe responden. (b) Otra | (a) | Riesgo de que se implementen como configurables reglas que protegen la integridad (R-S08) |
@@ -61,7 +61,7 @@ Además siguen abiertas las **preguntas heredadas** del §0.5 (A-03, A-04, A-05,
 |---|---|:--:|:--:|:--:|---|---|
 | **R-S01** | **El SRS se emite antes del AS-IS y de la línea base**; los requisitos no están contrastados con la operación real | Alta | Alto | 🔴 | Control de cambios sobre el baseline · taller de validación con la empresa de estudio · marcar como «sujeto a validación» todo requisito de proceso | H-16 |
 | **R-S02** | Los mapeos `[SRS]` (HU↔RF, RF↔KPI, RF↔concepto, módulo↔objetivo) no han sido validados por el Director | Media | Medio | 🟠 | Revisión del Director de los Caps. 5, 6 y 9 · el SPEC permanece como fuente si hay discrepancia | Esta fase |
-| **R-S03** | Alcance desproporcionado para nivel Tecnólogo: 103 HU · 162 RF · 47 RNF · 82 RN | Media | Alto | 🟠 | Umbral MVP-Núcleo (Cap. 12) · decisión DEC-01 | RG-38 |
+| **R-S03** | Alcance desproporcionado para nivel Ingeniería (corregido en la v1.2; decía «Tecnólogo»): 110 HU · 171 RF · 47 RNF · 91 RN (MVP-Completo) | Media | Alto | 🟠 | Umbral MVP-Núcleo (Cap. 12): 91 HU · 152 RF, DEC-01 = A | RG-38 |
 | **R-S04** | Tensión entre alcance constitucional (DC-02) y backlog (H2) | Alta | Medio | 🟠 | DEC-01 | H-08 |
 | **R-S05** | Reglas y KPI sin requisito de captura: se implementarían de forma incompleta | Media | Alto | 🟠 | DEC-05, DEC-06 | H-10, H-11, H-12 |
 | **R-S06** | Circulación de dos cifras de reglas (68 y 82) | Alta | Bajo | 🟡 | DEC-03 · fe de erratas | H-01 |
@@ -81,7 +81,7 @@ De los 42 riesgos funcionales del SPEC (RG-01…RG-42), **11 son críticos** y s
 
 ## C.4 Historial de hallazgos
 
-Los hallazgos H-01…H-18 se describen con su evidencia en el §0.5-b. Su estado:
+Los hallazgos H-01…H-20 se describen con su evidencia en el §0.5-b. Su estado:
 
 | Hallazgo | Estado | Resuelto por |
 |---|---|---|
@@ -89,12 +89,13 @@ Los hallazgos H-01…H-18 se describen con su evidencia en el §0.5-b. Su estado
 | H-02, H-03, H-04, H-05, H-14 | **Tratado en el SRS** (se usa el contenido de las tablas; sin impacto funcional) | — |
 | H-06 | Abierto | DEC-04 |
 | H-07 | Abierto | DEC-07 |
-| H-08 | Abierto | DEC-01 |
+| H-08 | **Resuelto en la v1.2** | DEC-01 = A |
 | H-10 | Abierto | DEC-05 |
 | H-11, H-12, H-13 | Abierto | DEC-06 |
 | H-15, H-16 | Abierto | DEC-08 |
 | H-17 | Abierto | DEC-02 |
 | H-18 | Abierto | DEC-09 |
+| H-19, H-20 | Abierto (nuevos en la v1.2) | Director: aceptar por escrito como limitación o acotar, junto con DEC-01 = A |
 
 ## C.9 Decisiones del cierre del CP-04 (versión 1.1)
 
@@ -108,13 +109,32 @@ Los hallazgos H-01…H-18 se describen con su evidencia en el §0.5-b. Su estado
 | **DF5-05** | Un registro retenido sin conectividad se **valida de nuevo** al sincronizar; si ya no es válido, se rechaza con constancia y, si describe un hecho físico, abre una novedad | Nueva @RN083 | — |
 | **DF5-06** (revisada) | SPEC, SRS y Modelo de Dominio v1.1 **validados técnicamente**; la aprobación funcional y académica queda pendiente | — | **DEC-01…DEC-09 siguen abiertas** y se analizan una por una en `04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md`. H-15 (DEC-08) sigue abierto |
 
+## C.10 Decisiones del Director del 30 de septiembre de 2026 (versión 1.2)
+
+> Tomadas al auditar DEC-01. **Sí responden una DEC-nn (DEC-01)** y resuelven HD-25 del modelo de dominio. Las DEC-02…DEC-09 siguen abiertas.
+
+| ID | Decisión | Efecto en este SRS |
+|---|---|---|
+| **DEC-01** | **A — Núcleo, con 1 bodega piloto** | Cap. 12: umbral aprobatorio = MVP-Núcleo (91 HU · 152 RF). Transferencias y conteo general (Horizonte 2) quedan fuera |
+| **Q-11** | La trazabilidad por **pieza o rollo está dentro del MVP** | HU-ENT-009, HU-KDX-006, RF-ENT-014, RF-ENT-015, RF-KDX-008, RF-INV-009, RN-LOT-006, RN-LOT-007 |
+| **F-1 · F-2** | Pieza = rollo (metros o kilogramos) o paquete/bolsa (unidades); la cantidad de cada pieza se registra al recibir | Ídem; CD-49 |
+| **F-3** | Se permiten cortes parciales de rollos | HU-SAL-009, RF-SAL-013, RN-SAL-008 |
+| **F-4** | El operario selecciona la pieza tras el escaneo; la ubicación filtra y verifica | HU-MOV-008, RF-MOV-012, RN-MOV-011 |
+| **F-5** | El conteo es manual, pieza por pieza | HU-CNT-010, RF-CNT-014, RN-CNT-009 |
+| **F-6** | Contenedores y bolsas agrupadas dentro del MVP | HU-ENT-010, RF-ENT-016 |
+| **Q-09** | La reimpresión conserva el mismo QR | RN-IDE-004, RF-QRC-006, HU-QRC-004 |
+| **Q-10** | El escaneo de salida verifica y cuenta | HU-SAL-008, RF-SAL-012, RN-SAL-009 |
+| Piloto · nivel | 1 bodega · Ingeniería | R-S03 corregido |
+
+**Decisiones que quedan pendientes** (no se inventan): **HD-28** (contenedor con mezcla de lotes; diferencia entre «paquete o bolsa» y «contenedor agrupado»; motivos por los que un identificador se reemplaza ahora que la reimpresión no lo reemplaza), **HD-29** (qué ocurre con el remanente de un corte parcial si se mueve a otra ubicación; movimiento parcial de una pieza) y **HD-30** (si toda referencia se controla por piezas).
+
 ---
 
 **ESTADO DEL ANEXO C**
 
 | | |
 |---|---|
-| **Completado** | 9 decisiones · 5 decisiones del cierre del CP-04 (C.9) · 6 + 6 + 3 propuestas de cierre de brechas · 10 riesgos de fase · riesgos críticos heredados |
-| **Pendiente** | Respuesta del Director a DEC-01…DEC-09 |
+| **Completado** | 9 decisiones · 5 decisiones del cierre del CP-04 (C.9) · decisiones del 30-sep-2026 (C.10) · 6 + 6 + 3 propuestas de cierre de brechas · 10 riesgos de fase · riesgos críticos heredados |
+| **Pendiente** | Respuesta del Director a DEC-02…DEC-09 · HD-28, HD-29 y HD-30 |
 | **Riesgos encontrados** | R-S01 (crítico) y los 9 restantes |
 | **Dependencias** | Cap. 12 depende de DEC-01 y DEC-05 |

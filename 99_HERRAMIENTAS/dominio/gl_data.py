@@ -3,9 +3,9 @@
 T(término, definición oficial, definición prohibida, sinónimos prohibidos, contexto, origen, relaciones, ejemplo, ul)"""
 
 TERMS = []
-def T(term, d, prohib, sin, ctx, origen, rel, ej="", ul=False, v11=False):
-    """v11=True: término agregado en la v1.1; recibe un GL-nnn a continuación de los de la v1.0, sin renumerar."""
-    TERMS.append(dict(term=term, d=d, prohib=prohib, sin=sin, ctx=ctx, origen=origen, rel=rel, ej=ej, ul=ul, v11=v11))
+def T(term, d, prohib, sin, ctx, origen, rel, ej="", ul=False, v11=False, v12=False):
+    """v11=True: término agregado en la v1.1; v12=True: agregado en la v1.2. Reciben un GL-nnn a continuación de los anteriores, sin renumerar."""
+    TERMS.append(dict(term=term, d=d, prohib=prohib, sin=sin, ctx=ctx, origen=origen, rel=rel, ej=ej, ul=ul, v11=v11, v12=v12))
 
 # ------------------------------------------------------------------ Catálogo e identidad
 T("Prenda", "Artículo textil terminado o insumo textil que la empresa almacena. Es el objeto físico del que hablan las personas; el sistema no lo controla directamente sino a través de su Referencia y de sus unidades de inventario.",
@@ -93,8 +93,8 @@ T("Identificador secundario", "Código de barras u otro código externo asociado
   "No reemplaza al QR como identificador principal.", "", "Identificación", "SPEC · CD-09 · DC-08", "Identificador QR", "Código de barras del proveedor", True)
 T("Escaneo", "Lectura de un identificador con la cámara de la tablet que resuelve el elemento identificado.", "No es un evento del dominio: leer no cambia estado.", "digitación", "Identificación", "SPEC · M-06", "Identificador QR; Selección manual")
 T("Selección manual", "Identificación de mercancía o ubicación eligiéndola de una lista cuando el escaneo es imposible; queda registrada como tal.", "No es equivalente a un escaneo para efectos de KPI-07.", "", "Identificación", "SPEC · PN-03 E-05", "Escaneo; KPI-07")
-T("Reimpresión", "Emisión de un identificador nuevo para reemplazar uno deteriorado o ilegible, con motivo; el nuevo hereda la trazabilidad y el anterior queda reemplazado. ⚠️ Su efecto sobre las demás copias impresas de un mismo QR de mercancía está pendiente (HD-25).", "No reutiliza el código anterior.", "reetiquetado", "Identificación", "SPEC · RN-018", "Identificador QR")
-T("Unidad de manejo agrupada", "Contenedor rotulado que agrupa mercancía sin rotulado individual. Fuera del MVP: su gestión está en el Horizonte 3 del backlog (HD-22).", "No es una entidad del modelo del MVP.", "", "Identificación", "SPEC · PN-02 E-03", "Identificador QR")
+T("Reimpresión", "Impresión de otra copia del mismo QR por deterioro o ilegibilidad, con motivo. Conserva el mismo identificador: no crea una nueva identidad ni cambia su estado, por lo que las demás copias del QR siguen válidas.", "No emite un código nuevo ni deja reemplazado el anterior (Q-09).", "reetiquetado", "Identificación", "SPEC · RN-018", "Identificador QR")
+T("Unidad de manejo agrupada", "Término de la v1.0 para el contenedor rotulado que agrupa mercancía sin rotulado individual. Desde la v1.2 se modela como una pieza de tipo contenedor agrupado (HD-22 resuelto, F-6); su gestión avanzada sigue en el Horizonte 3.", "No es una entidad aparte del modelo del MVP.", "", "Identificación", "SPEC · PN-02 E-03 · Decisión F-6 (v1.2)", "Identificador QR; Pieza; Contenedor agrupado")
 
 # ------------------------------------------------------------------ Movimientos
 T("Movimiento", "Hecho registrado que altera la existencia o la ubicación de una unidad de inventario. Unidad transaccional del sistema; inmutable una vez confirmado. Nada cambia en el inventario sin un movimiento.",
@@ -287,3 +287,15 @@ T("Primera ubicación", "Movimiento interno que lleva existencia en recepción d
   "No es un cambio de estado sin movimiento, ni una asignación que se registre fuera del kardex.", "asignación de ubicación (como hecho sin movimiento)", "Movimientos", "DF5-03 · RN-MOV-010 · SPEC PN-03", "Movimiento interno; Inventario en recepción; Zona de recepción", "20 metros de L-2026-0142 de la ubicación de recepción R1-01 a Z2-E03-N2", v11=True)
 T("Rechazado en sincronización", "Estado final de un registro retenido sin conectividad que, al validarse de nuevo en la sincronización, ya no cumplía las reglas: no se aplicó y conserva su motivo; si describía un hecho físico, abrió una novedad.",
   "No es un movimiento anulado (nunca se confirmó) ni un registro perdido.", "", "Trazabilidad", "DF5-05 · RN-INT-008", "Sincronización; Pendiente de sincronización; Novedad", "Traslado registrado sin conectividad cuya existencia se consumió antes de sincronizar", v11=True)
+
+# ------------------------------------------------------------------ v1.2: decisiones del 30-sep-2026 (IDs a continuación de GL-205)
+T("Pieza", "Unidad física individual de mercancía dentro de un lote —rollo, paquete o bolsa, o contenedor agrupado— con cantidad propia registrada en la recepción e identidad interna en el sistema. Pertenece a un solo SKU + Lote y a una sola ubicación; el QR no la identifica: el operario la selecciona tras el escaneo.",
+  "No es la unidad de inventario (que es SKU + Lote + Ubicación y agrupa piezas) ni tiene un QR propio.", "", "Inventario y existencia", "Decisiones Q-11, F-1, F-2, F-4, F-6 · SPEC v1.2 · CD-49", "Unidad de inventario; Lote; Rollo; Paquete o bolsa; Contenedor agrupado; Corte parcial", "Un rollo de 40 metros del lote L-2026-0142 en la ubicación A-03", True, v12=True)
+T("Rollo", "Tipo de pieza propio de las referencias que se cuentan en metros o kilogramos; tiene cantidad propia y admite cortes parciales.",
+  "No es un lote ni una referencia.", "", "Inventario y existencia", "Decisiones F-1, F-3 · SPEC v1.2 · CD-49", "Pieza; Corte parcial; Unidad de medida", "Rollo de tela de 40 m", v12=True)
+T("Paquete o bolsa", "Tipo de pieza propio de las referencias que se cuentan en unidades; tiene cantidad propia de unidades.",
+  "No es un contenedor agrupado ni una unidad de inventario.", "", "Inventario y existencia", "Decisión F-1 · SPEC v1.2 · CD-49", "Pieza; Contenedor agrupado; Unidad de medida", "Bolsa de 20 camisetas", v12=True)
+T("Contenedor agrupado", "Contenedor rotulado que agrupa mercancía sin rotulado individual y se registra como una sola pieza con su cantidad de unidades; pertenece a un solo SKU + Lote (la mezcla de lotes está pendiente, HD-28).",
+  "No es una entidad aparte del modelo: es un tipo de pieza.", "", "Inventario y existencia", "Decisión F-6 · SPEC PN-02 E-03 · SPEC v1.2 · CD-49", "Pieza; Paquete o bolsa; Identificador QR", "Caja con prendas sin etiqueta individual", v12=True)
+T("Corte parcial", "Salida de una parte de una pieza —por ejemplo, metros cortados de un rollo—: descuenta la cantidad cortada y deja la pieza con su remanente y su identidad. Cumple las reglas de toda salida.",
+  "No es un movimiento interno ni una división de la pieza en dos (HD-29).", "", "Salidas", "Decisión F-3 · RN-SAL-008 · SPEC v1.2", "Pieza; Rollo; Salida; Movimiento", "Cortar 6 metros de un rollo de 40 m y dejarlo con 34", v12=True)

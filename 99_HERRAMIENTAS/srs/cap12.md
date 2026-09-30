@@ -13,24 +13,24 @@ Por tanto, el MVP **está terminado** cuando se cumplen simultáneamente los cri
 
 ## 12.2 Niveles de entrega y decisión DEC-01
 
-El SPEC ubica 19 HU y 19 RF en el Horizonte 2 (v1.1) y, a la vez, mantiene en el alcance MVP (DC-02) las transferencias y los conteos (H-08). Hasta que el Director defina el «entregable mínimo aprobatorio» (S-15, DEC-01), este SRS define **dos umbrales** de aceptación:
+El SPEC ubica 19 HU y 19 RF en el Horizonte 2 (v1.1) y, a la vez, mantiene en el alcance MVP (DC-02) las transferencias y los conteos (H-08). **El 30 de septiembre de 2026 el Director resolvió DEC-01 = A**: el «entregable mínimo aprobatorio» (S-15) es el **MVP-Núcleo**, con 1 bodega piloto. Este SRS conserva **dos umbrales** de aceptación, pero solo el primero es aprobatorio:
 
 | Umbral | Contenido | HU | RF |
 |---|---|:--:|:--:|
-| **MVP-Núcleo (H1)** | Todo lo que el backlog del SPEC declara Horizonte 1 | **84** | **143** |
-| **MVP-Completo (H1 + H2)** | Todo el alcance DC-02, incluidos los 19 HU / 19 RF del Horizonte 2 (transferencias, conteo general, inmovilización de lotes, escalamientos, carga masiva, existencia histórica, reportes programados, exportación analítica, dashboard del Coordinador, código de barras secundario, criterios de asignación, lotes por antigüedad, reasignación de tareas, alerta de ajustes recurrentes) | **103** | **162** |
+| **MVP-Núcleo (H1) — umbral aprobatorio `[DEC-01]`** | Todo lo que el backlog del SPEC declara Horizonte 1, incluida la trazabilidad por pieza (elemento 40, v1.2): 84 HU y 143 RF de la v1.1 más 7 HU y 9 RF de la v1.2 | **91** | **152** |
+| **MVP-Completo (H1 + H2)** | Todo el alcance DC-02, incluidos los 19 HU / 19 RF del Horizonte 2 (transferencias, conteo general, inmovilización de lotes, escalamientos, carga masiva, existencia histórica, reportes programados, exportación analítica, dashboard del Coordinador, código de barras secundario, criterios de asignación, lotes por antigüedad, reasignación de tareas, alerta de ajustes recurrentes) | **110** | **171** |
 
-**Regla de aceptación mínima:** el MVP no puede aceptarse con menos que el **MVP-Núcleo**. La decisión DEC-01 determina si el umbral aprobatorio es el Núcleo o el Completo.
+**Regla de aceptación:** el MVP se acepta con el **MVP-Núcleo** `[DEC-01]`. Lo que el MVP-Completo añade (Horizonte 2: transferencias, conteo general y demás) **no es criterio de aprobación**; queda como entrega posterior.
 
 Distribución de las HU y RF por prioridad y horizonte `[SRS]`:
 
 | MoSCoW | HU total | de ellas H1 | de ellas H2 | RF total | de ellos H1 | de ellos H2 |
 |---|:--:|:--:|:--:|:--:|:--:|:--:|
-| **Must** (P0) | 34 | 32 | 2 | 74 | 73 | 1 |
-| **Should** (P1) | 54 | 44 | 10 | 70 | 57 | 13 |
+| **Must** (P0) | 40 | 38 | 2 | 82 | 81 | 1 |
+| **Should** (P1) | 55 | 45 | 10 | 71 | 58 | 13 |
 | **Could** (P2) | 15 | 8 | 7 | 18 | 13 | 5 |
 | **Won't** (P3) | 0 | 0 | 0 | 0 | 0 | 0 |
-| **Total** | **103** | **84** | **19** | **162** | **143** | **19** |
+| **Total** | **110** | **91** | **19** | **171** | **152** | **19** |
 
 ## 12.3 Criterios de aceptación por dimensión
 
@@ -38,7 +38,7 @@ Distribución de las HU y RF por prioridad y horizonte `[SRS]`:
 
 | ID | Criterio | Evidencia de verificación |
 |---|---|---|
-| **CA-01** | **Todas las HU *Must* del umbral elegido están aceptadas:** todos sus escenarios Gherkin se ejecutan y pasan | Informe de ejecución de escenarios por HU (462 escenarios en total; los del umbral elegido son obligatorios) |
+| **CA-01** | **Todas las HU *Must* del umbral elegido están aceptadas:** todos sus escenarios Gherkin se ejecutan y pasan | Informe de ejecución de escenarios por HU (498 escenarios en total; los del umbral elegido son obligatorios) |
 | **CA-02** | **Todos los RF *Must* del umbral elegido están verificados** por prueba o inspección | Matriz RF → prueba (Cap. 9 §9.4) |
 | **CA-03** | **Las HU y RF *Should* del umbral elegido están aceptadas**, o su exclusión fue aprobada por escrito por el Director con su riesgo | Acta de decisión |
 | **CA-04** | Los 24 casos de uso del Cap. 4 pueden recorrerse de extremo a extremo con datos de la empresa piloto (CU-19 solo si DEC-05 lo incorpora) | Registro de recorrido por caso de uso |

@@ -39,6 +39,7 @@
 "HU-CNT-007",
 "HU-CNT-008",
 "HU-CNT-009",
+"HU-CNT-010",
 "HU-DSH-001",
 "HU-DSH-002",
 "HU-DSH-003",
@@ -50,6 +51,8 @@
 "HU-ENT-006",
 "HU-ENT-007",
 "HU-ENT-008",
+"HU-ENT-009",
+"HU-ENT-010",
 "HU-INV-001",
 "HU-INV-002",
 "HU-INV-003",
@@ -61,6 +64,7 @@
 "HU-KDX-003",
 "HU-KDX-004",
 "HU-KDX-005",
+"HU-KDX-006",
 "HU-LOT-001",
 "HU-LOT-002",
 "HU-LOT-003",
@@ -72,6 +76,7 @@
 "HU-MOV-005",
 "HU-MOV-006",
 "HU-MOV-007",
+"HU-MOV-008",
 "HU-NOV-001",
 "HU-NOV-002",
 "HU-NOV-003",
@@ -95,6 +100,8 @@
 "HU-SAL-005",
 "HU-SAL-006",
 "HU-SAL-007",
+"HU-SAL-008",
+"HU-SAL-009",
 "HU-TAR-001",
 "HU-TAR-002",
 "HU-TAR-003",
@@ -167,6 +174,7 @@
 "RF-CNT-011",
 "RF-CNT-012",
 "RF-CNT-013",
+"RF-CNT-014",
 "RF-DSH-001",
 "RF-DSH-002",
 "RF-DSH-003",
@@ -184,6 +192,9 @@
 "RF-ENT-011",
 "RF-ENT-012",
 "RF-ENT-013",
+"RF-ENT-014",
+"RF-ENT-015",
+"RF-ENT-016",
 "RF-INV-001",
 "RF-INV-002",
 "RF-INV-003",
@@ -192,6 +203,7 @@
 "RF-INV-006",
 "RF-INV-007",
 "RF-INV-008",
+"RF-INV-009",
 "RF-KDX-001",
 "RF-KDX-002",
 "RF-KDX-003",
@@ -199,6 +211,7 @@
 "RF-KDX-005",
 "RF-KDX-006",
 "RF-KDX-007",
+"RF-KDX-008",
 "RF-LOT-001",
 "RF-LOT-002",
 "RF-LOT-003",
@@ -216,6 +229,7 @@
 "RF-MOV-009",
 "RF-MOV-010",
 "RF-MOV-011",
+"RF-MOV-012",
 "RF-NOV-001",
 "RF-NOV-002",
 "RF-NOV-003",
@@ -254,6 +268,8 @@
 "RF-SAL-009",
 "RF-SAL-010",
 "RF-SAL-011",
+"RF-SAL-012",
+"RF-SAL-013",
 "RF-TAR-001",
 "RF-TAR-002",
 "RF-TAR-003",
@@ -343,6 +359,7 @@
 "RN-CNT-006",
 "RN-CNT-007",
 "RN-CNT-008",
+"RN-CNT-009",
 "RN-ENT-001",
 "RN-ENT-002",
 "RN-ENT-003",
@@ -374,6 +391,8 @@
 "RN-LOT-003",
 "RN-LOT-004",
 "RN-LOT-005",
+"RN-LOT-006",
+"RN-LOT-007",
 "RN-MAE-001",
 "RN-MAE-002",
 "RN-MAE-003",
@@ -393,6 +412,7 @@
 "RN-MOV-008",
 "RN-MOV-009",
 "RN-MOV-010",
+"RN-MOV-011",
 "RN-NOV-001",
 "RN-NOV-002",
 "RN-NOV-003",
@@ -402,7 +422,9 @@
 "RN-SAL-004",
 "RN-SAL-005",
 "RN-SAL-006",
-"RN-SAL-007"
+"RN-SAL-007",
+"RN-SAL-008",
+"RN-SAL-009"
 ],
 "RN_TXT": {
 "RN-INT-001": {
@@ -543,7 +565,7 @@
 "RN-IDE-004": {
 "legacy": "RN-018",
 "tipo": "Estructural",
-"texto": "La reimpresión de un identificador exige motivo. **El identificador nuevo hereda íntegramente la trazabilidad del anterior**, que queda marcado como reemplazado y consultable en el historial."
+"texto": "La reimpresión de un identificador exige motivo. **La reimpresión conserva el mismo QR: produce otra copia del mismo identificador y no crea una nueva identidad**, por lo que el identificador no cambia de estado ni pierde su trazabilidad. La reimpresión queda consultable en el historial del SKU + Lote. Los motivos por los que un identificador se reemplaza o se anula son DECISIÓN PENDIENTE (HD-28)"
 },
 "RN-LOT-001": {
 "legacy": "RN-071",
@@ -569,6 +591,16 @@
 "legacy": "RN-074",
 "tipo": "Configurable",
 "texto": "Un lote que supera el umbral de antigüedad configurado se destaca en las consultas y genera alerta informativa al Jefe."
+},
+"RN-LOT-006": {
+"legacy": "RN-084",
+"tipo": "Estructural",
+"texto": "**Toda mercancía recibida se registra por piezas.** Cada pieza pertenece a un solo SKU + Lote, tiene un tipo —rollo, paquete o bolsa, o contenedor agrupado— y una **cantidad propia registrada en la recepción**. El QR no identifica la pieza: la pieza tiene identidad interna en el sistema y el QR sigue identificando SKU + Lote"
+},
+"RN-LOT-007": {
+"legacy": "RN-085",
+"tipo": "Estructural",
+"texto": "**La existencia de una unidad de inventario es la suma de las cantidades de sus piezas en esa ubicación.** La cantidad de una pieza solo cambia por un movimiento del kardex (entrada, salida, movimiento interno, ajuste); la cantidad recibida de una línea de entrada es la suma de las cantidades de sus piezas"
 },
 "RN-ENT-001": {
 "legacy": "RN-002b",
@@ -640,6 +672,16 @@
 "tipo": "Estructural",
 "texto": "El retorno de mercancía previamente despachada **se registra como una entrada nueva que referencia la salida original**. La salida original **nunca se reversa**: ambos movimientos permanecen en el kardex."
 },
+"RN-SAL-008": {
+"legacy": "RN-086",
+"tipo": "Estructural",
+"texto": "**Un corte parcial descuenta de la pieza solo la cantidad cortada** y deja la pieza con su remanente, con la misma identidad. La cantidad cortada no puede superar la cantidad de la pieza (RN-009). El corte es una salida y cumple las reglas de salida"
+},
+"RN-SAL-009": {
+"legacy": "RN-088",
+"tipo": "Estructural",
+"texto": "**En la preparación de una salida el escaneo verifica y cuenta.** Cada pieza tomada se cuenta una sola vez: seleccionar de nuevo la misma pieza no suma. La preparación no se confirma completa mientras falten piezas o cantidad solicitada, salvo salida parcial autorizada"
+},
 "RN-MOV-001": {
 "legacy": "RN-020",
 "tipo": "Configurable",
@@ -689,6 +731,11 @@
 "legacy": "RN-082",
 "tipo": "Estructural",
 "texto": "**La primera ubicación de la existencia en recepción es un movimiento interno** desde la ubicación de recepción hacia la ubicación destino, y queda en el kardex con qué, cuánto, origen, destino, quién, cuándo y el documento de entrada que la origina. Cumple las reglas del movimiento interno (RN-021, RN-026, RN-027): la existencia total no cambia y el descuento en origen y el incremento en destino son indivisibles. Al confirmarse, la cantidad movida queda **disponible** en el destino, salvo que el destino pertenezca a una zona de recepción, donde sigue en recepción."
+},
+"RN-MOV-011": {
+"legacy": "RN-087",
+"tipo": "Estructural",
+"texto": "**Toda operación que mueve, toma o cuenta mercancía identifica la pieza afectada.** Después de escanear el QR del SKU + Lote el operario selecciona la pieza; si hay varias del mismo lote en la ubicación, la ubicación (escaneada o seleccionada) filtra y verifica qué piezas se ofrecen. No se confirma la operación sin pieza seleccionada"
 },
 "RN-AJU-001": {
 "legacy": "RN-023",
@@ -764,6 +811,11 @@
 "legacy": "RN-047",
 "tipo": "Configurable",
 "texto": "Cuando la diferencia global de un conteo general supera el umbral crítico configurado, el sistema **notifica al Administrador y al Auditor antes de permitir el cierre**."
+},
+"RN-CNT-009": {
+"legacy": "RN-089",
+"tipo": "Estructural",
+"texto": "**El conteo se hace manualmente, pieza por pieza.** El contador registra la cantidad de cada pieza sin ver la cantidad esperada (RN-040); la cantidad contada de la unidad de inventario es la suma de sus piezas"
 },
 "RN-NOV-001": {
 "legacy": "RN-043",
@@ -869,6 +921,8 @@
 "HU-ENT-006": "**COMO** Auxiliar de Bodega **QUIERO** que el sistema me diga dónde dejar la mercancía **PARA** no tener que decidirlo yo ni preguntar cada vez.",
 "HU-ENT-007": "**COMO** Coordinador de Bodega **QUIERO** que el sistema me impida recibir una referencia que no existe en el catálogo **PARA** que no entre mercancía sin identidad definida.",
 "HU-ENT-008": "**COMO** Coordinador de Bodega **QUIERO** consultar el historial de entradas **PARA** revisar qué se recibió, de quién y con qué novedades.",
+"HU-ENT-009": "**COMO** Auxiliar de Bodega **QUIERO** registrar cada rollo, paquete o bolsa que recibo con su cantidad **PARA** saber después cuál pieza es cuál y cuánto trae cada una sin tener que medirla otra vez.",
+"HU-ENT-010": "**COMO** Auxiliar de Bodega **QUIERO** registrar como una sola pieza el contenedor o la bolsa agrupada en que llega mercancía sin rotulado individual **PARA** poder ubicarla, moverla y contarla sin rotular cada prenda.",
 "HU-SAL-001": "**COMO** Jefe de Bodega **QUIERO** registrar una salida indicando su motivo **PARA** que quede claro por qué salió la mercancía sin necesidad de gestionar la venta en este sistema.",
 "HU-SAL-002": "**COMO** Jefe de Bodega **QUIERO** que la existencia se reserve al autorizar la salida **PARA** que nadie más comprometa la misma mercancía mientras se prepara.",
 "HU-SAL-003": "**COMO** Auxiliar de Bodega **QUIERO** que el sistema me indique de qué ubicación tomar cada cosa y me valide el escaneo **PARA** no equivocarme de talla, color o lote.",
@@ -876,6 +930,8 @@
 "HU-SAL-005": "**COMO** Jefe de Bodega **QUIERO** que la baja de mercancía dañada exija mi aprobación siempre **PARA** que nadie pueda dar de baja inventario sin que yo lo sepa.",
 "HU-SAL-006": "**COMO** Coordinador de Bodega **QUIERO** registrar el retorno de mercancía que había salido **PARA** que vuelva al inventario dejando claro de dónde vino.",
 "HU-SAL-007": "**COMO** Coordinador de Bodega **QUIERO** poder autorizar salidas pequeñas sin molestar al Jefe **PARA** que la operación no se detenga por cada movimiento menor.",
+"HU-SAL-008": "**COMO** Auxiliar de Bodega **QUIERO** que, al preparar una salida, el escaneo me confirme que tomo lo correcto y cuente las piezas que tomo **PARA** no dejar la salida incompleta ni contar dos veces lo mismo.",
+"HU-SAL-009": "**COMO** Auxiliar de Bodega **QUIERO** registrar que corté solo una parte de un rollo **PARA** que el resto siga en el inventario con la cantidad correcta.",
 "HU-MOV-001": "**COMO** Auxiliar de Bodega **QUIERO** registrar que moví mercancía de un estante a otro **PARA** que el sistema siga sabiendo dónde está.",
 "HU-MOV-002": "**COMO** Auxiliar de Bodega **QUIERO** que el sistema me impida movimientos imposibles **PARA** no dejar el inventario descuadrado por un error mío.",
 "HU-MOV-003": "**COMO** Coordinador de Bodega **QUIERO** crear una transferencia hacia otra zona o bodega **PARA** mover mercancía entre ámbitos con control de despacho y recepción.",
@@ -883,6 +939,7 @@
 "HU-MOV-005": "**COMO** Jefe de Bodega **QUIERO** que el sistema me avise si lo recibido no coincide con lo despachado **PARA** investigar antes de que se pierda el rastro.",
 "HU-MOV-006": "**COMO** Jefe de Bodega **QUIERO** que el sistema me alerte si una transferencia lleva demasiado tiempo en tránsito **PARA** que no se pierda mercancía en el camino.",
 "HU-MOV-007": "**COMO** Jefe de Bodega **QUIERO** poder cancelar una transferencia **PARA** resolver situaciones donde la mercancía no puede llegar a su destino.",
+"HU-MOV-008": "**COMO** Auxiliar de Bodega **QUIERO** elegir en pantalla la pieza que estoy ubicando o moviendo, después de escanear **PARA** que el sistema sepa exactamente qué pieza cambió de lugar aunque haya varias del mismo lote en el mismo estante.",
 "HU-AJU-001": "**COMO** Coordinador de Bodega **QUIERO** solicitar un ajuste cuando lo que hay no coincide con lo que dice el sistema **PARA** que el registro refleje la realidad, dejando constancia de por qué.",
 "HU-AJU-002": "**COMO** Jefe de Bodega **QUIERO** aprobar o rechazar los ajustes solicitados **PARA** que nadie modifique el inventario por su cuenta.",
 "HU-AJU-003": "**COMO** Administrador **QUIERO** que los ajustes grandes requieran mi aprobación **PARA** mantener control sobre los cambios de inventario de mayor impacto.",
@@ -898,6 +955,7 @@
 "HU-CNT-007": "**COMO** Jefe de Bodega **QUIERO** que el sistema no me deje cerrar un conteo general con ubicaciones sin contar **PARA** que la fotografía sea realmente completa.",
 "HU-CNT-008": "**COMO** Jefe de Bodega **QUIERO** conocer la exactitud del inventario después de cada conteo **PARA** demostrar si estamos mejorando.",
 "HU-CNT-009": "**COMO** Coordinador de Bodega **QUIERO** reasignar una tarea de conteo cuando el auxiliar asignado no está **PARA** que el conteo no se detenga.",
+"HU-CNT-010": "**COMO** Auxiliar de Bodega **QUIERO** contar a mano cada pieza de una ubicación y registrar su cantidad **PARA** que el conteo verifique la realidad pieza por pieza.",
 "HU-NOV-001": "**COMO** Auxiliar de Bodega **QUIERO** reportar fácilmente que encontré algo raro **PARA** avisar sin que parezca que yo hice algo mal.",
 "HU-NOV-002": "**COMO** Coordinador de Bodega **QUIERO** recibir y resolver las novedades reportadas **PARA** que los problemas físicos no se queden sin atender.",
 "HU-NOV-003": "**COMO** Jefe de Bodega **QUIERO** que las novedades sin resolver escalen hacia mí **PARA** que ningún problema quede olvidado.",
@@ -913,6 +971,7 @@
 "HU-KDX-003": "**COMO** Auditor **QUIERO** verificar que la existencia actual corresponde exactamente a la suma de los movimientos **PARA** confirmar que nadie alteró el inventario por fuera del sistema.",
 "HU-KDX-004": "**COMO** Jefe de Bodega **QUIERO** ver el kardex de un lote completo **PARA** rastrear un problema de calidad hasta todas las unidades afectadas.",
 "HU-KDX-005": "**COMO** Auxiliar de Bodega **QUIERO** revisar los movimientos que yo registré **PARA** verificar mi propio trabajo del turno.",
+"HU-KDX-006": "**COMO** Jefe de Bodega **QUIERO** consultar dónde está y qué ha pasado con cada pieza de un lote **PARA** rastrear un rollo o un paquete concreto y no solo el lote completo.",
 "HU-ALE-001": "**COMO** Jefe de Bodega **QUIERO** que el sistema me avise antes de quedarme sin material **PARA** que la producción no se detenga por un faltante.",
 "HU-ALE-002": "**COMO** Jefe de Bodega **QUIERO** que el sistema me avise cuando tengo demasiado de algo **PARA** no seguir acumulando material que no rota.",
 "HU-ALE-003": "**COMO** Jefe de Bodega **QUIERO** registrar qué hice con cada alerta **PARA** que quede claro que se atendió y cómo.",
@@ -981,7 +1040,7 @@
 "RF-QRC-003": "El sistema debe permitir el escaneo de identificadores desde tablet y resolverlos a su SKU + Lote y, junto con la ubicación, a la unidad de inventario",
 "RF-QRC-004": "El sistema debe generar un identificador QR propio para cada ubicación, distinguible del de mercancía",
 "RF-QRC-005": "El sistema debe permitir la impresión individual y por lote de impresión, incluyendo información legible de respaldo",
-"RF-QRC-006": "El sistema debe permitir la reimpresión con motivo obligatorio, **heredando el nuevo identificador la trazabilidad del anterior**",
+"RF-QRC-006": "El sistema debe permitir la reimpresión con motivo obligatorio, **conservando el mismo QR y sin crear una nueva identidad**",
 "RF-QRC-007": "El sistema debe marcar como reemplazado el identificador sustituido, **sin eliminarlo**, y conservar el historial consultable",
 "RF-QRC-008": "El sistema debe permitir asociar un identificador secundario de código de barras, **habilitado solo para consulta, nunca para escritura**",
 "RF-ENT-001": "El sistema debe permitir crear documentos de entrada con origen, fecha esperada y líneas de referencia, talla, color y cantidad",
@@ -997,6 +1056,9 @@
 "RF-ENT-011": "El sistema debe generar el movimiento de entrada en el kardex e incrementar la existencia al confirmar",
 "RF-ENT-012": "El sistema debe permitir registrar mercancía dañada por separado, **impidiendo su ingreso como disponible**",
 "RF-ENT-013": "El sistema debe permitir consultar el historial de entradas con filtro por período, origen, estado y referencia, y exportarlo",
+"RF-ENT-014": "El sistema debe permitir registrar cada pieza recibida —rollo, paquete o bolsa— con su tipo y su cantidad propia, dentro de una línea de entrada",
+"RF-ENT-015": "El sistema debe derivar la cantidad recibida de cada línea como la suma de las cantidades de sus piezas y compararla contra la esperada",
+"RF-ENT-016": "El sistema debe permitir registrar un contenedor o bolsa agrupada como una pieza con su cantidad de unidades, perteneciente a un solo SKU + Lote",
 "RF-SAL-001": "El sistema debe permitir solicitar salidas indicando referencias, lotes, cantidades y motivo tipificado obligatorio",
 "RF-SAL-002": "La salida **no debe solicitar cliente, precio, factura ni documento comercial de despacho**",
 "RF-SAL-003": "El sistema debe verificar la existencia disponible antes de aceptar una solicitud de salida",
@@ -1008,6 +1070,8 @@
 "RF-SAL-009": "El sistema debe registrar el movimiento de salida, descontar la existencia y liberar la reserva al confirmarse",
 "RF-SAL-010": "El sistema debe **exigir aprobación del Jefe para toda baja por daño, cualquiera sea la cantidad**",
 "RF-SAL-011": "El sistema debe registrar el retorno de mercancía **como entrada nueva referenciando la salida original, nunca como reversión**",
+"RF-SAL-012": "El sistema debe, en la preparación de una salida, verificar lo escaneado y **contar cada pieza seleccionada una sola vez**",
+"RF-SAL-013": "El sistema debe permitir registrar el corte parcial de una pieza, descontando la cantidad cortada y **conservando la pieza con su remanente**, sin superar la cantidad de la pieza",
 "RF-MOV-001": "El sistema debe permitir registrar movimientos internos mediante escaneo de mercancía y ubicación destino",
 "RF-MOV-002": "El sistema debe garantizar que **un movimiento interno nunca altere la existencia total**, solo su distribución",
 "RF-MOV-003": "El sistema debe rechazar mover una cantidad superior a la existente en la ubicación origen",
@@ -1019,6 +1083,7 @@
 "RF-MOV-009": "El sistema debe mantener la existencia en tránsito **fuera del disponible tanto en origen como en destino**",
 "RF-MOV-010": "El sistema debe comparar despachado contra recibido, registrando diferencia si es menor y **rechazando la recepción si es mayor**",
 "RF-MOV-011": "El sistema debe generar alerta al superarse el tiempo máximo en tránsito configurado, y permitir la cancelación con retorno al origen solo por el Jefe",
+"RF-MOV-012": "El sistema debe **exigir la selección de la pieza** en todo movimiento interno y en la primera ubicación, usando la ubicación como filtro de verificación cuando haya varias piezas del mismo lote",
 "RF-AJU-001": "El sistema debe permitir solicitar ajustes ingresando la existencia física observada y calculando la diferencia",
 "RF-AJU-002": "El sistema debe **exigir motivo tipificado obligatorio en todo ajuste; el texto libre no debe sustituirlo**",
 "RF-AJU-003": "El sistema debe permitir adjuntar observación y evidencia, y exigir evidencia cuando el motivo así lo determine",
@@ -1042,6 +1107,7 @@
 "RF-CNT-011": "El sistema debe permitir programar conteos generales con corte, **bloqueando el registro de movimientos** y permitiendo excepciones solo al Jefe",
 "RF-CNT-012": "El sistema debe **impedir cerrar un conteo general con ubicaciones del ámbito sin cubrir**, admitiendo exclusión solo con justificación registrada",
 "RF-CNT-013": "El sistema debe calcular la exactitud del ámbito contado al cierre, almacenarla históricamente y exponerla como KPI-01",
+"RF-CNT-014": "El sistema debe permitir contar manualmente pieza por pieza, registrando la cantidad de cada pieza **sin mostrar la esperada**",
 "RF-NOV-001": "El sistema debe permitir al Auxiliar reportar novedades desde tablet, con tipo tipificado, ubicación y descripción",
 "RF-NOV-002": "El sistema debe permitir escanear el identificador o declarar explícitamente su ausencia, y adjuntar evidencia fotográfica",
 "RF-NOV-003": "El sistema **no debe presentar ni contabilizar la novedad como falta imputable al reportante**",
@@ -1056,6 +1122,7 @@
 "RF-INV-006": "El sistema debe permitir consultar la existencia histórica a una fecha y hora de corte, reconstruyéndola desde el kardex",
 "RF-INV-007": "El sistema debe ofrecer búsqueda por texto parcial tolerante a mayúsculas y tildes, e informar explícitamente cuando no haya coincidencias",
 "RF-INV-008": "El sistema debe garantizar que **ninguna operación de consulta modifique el estado del inventario**",
+"RF-INV-009": "El sistema debe permitir consultar las piezas de un lote con su tipo, cantidad actual, ubicación y estado",
 "RF-KDX-001": "El sistema debe registrar todo movimiento con fecha, hora, tipo, cantidad, existencia resultante, ubicación, usuario, motivo y documento",
 "RF-KDX-002": "El sistema debe garantizar que **todo movimiento tenga un usuario atribuible; no deben existir movimientos anónimos**",
 "RF-KDX-003": "El sistema **no debe ofrecer función alguna de edición ni de eliminación de un movimiento confirmado, para ningún rol, incluido el Administrador**",
@@ -1063,6 +1130,7 @@
 "RF-KDX-005": "El sistema debe permitir consultar el kardex de una unidad de inventario, de un lote y de una ubicación, con filtros por tipo, período, usuario y motivo",
 "RF-KDX-006": "El sistema debe permitir verificar que la existencia actual equivale a la suma algebraica de los movimientos, por unidad, por lote y globalmente",
 "RF-KDX-007": "El sistema debe restringir la consulta de kardex del Auxiliar a las unidades que él movió y a los últimos 30 días",
+"RF-KDX-008": "El sistema debe registrar en el kardex la pieza afectada por cada movimiento que la toque",
 "RF-ALE-001": "El sistema debe evaluar de forma continua las condiciones de alerta configuradas y generar la alerta al cumplirse",
 "RF-ALE-002": "El sistema debe generar alertas **exclusivamente por reglas explícitas y umbrales configurados, sin modelos predictivos ni de aprendizaje**",
 "RF-ALE-003": "El sistema debe asignar a toda alerta un destinatario por rol; **ninguna alerta debe quedar sin responsable**",

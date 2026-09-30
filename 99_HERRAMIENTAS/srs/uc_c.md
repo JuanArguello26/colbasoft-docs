@@ -148,7 +148,7 @@
 | **Precondiciones** | Usuario autenticado; existen movimientos registrados. |
 | **Postcondiciones (éxito)** | El usuario obtiene la historia cronológica sin huecos; la consulta no modifica nada. |
 | **Postcondiciones (fallo)** | Se informa la ausencia de resultados o de permiso. |
-| **Trazabilidad** | HU: @HU077 @HU078 @HU079 @HU080 @HU081 · RF: @RF120 @RF121 @RF122 @RF123 @RF124 @RF125 @RF126 · RN: @RN012 @RN001 @RN065 @RN070 · KPI: KPI-05 KPI-09 KPI-11 KPI-17 KPI-24 |
+| **Trazabilidad** | HU: @HU077 @HU078 @HU079 @HU080 @HU081 @HU110 · RF: @RF120 @RF121 @RF122 @RF123 @RF124 @RF125 @RF126 @RF170 · RN: @RN012 @RN001 @RN065 @RN070 @RN085 · KPI: KPI-05 KPI-09 KPI-11 KPI-17 KPI-24 |
 
 **Flujo principal**
 1. El usuario elige la unidad de inventario, el lote o la ubicación.

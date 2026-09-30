@@ -176,13 +176,13 @@
 | **Precondiciones** | Llegada física de mercancía a la zona de recepción; las referencias existen y están activas (CU-03); existe la zona de recepción (CU-04). |
 | **Postcondiciones (éxito)** | La existencia **en recepción** refleja la mercancía físicamente recibida (pasa a disponible al ubicarse, CU-08; @RN081, DF5-02); existe un movimiento de entrada en el kardex, atribuido a personas identificadas, con fecha y documento de respaldo; se crea o asocia el lote. |
 | **Postcondiciones (fallo)** | El documento queda en su estado (pendiente, recepción parcial, recibido con novedad); no se modifica el inventario. |
-| **Trazabilidad** | HU: @HU030 @HU031 @HU032 @HU033 @HU034 @HU036 @HU037 @HU016 · RF: @RF048 @RF049 @RF050 @RF051 @RF052 @RF053 @RF054 @RF055 @RF056 @RF057 @RF058 @RF059 @RF060 · RN: @RN002b @RN003 @RN005 @RN006 @RN007 @RN008 @RN057b @RN054 @RN071 @RN081 @RN083 |
+| **Trazabilidad** | HU: @HU030 @HU031 @HU032 @HU033 @HU034 @HU036 @HU037 @HU016 @HU104 @HU105 · RF: @RF048 @RF049 @RF050 @RF051 @RF052 @RF053 @RF054 @RF055 @RF056 @RF057 @RF058 @RF059 @RF060 @RF163 @RF164 @RF165 · RN: @RN002b @RN003 @RN005 @RN006 @RN007 @RN008 @RN057b @RN054 @RN071 @RN081 @RN083 @RN084 @RN085 |
 
 **Flujo principal**
 1. El Coordinador crea el documento de entrada (origen, fecha esperada y líneas con referencia, talla, color y cantidad esperada) o selecciona uno existente; el sistema no solicita precio ni datos de orden de compra.
 2. El sistema deja el documento en **Pendiente de recepción**.
 3. El Auxiliar abre el documento en su tablet.
-4. El Auxiliar cuenta físicamente la mercancía y registra la cantidad recibida por línea; el sistema confirma visualmente cada registro guardado.
+4. El Auxiliar cuenta físicamente la mercancía pieza por pieza y registra cada pieza (rollo, paquete, bolsa o contenedor agrupado) con su cantidad propia; la cantidad recibida por línea es la suma de sus piezas (@RN084, @RN085); el sistema confirma visualmente cada registro guardado.
 5. El sistema compara automáticamente cantidad recibida contra esperada, línea por línea.
 6. Si coinciden, marca el documento como **Recibido conforme**.
 7. El Coordinador —distinto de quien registró la recepción física— verifica y confirma la entrada.
@@ -228,9 +228,9 @@
 6. El proceso continúa en CU-08.
 
 **Flujos alternos**
-- **A1 · Reimpresión por deterioro:** el Auxiliar o Coordinador la solicita indicando motivo; el identificador nuevo hereda íntegramente la trazabilidad del anterior, que queda **Reemplazado** y consultable en el historial.
+- **A1 · Reimpresión por deterioro:** el Auxiliar o Coordinador la solicita indicando motivo; se imprime otra copia del mismo QR: el identificador no cambia, no se crea una nueva identidad y la reimpresión queda consultable en el historial (@RN018, Q-09).
 - **A2 · Código de barras del proveedor:** se admite como identificador secundario asociado al QR primario; permite consultar pero no ejecutar escrituras.
-- **A3 · Mercancía sin posibilidad de rotulado individual:** se rotula el contenedor y se registra como unidad de manejo agrupada.
+- **A3 · Mercancía sin posibilidad de rotulado individual:** se rotula el contenedor con el QR del SKU + Lote y se registra como pieza de tipo contenedor agrupado, con su cantidad de unidades (@RN084, F-6); la mezcla de lotes en un contenedor es DECISIÓN PENDIENTE (HD-28).
 - **A4 · QR de ubicaciones:** cada ubicación tiene un identificador propio, distinguible del de mercancía, imprimible por zona.
 
 **Excepciones**
@@ -253,12 +253,12 @@
 | **Precondiciones** | Mercancía identificada y lista para almacenar (CU-07); existe al menos una ubicación activa con capacidad disponible. |
 | **Postcondiciones (éxito)** | Toda existencia disponible tiene una ubicación conocida; consultar una referencia devuelve dónde está. |
 | **Postcondiciones (fallo)** | La mercancía permanece en la zona de recepción (existencia en recepción, no disponible). |
-| **Trazabilidad** | HU: @HU035 @HU024 @HU021 · RF: @RF035 @RF036 @RF039 @RF072 @RF073 @RF076 · RN: @RN019 @RN020 @RN021 @RN022 @RN026 @RN082 |
+| **Trazabilidad** | HU: @HU035 @HU024 @HU021 @HU106 · RF: @RF035 @RF036 @RF039 @RF072 @RF073 @RF076 @RF166 · RN: @RN019 @RN020 @RN021 @RN022 @RN026 @RN082 @RN087 |
 
 **Flujo principal**
 1. El sistema propone una ubicación destino según los criterios configurados (zona por categoría, capacidad, agrupación por referencia).
 2. El Auxiliar traslada físicamente la mercancía a la ubicación propuesta.
-3. Escanea el identificador de la mercancía y después el de la ubicación.
+3. Escanea el identificador de la mercancía, selecciona la pieza que ubica (@RN087) y después escanea el de la ubicación.
 4. El sistema valida que la ubicación esté activa y tenga capacidad.
 5. El sistema registra la primera ubicación como **movimiento interno** en el kardex, desde la ubicación de recepción hacia la destino (qué, cuánto, origen, destino, quién, cuándo y documento de entrada), y la cantidad pasa de en recepción a **disponible** en el destino; la existencia total no cambia (@RN082, DF5-03).
 6. El sistema confirma visualmente al Auxiliar que el registro quedó guardado.

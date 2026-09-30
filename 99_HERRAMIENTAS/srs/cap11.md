@@ -42,7 +42,7 @@ Orden en que el backlog del SPEC agrupa la habilitación de funcionalidad; se ci
 | **5 · Adopción** | Tablet, escaneo, confirmación visible, panel de tareas, sin indicadores individuales, novedades, mensajes claros, sincronización | M-20, M-12 (+ RNF transversales) | Bloques 1–4 |
 | **6 · Anticipación** | Alertas por reglas, umbrales por SKU, dashboard del Jefe, cierre de jornada | M-15, M-17 (+ PN-14) | Bloques 2–5 |
 
-> **Observación `[SRS]`.** El SPEC sitúa las **transferencias** (M-09, parte) y el **conteo general** (M-11, parte) en el Horizonte 2, aunque el módulo M-09 es P0. Esto no altera las dependencias de la tabla 11.1 (que son de módulo), pero sí el orden de entrega (H-08, DEC-01).
+> **Observación `[SRS]`.** El SPEC sitúa las **transferencias** (M-09, parte) y el **conteo general** (M-11, parte) en el Horizonte 2, aunque el módulo M-09 es P0. Esto no altera las dependencias de la tabla 11.1 (que son de módulo), pero sí el orden de entrega (H-08, resuelto por DEC-01 = A en la v1.2: las transferencias y el conteo general quedan fuera del umbral aprobatorio).
 
 ## 11.5 Dependencias entre historias y entre requisitos
 
