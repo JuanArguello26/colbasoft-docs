@@ -66,6 +66,8 @@ La diferencia crítica del conteo general (RF-175, HU-112) queda en el Horizonte
 
 # 2. Lo que sigue abierto
 
+> **Actualización (v1.4):** H-19, H-20, HD-29 y HD-30 se resolvieron el mismo día; ver `05_V14_RESPUESTAS_H19_H20_HD29_HD30.md`. Siguen abiertos el acta de DEC-08, HD-28 y KPI-24.
+
 | Asunto | Qué falta |
 |---|---|
 | **DEC-08** | Acta firmada (§3) |

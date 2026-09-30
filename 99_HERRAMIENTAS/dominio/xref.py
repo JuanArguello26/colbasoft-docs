@@ -13,7 +13,7 @@ import pathlib as _pl
 B = str(_pl.Path(__file__).resolve().parents[2])
 S = json.load(open(os.path.join(os.path.dirname(__file__), "srs_ids.json"), encoding="utf8"))
 docs = {
- "SRS": os.path.join(B, "02_SRS_FASE_3", "SRS_COLBASOFT_v1.3.md"),
+ "SRS": os.path.join(B, "02_SRS_FASE_3", "SRS_COLBASOFT_v1.4.md"),
  "DM": os.path.join(B, "03_DOMINIO_FASE_4", "DOMAIN_MODEL.md"),
  "EC": os.path.join(B, "03_DOMINIO_FASE_4", "EVENT_CATALOG.md"),
  "GL": os.path.join(B, "03_DOMINIO_FASE_4", "GLOSSARY.md"),
@@ -25,7 +25,7 @@ for _k, _f in [("AU", "04_CP04_AUDITORIA.md"), ("CI", "04_CP04_CIERRE.md"), ("DP
     if os.path.exists(_p):
         docs[_k] = _p
 T = {k: open(v, encoding="utf8").read() for k, v in docs.items()}
-spec = open(os.path.join(B, "01_SPEC_FASE_2", "COLBASOFT_SPEC_v1.3.md"), encoding="utf8").read()
+spec = open(os.path.join(B, "01_SPEC_FASE_2", "COLBASOFT_SPEC_v1.4.md"), encoding="utf8").read()
 
 valid = {
  "HU": set(S["HU"]), "RF": set(S["RF"]), "RN": set(S["RN"]), "RNF": set(S["RNF"]),

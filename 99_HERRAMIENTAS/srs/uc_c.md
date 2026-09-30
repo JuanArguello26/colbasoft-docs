@@ -179,7 +179,7 @@
 | **Precondiciones** | Usuario autenticado con permiso sobre el reporte solicitado. |
 | **Postcondiciones (éxito)** | Reporte generado con fecha, hora y usuario; exportación registrada en la bitácora; datos expuestos respetando la visibilidad por rol. |
 | **Postcondiciones (fallo)** | No se genera o no se exporta; ningún dato se modifica. |
-| **Trazabilidad** | HU: @HU087 @HU088 @HU089 @HU090 @HU065 · RF: @RF134 @RF135 @RF136 @RF137 @RF138 @RF139 @RF140 · RN: @RN078 @RN061 · KPI: KPI-01 a KPI-24 |
+| **Trazabilidad** | HU: @HU087 @HU088 @HU089 @HU090 @HU065 · RF: @RF134 @RF135 @RF136 @RF137 @RF138 @RF139 @RF140 @RF185 · RN: @RN078 @RN061 · KPI: KPI-01 a KPI-24 |
 
 **Flujo principal**
 1. El usuario elige el reporte (existencia, movimientos, entradas, salidas, ajustes, conteos, exactitud, alertas, novedades, productividad).

@@ -8,11 +8,11 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | EVENT_CATALOG |
-| **Versión** | 1.3 |
+| **Versión** | 1.4 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 y v1.3) |
-| **Estado** | **Borrador v1.3** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2) y las respuestas a DEC-02…DEC-09. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.3 → SRS_COLBASOFT v1.3 → **Modelo de Dominio v1.3** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2, v1.3 y v1.4) |
+| **Estado** | **Borrador v1.4** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2), las respuestas a DEC-02…DEC-09 (v1.3) y las de H-19, H-20, HD-29 y HD-30. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.4 → SRS_COLBASOFT v1.4 → **Modelo de Dominio v1.4** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `DOMAIN_MODEL.md` · `GLOSSARY.md` |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -25,6 +25,8 @@
 > **Versión 1.2.** Incorpora las decisiones del Director del 30 de septiembre de 2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09 y Q-10), que agregan la **Pieza** al modelo y resuelven HD-25. El detalle está en DOMAIN_MODEL §0.9.
 
 > **Versión 1.3.** Incorpora las respuestas del Director a DEC-02…DEC-09. El detalle está en DOMAIN_MODEL §0.10.
+
+> **Versión 1.4.** Incorpora las respuestas a H-19, H-20, HD-29 y HD-30. El detalle está en DOMAIN_MODEL §0.11.
 
 ## Índice
 
@@ -223,7 +225,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | ID | Nombre | Actor | Entidad origen | Entidad afectada | Disparador | Resultado esperado | KPI | Reglas (SRS) |
 |---|---|---|---|---|---|---|---|---|
-| **EV-INV-001** | Mercancía ubicada | Auxiliar | E-10 Movimiento | E-10 Movimiento, E-08 Unidad de Inventario, E-07 Ubicación | Escaneo de la mercancía en recepción y de la ubicación destino | Movimiento interno de primera ubicación confirmado: la cantidad sale de la unidad de la ubicación de recepción y entra Disponible a la unidad destino; existencia total invariante; kardex con qué, cuánto, origen, destino, quién, cuándo y documento de entrada; confirmación visible | KPI-05, KPI-10, KPI-18 | RN-MOV-010, RN-MOV-004, RN-EXI-002, RN-MOV-002, RN-MOV-001, RN-MOV-011 |
+| **EV-INV-001** | Mercancía ubicada | Auxiliar | E-10 Movimiento | E-10 Movimiento, E-08 Unidad de Inventario, E-07 Ubicación | Escaneo de la mercancía en recepción y de la ubicación destino | Movimiento interno de primera ubicación confirmado: la cantidad sale de la unidad de la ubicación de recepción y entra Disponible a la unidad destino; existencia total invariante; kardex con qué, cuánto, origen, destino, quién, cuándo y documento de entrada; confirmación visible | KPI-05, KPI-10, KPI-18 | RN-MOV-010, RN-MOV-004, RN-EXI-002, RN-MOV-002, RN-MOV-001, RN-MOV-011, RN-MOV-012 |
 | **EV-INV-002** | Desviación de ubicación registrada | Sistema | E-08 Unidad de Inventario | E-08 Unidad de Inventario | Mercancía ubicada en un lugar distinto al propuesto | Desviación registrada como información (no falta); Coordinador notificado | KPI-10 | RN-MOV-003 |
 | **EV-INV-003** | Existencia reservada | Sistema | E-08 Unidad de Inventario | E-08 Unidad de Inventario | Salida autorizada o transferencia creada | Porción Disponible → Reservado; ninguna otra operación puede comprometerla | — | RN-EXI-004, RN-EXI-003 |
 | **EV-INV-004** | Reserva liberada | Sistema | E-08 Unidad de Inventario | E-08 Unidad de Inventario | Cancelación de la salida o de la transferencia antes del despacho | Porción Reservado → Disponible | — | RN-EXI-004, RN-MOV-009 |
@@ -239,7 +241,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 | ID | Nombre | Actor | Entidad origen | Entidad afectada | Disparador | Resultado esperado | KPI | Reglas (SRS) |
 |---|---|---|---|---|---|---|---|---|
-| **EV-MOV-001** | Movimiento interno confirmado | Auxiliar | E-10 Movimiento | E-08 Unidad de Inventario, E-07 Ubicación | Escaneo de mercancía, selección de la pieza (la ubicación filtra y verifica, F-4), ubicación de origen si hay varias (DF5-01) y ubicación destino; la primera ubicación desde la zona de recepción es EV-INV-001 | Existencia descontada del origen y sumada al destino; total invariante; kardex actualizado | KPI-05, KPI-11 | RN-MOV-004, RN-MOV-005, RN-INT-002, RN-EXI-003, RN-MOV-011 |
+| **EV-MOV-001** | Movimiento interno confirmado | Auxiliar | E-10 Movimiento | E-08 Unidad de Inventario, E-07 Ubicación | Escaneo de mercancía, selección de la pieza (la ubicación filtra y verifica, F-4), ubicación de origen si hay varias (DF5-01) y ubicación destino; la primera ubicación desde la zona de recepción es EV-INV-001 | Existencia descontada del origen y sumada al destino; total invariante; kardex actualizado | KPI-05, KPI-11 | RN-MOV-004, RN-MOV-005, RN-INT-002, RN-EXI-003, RN-MOV-011, RN-MOV-012 |
 | **EV-MOV-002** | Movimiento interno rechazado | Sistema | E-10 Movimiento | E-08 Unidad de Inventario | Cantidad mayor a la disponible, destino igual al origen, destino inactivo o sin capacidad, o existencia inmovilizada | Operación rechazada con explicación comprensible | — | RN-EXI-003, RN-MOV-005, RN-MOV-002, RN-EXI-006 |
 | **EV-MOV-003** | Movimiento interno interrumpido | Auxiliar / Sistema | E-10 Movimiento | E-08 Unidad de Inventario | El traslado se inicia y no se cierra (también el de primera ubicación) | Porción En tránsito: no disponible en origen ni destino | — | RN-MOV-006, RN-EXI-005 |
 | **EV-MOV-004** | Tránsito interno prolongado detectado | Sistema | E-10 Movimiento | E-18 Alerta | Movimiento interno en tránsito supera el tiempo máximo | Alerta de tránsito prolongado | — | RN-MOV-006 |
@@ -726,8 +728,8 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | EV-ENT-014 | Autoconfirmación de entrada rechazada | Sistema | Bitácora | RN-ENT-007 |
 | EV-ENT-016 | Pieza registrada en la recepción | Auxiliar | Historial | RN-LOT-006, RN-LOT-007 |
 | EV-LOT-001 | Lote creado | Sistema | Historial | RN-LOT-001, RN-LOT-002, RN-MAE-006 |
-| EV-INV-001 | Mercancía ubicada | Auxiliar | Kardex | RN-MOV-010, RN-MOV-004, RN-EXI-002, RN-MOV-002, RN-MOV-001, RN-MOV-011 |
-| EV-MOV-001 | Movimiento interno confirmado | Auxiliar | Kardex | RN-MOV-004, RN-MOV-005, RN-INT-002, RN-EXI-003, RN-MOV-011 |
+| EV-INV-001 | Mercancía ubicada | Auxiliar | Kardex | RN-MOV-010, RN-MOV-004, RN-EXI-002, RN-MOV-002, RN-MOV-001, RN-MOV-011, RN-MOV-012 |
+| EV-MOV-001 | Movimiento interno confirmado | Auxiliar | Kardex | RN-MOV-004, RN-MOV-005, RN-INT-002, RN-EXI-003, RN-MOV-011, RN-MOV-012 |
 | EV-MOV-006 | Despacho de transferencia confirmado | Auxiliar (origen) | Kardex | RN-EXI-005 |
 | EV-MOV-007 | Transferencia completada | Auxiliar (destino) | Kardex | RN-MOV-007, RN-INT-002 |
 | EV-MOV-008 | Diferencia de transferencia registrada | Sistema | Historial | RN-MOV-007 |
@@ -1311,7 +1313,7 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 | EV-JOR-004 | Cierre de jornada bloqueado | RF-TAR-008 |
 | EV-JOR-005 | Cierre de jornada omitido | RF-TAR-008 |
 
-**Cobertura de requisitos:** 157/184 RF se relacionan con al menos un evento. Los 27 restantes son de **consulta, restricción transversal o presentación**, que no producen hechos nuevos: RF-ACC-002, RF-AJU-010, RF-AUD-001, RF-AUD-002, RF-AUD-003, RF-AUD-004, RF-DSH-001, RF-DSH-002, RF-DSH-003, RF-DSH-004, RF-ENT-013, RF-INV-001, RF-INV-002, RF-INV-003, RF-INV-004, RF-INV-005, RF-INV-006, RF-INV-007, RF-INV-008, RF-INV-009, RF-KDX-005, RF-KDX-007, RF-KDX-009, RF-LOT-004, RF-PAR-007, RF-REP-001, RF-TAR-005.
+**Cobertura de requisitos:** 157/185 RF se relacionan con al menos un evento. Los 28 restantes son de **consulta, restricción transversal o presentación**, que no producen hechos nuevos: RF-ACC-002, RF-AJU-010, RF-AUD-001, RF-AUD-002, RF-AUD-003, RF-AUD-004, RF-DSH-001, RF-DSH-002, RF-DSH-003, RF-DSH-004, RF-ENT-013, RF-INV-001, RF-INV-002, RF-INV-003, RF-INV-004, RF-INV-005, RF-INV-006, RF-INV-007, RF-INV-008, RF-INV-009, RF-KDX-005, RF-KDX-007, RF-KDX-009, RF-LOT-004, RF-PAR-007, RF-REP-001, RF-REP-008, RF-TAR-005.
 
 **Eventos sin RF (6):** EV-ENT-015, EV-SAL-009, EV-SAL-011, EV-CNT-017, EV-AUD-004, EV-TAR-006. Son la traducción al dominio de las brechas del SRS que siguen abiertas: funciones de módulo sin requisito (HD-19). Las de reglas sin RF (H-11) y cierre de jornada (H-10) se cerraron en la v1.3 (DEC-05, DEC-06).
 
@@ -1329,4 +1331,4 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 ---
 
-*Fin de EVENT_CATALOG v1.3.*
+*Fin de EVENT_CATALOG v1.4.*

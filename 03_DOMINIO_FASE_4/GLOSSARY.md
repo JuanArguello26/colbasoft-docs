@@ -8,11 +8,11 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | GLOSSARY |
-| **Versión** | 1.3 |
+| **Versión** | 1.4 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 y v1.3) |
-| **Estado** | **Borrador v1.3** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2) y las respuestas a DEC-02…DEC-09. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.3 → SRS_COLBASOFT v1.3 → **Modelo de Dominio v1.3** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2, v1.3 y v1.4) |
+| **Estado** | **Borrador v1.4** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2), las respuestas a DEC-02…DEC-09 (v1.3) y las de H-19, H-20, HD-29 y HD-30. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.4 → SRS_COLBASOFT v1.4 → **Modelo de Dominio v1.4** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `DOMAIN_MODEL.md` · `EVENT_CATALOG.md` |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -25,6 +25,8 @@
 > **Versión 1.2.** Incorpora las decisiones del Director del 30 de septiembre de 2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09 y Q-10), que agregan la **Pieza** al modelo y resuelven HD-25. El detalle está en DOMAIN_MODEL §0.9.
 
 > **Versión 1.3.** Incorpora las respuestas del Director a DEC-02…DEC-09. El detalle está en DOMAIN_MODEL §0.10.
+
+> **Versión 1.4.** Incorpora las respuestas a H-19, H-20, HD-29 y HD-30. El detalle está en DOMAIN_MODEL §0.11.
 
 
 > **Reconstrucción de contexto.** Ver DOMAIN_MODEL, Cap. 0 (ESTADO: CONTEXTO RECONSTRUIDO).
@@ -2614,7 +2616,7 @@
 | **Entidades** | **27** | 13 | ✅ |
 | **Objetos de valor** | **43** | — (7 ejemplos) | ✅ |
 | **Agregados** | **22** | — | ✅ |
-| **Invariantes** | **78** (+ 14 políticas reactivas) | 40 | ✅ |
+| **Invariantes** | **79** (+ 14 políticas reactivas) | 40 | ✅ |
 | **Estados oficiales** | **76** en 21 máquinas (118 transiciones) | — | ✅ |
 | **Eventos** | **168** (61 derivados) | 70 | ✅ |
 | **Términos del glosario** | **210** (55 centrales; 130 sinónimos prohibidos indexados) | 120 | ✅ |
@@ -2630,11 +2632,11 @@
 | V-2 | Toda entidad citada por un evento, relación o agregado existe | ✅ |
 | V-3 | Todo evento citado en estados y líneas temporales existe | ✅ |
 | V-4 | Toda invariante citada por un agregado existe | ✅ |
-| V-5 | Las 91 reglas del SRS (82 + 3 de la v1.1 + 6 de la v1.2) quedan cubiertas como invariante o política | ✅ 77 + 14 = 91/91 |
+| V-5 | Las 92 reglas del SRS (82 + 3 de la v1.1 + 6 de la v1.2 + 1 de la v1.4) quedan cubiertas como invariante o política | ✅ 78 + 14 = 92/92 |
 | V-6 | Los 24 KPI aparecen en al menos un evento | ✅ 24/24 |
 | V-7 | Historias con evento | 🟡 105/114 (el resto son de consulta) |
-| V-8 | RF con evento | 🟡 157/184 (el resto son de consulta, restricción o presentación) |
-| V-9 | Toda invariante cita al menos una regla del SRS | ✅ 78/78 |
+| V-8 | RF con evento | 🟡 157/185 (el resto son de consulta, restricción o presentación) |
+| V-9 | Toda invariante cita al menos una regla del SRS | ✅ 79/79 |
 | V-10 | Las definiciones del lenguaje ubicuo y del glosario son idénticas | ✅ (misma fuente) |
 | V-11 | Ninguna relación del glosario apunta a un término inexistente | ✅ |
 | V-12 | Ningún término nombra a la empresa de estudio (DC-01) ni introduce IA (DC-07) | ✅ |
@@ -2662,7 +2664,7 @@
 | **RF5-15** | Coherencia entre la suma de las cantidades de las piezas y la existencia de la unidad de inventario (AG-22 ↔ AG-05): una operación sobre una pieza afecta a dos agregados | IN-74 · RN-LOT-007 · RN-MOV-011 | 🟠 | Existencia de la unidad de inventario distinta de la suma de sus piezas |
 | **RF5-16** | Reserva y selección de piezas: la autorización reserva cantidad sobre la unidad de inventario (RN-EXI-003), pero las piezas se seleccionan recién al tomarlas (RN-SAL-009); dos preparaciones pueden apuntar a la misma pieza | RN-SAL-009 · RN-EXI-003 · RN-EXI-004 | 🟠 | Doble compromiso de una misma pieza en preparaciones distintas |
 
-**Estado frente a la Fase 5 (v1.3).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-28, HD-29 y HD-30** quedan pendientes, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real sin bloquear la arquitectura. Las nueve decisiones DEC tienen respuesta (DEC-01 en la v1.2; DEC-02…DEC-09 en la v1.3); queda pendiente el acta firmada de DEC-08 (ver `05_V13_DECISIONES/`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
+**Estado frente a la Fase 5 (v1.4).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-29 y HD-30** se resolvieron en la v1.4; **HD-28** queda pendiente, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real sin bloquear la arquitectura. Las nueve decisiones DEC tienen respuesta (DEC-01 en la v1.2; DEC-02…DEC-09 en la v1.3); queda pendiente el acta firmada de DEC-08 (ver `05_V13_DECISIONES/`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
 
 ---
 
@@ -2678,4 +2680,4 @@
 
 ---
 
-*Fin de GLOSSARY v1.3. La monografía original permanece sin modificaciones.*
+*Fin de GLOSSARY v1.4. La monografía original permanece sin modificaciones.*

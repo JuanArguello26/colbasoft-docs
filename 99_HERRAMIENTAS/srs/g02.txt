@@ -108,10 +108,10 @@ Escenario: C5 - El Jefe es notificado
   Entonces el Jefe recibe una notificación
 
 === HU-035 | Recibir del sistema la ubicación donde dejar la mercancía
-Escenario: C1 - El sistema propone ubicación según los criterios configurados
-  Dado una mercancía por ubicar y criterios de asignación configurados
+Escenario: C1 - El sistema propone la ubicación con una regla fija
+  Dado una mercancía por ubicar
   Cuando el sistema calcula el destino
-  Entonces propone una ubicación aplicando esos criterios
+  Entonces propone una ubicación por zona por categoría, agrupación por referencia y mayor capacidad libre, o la zona de recepción si ninguna aplica
 Escenario: C2 - El Auxiliar confirma escaneando mercancía y luego ubicación
   Dado una ubicación propuesta
   Cuando el Auxiliar escanea la mercancía y después la ubicación
@@ -306,10 +306,10 @@ Escenario: C1 - Se escanea la mercancía y luego la ubicación destino
   Dado un Auxiliar con mercancía identificada
   Cuando escanea la mercancía y después la ubicación destino
   Entonces el sistema registra el movimiento interno
-Escenario: C2 - Se puede mover cantidad total o parcial
-  Dado una unidad con cierta existencia en origen
-  Cuando el Auxiliar indica una cantidad total o parcial
-  Entonces el sistema mueve solo esa cantidad
+Escenario: C2 - Se mueve la pieza completa y no se divide
+  Dado una pieza en la ubicación de origen
+  Cuando el Auxiliar la mueve a otra ubicación
+  Entonces el sistema mueve la pieza completa y tomar una parte de ella se registra como corte parcial, no como movimiento
 Escenario: C3 - La existencia total no cambia
   Dado un movimiento interno registrado
   Cuando se consulta la existencia total de la unidad

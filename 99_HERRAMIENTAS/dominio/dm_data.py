@@ -325,7 +325,7 @@ ENTITIES = [
       sm="— (sin estados propios; «sin cantidad» es una condición derivada)",
       ciclo="Nace en la recepción con su tipo y su cantidad; se ubica y se mueve por movimientos internos; su cantidad baja por cortes parciales y salidas; llega a cero sin desaparecer; nunca se elimina `[RN-MAE-007]`.",
       rel=[("E-04", "pertenece a exactamente 1 lote (y por él, a 1 SKU)"), ("E-07", "se encuentra en 1 ubicación"), ("E-08", "aporta su cantidad a la unidad de inventario de su SKU + Lote + ubicación"), ("E-11", "nace de 1 línea de un documento de entrada"), ("E-10", "es afectada por 1..n movimientos (su kardex)")],
-      rn=["RN-LOT-006", "RN-LOT-007", "RN-SAL-008", "RN-MOV-011", "RN-SAL-009", "RN-CNT-009", "RN-MAE-007"]),
+      rn=["RN-LOT-006", "RN-LOT-007", "RN-SAL-008", "RN-MOV-011", "RN-MOV-012", "RN-SAL-009", "RN-CNT-009", "RN-MAE-007"]),
 ]
 
 # ================================================================== OBJETOS DE VALOR
@@ -397,7 +397,7 @@ AGGREGATES = [
  ("AG-18", "Tarea operativa", "E-23", [], "Tiene responsable y ciclo propio; se cierra por el hecho asociado del agregado de origen.", ["IN-69"], "Elemento de origen, responsable (por identidad)"),
  ("AG-19", "Motivo tipificado", "E-24", [], "Lo referencian muchas operaciones; su desactivación no debe alterar las operaciones históricas que lo usaron.", ["IN-21", "IN-22", "IN-48"], "—"),
  ("AG-20", "Configuración", "E-25", [], "Los parámetros se validan en conjunto (rangos, parejas mínimo–máximo) y ninguno puede alcanzar las reglas estructurales.", ["IN-65", "IN-67"], "—"),
- ("AG-22", "Pieza", "E-27", [], "La pieza tiene identidad, tipo y cantidad propias y es el nivel al que se selecciona, se corta y se cuenta (v1.2). Su cantidad cambia solo por movimientos confirmados y nunca puede quedar negativa ni superar lo que respalda el kardex. La coherencia entre la suma de las cantidades de sus piezas y la existencia de la unidad de inventario (AG-05) es una invariante entre agregados (RF5-15).", ["IN-73", "IN-74", "IN-75", "IN-76", "IN-77", "IN-78"], "E-04 Lote, E-07 Ubicación, E-08 Unidad de inventario (por identidad)"),
+ ("AG-22", "Pieza", "E-27", [], "La pieza tiene identidad, tipo y cantidad propias y es el nivel al que se selecciona, se corta y se cuenta (v1.2). Su cantidad cambia solo por movimientos confirmados y nunca puede quedar negativa ni superar lo que respalda el kardex. La coherencia entre la suma de las cantidades de sus piezas y la existencia de la unidad de inventario (AG-05) es una invariante entre agregados (RF5-15).", ["IN-73", "IN-74", "IN-75", "IN-76", "IN-77", "IN-78", "IN-79"], "E-04 Lote, E-07 Ubicación, E-08 Unidad de inventario (por identidad)"),
  ("AG-21", "Cierre de jornada", "E-26", [], "Consolidación de una bodega en una jornada; su cierre depende de que no queden registros sin sincronizar.", ["IN-07"], "E-05 bodega, pendientes (por identidad)"),
 ]
 
@@ -478,12 +478,14 @@ INVARIANTS = [
  ("IN-71", "La primera ubicación de la existencia en recepción es un movimiento interno confirmado en el kardex (qué, cuánto, origen, destino, quién, cuándo y documento de entrada); ninguna existencia cambia de ubicación sin movimiento. La cantidad movida queda Disponible en el destino, salvo que el destino pertenezca a una zona de recepción.", ["RN-MOV-010"], "AG-06 / AG-05", "Estructural"),
  ("IN-72", "Un registro retenido sin conectividad se confirma o se rechaza una sola vez, al sincronizarse y tras validarse de nuevo contra el estado vigente; nunca se aplica un registro que viole una invariante, y el intento y su resultado quedan registrados.", ["RN-INT-008"], "AG-06", "Estructural"),
  # --- v1.2: decisiones del 30-sep-2026 (reglas nuevas del SPEC v1.2 §9.16)
- ("IN-73", "Toda mercancía recibida se registra por piezas: cada pieza pertenece a un solo SKU + Lote, tiene un tipo (rollo, paquete o bolsa, contenedor agrupado) y una cantidad propia registrada en la recepción; el QR no la identifica, tiene identidad interna.", ["RN-LOT-006"], "AG-22 / AG-08", "Estructural"),
+ ("IN-73", "Toda mercancía recibida se registra por piezas: cada pieza pertenece a un solo SKU + Lote, tiene un tipo (rollo, paquete o bolsa, contenedor agrupado) y una cantidad propia registrada en la recepción; el QR no la identifica, tiene identidad interna. Sin excepción: lo que llega suelto se registra como paquete o bolsa con su cantidad de unidades (HD-30).", ["RN-LOT-006"], "AG-22 / AG-08", "Estructural"),
  ("IN-74", "La existencia de una unidad de inventario es la suma de las cantidades de sus piezas en esa ubicación; la cantidad de una pieza solo cambia por un movimiento del kardex, y la cantidad recibida de una línea de entrada es la suma de sus piezas.", ["RN-LOT-007"], "AG-22 / AG-05 / AG-06", "Estructural"),
  ("IN-75", "Un corte parcial descuenta de la pieza solo la cantidad cortada y la deja con su remanente y su identidad; la cantidad cortada no supera la de la pieza; el corte es una salida y cumple las reglas de salida.", ["RN-SAL-008"], "AG-22 / AG-09", "Estructural"),
  ("IN-76", "Toda operación que mueve, toma o cuenta mercancía identifica la pieza afectada: tras el escaneo del SKU + Lote el operario selecciona la pieza, y la ubicación filtra y verifica qué piezas se ofrecen; no se confirma sin pieza seleccionada.", ["RN-MOV-011"], "AG-22 / AG-06", "Estructural"),
  ("IN-77", "En la preparación de una salida el escaneo verifica y cuenta: cada pieza tomada se cuenta una sola vez y la preparación no se confirma completa mientras falten piezas o cantidad solicitada, salvo salida parcial autorizada.", ["RN-SAL-009"], "AG-22 / AG-09", "Estructural"),
  ("IN-78", "El conteo es manual, pieza por pieza: el contador registra la cantidad de cada pieza sin ver la esperada, y la cantidad contada de la unidad de inventario es la suma de sus piezas.", ["RN-CNT-009"], "AG-12 / AG-22", "Estructural"),
+ # --- v1.4: respuesta a HD-29 (regla nueva del SPEC v1.4 §9.18)
+ ("IN-79", "Una pieza no se divide: un movimiento interno mueve la pieza completa y tomar una parte de ella es un corte parcial, que se registra como salida; la división de una pieza en dos no existe.", ["RN-MOV-012"], "AG-22 / AG-06", "Estructural"),
 ]
 
 # ================================================================== CICLOS DE VIDA (Cap. 7)
@@ -494,7 +496,7 @@ LIFECYCLES = [
  ("E-07 Ubicación", "Creada **Activa** con su QR → recibe existencia dentro de su capacidad → **Inactiva** solo sin existencia → **Activa** al reactivarse.", "«Sobreocupada» es una condición derivada (alerta), no un estado."),
  ("E-08 Unidad de inventario", "Nace con el primer movimiento que lleva existencia a su combinación SKU+Lote+Ubicación (la unidad de recepción, con la entrada; la de destino, con el movimiento interno de primera ubicación) → su existencia pasa por los estados **En recepción → Disponible ↔ Reservado / En tránsito / Inmovilizado** → puede llegar a cero y conserva su kardex.", "La unidad no tiene estado propio: los estados son de porciones de su existencia (SM-06). Pasar de En recepción a Disponible es un movimiento interno entre dos unidades (DF5-03)."),
  ("E-09 Identificador QR", "**Generado** → impreso → **Activo** al verificarse su legibilidad → **Anulado**; la reimpresión conserva el mismo QR y lo deja **Activo** `[Q-09]`; el estado **Reemplazado** se conserva, pero sus motivos están pendientes (HD-28).", "Un código jamás vuelve a emitirse. El QR de mercancía identifica un SKU + Lote y no cambia al reubicar (DF5-01)."),
- ("E-27 Pieza", "Registrada en la recepción con su tipo y su cantidad → ubicada y movida por movimientos internos → su cantidad baja por cortes parciales y salidas → **sin cantidad** al llegar a cero.", "No tiene estados propios: «sin cantidad» es una condición derivada. Nunca se elimina `[RN-MAE-007]`. El movimiento parcial de una pieza entre ubicaciones y el destino del remanente de un corte parcial están pendientes (HD-29)."),
+ ("E-27 Pieza", "Registrada en la recepción con su tipo y su cantidad → ubicada y movida por movimientos internos → su cantidad baja por cortes parciales y salidas → **sin cantidad** al llegar a cero.", "No tiene estados propios: «sin cantidad» es una condición derivada. Nunca se elimina `[RN-MAE-007]`. Una pieza no se divide: el movimiento interno la mueve completa y el remanente de un corte sigue siendo la misma pieza (HD-29, RN-MOV-012)."),
  ("E-10 Movimiento", "**En registro** (corregible por su autor, RNF-USA-007) → **Pendiente de sincronización** (si no hay conectividad) → **Confirmado** (inmutable) o **Rechazado en sincronización** (si al validarse de nuevo ya no cumple las reglas; DF5-05).", "No existen los estados «Ejecutado» ni «Auditado» (HD-03): confirmar es ejecutar, y auditar no modifica. La anulación es otro movimiento que neutraliza al primero."),
  ("E-11 Documento de entrada", "**Pendiente de recepción** → **Recepción parcial** (interrumpida, continuable por otro usuario) → **Recibido conforme** o **Recibido con novedad** → **Confirmado** por una segunda persona (genera lote y movimiento de entrada).", "Un sobrante detiene la confirmación hasta la autorización del Jefe."),
  ("E-12 Solicitud de salida", "**Solicitada** → **Autorizada** (reserva) → **En preparación** (escaneo validado) → **Ejecutada** (movimiento de salida, reserva liberada).", "Caminos alternos: **Rechazada** por el autorizador; **Vencida** si no se ejecuta en plazo (reserva liberada); **Cancelada**."),
@@ -770,11 +772,11 @@ DOMAIN_FINDINGS = [
   "Director — decidir · **Información requerida:** AS-IS (Q-08 y qué rotula hoy la empresa). No bloquea la Fase 5 por sí mismo"),
  ("HD-29", "Cortes parciales: destino del remanente y movimiento parcial de una pieza",
   "F-3 permite cortes parciales de rollos y RN-SAL-008 los trata como salida que deja la pieza con su remanente. No está decidido qué ocurre si el remanente se mueve a otra ubicación (¿sigue siendo la misma pieza?, ¿se divide?) ni si una pieza puede moverse solo en parte entre ubicaciones (HU-MOV-001 criterio 2 habla de cantidad total o parcial; con pieza, la cantidad parcial solo tiene sentido como corte).",
-  "No se decide. El modelo solo admite el corte como salida (RN-SAL-008) y el movimiento interno de la pieza completa (RN-MOV-011); no define la división de una pieza en dos.",
-  "Director — decidir · **Información requerida:** Q-04 (frecuencia y forma de los cortes). Decidir antes del detalle de movimientos de la Fase 5"),
+  "**Resuelto (opción a, v1.4):** una pieza no se divide. El movimiento interno mueve la pieza completa y tomar una parte de ella es un corte parcial, que se registra como salida (RN-SAL-008, RN-MOV-012 → IN-79). **Limitación conocida:** una parte de un paquete o bolsa de unidades no puede trasladarse a otra ubicación como movimiento interno. Se puede reabrir con el AS-IS (Q-04).",
+  "**Resuelto — HD-29 (a), v1.4**"),
  ("HD-30", "Alcance del control por pieza: ¿toda referencia se controla por piezas?",
   "F-1 define la pieza para referencias en metros, kilogramos y unidades, sin declarar excepciones; RN-LOT-006 exige registrar por piezas toda la mercancía recibida. Si una referencia llega suelta y sin pieza física distinguible, el modelo no dice cómo registrarla.",
-  "No se decide. El modelo aplica la regla a toda la mercancía (RN-LOT-006) y registra un paquete, bolsa o contenedor agrupado como una pieza con su cantidad de unidades.",
-  "Director — decidir · **Información requerida:** AS-IS (qué mercancía llega suelta). No bloquea la Fase 5 por sí mismo"),
+  "**Resuelto (opción a, v1.4):** toda la mercancía se controla por piezas, sin excepción (RN-LOT-006, IN-73); lo que llega suelto se registra como paquete o bolsa con su cantidad de unidades.",
+  "**Resuelto — HD-30 (a), v1.4**"),
 ]
 

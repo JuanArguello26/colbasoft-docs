@@ -18,7 +18,7 @@ El SPEC ubica 19 HU y 19 RF en el Horizonte 2 (v1.1) y, a la vez, mantiene en el
 | Umbral | Contenido | HU | RF |
 |---|---|:--:|:--:|
 | **MVP-Núcleo (H1) — umbral aprobatorio `[DEC-01]`** | Todo lo que el backlog del SPEC declara Horizonte 1, incluidas la trazabilidad por pieza (elemento 40, v1.2) y el cierre de brechas y de jornada (elemento 41, v1.3): 84 HU y 143 RF de la v1.1, más 7 HU y 9 RF de la v1.2, más 3 HU y 12 RF de la v1.3 | **94** | **164** |
-| **MVP-Completo (H1 + H2)** | Todo el alcance DC-02, incluidos los 20 HU / 20 RF del Horizonte 2 (transferencias, conteo general, inmovilización de lotes, escalamientos, carga masiva, existencia histórica, reportes programados, exportación analítica, dashboard del Coordinador, código de barras secundario, criterios de asignación, lotes por antigüedad, reasignación de tareas, alerta de ajustes recurrentes) | **114** | **184** |
+| **MVP-Completo (H1 + H2)** | Todo el alcance DC-02, incluidos los 20 HU / 21 RF del Horizonte 2 (transferencias, conteo general, inmovilización de lotes, escalamientos, carga masiva, existencia histórica, reportes programados, exportación analítica, dashboard del Coordinador, código de barras secundario, criterios de asignación, lotes por antigüedad, reasignación de tareas, alerta de ajustes recurrentes) | **114** | **185** |
 
 **Regla de aceptación:** el MVP se acepta con el **MVP-Núcleo** `[DEC-01]`. Lo que el MVP-Completo añade (Horizonte 2: transferencias, conteo general y demás) **no es criterio de aprobación**; queda como entrega posterior.
 
@@ -27,10 +27,10 @@ Distribución de las HU y RF por prioridad y horizonte `[SRS]`:
 | MoSCoW | HU total | de ellas H1 | de ellas H2 | RF total | de ellos H1 | de ellos H2 |
 |---|:--:|:--:|:--:|:--:|:--:|:--:|
 | **Must** (P0) | 40 | 38 | 2 | 82 | 81 | 1 |
-| **Should** (P1) | 59 | 48 | 11 | 83 | 69 | 14 |
+| **Should** (P1) | 59 | 48 | 11 | 84 | 69 | 15 |
 | **Could** (P2) | 15 | 8 | 7 | 19 | 14 | 5 |
 | **Won't** (P3) | 0 | 0 | 0 | 0 | 0 | 0 |
-| **Total** | **114** | **94** | **20** | **184** | **164** | **20** |
+| **Total** | **114** | **94** | **20** | **185** | **164** | **21** |
 
 ## 12.3 Criterios de aceptación por dimensión
 

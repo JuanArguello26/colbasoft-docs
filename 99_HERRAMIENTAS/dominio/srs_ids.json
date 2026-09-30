@@ -270,6 +270,7 @@
 "RF-REP-005",
 "RF-REP-006",
 "RF-REP-007",
+"RF-REP-008",
 "RF-SAL-001",
 "RF-SAL-002",
 "RF-SAL-003",
@@ -430,6 +431,7 @@
 "RN-MOV-009",
 "RN-MOV-010",
 "RN-MOV-011",
+"RN-MOV-012",
 "RN-NOV-001",
 "RN-NOV-002",
 "RN-NOV-003",
@@ -612,7 +614,7 @@
 "RN-LOT-006": {
 "legacy": "RN-084",
 "tipo": "Estructural",
-"texto": "**Toda mercancía recibida se registra por piezas.** Cada pieza pertenece a un solo SKU + Lote, tiene un tipo —rollo, paquete o bolsa, o contenedor agrupado— y una **cantidad propia registrada en la recepción**. El QR no identifica la pieza: la pieza tiene identidad interna en el sistema y el QR sigue identificando SKU + Lote"
+"texto": "**Toda mercancía recibida se registra por piezas.** Cada pieza pertenece a un solo SKU + Lote, tiene un tipo —rollo, paquete o bolsa, o contenedor agrupado— y una **cantidad propia registrada en la recepción**. El QR no identifica la pieza: la pieza tiene identidad interna en el sistema y el QR sigue identificando SKU + Lote. **Sin excepción**: la mercancía que llega suelta se registra como paquete o bolsa con su cantidad de unidades `[HD-30]`"
 },
 "RN-LOT-007": {
 "legacy": "RN-085",
@@ -702,7 +704,7 @@
 "RN-MOV-001": {
 "legacy": "RN-020",
 "tipo": "Configurable",
-"texto": "El sistema **propone** la ubicación destino según los criterios configurados; el Auxiliar **confirma o desvía**. La propuesta nunca es una imposición."
+"texto": "El sistema **propone** la ubicación destino según los criterios vigentes —en el Núcleo, una regla fija: zona por categoría, agrupación por referencia y mayor capacidad libre; configurables desde el Horizonte 2 (HU-024)—; el Auxiliar **confirma o desvía**. La propuesta nunca es una imposición."
 },
 "RN-MOV-002": {
 "legacy": "RN-021",
@@ -753,6 +755,11 @@
 "legacy": "RN-087",
 "tipo": "Estructural",
 "texto": "**Toda operación que mueve, toma o cuenta mercancía identifica la pieza afectada.** Después de escanear el QR del SKU + Lote el operario selecciona la pieza; si hay varias del mismo lote en la ubicación, la ubicación (escaneada o seleccionada) filtra y verifica qué piezas se ofrecen. No se confirma la operación sin pieza seleccionada"
+},
+"RN-MOV-012": {
+"legacy": "RN-090",
+"tipo": "Estructural",
+"texto": "**Una pieza no se divide.** Un movimiento interno mueve la pieza completa; tomar una parte de una pieza es un corte parcial (RN-086*), que se registra como salida. La división de una pieza en dos no existe en el MVP"
 },
 "RN-AJU-001": {
 "legacy": "RN-023",
@@ -1170,11 +1177,12 @@
 "RF-ALE-007": "El sistema debe escalar automáticamente al rol superior las alertas críticas no atendidas en el plazo configurado, y cerrarlas al cesar su condición",
 "RF-REP-001": "El sistema debe generar reportes de existencia, movimientos, entradas, salidas, ajustes, conteos, alertas y novedades",
 "RF-REP-002": "Todo reporte debe declarar su fecha, hora de generación y el usuario que lo generó",
-"RF-REP-003": "El sistema debe calcular los 24 indicadores definidos en el Capítulo 10",
+"RF-REP-003": "El sistema debe calcular los 12 indicadores del Núcleo definidos en el Capítulo 10 (KPI-01, 05, 08, 09, 11, 13, 14, 16, 17, 19, 21 y 24); los otros 12 son el RF-185",
 "RF-REP-004": "El sistema debe exponer los datos de forma estructurada para consumo de la herramienta analítica externa",
 "RF-REP-005": "El sistema **no debe incluir el diseño de tableros analíticos**: la visualización analítica se resuelve en la herramienta externa",
 "RF-REP-006": "El sistema debe registrar en la bitácora toda exportación de datos, con usuario, alcance y fecha",
 "RF-REP-007": "El sistema debe permitir programar la generación periódica de reportes y su puesta a disposición de destinatarios definidos",
+"RF-REP-008": "El sistema debe calcular los 12 indicadores restantes del Capítulo 10 (KPI-02, 03, 04, 06, 07, 10, 12, 15, 18, 20, 22 y 23), que el backlog ubica en el Horizonte 2 (§12.3, elemento 15) o que requieren el conteo general (KPI-02)",
 "RF-DSH-001": "El sistema debe presentar un dashboard operativo con existencia, alertas activas, pendientes y exactitud vigente",
 "RF-DSH-002": "El sistema debe permitir navegar desde cualquier elemento del dashboard hacia su detalle",
 "RF-DSH-003": "El sistema debe restringir el dashboard del Coordinador a sus zonas asignadas y sin valorización",

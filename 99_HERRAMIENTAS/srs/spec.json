@@ -997,11 +997,11 @@
    "tags": "`[NUEVO]`",
    "mod": "M-07",
    "story": "**COMO** Auxiliar de Bodega **QUIERO** que el sistema me diga dónde dejar la mercancía **PARA** no tener que decidirlo yo ni preguntar cada vez.",
-   "crit_raw": "*Criterios:* (1) El sistema propone ubicación según los criterios de HU-024. (2) El Auxiliar confirma escaneando la mercancía y luego la ubicación `[DC-08]`. (3) Si ubica en un lugar distinto, el sistema lo permite pero registra la desviación y avisa al Coordinador `[RN-022]`. (4) El sistema valida que la ubicación esté activa y tenga capacidad `[RN-021]`. (5) Confirma visualmente el registro.",
+   "crit_raw": "*Criterios:* (1) El sistema propone la ubicación con una regla fija —zona por categoría, agrupación por referencia y mayor capacidad libre, en ese orden—; si ninguna aplica, propone la zona de recepción `[RN-020]` `[H-19]`. (2) El Auxiliar confirma escaneando la mercancía y luego la ubicación `[DC-08]`. (3) Si ubica en un lugar distinto, el sistema lo permite pero registra la desviación y avisa al Coordinador `[RN-022]`. (4) El sistema valida que la ubicación esté activa y tenga capacidad `[RN-021]`. (5) Confirma visualmente el registro.",
    "crit": [
     [
      1,
-     "El sistema propone ubicación según los criterios de HU-024."
+     "El sistema propone la ubicación con una regla fija —zona por categoría, agrupación por referencia y mayor capacidad libre, en ese orden—; si ninguna aplica, propone la zona de recepción `[RN-020]` `[H-19]`."
     ],
     [
      2,
@@ -1403,7 +1403,7 @@
    "tags": "`[RN-026]`",
    "mod": "M-09",
    "story": "**COMO** Auxiliar de Bodega **QUIERO** registrar que moví mercancía de un estante a otro **PARA** que el sistema siga sabiendo dónde está.",
-   "crit_raw": "*Criterios:* (1) Se escanea la mercancía y luego la ubicación destino `[DC-08]`. (2) Se puede mover cantidad total o parcial. (3) `[RN-026]` **La existencia total no cambia**: solo cambia su distribución. (4) El movimiento queda en el kardex. (5) El sistema confirma visualmente.",
+   "crit_raw": "*Criterios:* (1) Se escanea la mercancía y luego la ubicación destino `[DC-08]`. (2) Se mueve la pieza completa: una pieza no se divide, y tomar una parte de ella es un corte parcial que se registra como salida `[RN-090*]` `[HD-29]`. (3) `[RN-026]` **La existencia total no cambia**: solo cambia su distribución. (4) El movimiento queda en el kardex. (5) El sistema confirma visualmente.",
    "crit": [
     [
      1,
@@ -1411,7 +1411,7 @@
     ],
     [
      2,
-     "Se puede mover cantidad total o parcial."
+     "Se mueve la pieza completa: una pieza no se divide, y tomar una parte de ella es un corte parcial que se registra como salida `[RN-090*]` `[HD-29]`."
     ],
     [
      3,
@@ -4141,7 +4141,7 @@
    "prio": "P0",
    "actor": "Auxiliar",
    "dep": "RF-072, RF-163",
-   "origin": "`[F-4]` `[RN-087*]`",
+   "origin": "`[F-4]` `[RN-087*]` `[RN-090*]`",
    "mod": "M-09"
   },
   {
@@ -4695,11 +4695,11 @@
   },
   {
    "id": "RF-136",
-   "text": "El sistema debe calcular los 24 indicadores definidos en el Capítulo 10",
+   "text": "El sistema debe calcular los 12 indicadores del Núcleo definidos en el Capítulo 10 (KPI-01, 05, 08, 09, 11, 13, 14, 16, 17, 19, 21 y 24); los otros 12 son el RF-185",
    "prio": "P1",
    "actor": "—",
    "dep": "Cap. 10",
-   "origin": "`[MON §8.2]`",
+   "origin": "`[MON §8.2]` `[H-20]`",
    "mod": "M-16"
   },
   {
@@ -4736,6 +4736,15 @@
    "actor": "Jefe",
    "dep": "M-20",
    "origin": "`[NUEVO]`",
+   "mod": "M-16"
+  },
+  {
+   "id": "RF-185",
+   "text": "El sistema debe calcular los 12 indicadores restantes del Capítulo 10 (KPI-02, 03, 04, 06, 07, 10, 12, 15, 18, 20, 22 y 23), que el backlog ubica en el Horizonte 2 (§12.3, elemento 15) o que requieren el conteo general (KPI-02)",
+   "prio": "P1",
+   "actor": "—",
+   "dep": "Cap. 10, RF-136",
+   "origin": "`[NUEVO]` `[H-20]`",
    "mod": "M-16"
   },
   {
@@ -5601,9 +5610,9 @@
   },
   {
    "id": "RN-020",
-   "text": "El sistema **propone** la ubicación destino según los criterios configurados; el Auxiliar **confirma o desvía**. La propuesta nunca es una imposición.",
+   "text": "El sistema **propone** la ubicación destino según los criterios vigentes —en el Núcleo, una regla fija: zona por categoría, agrupación por referencia y mayor capacidad libre; configurables desde el Horizonte 2 (HU-024)—; el Auxiliar **confirma o desvía**. La propuesta nunca es una imposición.",
    "tipo": "Configurable",
-   "origin": "`[NUEVO]`",
+   "origin": "`[NUEVO]` `[H-19]`",
    "sec": "Reglas de estados"
   },
   {
@@ -5916,9 +5925,9 @@
   },
   {
    "id": "RN-084*",
-   "text": "**Toda mercancía recibida se registra por piezas.** Cada pieza pertenece a un solo SKU + Lote, tiene un tipo —rollo, paquete o bolsa, o contenedor agrupado— y una **cantidad propia registrada en la recepción**. El QR no identifica la pieza: la pieza tiene identidad interna en el sistema y el QR sigue identificando SKU + Lote",
+   "text": "**Toda mercancía recibida se registra por piezas.** Cada pieza pertenece a un solo SKU + Lote, tiene un tipo —rollo, paquete o bolsa, o contenedor agrupado— y una **cantidad propia registrada en la recepción**. El QR no identifica la pieza: la pieza tiene identidad interna en el sistema y el QR sigue identificando SKU + Lote. **Sin excepción**: la mercancía que llega suelta se registra como paquete o bolsa con su cantidad de unidades `[HD-30]`",
    "tipo": "Estructural",
-   "origin": "`[Q-11]` `[F-1]` `[F-2]` `[F-6]` `[CD-49]`",
+   "origin": "`[Q-11]` `[F-1]` `[F-2]` `[F-6]` `[CD-49]` `[HD-30]`",
    "sec": "Reglas incorporadas en la versión 1.2 (decisiones del 30 de septiembre de 2026)"
   },
   {
@@ -5955,6 +5964,13 @@
    "tipo": "Estructural",
    "origin": "`[F-5]` `[RN-040]`",
    "sec": "Reglas incorporadas en la versión 1.2 (decisiones del 30 de septiembre de 2026)"
+  },
+  {
+   "id": "RN-090*",
+   "text": "**Una pieza no se divide.** Un movimiento interno mueve la pieza completa; tomar una parte de una pieza es un corte parcial (RN-086*), que se registra como salida. La división de una pieza en dos no existe en el MVP",
+   "tipo": "Estructural",
+   "origin": "`[HD-29]` `[F-3]` `[RN-086*]`",
+   "sec": "Regla incorporada en la versión 1.4 (respuesta a HD-29)"
   }
  ],
  "kpi": [
@@ -6206,72 +6222,72 @@
   {
    "id": "PN-01",
    "name": "Recepción de mercancía",
-   "line": 753
+   "line": 770
   },
   {
    "id": "PN-02",
    "name": "Registro inicial e identificación",
-   "line": 792
+   "line": 809
   },
   {
    "id": "PN-03",
    "name": "Ubicación física de mercancía",
-   "line": 824
+   "line": 841
   },
   {
    "id": "PN-04",
    "name": "Consulta de existencia y ubicación",
-   "line": 858
+   "line": 875
   },
   {
    "id": "PN-05",
    "name": "Movimiento interno (reubicación)",
-   "line": 887
+   "line": 904
   },
   {
    "id": "PN-06",
    "name": "Transferencia entre zonas o bodegas",
-   "line": 922
+   "line": 939
   },
   {
    "id": "PN-07",
    "name": "Ajuste de inventario",
-   "line": 959
+   "line": 976
   },
   {
    "id": "PN-08",
    "name": "Conteo cíclico",
-   "line": 1001
+   "line": 1018
   },
   {
    "id": "PN-09",
    "name": "Conteo general",
-   "line": 1044
+   "line": 1061
   },
   {
    "id": "PN-10",
    "name": "Salida de mercancía",
-   "line": 1084
+   "line": 1101
   },
   {
    "id": "PN-11",
    "name": "Gestión de alerta operativa",
-   "line": 1124
+   "line": 1141
   },
   {
    "id": "PN-12",
    "name": "Reporte de novedad de mercancía",
-   "line": 1172
+   "line": 1189
   },
   {
    "id": "PN-13",
    "name": "Auditoría de inventario",
-   "line": 1209
+   "line": 1226
   },
   {
    "id": "PN-14",
    "name": "Cierre operativo de jornada",
-   "line": 1245
+   "line": 1262
   }
  ],
  "cd": [

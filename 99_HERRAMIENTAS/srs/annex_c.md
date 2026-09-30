@@ -97,7 +97,7 @@ Los hallazgos H-01…H-20 se describen con su evidencia en el §0.5-b. Su estado
 | H-15, H-16 | Abierto: acta en borrador, sin firmar | DEC-08 (a) |
 | H-17 | **Resuelto en la v1.3** | DEC-02 (a) |
 | H-18 | **Resuelto en la v1.3** | DEC-09 (a) |
-| H-19, H-20 | Abierto (nuevos en la v1.2) | Director: aceptar por escrito como limitación o acotar, junto con DEC-01 = A |
+| H-19, H-20 | **Resuelto en la v1.4** | Respuestas (a) del 30-sep-2026 (C.12) |
 
 ## C.9 Decisiones del cierre del CP-04 (versión 1.1)
 
@@ -128,7 +128,7 @@ Los hallazgos H-01…H-20 se describen con su evidencia en el §0.5-b. Su estado
 | **Q-10** | El escaneo de salida verifica y cuenta | HU-SAL-008, RF-SAL-012, RN-SAL-009 |
 | Piloto · nivel | 1 bodega · Ingeniería | R-S03 corregido |
 
-**Decisiones que quedan pendientes** (no se inventan): **HD-28** (contenedor con mezcla de lotes; diferencia entre «paquete o bolsa» y «contenedor agrupado»; motivos por los que un identificador se reemplaza ahora que la reimpresión no lo reemplaza), **HD-29** (qué ocurre con el remanente de un corte parcial si se mueve a otra ubicación; movimiento parcial de una pieza) y **HD-30** (si toda referencia se controla por piezas).
+**Decisiones que quedaban pendientes** (no se inventan; HD-29 y HD-30 se resolvieron en la v1.4, C.12): **HD-28** (contenedor con mezcla de lotes; diferencia entre «paquete o bolsa» y «contenedor agrupado»; motivos por los que un identificador se reemplaza ahora que la reimpresión no lo reemplaza), **HD-29** (qué ocurre con el remanente de un corte parcial si se mueve a otra ubicación; movimiento parcial de una pieza) y **HD-30** (si toda referencia se controla por piezas).
 
 ## C.11 Respuestas del Director a DEC-02…DEC-09 (versión 1.3)
 
@@ -145,7 +145,20 @@ Los hallazgos H-01…H-20 se describen con su evidencia en el §0.5-b. Su estado
 | **DEC-08** | (a) Acta de aprobación y tabla de equivalencia de fases | Borrador sin firma en `05_V13_DECISIONES/`; H-15 y H-16 siguen abiertos |
 | **DEC-09** | (a) La alerta se redefine sobre el umbral de antigüedad | PN-11; RN-LOT-005 |
 
-**Pendientes que siguen abiertos:** el acta firmada de DEC-08; H-19 y H-20; HD-28, HD-29 y HD-30 del modelo de dominio; la verificación de campo de KPI-24 (Fase 3 del roadmap).
+**Pendientes (v1.3):** el acta firmada de DEC-08; H-19 y H-20; HD-28, HD-29 y HD-30 del modelo de dominio; la verificación de campo de KPI-24 (Fase 3 del roadmap). **Actualización (v1.4):** H-19, H-20, HD-29 y HD-30 se resolvieron (C.12); siguen abiertos el acta, HD-28 y KPI-24.
+
+## C.12 Respuestas del Director a H-19, H-20, HD-29 y HD-30 (versión 1.4)
+
+> Dadas el 30 de septiembre de 2026, en la opción (a) propuesta, tras verificarla contra las fuentes.
+
+| Asunto | Respuesta | Efecto en este SRS |
+|---|---|---|
+| **H-19** | (a) Regla fija de propuesta de ubicación en el Núcleo | HU-ENT-006, RN-MOV-001; HU-BOD-005 sigue en el Horizonte 2 |
+| **H-20** | (a) RF-REP-003 acotado a 12 KPI; RF nuevo para los otros 12 | RF-REP-003 · RF-REP-008 (Horizonte 2) |
+| **HD-29** | (a) Una pieza no se divide | Regla nueva RN-MOV-012; HU-MOV-001 |
+| **HD-30** | (a) Toda la mercancía se controla por piezas | RN-LOT-006 |
+
+**Limitación conocida:** una parte de un paquete o bolsa no puede trasladarse a otra ubicación como movimiento interno. Se puede reabrir con el levantamiento AS-IS (Q-04).
 
 ---
 
@@ -154,6 +167,6 @@ Los hallazgos H-01…H-20 se describen con su evidencia en el §0.5-b. Su estado
 | | |
 |---|---|
 | **Completado** | 9 decisiones, todas con respuesta (C.10 y C.11) · 5 decisiones del cierre del CP-04 (C.9) · 6 + 6 + 3 propuestas de cierre de brechas · 10 riesgos de fase · riesgos críticos heredados |
-| **Pendiente** | Acta firmada de DEC-08 · H-19, H-20 · HD-28, HD-29 y HD-30 |
+| **Pendiente** | Acta firmada de DEC-08 · HD-28 |
 | **Riesgos encontrados** | R-S01 (crítico) y los 9 restantes |
 | **Dependencias** | Cap. 12 depende de DEC-01 y DEC-05 |

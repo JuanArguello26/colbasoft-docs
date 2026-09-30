@@ -13,7 +13,7 @@ ROOT = _pl.Path(__file__).resolve().parents[2]
 HERE_DIR = _pl.Path(__file__).resolve().parent
 # Uso: python build_srs.py [carpeta_de_salida]  (por defecto, 02_SRS_FASE_3 del proyecto)
 OUT_DIR = sys.argv[1] if len(sys.argv) > 1 else str(ROOT / "02_SRS_FASE_3")
-OUT = os.path.join(OUT_DIR, "SRS_COLBASOFT_v1.3.md")
+OUT = os.path.join(OUT_DIR, "SRS_COLBASOFT_v1.4.md")
 
 # ============================================================ conversión de IDs
 def rnn(legacy_tok):
@@ -328,7 +328,7 @@ def cap6():
 
 # CAPÍTULO 6 — REQUISITOS FUNCIONALES NORMALIZADOS
 
-> Reorganización de los **184 RF** del SPEC (Cap. 7) con ID permanente `RF-<DOM>-nnn`. Cada RF indica actor, historia(s) relacionada(s), prioridad, regla(s) de negocio y KPI relacionados. La redacción del requisito, su actor, su prioridad, sus dependencias y su origen **se reproducen del SPEC**; la historia, la regla y el KPI relacionados son derivados de esta fase `[SRS]` (las reglas incluyen todas las que el SPEC cita en el propio requisito). **Ningún RF se perdió** (Anexo A). Los RF que no se relacionan con ningún KPI o regla muestran «—».
+> Reorganización de los **185 RF** del SPEC (Cap. 7) con ID permanente `RF-<DOM>-nnn`. Cada RF indica actor, historia(s) relacionada(s), prioridad, regla(s) de negocio y KPI relacionados. La redacción del requisito, su actor, su prioridad, sus dependencias y su origen **se reproducen del SPEC**; la historia, la regla y el KPI relacionados son derivados de esta fase `[SRS]` (las reglas incluyen todas las que el SPEC cita en el propio requisito). **Ningún RF se perdió** (Anexo A). Los RF que no se relacionan con ningún KPI o regla muestran «—».
 
 ## 6.1 Distribución
 
@@ -341,7 +341,7 @@ def cap6():
         n2 = sum(1 for r in rs if r["id"] in H2_RF)
         rows.append(f"| **{m}** {MOD[m][1]} | {MOD[m][0]} | {len(rs)} | {c['P0']} | {c['P1']} | {c['P2']} | {n2} | {rs[0]['id']}–{rs[-1]['id']} |")
         T.update(c); T["n"] += len(rs); T["h2"] += n2
-    rows.append(f"| **Total** | | **{T['n']}** | **{T['P0']}** | **{T['P1']}** | **{T['P2']}** | **{T['h2']}** | RF-001–RF-184 |")
+    rows.append(f"| **Total** | | **{T['n']}** | **{T['P0']}** | **{T['P1']}** | **{T['P2']}** | **{T['h2']}** | RF-001–RF-185 |")
     o.append("\n".join(rows))
     o.append("\n> **Hallazgo H-02.** El resumen del SPEC (§7.1) declara 72 P0 / 69 P1 / 21 P2; las filas de los requisitos suman **74 / 70 / 18**. Este SRS usa la prioridad de cada fila.\n")
     n = 2
@@ -364,7 +364,7 @@ def cap6():
 
 | | |
 |---|---|
-| **Completado** | 184 RF con ID `RF-<DOM>-nnn`, actor, historia(s), MoSCoW, regla(s) y KPI |
+| **Completado** | 185 RF con ID `RF-<DOM>-nnn`, actor, historia(s), MoSCoW, regla(s) y KPI |
 | **Pendiente** | Validación de los mapeos `[SRS]` (R-S02) · RF propuestos para reglas y KPI sin requisito (Anexo C, DEC-05 y DEC-06; **no incorporados**) |
 | **Riesgos encontrados** | H-02 (prioridades del resumen del SPEC no coinciden) · H-11 y H-12 (brechas) · H-08 (19 RF en H2) |
 | **Dependencias** | Cap. 5 (historias), Cap. 7 (RNF), Cap. 8 (reglas) |
@@ -441,6 +441,8 @@ def cap8():
 > **Versión 1.1 — cierre del CP-04.** Se incorporan **3 reglas estructurales nuevas**, separadas de las 82: RN-EXI-007 (la entrada confirmada queda en recepción, DF5-02), RN-MOV-010 (la primera ubicación es un movimiento interno, DF5-03) y RN-INT-008 (revalidación al sincronizar, DF5-05); vienen de SPEC v1.1 §9.15. Además cambia el texto de **RN-IDE-001** y **RN-IDE-003** por DF5-01 (el QR de mercancía identifica SKU + Lote). Total del SRS v1.1: **85 reglas**. La discrepancia 68/82 del SPEC sigue abierta (H-01, DEC-03).
 >
 > **Versión 1.2 — decisiones del 30-sep-2026.** Se incorporan **6 reglas estructurales nuevas**, separadas de las 85: RN-LOT-006 (toda mercancía se registra por piezas), RN-LOT-007 (la existencia de una unidad de inventario es la suma de sus piezas), RN-SAL-008 (el corte parcial), RN-MOV-011 (selección de la pieza tras el escaneo), RN-SAL-009 (el escaneo de salida verifica y cuenta) y RN-CNT-009 (el conteo es pieza por pieza); vienen de SPEC v1.2 §9.16. Además cambia el texto de **RN-IDE-004** (Q-09: la reimpresión conserva el mismo QR). Total del SRS v1.2: **91 reglas**.
+>
+> **Versión 1.4 — respuesta a HD-29.** Se incorpora **1 regla estructural nueva**, separada de las 91: RN-MOV-012 (una pieza no se divide: el movimiento interno mueve la pieza completa y tomar una parte es un corte parcial). Viene de SPEC v1.4 §9.18. Además cambian los textos de **RN-MOV-001** (propuesta de ubicación con regla fija en el Núcleo, H-19) y **RN-LOT-006** (sin excepción: lo suelto es un paquete o bolsa, HD-30). Total del SRS v1.4: **92 reglas**.
 
 ## 8.1 Distribución por dominio
 
@@ -472,7 +474,7 @@ def cap8():
             hus = ", ".join(HU_NEW[x] for x in sorted(rn_hu.get(k, []))) or "**sin HU** (H-11)"
             o.append(f"| **{RN_NEW[k]}**<br>*({leg}{star})* | {L(r['text'])} | {r['tipo']} | {core} | {L(r['origin'])} | {rfs} | {hus} |")
     o.append("""
-\\* Las reglas con asterisco en el SPEC (`RN-002b`, `RN-036b`, `RN-057b`, `RN-070` a `RN-080`) se incorporaron durante la consolidación del Cap. 9 del SPEC (§9.13); `RN-081` a `RN-083` se incorporaron en la v1.1 del SPEC (§9.15, cierre del CP-04) y `RN-084` a `RN-089` en la v1.2 (§9.16, decisiones del 30-sep-2026); su contenido se conserva íntegro y ya no requieren el asterisco.
+\\* Las reglas con asterisco en el SPEC (`RN-002b`, `RN-036b`, `RN-057b`, `RN-070` a `RN-080`) se incorporaron durante la consolidación del Cap. 9 del SPEC (§9.13); `RN-081` a `RN-083` se incorporaron en la v1.1 del SPEC (§9.15, cierre del CP-04), `RN-084` a `RN-089` en la v1.2 (§9.16) y `RN-090` en la v1.4 (§9.18); su contenido se conserva íntegro y ya no requieren el asterisco.
 
 ---
 
@@ -480,7 +482,7 @@ def cap8():
 
 | | |
 |---|---|
-| **Completado** | 91 reglas en 13 dominios (82 del SPEC v1.0 + 3 de la v1.1 + 6 de la v1.2) con ID `RN-<DOM>-nnn`, tipo, origen, RF e HU relacionados |
+| **Completado** | 92 reglas en 13 dominios (82 del SPEC v1.0 + 3 de la v1.1 + 6 de la v1.2 + 1 de la v1.4) con ID `RN-<DOM>-nnn`, tipo, origen, RF e HU relacionados |
 | **Pendiente** | Confirmar la cifra de 82 y la renumeración canónica (DEC-03) · ambigüedad estructural/configurable (DEC-04) · 6 reglas sin RF (Anexo C, PROP-RN) |
 | **Riesgos encontrados** | H-01, H-06, H-09, H-11 · R-S06, R-S08 |
 | **Dependencias** | Cap. 6 (RF), Cap. 5 (HU), Cap. 12 (CA-06 y CA-07) |
@@ -538,13 +540,13 @@ Concepto del SPEC (CD-nn / PR-nn / DC-nn) ──► Historia de usuario (HU-<DOM
     o.append("| KPI | Nombre | Qué mide | Fórmula | Frecuencia | Usuario | Fuente del dato | Origen (SPEC) | RF relacionados |")
     o.append("|---|---|---|---|---|---|---|---|---|")
     for k in [KPI[f"KPI-{i:02d}"] for i in range(1, 25)]:
-        rfs = ", ".join(RF_NEW[x] for x in sorted(KPI_RF[k["id"]]) if x != "RF-136") + (", RF-REP-003" if True else "")
+        rfs = ", ".join(RF_NEW[x] for x in sorted(KPI_RF[k["id"]]) if x not in ("RF-136", "RF-185")) + ", " + (RF_NEW["RF-185"] if "RF-185" in KPI_RF[k["id"]] else RF_NEW["RF-136"])
         o.append(f"| **{k['id']}** | {k['name']} | {L(k['Qué mide'])} | {k['Fórmula']} | {k['Frecuencia']} | {k['Usuario']} | {L(k['Fuente del dato'])} | {L(k['Origen'])} | {rfs} |")
     o.append("\n> **Hallazgo H-12.** KPI-05, KPI-07, KPI-10, KPI-12, KPI-17 y KPI-24 necesitan un dato que ningún RF exige capturar (Anexo C, C.2.2).\n")
 
     # 9.4 matriz principal
     o.append("## 9.4 Matriz principal: objetivo → concepto → historia → RF → regla → KPI\n")
-    o.append("Una fila por cada uno de los 184 RF. «Ancla MON» = apartado(s) de la monografía que el SPEC declara en el origen del RF; vacío si el origen es `[NUEVO]`, `[DC]`, `[PR]`, `[AUD]`.\n")
+    o.append("Una fila por cada uno de los 185 RF. «Ancla MON» = apartado(s) de la monografía que el SPEC declara en el origen del RF; vacío si el origen es `[NUEVO]`, `[DC]`, `[PR]`, `[AUD]`.\n")
     o.append("| Objetivo `[SRS]` | Ancla MON | Concepto (SPEC) | Historia(s) | RF | Regla(s) | KPI |")
     o.append("|:--:|---|---|---|---|---|---|")
     for m in MODS:
@@ -566,7 +568,7 @@ Concepto del SPEC (CD-nn / PR-nn / DC-nn) ──► Historia de usuario (HU-<DOM
     pn_of = {}
     for pid, ks in PN_RN.items():
         for k in ks: pn_of.setdefault(k, []).append(pid)
-    o.append("\n## 9.5 Cobertura por regla de negocio (91)\n")
+    o.append("\n## 9.5 Cobertura por regla de negocio (92)\n")
     o.append("| Regla | Tipo | Proceso(s) | Caso(s) de uso | Historia(s) | RF |")
     o.append("|---|:--:|---|---|---|---|")
     for dom, (nm, lst) in RN_DOM.items():
@@ -590,9 +592,9 @@ Concepto del SPEC (CD-nn / PR-nn / DC-nn) ──► Historia de usuario (HU-<DOM
         orig = KPI[kid]["Origen"]
         obj = kpi_obj.get(kid) or ("OE-3 (" + ", ".join(sorted(set("§" + x for x in re.findall(r"§(\d+(?:\.\d+)?)", orig)))) + ")" if "§" in orig else "OE-3 (nuevo aporte)")
         hs = sorted(h for h, ks in HU_KPI.items() if kid in ks)
-        rfs = sorted(x for x in KPI_RF[kid] if x != "RF-136")
+        rfs = sorted(x for x in KPI_RF[kid] if x not in ("RF-136", "RF-185"))
         rns = sorted({k for x in rfs for k in RF_RN.get(x, [])}, key=lambda k: RN_NEW[k])
-        o.append(f"| **{kid}** {KPI[kid]['name']} | {obj} | {kpi_cd[kid]} | {', '.join(HU_NEW[x] for x in hs) or '—'} | {', '.join(RF_NEW[x] for x in rfs)}, RF-REP-003 | {', '.join(RN_NEW[k] for k in rns) or '—'} |")
+        o.append(f"| **{kid}** {KPI[kid]['name']} | {obj} | {kpi_cd[kid]} | {', '.join(HU_NEW[x] for x in hs) or '—'} | {', '.join(RF_NEW[x] for x in rfs)}, {RF_NEW['RF-185'] if 'RF-185' in KPI_RF[kid] else RF_NEW['RF-136']} | {', '.join(RN_NEW[k] for k in rns) or '—'} |")
 
     # 9.7 procesos
     o.append("\n## 9.7 Cobertura por proceso de negocio (14)\n")
@@ -623,7 +625,7 @@ Concepto del SPEC (CD-nn / PR-nn / DC-nn) ──► Historia de usuario (HU-<DOM
     o.append("| RF sin historia · HU sin RF | ninguno · ninguna | — |")
     o.append("| Objetivos de la monografía sin requisito | ninguno (todos los módulos derivan de OG/OE-1/OE-2/OE-3); OE-2 se materializa solo en M-12, M-19, M-20 y en los RNF de usabilidad | — |")
     o.append("""
-> **Lectura.** La cadena está completa para 184 de 184 RF y 114 de 114 HU. Las brechas que tenía la v1.2 (reglas sin RF, KPI sin dato de origen y PN-14 sin requisitos) se cerraron en la v1.3 por las decisiones DEC-05 y DEC-06 (Anexo C).
+> **Lectura.** La cadena está completa para 185 de 185 RF y 114 de 114 HU. Las brechas que tenía la v1.2 (reglas sin RF, KPI sin dato de origen y PN-14 sin requisitos) se cerraron en la v1.3 por las decisiones DEC-05 y DEC-06 (Anexo C).
 
 ---
 
@@ -631,7 +633,7 @@ Concepto del SPEC (CD-nn / PR-nn / DC-nn) ──► Historia de usuario (HU-<DOM
 
 | | |
 |---|---|
-| **Completado** | Objetivos transcritos · objetivos→módulos · catálogo de 24 KPI · matriz de 184 RF · cobertura de 91 reglas · de 24 KPI · de 14 procesos · brechas |
+| **Completado** | Objetivos transcritos · objetivos→módulos · catálogo de 24 KPI · matriz de 185 RF · cobertura de 92 reglas · de 24 KPI · de 14 procesos · brechas |
 | **Pendiente** | Validación por el Director de los eslabones `[SRS]` (R-S02) · brechas cerradas en la v1.3 (DEC-05, DEC-06) |
 | **Riesgos encontrados** | H-10, H-11, H-12, H-13 (resueltos en la v1.3) · RG-42 (pérdida de trazabilidad hacia la monografía) |
 | **Dependencias** | Caps. 5–8 |
@@ -658,7 +660,7 @@ def annex_a():
             cells.append(f"{h['id']} | {HU_NEW[h['id']]} | {h['mod']}")
         while len(cells) < 3: cells.append(" | | ")
         o.append("| " + " | | ".join(cells) + " |")
-    o.append("\n## A.2 Requisitos funcionales (184)\n")
+    o.append("\n## A.2 Requisitos funcionales (185)\n")
     o.append("| SPEC | SRS | | SPEC | SRS | | SPEC | SRS | | SPEC | SRS |")
     o.append("|---|---|---|---|---|---|---|---|---|---|---|")
     rs = D["rf"]
@@ -674,7 +676,7 @@ def annex_a():
         cells = [f"{r['id']} | {RNF_NEW[r['id']]}" for r in ns[i:i + 4]]
         while len(cells) < 4: cells.append(" | ")
         o.append("| " + " | | ".join(cells) + " |")
-    o.append("\n## A.4 Reglas de negocio (91)\n")
+    o.append("\n## A.4 Reglas de negocio (92)\n")
     o.append("| SPEC | SRS | Tipo | | SPEC | SRS | Tipo | | SPEC | SRS | Tipo |")
     o.append("|---|---|:--:|---|---|---|:--:|---|---|---|:--:|")
     keys = [k for dom, (nm, lst) in RN_DOM.items() for k in lst]
@@ -721,9 +723,9 @@ def annex_b(doc_text_wo_annex=None):
 |---|:--:|:--:|:--:|:--:|"""]
     o.append(f"| **Historias de usuario** | 114 | 114 | **{len(HU_NEW)}** (Must {hc['P0']} · Should {hc['P1']} · Could {hc['P2']} · Won't {hc['P3']}) | **No** |")
     o.append(f"| Criterios de aceptación → escenarios Gherkin | — | {n_crit} | **{n_scn}** | **No** (1:1) |")
-    o.append(f"| **Requisitos funcionales** | 184 | 184 | **{len(RF_NEW)}** (Must {rc['P0']} · Should {rc['P1']} · Could {rc['P2']} · Won't {rc['P3']}) | **No** |")
+    o.append(f"| **Requisitos funcionales** | 185 | 185 | **{len(RF_NEW)}** (Must {rc['P0']} · Should {rc['P1']} · Could {rc['P2']} · Won't {rc['P3']}) | **No** |")
     o.append(f"| **Requisitos no funcionales** | 47 | 47 | **{len(RNF_NEW)}** ({', '.join(f'{RNF_CAT[c]} {rnf_cat[c]}' for c in CAT_ORDER)}) | **No** |")
-    o.append(f"| **Reglas de negocio** | **68** (v1.0) | **82** (v1.0) + **3** (v1.1) + **6** (v1.2) | **{len(RN_NEW)}** ({nrn_e} estructurales · {nrn_c} configurables) | **No** — discrepancia del SPEC (H-01) |")
+    o.append(f"| **Reglas de negocio** | **68** (v1.0) | **82** (v1.0) + **3** (v1.1) + **6** (v1.2) + **1** (v1.4) | **{len(RN_NEW)}** ({nrn_e} estructurales · {nrn_c} configurables) | **No** — discrepancia del SPEC (H-01) |")
     o.append(f"| **KPI** | 24 | 24 | **{len(D['kpi'])}** | **No** |")
     o.append("| **Casos de uso** | — | — | **24** (14 procesos PN + 10 de módulos) | — |")
     o.append("| Procesos de negocio (PN) | 14 | 14 | 14 (14 con caso de uso y con requisitos) | **No** |")
@@ -737,13 +739,13 @@ def annex_b(doc_text_wo_annex=None):
 |---|---|:--:|
 | V-1 | Todas las HU del SPEC (114) están en el SRS con ID permanente | ✅ {len(HU_NEW)}/114 |
 | V-2 | Todos los criterios de aceptación tienen un escenario Gherkin | ✅ {n_scn}/{n_crit} |
-| V-3 | Todos los RF del SPEC (184) están en el SRS | ✅ {len(RF_NEW)}/184 |
+| V-3 | Todos los RF del SPEC (185) están en el SRS | ✅ {len(RF_NEW)}/185 |
 | V-4 | Todos los RNF del SPEC (47) están en el SRS | ✅ {len(RNF_NEW)}/47 |
-| V-5 | Todas las reglas con contenido (91: 82 de la v1.0 + 3 de la v1.1 + 6 de la v1.2) están en el SRS; los 2 marcadores vacíos quedan documentados | ✅ {len(RN_NEW)}/91 |
+| V-5 | Todas las reglas con contenido (92: 82 de la v1.0 + 3 de la v1.1 + 6 de la v1.2 + 1 de la v1.4) están en el SRS; los 2 marcadores vacíos quedan documentados | ✅ {len(RN_NEW)}/92 |
 | V-6 | Todos los KPI (24) están en el SRS con su fórmula | ✅ {len(D['kpi'])}/24 |
 | V-7 | Los IDs permanentes son únicos | {'✅' if uniq else '❌'} {len(allids)} IDs |
 | V-8 | Toda HU tiene al menos un RF | ✅ {sum(1 for h in HU if HU_RF.get(h))}/114 |
-| V-9 | Todo RF tiene al menos una HU | ✅ {sum(1 for r in RF if RF_HU.get(r))}/184 |
+| V-9 | Todo RF tiene al menos una HU | ✅ {sum(1 for r in RF if RF_HU.get(r))}/185 |
 | V-10 | Toda regla está cubierta por algún RF | {'✅' if all(rn_rf.get(k) for k in RNR) else '🟡'} {sum(1 for k in RNR if rn_rf.get(k))}/{len(RNR)} (faltan: {', '.join(RN_NEW[k] for k in sorted((k for k in RNR if not rn_rf.get(k)), key=lambda k: RN_NEW[k]))}) |
 | V-11 | Toda regla está cubierta por alguna HU | {'✅' if all(rn_hu.get(k) for k in RNR) else '🟡'} {sum(1 for k in RNR if rn_hu.get(k))}/{len(RNR)} (faltan: {', '.join(RN_NEW[k] for k in sorted((k for k in RNR if not rn_hu.get(k)), key=lambda k: RN_NEW[k]))}) |
 | V-12 | Todo KPI tiene al menos un RF que lo alimenta | ✅ {sum(1 for k in KPI_RF if KPI_RF[k])}/24 |
@@ -761,7 +763,7 @@ def annex_b(doc_text_wo_annex=None):
 |---|---|---|---|
 | H-01 | 68 reglas (51 est. + 17 conf.) | 82 (60 + 22) | Se conservan 82 (+3 incorporadas en la v1.1, +6 en la v1.2) |
 | H-02 | RF: 72 P0 / 69 P1 / 21 P2 | 74 / 70 / 18 | Se usa la prioridad de cada fila |
-| H-03 | Rangos HU-001…096 y RF-001…138 (§0.4) | HU-001…114 y RF-001…184 (corregido en la v1.3) | Prevalece el contenido |
+| H-03 | Rangos HU-001…096 y RF-001…138 (§0.4) | HU-001…114 y RF-001…185 (corregido en la v1.3) | Prevalece el contenido |
 | H-04 | Trazabilidad 41/12/9/38 % (§0.3) | 34/12/17/37 % (§13.3) | Sin impacto en requisitos |
 | H-05 | HU-026 → RNF-014; HU-071 → RNF-012 | Correctos: RNF-015 y RNF-014 | Se enlazan los correctos |
 

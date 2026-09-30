@@ -9,15 +9,16 @@ Requisito: Python 3.10 o superior, sin librerías externas. En Windows, ejecutar
 | Carpeta / archivo | Contenido |
 |---|---|
 | `spec/build_spec_v11.py` | Genera `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.1.md` aplicando a la v1.0 (que no se toca) los reemplazos del cierre del CP-04; cada reemplazo debe aparecer una sola vez o el script falla |
+| `spec/build_spec_v14.py` | Genera `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.4.md` aplicando a la v1.3 (que no se toca) las respuestas del Director a H-19, H-20, HD-29 y HD-30: regla fija de ubicación, RF-136 acotado y RF-185 nuevo, regla RN-090* y alcance del control por pieza |
 | `spec/build_spec_v13.py` | Genera `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.3.md` aplicando a la v1.2 (que no se toca) las respuestas del Director a DEC-02…DEC-09: 4 HU y 13 RF nuevos, fe de erratas de las reglas (§9.17), valorización retirada, observaciones de auditoría y alerta de lote |
 | `spec/build_spec_v12.py` | Genera `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.2.md` aplicando a la v1.1 (que no se toca) los reemplazos e inserciones de las decisiones del 30-sep-2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09, Q-10): 7 HU, 9 RF, 6 reglas y 1 concepto nuevos |
-| `srs/parse_spec.py` | Lee `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.3.md` y extrae a `spec.json` las 114 HU, 184 RF, 47 RNF, reglas, 24 KPI, 14 PN, 49 CD y 42 RG |
+| `srs/parse_spec.py` | Lee `01_SPEC_FASE_2/COLBASOFT_SPEC_v1.4.md` y extrae a `spec.json` las 114 HU, 185 RF, 47 RNF, reglas, 24 KPI, 14 PN, 49 CD y 42 RG |
 | `srs/spec.json` | Extracción estructurada del SPEC (salida de `parse_spec.py`) |
 | `srs/ids.py` | Asignación de IDs permanentes del SRS (`HU-<DOM>-nnn`, `RF-<DOM>-nnn`, `RNF-<CAT>-nnn`, `RN-<DOM>-nnn`) y equivalencias con los IDs del SPEC |
 | `srs/trace.py` | Mapeos derivados en el SRS: HU↔RF, RF↔RN, KPI↔RF, RF↔concepto, objetivo por módulo, horizonte H1/H2, dependencias entre historias |
 | `srs/g01.txt`…`g05.txt` | Escenarios Gherkin de las 114 historias (un escenario por criterio de aceptación del SPEC; `g05.txt` trae las de la v1.2 y `g06.txt` las de la v1.3) |
 | `srs/cap*.md`, `uc_*.md`, `annex_c.md` | Capítulos del SRS redactados a mano, con marcadores `@HU030`, `@RF052`, `@RN009`… que el generador convierte a IDs permanentes |
-| `srs/build_srs.py` | Ensambla `SRS_COLBASOFT_v1.3.md` y genera los capítulos 5–9 y los anexos A y B |
+| `srs/build_srs.py` | Ensambla `SRS_COLBASOFT_v1.4.md` y genera los capítulos 5–9 y los anexos A y B |
 | `dominio/export_ids.py` | Genera `srs_ids.json` (catálogo de IDs del SRS) a partir de `../srs` |
 | `dominio/dm_data.py` | Subdominios, entidades, objetos de valor, agregados, invariantes, ciclos de vida, máquinas de estado y hallazgos del dominio |
 | `dominio/ev_data.py` | Los 168 eventos y las líneas temporales de los 14 procesos |
@@ -34,6 +35,7 @@ cd 99_HERRAMIENTAS/spec
 python build_spec_v11.py /tmp/prueba   # o sin argumento: 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.1.md
 python build_spec_v12.py /tmp/prueba   # lee la v1.1; sin argumento: 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.2.md
 python build_spec_v13.py /tmp/prueba   # lee la v1.2; sin argumento: 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.3.md
+python build_spec_v14.py /tmp/prueba   # lee la v1.3; sin argumento: 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.4.md
 ```
 
 ```bash
@@ -57,7 +59,7 @@ El 28 de septiembre de 2026 la cadena completa (extracción del SPEC → SRS →
 
 El 29 de septiembre de 2026, tras el cierre del CP-04, la cadena SPEC v1.1 → SRS v1.1 → modelo de dominio v1.1 se generó dos veces y dio archivos idénticos entre sí y con los oficiales; `xref.py` terminó sin errores (`04_CP04_AUDITORIA/04_CP04_CIERRE.md`, §15).
 
-El 30 de septiembre de 2026 la cadena SPEC v1.3 → SRS v1.3 → modelo de dominio v1.3 se generó dos veces (carpeta temporal) con archivos idénticos entre sí y `xref.py` terminó sin errores. Esa verificación es de un borrador: la v1.3 aún no está aprobada.
+El 30 de septiembre de 2026 la cadena SPEC v1.4 → SRS v1.4 → modelo de dominio v1.4 se generó dos veces (carpeta temporal) con archivos idénticos entre sí y `xref.py` terminó sin errores. Esa verificación es de un borrador: la v1.4 aún no está aprobada.
 
 ## Reglas al modificar
 

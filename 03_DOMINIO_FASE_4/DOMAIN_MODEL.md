@@ -8,11 +8,11 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | DOMAIN_MODEL |
-| **Versión** | 1.3 |
+| **Versión** | 1.4 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 y v1.3) |
-| **Estado** | **Borrador v1.3** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2) y las respuestas a DEC-02…DEC-09. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.3 → SRS_COLBASOFT v1.3 → **Modelo de Dominio v1.3** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2, v1.3 y v1.4) |
+| **Estado** | **Borrador v1.4** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2), las respuestas a DEC-02…DEC-09 (v1.3) y las de H-19, H-20, HD-29 y HD-30. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.4 → SRS_COLBASOFT v1.4 → **Modelo de Dominio v1.4** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `EVENT_CATALOG.md` (eventos, matrices D y E) · `GLOSSARY.md` (glosario y auditoría interna) |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -25,6 +25,8 @@
 > **Versión 1.2.** Incorpora las decisiones del Director del 30 de septiembre de 2026 (DEC-01 = A, Q-11, F-1…F-6, Q-09 y Q-10), que agregan la **Pieza** al modelo y resuelven HD-25. El detalle está en DOMAIN_MODEL §0.9.
 
 > **Versión 1.3.** Incorpora las respuestas del Director a DEC-02…DEC-09. El detalle está en DOMAIN_MODEL §0.10.
+
+> **Versión 1.4.** Incorpora las respuestas a H-19, H-20, HD-29 y HD-30. El detalle está en DOMAIN_MODEL §0.11.
 
 ## Índice
 
@@ -46,7 +48,7 @@
 
 # CAPÍTULO 0 — AUDITORÍA DE REANUDACIÓN
 
-> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes, el **0.8** registra los cambios de la v1.1, el **0.9** los de la v1.2 y el **0.10** los de la v1.3.
+> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes, el **0.8** registra los cambios de la v1.1, el **0.9** los de la v1.2 y el **0.10** los de la v1.3 y el **0.11** los de la v1.4.
 
 ## 0.1 Estado del proyecto
 
@@ -126,7 +128,7 @@ El proyecto no conserva documentos de checkpoint independientes; el Prompt #004 
 | `E-nn` | Entidad | E-01…E-27 |
 | `VO-nn` | Objeto de valor | VO-01…VO-43 |
 | `AG-nn` | Agregado | AG-01…AG-22 |
-| `IN-nn` | Invariante | IN-01…IN-78 |
+| `IN-nn` | Invariante | IN-01…IN-79 |
 | `PO-nn` | Política del dominio (regla reactiva) | PO-01…PO-14 |
 | `SM-nn` | Máquina de estados | SM-01…SM-21 |
 | `EV-<DOM>-nnn` | Evento de dominio | 20 dominios, 168 eventos |
@@ -138,7 +140,7 @@ Los IDs de esta fase son **permanentes**: no se reutilizan ni se renumeran. Las 
 
 ## 0.7 Método
 
-1. Se releyeron los cuatro documentos y se reutilizó la extracción estructurada del SRS (103 HU, 162 RF, 82 RN, 24 KPI en la v1.0; 114 HU, 184 RF, 91 RN en la v1.3).
+1. Se releyeron los cuatro documentos y se reutilizó la extracción estructurada del SRS (103 HU, 162 RF, 82 RN, 24 KPI en la v1.0; 114 HU, 185 RF, 92 RN en la v1.4).
 2. Entidades, objetos de valor, agregados, invariantes, estados, eventos y términos se escribieron como datos únicos, y de ellos se generaron los tres documentos y las cinco matrices. **Una definición aparece una sola vez**: el Cap. 1 (lenguaje ubicuo) y el GLOSSARY usan el mismo texto.
 3. Se verificó automáticamente que toda referencia a RN, HU, RF, KPI, evento, entidad e invariante exista (0 referencias rotas).
 
@@ -164,7 +166,7 @@ Al auditar DEC-01 el Director tomó decisiones que resuelven **HD-25** y **HD-22
 |---|---|---|
 | **DEC-01 = A** | Umbral aprobatorio: Núcleo, con 1 bodega piloto | Transferencias (E-13, AG-10) y conteo general quedan fuera del umbral aprobatorio, pero **siguen modelados**: el modelo no descarta nada del Horizonte 2 |
 | **Q-11 · F-1 · F-2** | La trazabilidad por pieza o rollo está dentro del MVP; pieza = rollo o paquete/bolsa, con cantidad propia registrada al recibir | Entidad nueva **E-27 Pieza**; agregado **AG-22**; objeto de valor **VO-43**; reglas RN-LOT-006 y RN-LOT-007 → **IN-73** e **IN-74**; evento **EV-ENT-016**; subdominio SD-01; término «Pieza» y «Rollo», «Paquete o bolsa»; HD-25 resuelto |
-| **F-3** | Cortes parciales | RN-SAL-008 → **IN-75**; eventos **EV-SAL-013**; término «Corte parcial»; nuevo HD-29 |
+| **F-3** | Cortes parciales | RN-SAL-008 → **IN-75**; eventos **EV-SAL-013**; término «Corte parcial»; HD-29 (resuelto en la v1.4) |
 | **F-4** | Selección de la pieza tras el escaneo; la ubicación filtra | RN-MOV-011 → **IN-76**; EV-MOV-001, EV-INV-001 |
 | **Q-10** | El escaneo de salida verifica y cuenta | RN-SAL-009 → **IN-77**; evento **EV-SAL-012** |
 | **F-5** | Conteo manual pieza por pieza | RN-CNT-009 → **IN-78**; EV-CNT-007 |
@@ -192,6 +194,22 @@ El Director respondió DEC-02…DEC-09, todas en la opción (a) recomendada por 
 | **DEC-09** | Alerta sobre el umbral de antigüedad del lote | **HD-10 resuelto** |
 
 **Ningún ID se renumeró ni se reutilizó.** No se agregaron entidades, agregados, invariantes, eventos ni términos nuevos; se actualizaron vínculos y textos. Las cifras del SRS pasan a 114 HU y 184 RF.
+
+
+## 0.11 Control de cambios de la versión 1.4 (respuestas a H-19, H-20, HD-29 y HD-30, 30 de septiembre de 2026)
+
+El Director respondió H-19, H-20, HD-29 y HD-30 en la opción (a), tras verificarla contra las fuentes. El SPEC v1.4 y el SRS v1.4 las recogen antes.
+
+| Asunto | Respuesta | Cambios en el modelo |
+|---|---|---|
+| **H-19** | Regla fija de propuesta de ubicación en el Núcleo | Ninguno en entidades; cambia el texto de RN-MOV-001 (vía el SRS) |
+| **H-20** | RF-REP-003 acotado a 12 KPI; RF-REP-008 para los otros 12 | Ninguno en el dominio |
+| **HD-29** | Una pieza no se divide | Regla RN-MOV-012 → **IN-79**; AG-22, E-27, EV-MOV-001, EV-INV-001; **HD-29 resuelto** |
+| **HD-30** | Toda la mercancía se controla por piezas | IN-73 (texto); **HD-30 resuelto** |
+
+**Limitación conocida (HD-29).** Una parte de un paquete o bolsa de unidades no puede trasladarse a otra ubicación como movimiento interno, porque exigiría dividir la pieza. Se puede reabrir con el levantamiento AS-IS (Q-04).
+
+**Ningún ID se renumeró ni se reutilizó.** Elemento nuevo: IN-79. Las reglas del SRS pasan de 91 a 92; la nueva es una invariante. Pendiente solo **HD-28**.
 
 **ESTADO: CONTEXTO RECONSTRUIDO.**
 
@@ -1002,7 +1020,7 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | **Estado** | — (sin estados propios; «sin cantidad» es una condición derivada) |
 | **Ciclo de vida** | Nace en la recepción con su tipo y su cantidad; se ubica y se mueve por movimientos internos; su cantidad baja por cortes parciales y salidas; llega a cero sin desaparecer; nunca se elimina `[RN-MAE-007]`. |
 | **Relaciones conceptuales** | → E-04 Lote: pertenece a exactamente 1 lote (y por él, a 1 SKU)<br>→ E-07 Ubicación: se encuentra en 1 ubicación<br>→ E-08 Unidad de Inventario: aporta su cantidad a la unidad de inventario de su SKU + Lote + ubicación<br>→ E-11 Documento de entrada: nace de 1 línea de un documento de entrada<br>→ E-10 Movimiento: es afectada por 1..n movimientos (su kardex) |
-| **Reglas asociadas** | RN-LOT-006, RN-LOT-007, RN-SAL-008, RN-MOV-011, RN-SAL-009, RN-CNT-009, RN-MAE-007 |
+| **Reglas asociadas** | RN-LOT-006, RN-LOT-007, RN-SAL-008, RN-MOV-011, RN-MOV-012, RN-SAL-009, RN-CNT-009, RN-MAE-007 |
 | **Eventos que origina** | — |
 | **Eventos que la afectan** | EV-ENT-016, EV-SAL-012, EV-SAL-013 |
 | **Subdominio / agregado** | SD-01 Inventario y existencia · AG-22 |
@@ -1118,7 +1136,7 @@ Los cinco subdominios núcleo forman un solo propósito: **la existencia (SD-01)
 | **AG-18** | Tarea operativa | E-23 Tarea operativa | — | IN-69 | Elemento de origen, responsable (por identidad) |
 | **AG-19** | Motivo tipificado | E-24 Motivo tipificado | — | IN-21, IN-22, IN-48 | — |
 | **AG-20** | Configuración | E-25 Parámetro de configuración | — | IN-65, IN-67 | — |
-| **AG-22** | Pieza | E-27 Pieza | — | IN-73, IN-74, IN-75, IN-76, IN-77, IN-78 | E-04 Lote, E-07 Ubicación, E-08 Unidad de inventario (por identidad) |
+| **AG-22** | Pieza | E-27 Pieza | — | IN-73, IN-74, IN-75, IN-76, IN-77, IN-78, IN-79 | E-04 Lote, E-07 Ubicación, E-08 Unidad de inventario (por identidad) |
 | **AG-21** | Cierre de jornada | E-26 Cierre de jornada | — | IN-07 | E-05 bodega, pendientes (por identidad) |
 
 ## 5.2 Por qué existe cada agregado
@@ -1281,12 +1299,13 @@ Algunas operaciones del negocio afectan a más de un agregado. El dominio declar
 | **IN-70** | La existencia de una entrada confirmada ingresa En recepción, en una ubicación de una zona de recepción: no se reserva, no sale ni se transfiere hasta ubicarse. Toda zona de recepción tiene al menos una ubicación. La cantidad dañada ingresa inmovilizada (IN-34). | RN-EXI-007 | AG-08 / AG-05 | Estructural |
 | **IN-71** | La primera ubicación de la existencia en recepción es un movimiento interno confirmado en el kardex (qué, cuánto, origen, destino, quién, cuándo y documento de entrada); ninguna existencia cambia de ubicación sin movimiento. La cantidad movida queda Disponible en el destino, salvo que el destino pertenezca a una zona de recepción. | RN-MOV-010 | AG-06 / AG-05 | Estructural |
 | **IN-72** | Un registro retenido sin conectividad se confirma o se rechaza una sola vez, al sincronizarse y tras validarse de nuevo contra el estado vigente; nunca se aplica un registro que viole una invariante, y el intento y su resultado quedan registrados. | RN-INT-008 | AG-06 | Estructural |
-| **IN-73** | Toda mercancía recibida se registra por piezas: cada pieza pertenece a un solo SKU + Lote, tiene un tipo (rollo, paquete o bolsa, contenedor agrupado) y una cantidad propia registrada en la recepción; el QR no la identifica, tiene identidad interna. | RN-LOT-006 | AG-22 / AG-08 | Estructural |
+| **IN-73** | Toda mercancía recibida se registra por piezas: cada pieza pertenece a un solo SKU + Lote, tiene un tipo (rollo, paquete o bolsa, contenedor agrupado) y una cantidad propia registrada en la recepción; el QR no la identifica, tiene identidad interna. Sin excepción: lo que llega suelto se registra como paquete o bolsa con su cantidad de unidades (HD-30). | RN-LOT-006 | AG-22 / AG-08 | Estructural |
 | **IN-74** | La existencia de una unidad de inventario es la suma de las cantidades de sus piezas en esa ubicación; la cantidad de una pieza solo cambia por un movimiento del kardex, y la cantidad recibida de una línea de entrada es la suma de sus piezas. | RN-LOT-007 | AG-22 / AG-05 / AG-06 | Estructural |
 | **IN-75** | Un corte parcial descuenta de la pieza solo la cantidad cortada y la deja con su remanente y su identidad; la cantidad cortada no supera la de la pieza; el corte es una salida y cumple las reglas de salida. | RN-SAL-008 | AG-22 / AG-09 | Estructural |
 | **IN-76** | Toda operación que mueve, toma o cuenta mercancía identifica la pieza afectada: tras el escaneo del SKU + Lote el operario selecciona la pieza, y la ubicación filtra y verifica qué piezas se ofrecen; no se confirma sin pieza seleccionada. | RN-MOV-011 | AG-22 / AG-06 | Estructural |
 | **IN-77** | En la preparación de una salida el escaneo verifica y cuenta: cada pieza tomada se cuenta una sola vez y la preparación no se confirma completa mientras falten piezas o cantidad solicitada, salvo salida parcial autorizada. | RN-SAL-009 | AG-22 / AG-09 | Estructural |
 | **IN-78** | El conteo es manual, pieza por pieza: el contador registra la cantidad de cada pieza sin ver la esperada, y la cantidad contada de la unidad de inventario es la suma de sus piezas. | RN-CNT-009 | AG-12 / AG-22 | Estructural |
+| **IN-79** | Una pieza no se divide: un movimiento interno mueve la pieza completa y tomar una parte de ella es un corte parcial, que se registra como salida; la división de una pieza en dos no existe. | RN-MOV-012 | AG-22 / AG-06 | Estructural |
 
 ## 6.2 Políticas del dominio (reglas reactivas)
 
@@ -1309,7 +1328,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | **PO-13** | RN-SAL-003 | La toma de mercancía para una salida sigue la política configurada de selección de ubicación: primero en entrar primero en salir por lote, ubicación de mayor cantidad, o ubicación más próxima. El sistema propone; el operario… | EV-SAL-003, EV-SAL-010 |
 | **PO-14** | RN-SAL-005 | Una reserva no ejecutada dentro del plazo configurado se libera automáticamente, la existencia vuelve a disponible y se genera alerta al solicitante. | EV-INV-005 |
 
-**Cobertura:** las 91 reglas del SRS quedan cubiertas: 77 como invariantes y 14 como políticas (91/91).
+**Cobertura:** las 92 reglas del SRS quedan cubiertas: 78 como invariantes y 14 como políticas (92/92).
 
 
 ---
@@ -1318,7 +1337,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 
 | | |
 |---|---|
-| **Completado** | 78 invariantes (mínimo exigido: 40), cada una vinculada a reglas del SRS; 14 políticas reactivas; 91/91 reglas cubiertas (82 + 3 de la v1.1 + 6 de la v1.2: IN-70…IN-78) |
+| **Completado** | 79 invariantes (mínimo exigido: 40), cada una vinculada a reglas del SRS; 14 políticas reactivas; 92/92 reglas cubiertas (82 + 3 de la v1.1 + 6 de la v1.2 + 1 de la v1.4: IN-70…IN-79) |
 | **Riesgos** | IN-67 confirmada por DEC-04; IN-46 depende de HD-13; IN-23 actualizada por DF5-01 |
 | **Dependencias** | SRS Cap. 8 |
 | **Hallazgos** | HD-04, HD-13 · distinción invariante/política (nueva en esta fase) |
@@ -1337,7 +1356,7 @@ Algunas reglas del SRS no expresan algo que se cumpla siempre, sino **una reacci
 | **E-07 Ubicación** | Creada **Activa** con su QR → recibe existencia dentro de su capacidad → **Inactiva** solo sin existencia → **Activa** al reactivarse. | «Sobreocupada» es una condición derivada (alerta), no un estado. |
 | **E-08 Unidad de inventario** | Nace con el primer movimiento que lleva existencia a su combinación SKU+Lote+Ubicación (la unidad de recepción, con la entrada; la de destino, con el movimiento interno de primera ubicación) → su existencia pasa por los estados **En recepción → Disponible ↔ Reservado / En tránsito / Inmovilizado** → puede llegar a cero y conserva su kardex. | La unidad no tiene estado propio: los estados son de porciones de su existencia (SM-06). Pasar de En recepción a Disponible es un movimiento interno entre dos unidades (DF5-03). |
 | **E-09 Identificador QR** | **Generado** → impreso → **Activo** al verificarse su legibilidad → **Anulado**; la reimpresión conserva el mismo QR y lo deja **Activo** `[Q-09]`; el estado **Reemplazado** se conserva, pero sus motivos están pendientes (HD-28). | Un código jamás vuelve a emitirse. El QR de mercancía identifica un SKU + Lote y no cambia al reubicar (DF5-01). |
-| **E-27 Pieza** | Registrada en la recepción con su tipo y su cantidad → ubicada y movida por movimientos internos → su cantidad baja por cortes parciales y salidas → **sin cantidad** al llegar a cero. | No tiene estados propios: «sin cantidad» es una condición derivada. Nunca se elimina `[RN-MAE-007]`. El movimiento parcial de una pieza entre ubicaciones y el destino del remanente de un corte parcial están pendientes (HD-29). |
+| **E-27 Pieza** | Registrada en la recepción con su tipo y su cantidad → ubicada y movida por movimientos internos → su cantidad baja por cortes parciales y salidas → **sin cantidad** al llegar a cero. | No tiene estados propios: «sin cantidad» es una condición derivada. Nunca se elimina `[RN-MAE-007]`. Una pieza no se divide: el movimiento interno la mueve completa y el remanente de un corte sigue siendo la misma pieza (HD-29, RN-MOV-012). |
 | **E-10 Movimiento** | **En registro** (corregible por su autor, RNF-USA-007) → **Pendiente de sincronización** (si no hay conectividad) → **Confirmado** (inmutable) o **Rechazado en sincronización** (si al validarse de nuevo ya no cumple las reglas; DF5-05). | No existen los estados «Ejecutado» ni «Auditado» (HD-03): confirmar es ejecutar, y auditar no modifica. La anulación es otro movimiento que neutraliza al primero. |
 | **E-11 Documento de entrada** | **Pendiente de recepción** → **Recepción parcial** (interrumpida, continuable por otro usuario) → **Recibido conforme** o **Recibido con novedad** → **Confirmado** por una segunda persona (genera lote y movimiento de entrada). | Un sobrante detiene la confirmación hasta la autorización del Jefe. |
 | **E-12 Solicitud de salida** | **Solicitada** → **Autorizada** (reserva) → **En preparación** (escaneo validado) → **Ejecutada** (movimiento de salida, reserva liberada). | Caminos alternos: **Rechazada** por el autorizador; **Vencida** si no se ejecuta en plazo (reserva liberada); **Cancelada**. |
@@ -1830,7 +1849,7 @@ Reglas asociadas a la entidad (ficha) más las citadas por los eventos que origi
 | **E-07 Ubicación** | 12 | RN-ALE-001, RN-EXI-002, RN-EXI-007, RN-IDE-002, RN-MAE-005, RN-MAE-006, RN-MAE-007, RN-MAE-009, RN-MOV-001, RN-MOV-002, RN-MOV-005, RN-MOV-010 |
 | **E-08 Unidad de Inventario** | 16 | RN-AUD-005, RN-EXI-001, RN-EXI-002, RN-EXI-003, RN-EXI-004, RN-EXI-005, RN-EXI-006, RN-EXI-007, RN-IDE-001, RN-INT-004, RN-INT-005, RN-LOT-001, RN-LOT-007, RN-MOV-003, RN-MOV-009, RN-MOV-010 |
 | **E-09 Identificador QR** | 4 | RN-IDE-001, RN-IDE-002, RN-IDE-003, RN-IDE-004 |
-| **E-10 Movimiento** | 20 | RN-AJU-007, RN-CNT-006, RN-EXI-001, RN-EXI-002, RN-EXI-003, RN-EXI-005, RN-EXI-006, RN-INT-001, RN-INT-002, RN-INT-003, RN-INT-004, RN-INT-008, RN-LOT-007, RN-MOV-001, RN-MOV-002, RN-MOV-004, RN-MOV-005, RN-MOV-006, RN-MOV-010, RN-MOV-011 |
+| **E-10 Movimiento** | 21 | RN-AJU-007, RN-CNT-006, RN-EXI-001, RN-EXI-002, RN-EXI-003, RN-EXI-005, RN-EXI-006, RN-INT-001, RN-INT-002, RN-INT-003, RN-INT-004, RN-INT-008, RN-LOT-007, RN-MOV-001, RN-MOV-002, RN-MOV-004, RN-MOV-005, RN-MOV-006, RN-MOV-010, RN-MOV-011, RN-MOV-012 |
 | **E-11 Documento de entrada** | 21 | RN-AJU-001, RN-ENT-001, RN-ENT-002, RN-ENT-003, RN-ENT-004, RN-ENT-005, RN-ENT-006, RN-ENT-007, RN-EXI-007, RN-INT-001, RN-INT-002, RN-INT-003, RN-INT-004, RN-INT-008, RN-LOT-001, RN-LOT-002, RN-LOT-006, RN-LOT-007, RN-MAE-006, RN-MAE-007, RN-SAL-007 |
 | **E-12 Solicitud de salida** | 16 | RN-AJU-001, RN-EXI-001, RN-EXI-003, RN-EXI-004, RN-INT-002, RN-INT-004, RN-LOT-007, RN-MOV-011, RN-SAL-001, RN-SAL-002, RN-SAL-003, RN-SAL-004, RN-SAL-005, RN-SAL-006, RN-SAL-008, RN-SAL-009 |
 | **E-13 Transferencia** | 7 | RN-EXI-003, RN-EXI-004, RN-EXI-005, RN-INT-002, RN-MOV-007, RN-MOV-008, RN-MOV-009 |
@@ -1847,7 +1866,7 @@ Reglas asociadas a la entidad (ficha) más las citadas por los eventos que origi
 | **E-24 Motivo tipificado** | 5 | RN-AJU-003, RN-MAE-007, RN-MAE-008, RN-MAE-009, RN-SAL-002 |
 | **E-25 Parámetro de configuración** | 8 | RN-AJU-001, RN-AJU-002, RN-AUD-004, RN-CNT-003, RN-EXI-001, RN-INT-002, RN-MOV-008, RN-SAL-001 |
 | **E-26 Cierre de jornada** | 2 | RN-INT-003, RN-MOV-006 |
-| **E-27 Pieza** | 7 | RN-CNT-009, RN-LOT-006, RN-LOT-007, RN-MAE-007, RN-MOV-011, RN-SAL-008, RN-SAL-009 |
+| **E-27 Pieza** | 8 | RN-CNT-009, RN-LOT-006, RN-LOT-007, RN-MAE-007, RN-MOV-011, RN-MOV-012, RN-SAL-008, RN-SAL-009 |
 
 ## Matriz C — Entidad ↔ KPI
 
@@ -1959,10 +1978,10 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | **HD-26** | **Código de barras del proveedor frente al QR por SKU + Lote** | Con DF5-01, RN-IDE-003 limita un código de barras secundario a un solo QR de mercancía (un SKU + Lote). Un código de barras de proveedor suele identificar el producto y repetirse en lotes distintos: con la regla actual, el segundo lote de un mismo SKU no podría asociarlo. | Se aplica RN-IDE-003 tal como quedó en el SRS v1.1. La funcionalidad está en el Horizonte 2 del backlog (SPEC §12.3, elemento 11), por lo que no afecta al MVP. | Director — decidir · **Información requerida:** qué identifica el código de barras de los proveedores reales. No bloquea la Fase 5 (H2) |
 | **HD-27** | **Alcance de las operaciones que se pueden registrar sin conectividad** | RN-INT-003 se traza a recepción (PN-01), movimiento interno (PN-05) y cierre de jornada (PN-14), pero RNF-DSP-002 habla, en general, del «registro de movimientos desde tablet». El SPEC no fija qué operaciones deben poder registrarse sin conectividad. | No se decide el alcance. Con DF5-05, toda operación retenida, sea cual sea, se valida de nuevo al sincronizar (RN-INT-008), así que el alcance ya no pone en riesgo las invariantes: es una decisión de producto y de experiencia de uso. | Director — decidir · **Información requerida:** conectividad real de la bodega. No bloquea la Fase 5 |
 | **HD-28** | **Identidad física de la pieza, contenedores y reemplazo de identificadores (consecuencias de Q-11, F-6 y Q-09)** | Las decisiones del Director dan a la pieza identidad interna y cantidad propia, pero el QR sigue identificando SKU + Lote (DF5-01) y una reimpresión conserva el mismo QR (Q-09). Quedan sin definir: (1) cómo se distingue físicamente una pieza de otra del mismo lote, sin QR propio, más allá de seleccionarla en pantalla (F-4); (2) si un contenedor agrupado puede mezclar lotes o SKU (Q-08); (3) la diferencia entre «paquete o bolsa» (F-1) y «contenedor o bolsa agrupada» (F-6); (4) los motivos por los que un identificador se reemplaza o anula ahora que la reimpresión ya no lo reemplaza (el estado Reemplazado de SM-05 queda sin disparador). | No se inventa ninguna respuesta. El modelo supone que todo contenedor pertenece a un solo SKU + Lote (RN-LOT-006) y conserva el estado Reemplazado de SM-05 sin disparador definido. La selección de la pieza en pantalla (RN-MOV-011) es el mecanismo vigente. | Director — decidir · **Información requerida:** AS-IS (Q-08 y qué rotula hoy la empresa). No bloquea la Fase 5 por sí mismo |
-| **HD-29** | **Cortes parciales: destino del remanente y movimiento parcial de una pieza** | F-3 permite cortes parciales de rollos y RN-SAL-008 los trata como salida que deja la pieza con su remanente. No está decidido qué ocurre si el remanente se mueve a otra ubicación (¿sigue siendo la misma pieza?, ¿se divide?) ni si una pieza puede moverse solo en parte entre ubicaciones (HU-MOV-001 criterio 2 habla de cantidad total o parcial; con pieza, la cantidad parcial solo tiene sentido como corte). | No se decide. El modelo solo admite el corte como salida (RN-SAL-008) y el movimiento interno de la pieza completa (RN-MOV-011); no define la división de una pieza en dos. | Director — decidir · **Información requerida:** Q-04 (frecuencia y forma de los cortes). Decidir antes del detalle de movimientos de la Fase 5 |
-| **HD-30** | **Alcance del control por pieza: ¿toda referencia se controla por piezas?** | F-1 define la pieza para referencias en metros, kilogramos y unidades, sin declarar excepciones; RN-LOT-006 exige registrar por piezas toda la mercancía recibida. Si una referencia llega suelta y sin pieza física distinguible, el modelo no dice cómo registrarla. | No se decide. El modelo aplica la regla a toda la mercancía (RN-LOT-006) y registra un paquete, bolsa o contenedor agrupado como una pieza con su cantidad de unidades. | Director — decidir · **Información requerida:** AS-IS (qué mercancía llega suelta). No bloquea la Fase 5 por sí mismo |
+| **HD-29** | **Cortes parciales: destino del remanente y movimiento parcial de una pieza** | F-3 permite cortes parciales de rollos y RN-SAL-008 los trata como salida que deja la pieza con su remanente. No está decidido qué ocurre si el remanente se mueve a otra ubicación (¿sigue siendo la misma pieza?, ¿se divide?) ni si una pieza puede moverse solo en parte entre ubicaciones (HU-MOV-001 criterio 2 habla de cantidad total o parcial; con pieza, la cantidad parcial solo tiene sentido como corte). | **Resuelto (opción a, v1.4):** una pieza no se divide. El movimiento interno mueve la pieza completa y tomar una parte de ella es un corte parcial, que se registra como salida (RN-SAL-008, RN-MOV-012 → IN-79). **Limitación conocida:** una parte de un paquete o bolsa de unidades no puede trasladarse a otra ubicación como movimiento interno. Se puede reabrir con el AS-IS (Q-04). | **Resuelto — HD-29 (a), v1.4** |
+| **HD-30** | **Alcance del control por pieza: ¿toda referencia se controla por piezas?** | F-1 define la pieza para referencias en metros, kilogramos y unidades, sin declarar excepciones; RN-LOT-006 exige registrar por piezas toda la mercancía recibida. Si una referencia llega suelta y sin pieza física distinguible, el modelo no dice cómo registrarla. | **Resuelto (opción a, v1.4):** toda la mercancía se controla por piezas, sin excepción (RN-LOT-006, IN-73); lo que llega suelto se registra como paquete o bolsa con su cantidad de unidades. | **Resuelto — HD-30 (a), v1.4** |
 
-**Resueltos (cierre del CP-04 y decisiones del 30-sep-2026, v1.2 y v1.3):** HD-04, HD-06, HD-07, HD-09, HD-10, HD-11, HD-22, HD-23, HD-24, HD-25. **Bloqueantes para la Fase 5:** ninguno. **Requieren decisión del Director:** HD-01, HD-08, HD-13, HD-15, HD-17, HD-19, HD-21, HD-26, HD-27, HD-28, HD-29, HD-30.
+**Resueltos (cierre del CP-04 y decisiones del 30-sep-2026, v1.2, v1.3 y v1.4):** HD-04, HD-06, HD-07, HD-09, HD-10, HD-11, HD-22, HD-23, HD-24, HD-25, HD-29, HD-30. **Bloqueantes para la Fase 5:** ninguno. **Requieren decisión del Director:** HD-01, HD-08, HD-13, HD-15, HD-17, HD-19, HD-21, HD-26, HD-27, HD-28.
 
 
 ---
@@ -1972,10 +1991,10 @@ KPI alimentados por eventos que la entidad origina o que la afectan.
 | | |
 |---|---|
 | **Completado** | 30 hallazgos con evidencia, tratamiento y responsable |
-| **Riesgos** | HD-25 y HD-22 resueltos en la v1.2; HD-28, HD-29 y HD-30 pendientes, sin bloquear la arquitectura por sí mismos |
+| **Riesgos** | HD-25 y HD-22 resueltos en la v1.2; HD-29 y HD-30 en la v1.4; HD-28 pendiente, sin bloquear la arquitectura por sí mismo |
 | **Dependencias** | Todos los capítulos |
 | **Hallazgos** | — |
 
 ---
 
-*Fin de DOMAIN_MODEL v1.3. La monografía original permanece sin modificaciones.*
+*Fin de DOMAIN_MODEL v1.4. La monografía original permanece sin modificaciones.*

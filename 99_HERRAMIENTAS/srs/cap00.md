@@ -1,4 +1,4 @@
-# SRS_COLBASOFT v1.3
+# SRS_COLBASOFT v1.4
 ## Especificación de Requisitos de Software (Software Requirements Specification)
 
 **COLBASOFT — Plataforma inteligente para la automatización y trazabilidad de inventarios en PYMES del sector textil del Eje Cafetero**
@@ -8,21 +8,36 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | SRS_COLBASOFT |
-| **Versión** | 1.3 |
+| **Versión** | 1.4 |
 | **Fase** | Fase 3 del proyecto — Especificación de Requisitos de Software (SRS) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 y v1.3) |
-| **Estado** | **Borrador v1.3** (30-sep-2026): registra las respuestas a DEC-01…DEC-09. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29, HD-30, H-19 y H-20 |
-| **Versión anterior** | `SRS_COLBASOFT_v1.2.md` (30-sep-2026), `SRS_COLBASOFT_v1.1.md` (29-sep-2026) y `SRS_COLBASOFT_v1.0.md` (28-sep-2026), conservadas sin cambios |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2, v1.3 y v1.4) |
+| **Estado** | **Borrador v1.4** (30-sep-2026): registra las respuestas a DEC-01…DEC-09, H-19, H-20, HD-29 y HD-30. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendiente HD-28 |
+| **Versión anterior** | `SRS_COLBASOFT_v1.3.md`, `SRS_COLBASOFT_v1.2.md` (30-sep-2026), `SRS_COLBASOFT_v1.1.md` (29-sep-2026) y `SRS_COLBASOFT_v1.0.md` (28-sep-2026), conservadas sin cambios |
 | **Norma de referencia** | ISO/IEC/IEEE 29148 (Ingeniería de requisitos), adaptada al proyecto y en español |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.3 → **SRS v1.3** |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.4 → **SRS v1.4** |
 | **Fuente de verdad** | `MONOGRAFÍA  COLBASOFT.docx` (íntegra, sin modificación) |
-| **Documentos antecesores** | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (Fase 0) · `COLBASOFT_SPEC_v1.3.md` (Fase 2, con las respuestas a DEC-02…DEC-09) |
+| **Documentos antecesores** | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (Fase 0) · `COLBASOFT_SPEC_v1.4.md` (Fase 2, con las respuestas a H-19, H-20, HD-29 y HD-30) |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
 | **Alcance de este documento** | Requisitos funcionales, no funcionales, reglas de negocio, casos de uso, historias normalizadas, trazabilidad y criterios de aceptación |
 | **Fuera de alcance de este documento** | Código · Base de datos · Arquitectura técnica · ERD/UML · Endpoints/APIs · Frameworks · Tecnologías |
 
-> **Naturaleza del documento.** Este SRS **no crea requisitos nuevos**: normaliza, reorganiza y hace trazable el contenido del COLBASOFT_SPEC v1.3. Aporta identificadores permanentes, prioridad MoSCoW, criterios en Gherkin, casos de uso completos, matrices de trazabilidad y criterios de aceptación del MVP. Todo elemento que este documento deriva (y que el SPEC no traía) se marca con la etiqueta `[SRS]` y se somete a validación del Director. Las brechas que se detectan **se registran como hallazgos y decisiones pendientes; no se resuelven inventando funcionalidad** (Regla Innegociable 3).
+> **Naturaleza del documento.** Este SRS **no crea requisitos nuevos**: normaliza, reorganiza y hace trazable el contenido del COLBASOFT_SPEC v1.4. Aporta identificadores permanentes, prioridad MoSCoW, criterios en Gherkin, casos de uso completos, matrices de trazabilidad y criterios de aceptación del MVP. Todo elemento que este documento deriva (y que el SPEC no traía) se marca con la etiqueta `[SRS]` y se somete a validación del Director. Las brechas que se detectan **se registran como hallazgos y decisiones pendientes; no se resuelven inventando funcionalidad** (Regla Innegociable 3).
+
+## Control de cambios de la versión 1.4
+
+> La v1.4 se regenera desde las mismas fuentes, tras incorporar al SPEC v1.4 las respuestas del Director a **H-19, H-20, HD-29 y HD-30** (30 de septiembre de 2026). La v1.3 se conserva sin cambios en `SRS_COLBASOFT_v1.3.md`.
+
+| Asunto | Respuesta (a) | Efecto en este SRS |
+|---|---|---|
+| **H-19** | La ubicación se propone con una regla fija en el Núcleo | HU-ENT-006 (criterio 1) y su escenario, RN-MOV-001, CU-08. El hallazgo queda resuelto |
+| **H-20** | RF-REP-003 se acota a los 12 KPI del Núcleo; los otros 12 pasan a un RF nuevo | **RF-REP-008** (Horizonte 2); RF-REP-003 (texto); los KPI-02, 03, 04, 06, 07, 10, 12, 15, 18, 20, 22 y 23 se asocian a RF-REP-008. El hallazgo queda resuelto |
+| **HD-29** | Una pieza no se divide | Regla nueva **RN-MOV-012**; HU-MOV-001 (criterio 2) y su escenario; RF-MOV-012; CU-10 |
+| **HD-30** | Toda la mercancía se controla por piezas | RN-LOT-006 (texto) |
+
+Cifras de la v1.4: requisitos funcionales **184 → 185**, reglas **91 → 92**. No cambian las historias (114), los escenarios (515), los RNF, los KPI ni el Núcleo (94 HU · 164 RF). El Horizonte 2 pasa de 20 a 21 RF.
+
+**Limitación conocida (HD-29).** Una parte de un paquete o bolsa de unidades no puede trasladarse a otra ubicación como movimiento interno, porque exigiría dividir la pieza; la parte que se toma se registra como salida.
 
 ## Control de cambios de la versión 1.3
 
@@ -82,7 +97,7 @@ No cambia ninguna cifra de historias (103), requisitos funcionales (162), requis
 | **3** | Actores | Los cinco roles y el Sistema · matriz de permisos funcional |
 | **4** | Casos de Uso | 24 casos de uso completos |
 | **5** | Historias de Usuario Normalizadas | 114 historias · ID estable · MoSCoW · dependencias · Gherkin |
-| **6** | Requisitos Funcionales Normalizados | 184 RF con ID permanente |
+| **6** | Requisitos Funcionales Normalizados | 185 RF con ID permanente |
 | **7** | Requisitos No Funcionales | 47 RNF por categoría con ID permanente |
 | **8** | Reglas de Negocio | 82 reglas por dominio con ID permanente |
 | **9** | Matriz de Trazabilidad | KPI · objetivo → concepto → historia → RF → regla → KPI |
@@ -224,8 +239,8 @@ El Prompt #003 numera las fases del *proyecto* (0, 1, 2, 3). El roadmap de la Au
 | **H-16** | Numeración de fases y principio de dependencia del roadmap (§0.4 de este capítulo) | Auditoría Fase D | Riesgo R-S01 |
 | **H-17** | Diferencias entre el resumen de alcance del Prompt #003 y DC-02/DC-03/DC-07 (§0.3-d) | Prompt vs SPEC | Prevalece el SPEC; decisión DEC-02 |
 | **H-18** | La alerta «Lote próximo a vencer inmovilización» exige una «fecha límite» de lote que **ni CD-06 ni ningún RF definen** (solo existe el umbral de antigüedad de RN-074) | PN-11 vs CD-06 | Se conserva la alerta como la define el SPEC; decisión DEC-09 |
-| **H-19** | *(v1.2, detectado al auditar DEC-01)* El criterio 1 de HU-ENT-006 (proponer la ubicación «según los criterios de HU-BOD-005») remite a una historia del Horizonte 2, mientras el SPEC (§12.3 #12) afirma que el MVP opera con una propuesta simple | HU-ENT-006 vs HU-BOD-005, SPEC §12.3 | No se corrige. Con DEC-01 = A, HU-ENT-006 forma parte del umbral aprobatorio y HU-BOD-005 no: se eleva al Director aceptar la propuesta simple como suficiente o acotar el criterio |
-| **H-20** | *(v1.2, detectado al auditar DEC-01)* RF-REP-003 (Horizonte 1) exige calcular los 24 KPI, pero KPI-02 solo existe con conteo general (RF-CNT-011, Horizonte 2) y el SPEC (§12.3 #15) ubica otros 11 KPI en el Horizonte 2 | RF-REP-003 vs §12.3 #15 y RF-CNT-011 | No se corrige. Con DEC-01 = A se eleva al Director acotar RF-REP-003 a los KPI que el Núcleo puede alimentar, o aceptar la diferencia por escrito |
+| **H-19** | **(Resuelto en la v1.4, opción a)** *(v1.2, detectado al auditar DEC-01)* El criterio 1 de HU-ENT-006 (proponer la ubicación «según los criterios de HU-BOD-005») remite a una historia del Horizonte 2, mientras el SPEC (§12.3 #12) afirma que el MVP opera con una propuesta simple | HU-ENT-006 vs HU-BOD-005, SPEC §12.3 | No se corrige. Con DEC-01 = A, HU-ENT-006 forma parte del umbral aprobatorio y HU-BOD-005 no: se eleva al Director aceptar la propuesta simple como suficiente o acotar el criterio |
+| **H-20** | **(Resuelto en la v1.4, opción a)** *(v1.2, detectado al auditar DEC-01)* RF-REP-003 (Horizonte 1) exige calcular los 24 KPI, pero KPI-02 solo existe con conteo general (RF-CNT-011, Horizonte 2) y el SPEC (§12.3 #15) ubica otros 11 KPI en el Horizonte 2 | RF-REP-003 vs §12.3 #15 y RF-CNT-011 | No se corrige. Con DEC-01 = A se eleva al Director acotar RF-REP-003 a los KPI que el Núcleo puede alimentar, o aceptar la diferencia por escrito |
 
 ## 0.6 Método de verificación de integridad
 

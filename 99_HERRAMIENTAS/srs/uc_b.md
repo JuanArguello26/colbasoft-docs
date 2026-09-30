@@ -48,7 +48,7 @@
 **Flujo principal**
 1. El Auxiliar escanea el identificador de la mercancía, que identifica su SKU + Lote.
 2. El sistema muestra las ubicaciones donde ese SKU + Lote tiene existencia; si hay más de una, el Auxiliar indica la de origen escaneando su identificador o seleccionándola, y la selección queda registrada (@RN015, DF5-01).
-3. El Auxiliar selecciona la pieza que mueve; con varias piezas del mismo lote en la ubicación de origen, la ubicación filtra y verifica qué piezas se ofrecen (@RN087). El movimiento parcial de una pieza entre ubicaciones es DECISIÓN PENDIENTE (HD-29).
+3. El Auxiliar selecciona la pieza que mueve; con varias piezas del mismo lote en la ubicación de origen, la ubicación filtra y verifica qué piezas se ofrecen (@RN087). La pieza se mueve completa: no se divide, y tomar una parte de ella es un corte parcial que se registra como salida (@RN090, HD-29).
 4. El Auxiliar traslada físicamente la mercancía y escanea el identificador de la ubicación destino.
 5. El sistema valida la ubicación destino.
 6. El sistema registra el movimiento interno en el kardex, descuenta de la ubicación origen y suma a la destino.

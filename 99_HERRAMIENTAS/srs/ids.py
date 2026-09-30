@@ -57,7 +57,7 @@ RN_DOM = {
  "LOT": ("Lotes", ["RN-071*","RN-072*","RN-036b*","RN-073*","RN-074*","RN-084*","RN-085*"]),
  "ENT": ("Entradas y recepción", ["RN-002b*","RN-003","RN-005","RN-006","RN-007","RN-008","RN-057b*"]),
  "SAL": ("Salidas", ["RN-030","RN-048","RN-049","RN-050","RN-051","RN-052","RN-053","RN-086*","RN-088*"]),
- "MOV": ("Movimientos, ubicación y transferencias", ["RN-020","RN-021","RN-022","RN-026","RN-027","RN-028","RN-033","RN-034","RN-035","RN-082*","RN-087*"]),
+ "MOV": ("Movimientos, ubicación y transferencias", ["RN-020","RN-021","RN-022","RN-026","RN-027","RN-028","RN-033","RN-034","RN-035","RN-082*","RN-087*","RN-090*"]),
  "AJU": ("Ajustes y aprobaciones", ["RN-023","RN-024","RN-029","RN-037","RN-038","RN-062","RN-070*"]),
  "CNT": ("Conteos", ["RN-039","RN-040","RN-041","RN-042","RN-044","RN-045","RN-046","RN-047","RN-089*"]),
  "NOV": ("Novedades y mercancía sin registro", ["RN-043","RN-059","RN-060"]),
