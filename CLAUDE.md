@@ -29,6 +29,7 @@ COLBASOFT = *Plataforma inteligente para la automatización y trazabilidad de in
 04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md         HD-25 alternatives A/B/C + DEC-01..09 one by one; revises DF5-06 (historical analysis; all nine DEC now answered)
 05_V13_DECISIONES/05_V13_DECISIONES_DEC02_DEC09.md         v1.3: the Director's answers to DEC-02…DEC-09 + DRAFT (unsigned) DEC-08 acta and phase-equivalence table
 05_V13_DECISIONES/05_V14_RESPUESTAS_H19_H20_HD29_HD30.md    v1.4: answers to H-19, H-20, HD-29, HD-30 (each verified against the sources); CURRENT STATE
+06_ASIS_KIT/                                               AS-IS fieldwork kit (DRAFT, hand-written, not generated): plan, interview guide, observation + baseline sheets, consent draft, report template
 99_HERRAMIENTAS/                                          Generators + verifier for SPEC v1.1 to v1.4, SRS and domain docs (not part of the product)
 ```
 
