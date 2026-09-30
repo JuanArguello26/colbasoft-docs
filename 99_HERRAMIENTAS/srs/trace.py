@@ -206,6 +206,8 @@ _HU_DEPS = {
 104:[31,16],105:[104],106:[104,45],107:[104,40],108:[107],109:[104,59],110:[104,77],
 111:[45,82],112:[63,98],113:[101],114:[113],
 }
+# v1.5 (H-19 resuelto en el SPEC v1.4): HU-035 ya no depende de HU-024 (criterios configurables, Horizonte 2)
+_HU_DEPS[35] = [20, 21, 25]
 HU_DEPS = {hu(k): [hu(x) for x in v] for k, v in _HU_DEPS.items()}
 assert len(HU_DEPS) == 114
 
@@ -229,3 +231,32 @@ def check():
 
 if __name__ == "__main__":
     check()
+
+
+# ---------------- Corte de entrega C1 (noviembre de 2026), SPEC v1.5 §12.7 ----------------
+C1_BLOQUES = [
+ ("C1-1", "Fundación", [1, 2, 5, 6, 10, 11, 20, 21, 98, 99, 94]),
+ ("C1-2", "Identificación y lotes", [25, 26, 16]),
+ ("C1-3", "Entradas, piezas y ubicación", [30, 31, 32, 33, 35, 104]),
+ ("C1-4", "Kardex y consulta de existencia", [77, 78, 110, 71, 72, 73]),
+ ("C1-5", "Movimientos internos", [45, 46, 106]),
+ ("C1-6", "Salidas y corte parcial", [38, 39, 40, 41, 107, 108]),
+]
+C1_HU = {hu(n) for _, _, ns in C1_BLOQUES for n in ns}
+
+def _c1_calculado():
+    """Criterio del SPEC §12.7: P0 del Horizonte 1 de M-01…M-09, M-13, M-14 y M-19, sus dependencias y HU-094."""
+    mods = {"M-01", "M-02", "M-03", "M-04", "M-05", "M-06", "M-07", "M-08", "M-09", "M-13", "M-14", "M-19"}
+    sel = {h["id"] for h in D["hu"] if h["mod"] in mods and h["id"] not in H2_HU and h["prio"] == "P0"} | {"HU-094"}
+    cambio = True
+    while cambio:
+        cambio = False
+        for h in list(sel):
+            for dep in HU_DEPS.get(h, []):
+                if dep not in sel:
+                    sel.add(dep); cambio = True
+    return sel
+
+assert C1_HU == _c1_calculado(), sorted(C1_HU ^ _c1_calculado())
+C1_RF = sorted({r for h in C1_HU for r in HU_RF.get(h, []) if r not in H2_RF})
+assert len(C1_HU) == 35 and len(C1_RF) == 83, (len(C1_HU), len(C1_RF))

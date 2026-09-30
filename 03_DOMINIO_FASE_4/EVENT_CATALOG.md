@@ -8,11 +8,11 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | EVENT_CATALOG |
-| **Versión** | 1.4 |
+| **Versión** | 1.5 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2, v1.3 y v1.4) |
-| **Estado** | **Borrador v1.4** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2), las respuestas a DEC-02…DEC-09 (v1.3) y las de H-19, H-20, HD-29 y HD-30. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.4 → SRS_COLBASOFT v1.4 → **Modelo de Dominio v1.4** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 a v1.5) |
+| **Estado** | **Borrador v1.5** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2), las respuestas a DEC-02…DEC-09 (v1.3), las de H-19, H-20, HD-29 y HD-30 (v1.4) y la validación con datos ficticios (v1.5). **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.5 → SRS_COLBASOFT v1.5 → **Modelo de Dominio v1.5** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | `DOMAIN_MODEL.md` · `GLOSSARY.md` |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -27,6 +27,8 @@
 > **Versión 1.3.** Incorpora las respuestas del Director a DEC-02…DEC-09. El detalle está en DOMAIN_MODEL §0.10.
 
 > **Versión 1.4.** Incorpora las respuestas a H-19, H-20, HD-29 y HD-30. El detalle está en DOMAIN_MODEL §0.11.
+
+> **Versión 1.5.** Registra la validación con datos ficticios y el corte de entrega C1; sin cambios de contenido en el modelo. El detalle está en DOMAIN_MODEL §0.12.
 
 ## Índice
 
@@ -1331,4 +1333,4 @@ Relación: **acción → (reglas) → evento(s) → registro(s)**. Una acción r
 
 ---
 
-*Fin de EVENT_CATALOG v1.4.*
+*Fin de EVENT_CATALOG v1.5.*

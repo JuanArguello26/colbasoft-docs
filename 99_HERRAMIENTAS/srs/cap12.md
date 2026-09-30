@@ -41,8 +41,8 @@ Distribución de las HU y RF por prioridad y horizonte `[SRS]`:
 | **CA-01** | **Todas las HU *Must* del umbral elegido están aceptadas:** todos sus escenarios Gherkin se ejecutan y pasan | Informe de ejecución de escenarios por HU (515 escenarios en total; los del umbral elegido son obligatorios) |
 | **CA-02** | **Todos los RF *Must* del umbral elegido están verificados** por prueba o inspección | Matriz RF → prueba (Cap. 9 §9.4) |
 | **CA-03** | **Las HU y RF *Should* del umbral elegido están aceptadas**, o su exclusión fue aprobada por escrito por el Director con su riesgo | Acta de decisión |
-| **CA-04** | Los 24 casos de uso del Cap. 4 pueden recorrerse de extremo a extremo con datos de la empresa piloto (CU-19 solo si DEC-05 lo incorpora) | Registro de recorrido por caso de uso |
-| **CA-05** | Los **cinco procesos del núcleo transaccional** —entrada, salida, movimiento interno, ajuste y conteo— operan **sin cuaderno** durante el período de prueba (OP-01) | Cero movimientos registrados fuera del sistema (verificación de campo) |
+| **CA-04** | Los 24 casos de uso del Cap. 4 pueden recorrerse de extremo a extremo con datos ficticios (DS-1, §1.4.8) | Registro de recorrido por caso de uso |
+| **CA-05** | Los **cinco procesos del núcleo transaccional** —entrada, salida, movimiento interno, ajuste y conteo— operan **sin cuaderno** durante la prueba con DS-1 (OP-01) | Cero movimientos registrados fuera del sistema (comprobado con DS-1; sin verificación de campo) |
 
 ### Dimensión 2 — Reglas de negocio
 
@@ -69,7 +69,7 @@ Distribución de las HU y RF por prioridad y horizonte `[SRS]`:
 | ID | Criterio | Evidencia |
 |---|---|---|
 | **CA-16** | **KPI-01, KPI-05 y KPI-08 se calculan** con la fórmula del Cap. 9 y se pueden comparar contra la **línea base** | Reporte de los tres KPI |
-| **CA-17** | **Existe línea base** de los tres KPI antes de iniciar el piloto (V-03) | Documento de línea base (**precondición externa al software**) |
+| **CA-17** | ~~Existe línea base de los tres KPI antes del piloto~~ **No aplica (v1.5)**: los KPI son calculables con DS-1, pero no hay línea base real (V-03 no aplica) | Cálculo de KPI-01, KPI-05 y KPI-08 sobre DS-1 |
 | **CA-18** | El informe de impacto **reporta el resultado íntegro, favorable o no** (V-06, RG-35). *El software se acepta por cumplir sus requisitos, no por alcanzar las cifras de la literatura* | Informe de impacto |
 | **CA-19** | Los 24 KPI son calculables por el sistema; los que dependen de un dato que ningún RF exige capturar (KPI-05, 07, 10, 12, 17, 24; H-12) quedan **explícitamente marcados** «calculable» o «pendiente de DEC-06» | Tabla del Anexo C |
 | **CA-20** | El sistema **expone los datos** a la herramienta analítica externa sin diseñar tableros (@RF137, @RF138) | Verificación de la exposición estructurada |
@@ -159,12 +159,22 @@ No son criterios de aceptación del software, pero **sin ellas el MVP no puede d
 
 | Condición | Pregunta del SPEC | Estado |
 |---|---|---|
-| Autorización de contacto con empresas reales | V-01 | 🔴 Abierta |
-| Levantamiento de la línea base de KPI-01, KPI-05, KPI-08 | V-03 | 🔴 Abierta |
+| Autorización de contacto con empresas reales | V-01 | ⚪ No aplica en el proyecto de grado (v1.5) |
+| Levantamiento de la línea base de KPI-01, KPI-05, KPI-08 | V-03 | ⚪ No se levantará (v1.5) |
 | Definición de PYME, sector textil y municipios | A-03, A-04, A-05 | 🔴 Abiertas |
-| Criterio si el piloto no alcanza las cifras citadas | V-06 | 🔴 Abierta |
-| Entregable mínimo aprobatorio | S-15 | 🔴 Abierta (DEC-01) |
-| Levantamiento de la infraestructura real (tablets, cámara, impresión, conectividad) | C.2.7 | 🟡 Por hacer |
+| Criterio si el piloto no alcanza las cifras citadas | V-06 | ⚪ No aplica: no hay piloto (v1.5) |
+| Entregable mínimo aprobatorio | S-15 | 🟢 Resuelta (DEC-01 = A, v1.2) |
+| Levantamiento de la infraestructura real (tablets, cámara, impresión, conectividad) | C.2.7 | 🟡 Se asume (S-3, S-4) sin verificación de campo (v1.5) |
+
+## 12.8 Corte de entrega C1 (noviembre de 2026) y validación con datos ficticios `[v1.5]`
+
+Es un **corte de entrega dentro del Horizonte 1**: no cambia el Núcleo (94 HU y 164 RF), que sigue siendo el umbral aprobatorio `[DEC-01]`. Criterio: historias Must (P0) del Horizonte 1 de los módulos M-01 a M-09, M-13, M-14 y M-19, más sus dependencias y la bitácora (HU-AUD-001). Se construye en el orden C1-1 a C1-6; **si el tiempo no alcanza, se recorta desde el último bloque hacia atrás**, y cada bloque completo entrega un ciclo verificable.
+
+{{TABLA_C1}}
+
+**Fuera del corte C1** (siguen en el Núcleo): ajustes, conteos, novedades, alertas, reportes e indicadores, dashboard, tareas, registro de contenedores agrupados (HU-ENT-010), movimiento en tránsito (HU-MOV-009) y cierre de jornada (HU-TAR-004, HU-TAR-005).
+
+**Validación.** Sin empresa piloto, el MVP se valida con datos ficticios (§1.4.8): se demuestra **viabilidad funcional**, no impacto medido en campo. Esta limitación debe figurar en el informe final.
 
 ---
 
@@ -173,6 +183,6 @@ No son criterios de aceptación del software, pero **sin ellas el MVP no puede d
 | | |
 |---|---|
 | **Completado** | Definición de «MVP terminado» · dos umbrales de entrega · 38 criterios en 9 dimensiones · criterios por bloque · DoD · criterios de no aceptación · condiciones previas |
-| **Pendiente** | Decisión DEC-01 (umbral aprobatorio) · calibración de valores numéricos de RNF (pendiente #12) · línea base (V-03) |
+| **Pendiente** | Calibración de valores numéricos de RNF (pendiente #12; sin línea base real, se fijan con DS-1) |
 | **Riesgos encontrados** | RG-35 (el piloto puede no alcanzar las cifras citadas) · RG-36 (sin línea base no hay demostración) · RG-01 (operación por fuera del sistema) |
 | **Dependencias** | Cap. 9 (trazabilidad), Cap. 7 (RNF), Cap. 8 (reglas), Anexo C (decisiones) |

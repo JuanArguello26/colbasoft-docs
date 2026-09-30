@@ -160,6 +160,17 @@ Los hallazgos H-01…H-20 se describen con su evidencia en el §0.5-b. Su estado
 
 **Limitación conocida:** una parte de un paquete o bolsa no puede trasladarse a otra ubicación como movimiento interno. Se puede reabrir con el levantamiento AS-IS (Q-04).
 
+## C.13 Decisiones sobre validación y entrega (versión 1.5)
+
+> Tomadas el 30 de septiembre de 2026.
+
+| Decisión | Efecto en este SRS |
+|---|---|
+| **Sin empresa piloto; validación solo con datos ficticios** (el asesor lo aceptó). El Excel es solo una carga de datos de prueba a una base de datos real | §1.4.8; S-1 y S-7 no aplican; S-2 y R-S01 pasan a **limitación declarada**; CA-04, CA-05 y CA-17 |
+| **Corte de entrega C1 (noviembre de 2026)** | §12.8: 35 HU y 83 RF con orden y regla de recorte |
+
+**Riesgos que se mantienen:** RG-35 y RG-36 (sin línea base no hay demostración de impacto) ya no son un pendiente del proyecto sino una **limitación declarada**. R-S01 sigue vigente.
+
 ---
 
 **ESTADO DEL ANEXO C**

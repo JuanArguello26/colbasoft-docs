@@ -13,7 +13,7 @@ ROOT = _pl.Path(__file__).resolve().parents[2]
 HERE_DIR = _pl.Path(__file__).resolve().parent
 # Uso: python build_srs.py [carpeta_de_salida]  (por defecto, 02_SRS_FASE_3 del proyecto)
 OUT_DIR = sys.argv[1] if len(sys.argv) > 1 else str(ROOT / "02_SRS_FASE_3")
-OUT = os.path.join(OUT_DIR, "SRS_COLBASOFT_v1.4.md")
+OUT = os.path.join(OUT_DIR, "SRS_COLBASOFT_v1.5.md")
 
 # ============================================================ conversión de IDs
 def rnn(legacy_tok):
@@ -112,6 +112,19 @@ MOD_DEP = OrderedDict([
 ])
 MOD_DEP_NOTE = {"M-14": "Recibe escritura de todos los módulos operativos (M-07 a M-12); M-13 y M-16 leen de él. Su propia dependencia es la identidad del usuario (M-01, RF-KDX-002)",
                 "M-18": "Todos los módulos escriben en él; lee del kardex para la verificación de integridad"}
+
+def tabla_c1():
+    """Corte de entrega C1 (SPEC v1.5 §12.7): HU y RF por bloque de construcción."""
+    o = ["| Bloque | Contenido | Historias (ID permanente) |", "|---|---|---|"]
+    for b, n, ns in C1_BLOQUES:
+        o.append(f"| **{b}** | {n} | {', '.join(HU_NEW[hu(x)] for x in ns)} |")
+    pr = Counter(HU[h]["prio"] for h in C1_HU)
+    rp = Counter(RF[r]["prio"] for r in C1_RF)
+    o.append("")
+    o.append(f"**Totales del corte:** {len(C1_HU)} historias (Must {pr['P0']} · Should {pr['P1']} · Could {pr['P2']}) y {len(C1_RF)} requisitos funcionales (Must {rp['P0']} · Should {rp['P1']} · Could {rp['P2']}); todos del Horizonte 1.")
+    o.append("")
+    o.append("**Requisitos funcionales del corte:** " + ", ".join(RF_NEW[r] for r in sorted(C1_RF, key=lambda x: RF_NEW[x])) + ".")
+    return "\n".join(o)
 
 def is_mod_rf(mod): return [r for r in D["rf"] if r["mod"] == mod]
 
@@ -868,7 +881,7 @@ def assemble():
     parts.append(conv(rd("cap10.md")))
     c11 = rd("cap11.md").replace("{{TABLA_DEP}}", tabla_dep()).replace("{{MATRIZ_DEP}}", matriz_dep()).replace("{{TABLA_RAICES}}", raices()).replace("{{TABLA_CICLOS}}", ciclos())
     parts.append(conv(c11))
-    parts.append(conv(rd("cap12.md")))
+    parts.append(conv(rd("cap12.md").replace("{{TABLA_C1}}", tabla_c1())))
     parts.append(annex_a())
     parts.append(annex_b())
     parts.append(conv(rd("annex_c.md")))

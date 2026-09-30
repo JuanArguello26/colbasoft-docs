@@ -111,13 +111,13 @@ Detalle de cada actor en el Capítulo 3.
 
 | # | Supuesto / dependencia | Estado | Riesgo asociado |
 |---|---|---|---|
-| S-1 | Existe una **empresa de estudio** dispuesta a participar en levantamiento, piloto y medición `[DC-01]` | 🔴 Abierto (V-01) | RG-37 |
-| S-2 | Los procesos del Cap. 4 (TO-BE) son compatibles con la operación real de la empresa | 🔴 No verificado: AS-IS sin levantar | R-S01 |
+| S-1 | ~~Existe una empresa de estudio dispuesta a participar en levantamiento, piloto y medición~~ `[DC-01]` | ⚪ **No aplica (v1.5):** no hay empresa piloto; se valida con datos ficticios (§1.4.8) | RG-37 |
+| S-2 | Los procesos del Cap. 4 (TO-BE) son compatibles con la operación real de la empresa | 🔴 **No verificable en el proyecto de grado (v1.5): se declara como limitación.** El kit `06_ASIS_KIT` queda para si aparece una empresa | R-S01 |
 | S-3 | Cada punto de operación dispone de una **tablet con cámara** capaz de escanear QR (RNF-TAB-003) | 🟡 Por confirmar en el levantamiento de infraestructura | RG-24 |
 | S-4 | La empresa dispone de un medio para **imprimir etiquetas** legibles y resistentes a la operación de bodega (el SRS lo requiere funcionalmente, no lo especifica) | 🟡 Por confirmar | RG-25 |
 | S-5 | La conectividad es **intermitente**: el sistema debe tolerar su pérdida | 🟢 Requisito (RN-INT-003) | RG-23 |
 | S-6 | Existe la herramienta analítica externa (Power BI) a la que se exponen los datos `[DC-06]` | 🟡 Por confirmar | RG-29 |
-| S-7 | La **línea base** de KPI-01, KPI-05 y KPI-08 se levantará antes del piloto | 🔴 Abierto (V-03) | RG-36 |
+| S-7 | ~~La línea base de KPI-01, KPI-05 y KPI-08 se levantará antes del piloto~~ | ⚪ **No aplica (v1.5):** no se levantará; el impacto no se mide en campo | RG-36 |
 | S-8 | El equipo de tres autores mantiene la autoría del producto | 🟡 A-12 abierto | — |
 
 ---
@@ -127,6 +127,6 @@ Detalle de cada actor en el Capítulo 3.
 | | |
 |---|---|
 | **Completado** | Perspectiva funcional · problema · funciones · ciclo de vida · definición de «inteligente» · restricciones · supuestos |
-| **Pendiente** | Confirmar los supuestos S-1…S-4 y S-6 con la empresa de estudio (Fase 3 del roadmap) |
+| **Pendiente** | S-3, S-4 y S-6 se asumen sin verificación de campo (v1.5); S-1 y S-7 no aplican; S-2 se declara como limitación |
 | **Riesgos encontrados** | S-1, S-2 y S-7 abiertos (RG-36, RG-37, R-S01) |
 | **Dependencias** | Cap. 3 (actores), Cap. 4 (casos de uso), Anexo C |

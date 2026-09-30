@@ -11,24 +11,28 @@ COLBASOFT = *Plataforma inteligente para la automatización y trazabilidad de in
 ```
 00_MONOGRAFIA_ORIGINAL/MONOGRAFÍA  COLBASOFT.docx         Source of truth, immutable (note the double space in the filename)
 00_AUDITORIA_FASE_0/AUDITORIA_FUNDACIONAL_COLBASOFT.md    Audit (~980 lines)
-01_SPEC_FASE_2/COLBASOFT_SPEC_v1.4.md                     Functional spec, CURRENT (~3750 lines); generated from v1.3 by 99_HERRAMIENTAS/spec/build_spec_v14.py
+01_SPEC_FASE_2/COLBASOFT_SPEC_v1.5.md                     Functional spec, CURRENT (~3800 lines); generated from v1.4 by 99_HERRAMIENTAS/spec/build_spec_v15.py
+01_SPEC_FASE_2/COLBASOFT_SPEC_v1.4.md                     Previous version (H-19, H-20, HD-29, HD-30), kept untouched (historical)
 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.3.md                     Previous version (DEC-02…DEC-09), kept untouched (historical)
 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.2.md                     Previous version (DEC-01 = A + piece layer), kept untouched (historical)
 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.1.md                     Previous version (v1.1 = v1.0 + CP-04 closure), kept untouched (historical)
 01_SPEC_FASE_2/COLBASOFT_SPEC_v1.0.md                     Oldest version, kept untouched (historical)
-02_SRS_FASE_3/SRS_COLBASOFT_v1.4.md                       SRS, CURRENT, ISO/IEC/IEEE 29148 adapted (~7760 lines, ~586 KB)
+02_SRS_FASE_3/SRS_COLBASOFT_v1.5.md                       SRS, CURRENT, ISO/IEC/IEEE 29148 adapted (~7810 lines, ~593 KB)
+02_SRS_FASE_3/SRS_COLBASOFT_v1.4.md                       Previous version, kept untouched (historical)
 02_SRS_FASE_3/SRS_COLBASOFT_v1.3.md                       Previous version, kept untouched (historical)
 02_SRS_FASE_3/SRS_COLBASOFT_v1.2.md                       Previous version, kept untouched (historical)
 02_SRS_FASE_3/SRS_COLBASOFT_v1.1.md                       Previous version, kept untouched (historical)
 02_SRS_FASE_3/SRS_COLBASOFT_v1.0.md                       Oldest version, kept untouched (historical)
-03_DOMINIO_FASE_4/DOMAIN_MODEL.md                         Domain model v1.4 (~2000 lines; v1.0…v1.3 are in git history)
-03_DOMINIO_FASE_4/EVENT_CATALOG.md                        Domain events v1.4 (~1330 lines)
-03_DOMINIO_FASE_4/GLOSSARY.md                             Official glossary v1.4 + Phase 4 internal audit (~2680 lines)
+03_DOMINIO_FASE_4/DOMAIN_MODEL.md                         Domain model v1.5 (~2010 lines; v1.0…v1.4 are in git history)
+03_DOMINIO_FASE_4/EVENT_CATALOG.md                        Domain events v1.5 (~1330 lines)
+03_DOMINIO_FASE_4/GLOSSARY.md                             Official glossary v1.5 + Phase 4 internal audit (~2690 lines)
 04_CP04_AUDITORIA/04_CP04_AUDITORIA.md                    CP-04 audit (as issued; ended "CON BLOQUEOS")
 04_CP04_AUDITORIA/04_CP04_CIERRE.md                       CP-04 closure: decisions DF5-01..06, all changes, pending items, validation
 04_CP04_AUDITORIA/04_CP04_DECISIONES_PENDIENTES.md         HD-25 alternatives A/B/C + DEC-01..09 one by one; revises DF5-06 (historical analysis; all nine DEC now answered)
 05_V13_DECISIONES/05_V13_DECISIONES_DEC02_DEC09.md         v1.3: the Director's answers to DEC-02…DEC-09 + DRAFT (unsigned) DEC-08 acta and phase-equivalence table
-05_V13_DECISIONES/05_V14_RESPUESTAS_H19_H20_HD29_HD30.md    v1.4: answers to H-19, H-20, HD-29, HD-30 (each verified against the sources); CURRENT STATE
+05_V13_DECISIONES/05_V14_RESPUESTAS_H19_H20_HD29_HD30.md    v1.4: answers to H-19, H-20, HD-29, HD-30 (each verified against the sources)
+05_V13_DECISIONES/05_V15_VALIDACION_Y_CORTE_C1.md           v1.5: no pilot company, validation with synthetic data, November delivery cut C1; CURRENT STATE
+07_FASE_5_ARQUITECTURA/ADR-001_PILA_TECNOLOGICA.md          Fase 5 started (parallel to AS-IS): approved tech stack (TypeScript, Fastify, Prisma, PostgreSQL, React); the code lives in a separate repo `colbasoft-app`
 06_ASIS_KIT/                                               AS-IS fieldwork kit (DRAFT, hand-written, not generated): plan, interview guide, observation + baseline sheets, consent draft, report template
 99_HERRAMIENTAS/                                          Generators + verifier for SPEC v1.1 to v1.4, SRS and domain docs (not part of the product)
 ```
@@ -46,6 +50,7 @@ Hierarchy (never break it; each level extends the previous, never modifies it): 
 | CP-02 | COLBASOFT_SPEC v1.0 | 2026-09-05 | Treated as approved (file still says «Emitido para revisión») |
 | CP-03 | SRS_COLBASOFT v1.0 | 2026-09-28 | Declared approved by Prompt #004; file still says «Emitido para revisión»; decisions DEC-01…DEC-09 unanswered |
 | CP-04 | Domain model (3 docs) | 2026-09-28 | v1.0 emitted; audited 2026-09-29 (`04_CP04_AUDITORIA.md`) |
+| Validation + corte C1 | No pilot company; validation with synthetic data only (asesor accepted); Excel = seed data only, real DB; C1 = 35 HU / 83 RF for November 2026, cut from the last block backwards → SPEC v1.5, SRS v1.5, domain v1.5 | 2026-09-30 | **Draft**: `xref.py` clean. **No impact can be claimed, only functional viability** (declared limitation; S-1, S-7 do not apply). The AS-IS kit stays for if a company appears |
 | H-19, H-20, HD-29, HD-30 | Answered (a) after verifying each against the sources → SPEC v1.4, SRS v1.4, domain v1.4 | 2026-09-30 | **Draft**: `xref.py` clean. H-19 fixed rule for location proposal in the Núcleo; H-20 RF-REP-003 limited to 12 KPI + new RF-REP-008 (H2); HD-29 a pieza is never split (RN-MOV-012); HD-30 every reference is controlled by pieza. Pending only HD-28, the signed DEC-08 acta and KPI-24 field check |
 | DEC-02…DEC-09 | All nine answered (a) → SPEC v1.3, SRS v1.3, domain v1.3 | 2026-09-30 | **Draft**: generated and cross-checked (`xref.py` clean); technical validation pending; the DEC-08 acta is an **unsigned draft** in `05_V13_DECISIONES/`. 4 HU + 13 RF added (Núcleo = 94 HU / 164 RF); HD-09, HD-10, HD-11 resolved |
 | DEC-01 audit | DEC-01 = A (Núcleo, 1 bodega) + piece/roll traceability (Q-11, F-1…F-6, Q-09, Q-10) → SPEC v1.2, SRS v1.2, domain v1.2 | 2026-09-30 | **Draft**: generated and cross-checked (`xref.py` clean); technical validation and functional/academic approval pending. HD-25 and HD-22 resolved; new HD-28, HD-29, HD-30, H-19, H-20 pending |

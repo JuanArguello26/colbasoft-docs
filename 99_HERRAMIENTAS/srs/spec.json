@@ -6222,72 +6222,72 @@
   {
    "id": "PN-01",
    "name": "Recepción de mercancía",
-   "line": 770
+   "line": 784
   },
   {
    "id": "PN-02",
    "name": "Registro inicial e identificación",
-   "line": 809
+   "line": 823
   },
   {
    "id": "PN-03",
    "name": "Ubicación física de mercancía",
-   "line": 841
+   "line": 855
   },
   {
    "id": "PN-04",
    "name": "Consulta de existencia y ubicación",
-   "line": 875
+   "line": 889
   },
   {
    "id": "PN-05",
    "name": "Movimiento interno (reubicación)",
-   "line": 904
+   "line": 918
   },
   {
    "id": "PN-06",
    "name": "Transferencia entre zonas o bodegas",
-   "line": 939
+   "line": 953
   },
   {
    "id": "PN-07",
    "name": "Ajuste de inventario",
-   "line": 976
+   "line": 990
   },
   {
    "id": "PN-08",
    "name": "Conteo cíclico",
-   "line": 1018
+   "line": 1032
   },
   {
    "id": "PN-09",
    "name": "Conteo general",
-   "line": 1061
+   "line": 1075
   },
   {
    "id": "PN-10",
    "name": "Salida de mercancía",
-   "line": 1101
+   "line": 1115
   },
   {
    "id": "PN-11",
    "name": "Gestión de alerta operativa",
-   "line": 1141
+   "line": 1155
   },
   {
    "id": "PN-12",
    "name": "Reporte de novedad de mercancía",
-   "line": 1189
+   "line": 1203
   },
   {
    "id": "PN-13",
    "name": "Auditoría de inventario",
-   "line": 1226
+   "line": 1240
   },
   {
    "id": "PN-14",
    "name": "Cierre operativo de jornada",
-   "line": 1262
+   "line": 1276
   }
  ],
  "cd": [

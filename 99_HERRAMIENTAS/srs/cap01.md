@@ -126,6 +126,12 @@ Los criterios de aceptación de cada historia se expresan con la sintaxis Gherki
 
 Los valores numéricos de los RNF (p. ej. tiempos de respuesta) son **objetivos de diseño propuestos por el SPEC**, no metas validadas. Su calibración definitiva requiere la línea base de la empresa piloto `[AUD C.2.4]` (pendiente #12 del §0.5). **El SRS no introduce ninguna meta numérica nueva.**
 
+### 1.4.8 Validación con datos ficticios `[v1.5]`
+
+El 30 de septiembre de 2026 el Director decidió que **no habrá empresa piloto** en el proyecto de grado y que la validación se hará con **datos ficticios** (el asesor lo aceptó). Mientras no exista una empresa real, toda referencia de este documento a «empresa piloto», «piloto», «período de prueba», «verificación de campo» o «línea base de la empresa» se lee como **conjunto de datos ficticios de prueba (DS-1)**: datos aleatorios y verosímiles, preparados en una hoja de Excel y **cargados en una base de datos real** (el Excel no es la base de datos del sistema). DS-1 no contiene precios, clientes ni proveedores (DC-03) ni nombra empresa alguna (DC-01).
+
+**Alcance de lo que se puede afirmar.** El sistema cumple sus requisitos, reglas y criterios de aceptación ejecutables con DS-1. **No se puede afirmar** reducción de errores, ganancia de trazabilidad o de productividad medidas en operación real, ni que los procesos TO-BE coincidan con los de una empresa (S-2, R-S01). Ver SPEC §12.8.
+
 ## 1.5 Definiciones, acrónimos y abreviaturas
 
 Los 49 conceptos de dominio están definidos operativamente en el **Capítulo 4 del SPEC** (CD-01…CD-49) y **no se redefinen aquí** (una definición duplicada podría divergir). La tabla siguiente recoge únicamente los conceptos que el SRS usa con más frecuencia y remite a su definición canónica.
@@ -162,7 +168,7 @@ Los 49 conceptos de dominio están definidos operativamente en el **Capítulo 4 
 |---|---|---|
 | 1 | `MONOGRAFÍA  COLBASOFT.docx` — Argüello, J. E.; Osorio, B. A.; Guerrero, B. J. (27 nov. 2025). *Automatización del proceso logístico en la gestión de inventarios para PYMES del sector textil del Eje Cafetero.* CIAF | Fuente de verdad (inmutable) |
 | 2 | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (1 sep. 2026) | Vacíos, riesgos académicos, roadmap, preguntas al Director |
-| 3 | `COLBASOFT_SPEC_v1.4.md` (5 sep. 2026; v1.1 del 29 sep. 2026; v1.2, v1.3 y v1.4 del 30 sep. 2026) | Fuente principal del SRS |
+| 3 | `COLBASOFT_SPEC_v1.5.md` (5 sep. 2026; v1.1 del 29 sep. 2026; v1.2 a v1.5 del 30 sep. 2026) | Fuente principal del SRS |
 | 4 | ISO/IEC/IEEE 29148 — *Systems and software engineering — Life cycle processes — Requirements engineering* | Estructura de referencia, adaptada |
 
 **Correspondencia con la estructura de la norma (adaptada):**

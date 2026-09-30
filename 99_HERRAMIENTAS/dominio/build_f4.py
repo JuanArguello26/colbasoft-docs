@@ -15,7 +15,7 @@ RN_TXT, KPI_N = S["RN_TXT"], S["KPI"]
 ENT = {e["id"]: e for e in ENTITIES}
 EVT = {e["id"]: e for e in EVENTS}
 SD = {s["id"]: s for s in SUBDOMAINS}
-FECHA = "28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2, v1.3 y v1.4)"
+FECHA = "28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 a v1.5)"
 
 import sys as _sys
 _sys.path.insert(0, os.path.join(HERE, "..", "srs"))
@@ -62,11 +62,11 @@ def header(doc, sub, extra=""):
 | Campo | Dato |
 |---|---|
 | **Documento** | {doc} |
-| **Versión** | 1.4 |
+| **Versión** | 1.5 |
 | **Fase** | Fase 4 del proyecto — Modelo de Dominio (Checkpoint CP-04) |
 | **Fecha** | {FECHA} |
-| **Estado** | **Borrador v1.4** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2), las respuestas a DEC-02…DEC-09 (v1.3) y las de H-19, H-20, HD-29 y HD-30. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.4 → SRS_COLBASOFT v1.4 → **Modelo de Dominio v1.4** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
+| **Estado** | **Borrador v1.5** (30-sep-2026): incorpora la trazabilidad por pieza (v1.2), las respuestas a DEC-02…DEC-09 (v1.3), las de H-19, H-20, HD-29 y HD-30 (v1.4) y la validación con datos ficticios (v1.5). **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendientes HD-28, HD-29 y HD-30 |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.5 → SRS_COLBASOFT v1.5 → **Modelo de Dominio v1.5** (DOMAIN_MODEL · EVENT_CATALOG · GLOSSARY) |
 | **Documentos hermanos** | {extra} |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
@@ -81,6 +81,8 @@ def header(doc, sub, extra=""):
 > **Versión 1.3.** Incorpora las respuestas del Director a DEC-02…DEC-09. El detalle está en DOMAIN_MODEL §0.10.
 
 > **Versión 1.4.** Incorpora las respuestas a H-19, H-20, HD-29 y HD-30. El detalle está en DOMAIN_MODEL §0.11.
+
+> **Versión 1.5.** Registra la validación con datos ficticios y el corte de entrega C1; sin cambios de contenido en el modelo. El detalle está en DOMAIN_MODEL §0.12.
 """
 
 # ====================================================================================== DOMAIN_MODEL
@@ -90,7 +92,7 @@ def cap0():
 
 # CAPÍTULO 0 — AUDITORÍA DE REANUDACIÓN
 
-> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes, el **0.8** registra los cambios de la v1.1, el **0.9** los de la v1.2 y el **0.10** los de la v1.3 y el **0.11** los de la v1.4.
+> Reconstrucción del contexto ejecutada **antes** de escribir los tres documentos de la Fase 4. Es común a DOMAIN_MODEL, EVENT_CATALOG y GLOSSARY. Los apartados 0.1 a 0.5 y 0.7 conservan la reconstrucción de la v1.0 (28-sep-2026) como registro histórico; el 0.6 muestra los rangos vigentes, el **0.8** registra los cambios de la v1.1, el **0.9** los de la v1.2 y el **0.10** los de la v1.3 el **0.11** los de la v1.4 y el **0.12** los de la v1.5.
 
 ## 0.1 Estado del proyecto
 
@@ -252,6 +254,18 @@ El Director respondió H-19, H-20, HD-29 y HD-30 en la opción (a), tras verific
 **Limitación conocida (HD-29).** Una parte de un paquete o bolsa de unidades no puede trasladarse a otra ubicación como movimiento interno, porque exigiría dividir la pieza. Se puede reabrir con el levantamiento AS-IS (Q-04).
 
 **Ningún ID se renumeró ni se reutilizó.** Elemento nuevo: IN-79. Las reglas del SRS pasan de 91 a 92; la nueva es una invariante. Pendiente solo **HD-28**.
+
+
+## 0.12 Control de cambios de la versión 1.5 (validación con datos ficticios y corte C1, 30 de septiembre de 2026)
+
+El Director decidió que **no habrá empresa piloto** y que el proyecto de grado se valida **solo con datos ficticios**; el asesor lo aceptó. También fijó el **corte de entrega C1** de noviembre de 2026. El SPEC v1.5 y el SRS v1.5 lo recogen antes.
+
+| Decisión | Cambios en el modelo |
+|---|---|
+| Sin empresa piloto; validación con datos ficticios | **Ninguno** en entidades, agregados, invariantes, eventos ni términos. El riesgo **R-S01** (modelo TO-BE sin contraste con la operación real) deja de ser un pendiente y pasa a **limitación declarada** |
+| Corte de entrega C1 (35 HU, 83 RF) | Ninguno en el modelo. El corte construye, entre otros, los agregados de unidad de inventario, movimiento, lote, documento de entrada, solicitud de salida, pieza y QR |
+
+**Lo que el modelo sigue garantizando con datos ficticios:** kardex inmutable, existencia derivada, no-negativo y las invariantes IN-01…IN-79. No se modificó ningún ID.
 
 **ESTADO: CONTEXTO RECONSTRUIDO.**
 """ + estado("Estado del proyecto · 5 checkpoints · 4 documentos · 8 decisiones constitucionales + 7 reglas innegociables · 10 riesgos del SRS · 9 decisiones abiertas",
@@ -609,7 +623,7 @@ def domain_model():
 """
     return (header("DOMAIN_MODEL", "Modelo de Dominio de COLBASOFT", "`EVENT_CATALOG.md` (eventos, matrices D y E) · `GLOSSARY.md` (glosario y auditoría interna)")
             + idx + cap0() + cap1() + cap2() + cap3() + cap4() + cap5() + cap6() + cap7() + cap8() + cap9() + cap10()
-            + "\n---\n\n*Fin de DOMAIN_MODEL v1.4. La monografía original permanece sin modificaciones.*\n")
+            + "\n---\n\n*Fin de DOMAIN_MODEL v1.5. La monografía original permanece sin modificaciones.*\n")
 
 # ====================================================================================== EVENT_CATALOG
 def ev_cap1():
@@ -839,7 +853,7 @@ def event_catalog():
 """
     return (header("EVENT_CATALOG", "Catálogo de Eventos del Dominio de COLBASOFT", "`DOMAIN_MODEL.md` · `GLOSSARY.md`")
             + idx + ev_cap1() + ev_cap2() + ev_cap3() + ev_cap4() + ev_cap5() + ev_cap6()
-            + "\n---\n\n*Fin de EVENT_CATALOG v1.4.*\n")
+            + "\n---\n\n*Fin de EVENT_CATALOG v1.5.*\n")
 
 # ====================================================================================== GLOSSARY
 def sortkey(t):
@@ -920,7 +934,7 @@ def glossary():
     o.append(estado(f"{len(inv)} sinónimos prohibidos con su término oficial", "—", "Cap. 2", "—", "3"))
     # auditoría interna
     o.append(internal_audit(len(terms), len(inv)))
-    o.append("\n---\n\n*Fin de GLOSSARY v1.4. La monografía original permanece sin modificaciones.*\n")
+    o.append("\n---\n\n*Fin de GLOSSARY v1.5. La monografía original permanece sin modificaciones.*\n")
     return "\n".join(o)
 
 def internal_audit(nterms, nsyn):
@@ -982,7 +996,7 @@ def internal_audit(nterms, nsyn):
 |---|---|---|:--:|---|
 {rows}
 
-**Estado frente a la Fase 5 (v1.4).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-29 y HD-30** se resolvieron en la v1.4; **HD-28** queda pendiente, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real sin bloquear la arquitectura. Las nueve decisiones DEC tienen respuesta (DEC-01 en la v1.2; DEC-02…DEC-09 en la v1.3); queda pendiente el acta firmada de DEC-08 (ver `05_V13_DECISIONES/`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
+**Estado frente a la Fase 5 (v1.5).** El cierre del CP-04 resolvió HD-04, HD-06, HD-07, HD-23 y HD-24 (DF5-01, DF5-02, DF5-03, DF5-05); las decisiones del 30-sep-2026 resolvieron **HD-25** y **HD-22** (Q-11, F-1…F-6, Q-09, Q-10). **HD-29 y HD-30** se resolvieron en la v1.4; **HD-28** queda pendiente, junto con HD-17, HD-26 y HD-27, que requieren información de la operación real sin bloquear la arquitectura. Las nueve decisiones DEC tienen respuesta (DEC-01 en la v1.2; DEC-02…DEC-09 en la v1.3); queda pendiente el acta firmada de DEC-08 (ver `05_V13_DECISIONES/`). Siguen vigentes R-S01 (modelo TO-BE sin contraste con la operación real) y los riesgos críticos de adopción del SPEC.
 
 ---
 

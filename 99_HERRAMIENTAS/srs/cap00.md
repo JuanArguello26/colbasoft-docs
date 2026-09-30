@@ -1,4 +1,4 @@
-# SRS_COLBASOFT v1.4
+# SRS_COLBASOFT v1.5
 ## Especificación de Requisitos de Software (Software Requirements Specification)
 
 **COLBASOFT — Plataforma inteligente para la automatización y trazabilidad de inventarios en PYMES del sector textil del Eje Cafetero**
@@ -8,21 +8,33 @@
 | Campo | Dato |
 |---|---|
 | **Documento** | SRS_COLBASOFT |
-| **Versión** | 1.4 |
+| **Versión** | 1.5 |
 | **Fase** | Fase 3 del proyecto — Especificación de Requisitos de Software (SRS) |
-| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2, v1.3 y v1.4) |
-| **Estado** | **Borrador v1.4** (30-sep-2026): registra las respuestas a DEC-01…DEC-09, H-19, H-20, HD-29 y HD-30. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendiente HD-28 |
-| **Versión anterior** | `SRS_COLBASOFT_v1.3.md`, `SRS_COLBASOFT_v1.2.md` (30-sep-2026), `SRS_COLBASOFT_v1.1.md` (29-sep-2026) y `SRS_COLBASOFT_v1.0.md` (28-sep-2026), conservadas sin cambios |
+| **Fecha** | 28 de septiembre de 2026 (v1.0) · 29 de septiembre de 2026 (v1.1) · 30 de septiembre de 2026 (v1.2 a v1.5) |
+| **Estado** | **Borrador v1.5** (30-sep-2026): registra la validación con datos ficticios y el corte de entrega C1. **Validación técnica pendiente** (verificadores). **Aprobación funcional y académica pendiente**: acta de DEC-08 sin firmar y pendiente HD-28 |
+| **Versión anterior** | `SRS_COLBASOFT_v1.4.md`, `SRS_COLBASOFT_v1.3.md`, `SRS_COLBASOFT_v1.2.md` (30-sep-2026), `SRS_COLBASOFT_v1.1.md` (29-sep-2026) y `SRS_COLBASOFT_v1.0.md` (28-sep-2026), conservadas sin cambios |
 | **Norma de referencia** | ISO/IEC/IEEE 29148 (Ingeniería de requisitos), adaptada al proyecto y en español |
-| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.4 → **SRS v1.4** |
+| **Jerarquía documental** | Monografía → Auditoría Fundacional → COLBASOFT_SPEC v1.5 → **SRS v1.5** |
 | **Fuente de verdad** | `MONOGRAFÍA  COLBASOFT.docx` (íntegra, sin modificación) |
-| **Documentos antecesores** | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (Fase 0) · `COLBASOFT_SPEC_v1.4.md` (Fase 2, con las respuestas a H-19, H-20, HD-29 y HD-30) |
+| **Documentos antecesores** | `AUDITORIA_FUNDACIONAL_COLBASOFT.md` (Fase 0) · `COLBASOFT_SPEC_v1.5.md` (Fase 2, con la validación con datos ficticios y el corte C1) |
 | **Autoría del proyecto** | Juan Esteban Argüello · Brayan Alexander Osorio · Brandon José Guerrero |
 | **Institución / asesor** | Escuela de Ingeniería — CIAF · Edwin Andrés Cabrera Arredondo |
 | **Alcance de este documento** | Requisitos funcionales, no funcionales, reglas de negocio, casos de uso, historias normalizadas, trazabilidad y criterios de aceptación |
 | **Fuera de alcance de este documento** | Código · Base de datos · Arquitectura técnica · ERD/UML · Endpoints/APIs · Frameworks · Tecnologías |
 
-> **Naturaleza del documento.** Este SRS **no crea requisitos nuevos**: normaliza, reorganiza y hace trazable el contenido del COLBASOFT_SPEC v1.4. Aporta identificadores permanentes, prioridad MoSCoW, criterios en Gherkin, casos de uso completos, matrices de trazabilidad y criterios de aceptación del MVP. Todo elemento que este documento deriva (y que el SPEC no traía) se marca con la etiqueta `[SRS]` y se somete a validación del Director. Las brechas que se detectan **se registran como hallazgos y decisiones pendientes; no se resuelven inventando funcionalidad** (Regla Innegociable 3).
+> **Naturaleza del documento.** Este SRS **no crea requisitos nuevos**: normaliza, reorganiza y hace trazable el contenido del COLBASOFT_SPEC v1.5. Aporta identificadores permanentes, prioridad MoSCoW, criterios en Gherkin, casos de uso completos, matrices de trazabilidad y criterios de aceptación del MVP. Todo elemento que este documento deriva (y que el SPEC no traía) se marca con la etiqueta `[SRS]` y se somete a validación del Director. Las brechas que se detectan **se registran como hallazgos y decisiones pendientes; no se resuelven inventando funcionalidad** (Regla Innegociable 3).
+
+## Control de cambios de la versión 1.5
+
+> La v1.5 se regenera desde las mismas fuentes, tras incorporar al SPEC v1.5 las decisiones del Director del **30 de septiembre de 2026** sobre la validación del proyecto de grado y la entrega de noviembre. La v1.4 se conserva sin cambios en `SRS_COLBASOFT_v1.4.md`.
+
+| Decisión | Efecto en este SRS |
+|---|---|
+| **Sin empresa piloto; validación solo con datos ficticios** (el asesor lo aceptó) | Nueva convención **§1.4.8** (cómo se leen «empresa piloto», «piloto» y «verificación de campo»); supuestos **S-1, S-2 y S-7** (Cap. 2); criterios **CA-04, CA-05 y CA-17** y §12.7 (Cap. 12); Anexo C (C.13). Los requisitos **no cambian** |
+| **Corte de entrega C1 (noviembre de 2026)** | Nuevo **§12.8** del Cap. 12: 35 historias y 83 requisitos, generados desde la trazabilidad, con bloques, orden y regla de recorte |
+| **Corrección de trazabilidad (H-19)** | HU-ENT-006 ya no depende de HU-BOD-005 en la tabla de dependencias entre historias |
+
+Cifras: sin cambios (114 HU, 185 RF, 515 escenarios, 92 reglas). **Limitación que este SRS ahora declara:** sin AS-IS ni línea base el proyecto no demuestra impacto medido en campo; demuestra viabilidad funcional con datos ficticios.
 
 ## Control de cambios de la versión 1.4
 
