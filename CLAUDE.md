@@ -42,7 +42,7 @@ All documents except the Audit exceed a single Read: use `offset`/`limit`, or Gr
 ## Code lives in a separate repository
 
 The application code is in `~/Documentos/MastaDev/COLBASOFT/colbasoft-app` (GitHub `JuanArguello26/colbasoft-app`; npm workspaces: `apps/api` Fastify + Prisma + PostgreSQL in Docker port 5433, `apps/web` React + Vite, `packages/shared`). Stack decision: `07_FASE_5_ARQUITECTURA/ADR-001_PILA_TECNOLOGICA.md`. Build order and cut rule: SPEC v1.5 §12.7 (corte C1: 35 HU / 83 RF, blocks C1-1…C1-6, cut from the last block backwards).
-**Status (2026-09-30):** C1-1 Fundación is **complete** (login/lockout/inactivity, users, catálogo, bodega, parámetros, motivos, immutable hash-chained bitácora; 58 tests pass, 3 `todo` waiting for the kardex). Next: **C1-2** identificación QR y lotes (also QR of ubicaciones, HU-BOD-001 criterion 5), then C1-3 entradas/piezas/ubicación (activates RN-004, RN-013, RN-MOV-003 guards in `src/inventario.ts`), C1-4 kardex y consulta, C1-5 movimientos internos, C1-6 salidas y corte parcial. Validation is with synthetic data only (SPEC §12.8).
+**Status (2026-10-01):** C1-1 Fundación and **C1-2 Identificación y lotes** are **complete** (C1-1: login/lockout/inactivity, users, catálogo, bodega, parámetros, motivos, immutable hash-chained bitácora; C1-2: lotes, one QR per SKU+Lote, QR of ubicaciones, scan/resolve; 80 tests pass, 4 `todo` waiting for entradas/kardex). Next: **C1-3** entradas/piezas/ubicación (activates RN-004, RN-013, RN-MOV-003 guards in `src/inventario.ts`), C1-4 kardex y consulta, C1-5 movimientos internos, C1-6 salidas y corte parcial. Validation is with synthetic data only (SPEC §12.8).
 
 ## Document hierarchy and project status
 
