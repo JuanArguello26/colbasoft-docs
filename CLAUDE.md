@@ -34,6 +34,7 @@ COLBASOFT = *Plataforma inteligente para la automatización y trazabilidad de in
 05_V13_DECISIONES/05_V15_VALIDACION_Y_CORTE_C1.md           v1.5: no pilot company, validation with synthetic data, November delivery cut C1; CURRENT STATE
 07_FASE_5_ARQUITECTURA/ADR-001_PILA_TECNOLOGICA.md          Fase 5 started (parallel to AS-IS): approved tech stack (TypeScript, Fastify, Prisma, PostgreSQL, React); the code lives in a separate repo `colbasoft-app`
 06_ASIS_KIT/                                               AS-IS fieldwork kit (DRAFT, hand-written, not generated): plan, interview guide, observation + baseline sheets, consent draft, report template
+08_OUTSYSTEMS_MVP/                                         OutSystems MVP for the final presentation (Mon 2026-11-23): step-by-step guide GUIA_MVP.md, import workbook COLBASOFT_OutSystems.xlsx (16 entities, synthetic data) and its generator
 99_HERRAMIENTAS/                                          Generators + verifier for SPEC v1.1 to v1.4, SRS and domain docs (not part of the product)
 ```
 
