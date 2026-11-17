@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Current task (until Mon 2026-11-23): OutSystems MVP
+
+The final presentation is COLBASOFT built in **OutSystems** (no slides): database + front-end, delete buttons, additional queries. Everything is in `08_OUTSYSTEMS_MVP/`: start with `README.md` (Windows setup: clone/pull, OutSystems account, ODC Studio or Service Studio) and then `GUIA_MVP.md` (build steps, SQL, demo order). OutSystems editors only run on Windows/macOS, so this work happens on a Windows machine. Unless the session has computer-control tools, Claude cannot click in the editor: guide the user step by step and fix errors, expressions and SQL from what they paste or screenshot. The MVP is a reduced model (16 entities) of `colbasoft-app`, not a port; keep it that way.
+
 ## Repository state
 
 This is **not a code repository** in the usual sense (no build system, no tests, no application source). Git is used only for version history and backup on GitHub. It is a document workspace for COLBASOFT, an academic degree project (Tecnólogo en Desarrollo de Software, CIAF, Pereira — per the monografía's cover page; the user's most recent presentation slide instead said «Ingeniería en Desarrollo de Software», unconfirmed). There are no build/lint/test commands. Working here means reading and writing documents, **in Spanish**.
@@ -34,7 +38,7 @@ COLBASOFT = *Plataforma inteligente para la automatización y trazabilidad de in
 05_V13_DECISIONES/05_V15_VALIDACION_Y_CORTE_C1.md           v1.5: no pilot company, validation with synthetic data, November delivery cut C1; CURRENT STATE
 07_FASE_5_ARQUITECTURA/ADR-001_PILA_TECNOLOGICA.md          Fase 5 started (parallel to AS-IS): approved tech stack (TypeScript, Fastify, Prisma, PostgreSQL, React); the code lives in a separate repo `colbasoft-app`
 06_ASIS_KIT/                                               AS-IS fieldwork kit (DRAFT, hand-written, not generated): plan, interview guide, observation + baseline sheets, consent draft, report template
-08_OUTSYSTEMS_MVP/                                         OutSystems MVP for the final presentation (Mon 2026-11-23): step-by-step guide GUIA_MVP.md, import workbook COLBASOFT_OutSystems.xlsx (16 entities, synthetic data) and its generator
+08_OUTSYSTEMS_MVP/                                         OutSystems MVP for the final presentation (Mon 2026-11-23): README.md (Windows setup) + step-by-step guide GUIA_MVP.md, import workbook COLBASOFT_OutSystems.xlsx (16 entities, synthetic data) and its generator
 99_HERRAMIENTAS/                                          Generators + verifier for SPEC v1.1 to v1.4, SRS and domain docs (not part of the product)
 ```
 
